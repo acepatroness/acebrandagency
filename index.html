@@ -34,7 +34,7 @@
             opacity: 0.3; z-index: 1; pointer-events: none;
         }
         
-        /* === ДЕСКТОПНАЯ ВЕРСИЯ ЛОГОТИПА === */
+        /* === ГЕОМЕТРИЯ ЛОГОТИПА ПО УМОЛЧАНИЮ (ДЛЯ ДЕСКТОПА) === */
         .logo {
             position: absolute;
             top: 20px;
@@ -53,8 +53,7 @@
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             display: flex; flex-direction: column; align-items: center;
-            z-index: 2;
-            width: 100%; /* Для корректного центрирования на мобильных */
+            z-index: 2; width: 90%;
         }
 
         .enter-button {
@@ -83,35 +82,31 @@
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
             -webkit-touch-callout: none; -khtml-user-select: none;
         }
-        img, svg { pointer-events: none; }
+        img { pointer-events: none; } /* Было img, svg - svg не нужен */
 
-        /* === ЗАКЛИНАНИЕ АДАПТИВНОСТИ: МОБИЛЬНАЯ ВЕРСИЯ === */
+        /* === ЗАКЛИНАНИЕ АДАПТИВНОСТИ (МОБИЛЬНАЯ ВЕРСИЯ) === */
         @media (max-width: 768px) {
             .logo {
-                /* Переопределяем геометрию для мобильных */
-                position: static; /* Убираем абсолютное позиционирование */
-                transform: none;  /* Убираем старые сдвиги */
-                width: 180px;     /* Оптимальный размер для мобильных */
-                margin-bottom: 40px; /* Отступ между лого и кнопкой */
+                /* ПЕРЕОПРЕДЕЛЯЕМ ГЕОМЕТРИЮ ДЛЯ МОБИЛЬНЫХ */
+                top: 20px;         /* ТА ЖЕ ВЫСОТА, ЧТО И НА ДЕСКТОПЕ */
+                right: auto;       /* Сбрасываем привязку к правому краю */
+                left: 50%;         /* Ставим левый край лого по центру экрана */
+                transform: translateX(-50%); /* Сдвигаем лого влево на половину его ширины */
+                width: 180px;      /* Оптимальный размер для мобильных */
             }
 
             .gate-area {
-                /* Теперь это наш главный контейнер для мобильной версии */
-                justify-content: center;
-            }
-
-            .enter-button {
-                margin-top: 0; /* Убираем лишний отступ */
+                /* Кнопка и языки остаются по центру */
+                margin-top: 0; /* Убираем лишний отступ у кнопки */
             }
         }
     </style>
 </head>
 <body>
     <canvas id="global-ash-canvas"></canvas>
+    <img src="/assets/logoo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="gate-area">
-        <!-- ЛОГОТИП ТЕПЕРЬ ЧАСТЬ ЦЕНТРАЛЬНОЙ ГРУППЫ -->
-        <img src="/assets/logoo.png" alt="ACE Brand Agency Logo" class="logo">
         <a href="/manifesto/" class="enter-button" id="enter-btn">enter</a>
         <div class="language-switcher">
             <span id="lang-en" class="active">english</span>
