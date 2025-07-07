@@ -9,20 +9,15 @@
         @font-face {
             font-family: 'Brahms Gotisch';
             src: url('/fonts/BrahmsGotischCyr.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
+            font-weight: normal; font-style: normal; font-display: swap;
         }
-
         @font-face {
             font-family: 'Unbounded';
             src: url('/fonts/Unbounded-ExtraLight.woff2') format('woff2');
-            font-weight: 200;
-            font-style: normal;
-            font-display: swap;
+            font-weight: 200; font-style: normal; font-display: swap;
         }
 
-        /* === РИТУАЛ 2: АРХИТЕКТУРА ХРАМА === */
+        /* === РИТУАЛ 2: АРХИТЕКТУРА ХРАМА (ФИНАЛЬНАЯ ВЕРСИЯ) === */
         :root {
             --abyss: #111111;
             --quartz: #EFF0F4;
@@ -39,34 +34,37 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            position: relative; /* Критически важно для позиционирования */
         }
 
-        .temple-gate {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            position: relative;
-        }
-
+        /* === ЛОГОТИП СПРАВА ВВЕРХУ === */
         .logo {
             position: absolute;
             top: 40px;
-            left: 40px;
+            right: 40px; /* ИЗМЕНЕНО: теперь справа */
             width: 150px;
         }
 
-        /* === РИТУАЛ 3: ВРАТА ПОСВЯЩЕНИЯ (Кнопка) - ИСПРАВЛЕНО === */
+        /* === КОНТЕЙНЕР ДЛЯ ЦЕНТРАЛЬНЫХ ЭЛЕМЕНТОВ === */
+        .gate-area {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* === КНОПКА У ВРАТ ХРАМА (точный размер и позиция) === */
         .enter-button {
             background-color: var(--abyss);
             border: 2px solid var(--abyss);
             color: var(--quartz);
             padding: 15px 60px;
+            margin-top: 15vh; /* Опускаем кнопку к "дверям" храма */
             font-family: 'Brahms Gotisch', serif;
             font-size: 30px;
-            /* УБРАЛИ text-transform: uppercase; */
             letter-spacing: 2px;
             text-decoration: none;
             cursor: crosshair;
@@ -77,8 +75,8 @@
             background-color: rgba(17, 17, 17, 0.5);
             border: 2px solid var(--quartz);
         }
-
-        /* === РИТУАЛ 4: ПЕРЕКЛЮЧЕНИЕ ЯЗЫКОВ === */
+        
+        /* === ПЕРЕКЛЮЧЕНИЕ ЯЗЫКОВ === */
         .language-switcher {
             margin-top: 50px;
             font-family: 'Unbounded', sans-serif;
@@ -102,12 +100,11 @@
 </head>
 <body>
 
-    <div class="temple-gate">
-        <!-- ИЗМЕНИЛИ .svg НА .png. Убедись, что ты загрузила файл 'logo.png' в папку assets. -->
-        <img src="/assets/logo.png" alt="Ace Designer Logo" class="logo">
+    <!-- Истинное имя твоего PNG логотипа -->
+    <img src="/assets/ACE%20BRAND%20AGENCY%20white%20invis%20bc.png" alt="Ace Designer Logo" class="logo">
 
+    <div class="gate-area">
         <a href="/manifesto/" class="enter-button" id="enter-btn">enter</a>
-
         <div class="language-switcher">
             <span id="lang-en" class="active">english</span>
             <span id="lang-ru">русский</span>
@@ -119,32 +116,91 @@
         const enterButton = document.getElementById('enter-btn');
         const langEn = document.getElementById('lang-en');
         const langRu = document.getElementById('lang-ru');
-
         const content = {
-            en: { button: 'enter', lang: 'en' }, // Текст кнопки теперь строчными
-            ru: { button: 'вход', lang: 'ru' }   // И здесь тоже
+            en: { button: 'enter', lang: 'en' },
+            ru: { button: 'вход', lang: 'ru' }
         };
-
         function switchLanguage(lang) {
             document.documentElement.lang = content[lang].lang;
             enterButton.textContent = content[lang].button;
-            
-            if (lang === 'ru') {
-                langRu.classList.add('active');
-                langEn.classList.remove('active');
-            } else {
-                langEn.classList.add('active');
-                langRu.classList.remove('active');
-            }
+            lang === 'ru' ? (langRu.classList.add('active'), langEn.classList.remove('active')) : (langEn.classList.add('active'), langRu.classList.remove('active'));
         }
-
         langEn.addEventListener('click', () => switchLanguage('en'));
         langRu.addEventListener('click', () => switchLanguage('ru'));
-        
         switchLanguage('en');
     </script>
     
-    <!-- Сюда вставь наш глобальный код с анимацией курсора и защитой! -->
-
+    <!-- === ГЛОБАЛЬНЫЙ КОД: АНИМАЦИЯ ДНК + ЗАЩИТА (как ты и просила) === -->
+    <canvas id="global-ash-canvas"></canvas>
+    <style>
+    #global-ash-canvas {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        z-index: 99999; pointer-events: none; opacity: 1;
+    }
+    body, body * {
+        -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+        -webkit-touch-callout: none; -khtml-user-select: none;
+    }
+    img, svg { pointer-events: none; }
+    </style>
+    <script>
+    if (!window.isUnifiedAnimationInitialized) {
+        (function() {
+            const canvas = document.getElementById('global-ash-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            let particles = [];
+            let fogTime = 0;
+            class AshParticle {
+                constructor(x, y) {
+                    this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2;
+                    this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1;
+                    this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF';
+                }
+                update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
+                draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+            }
+            function drawFog() {
+                const fogHeight = 120;
+                const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
+                gradient.addColorStop(0, `rgba(45, 44, 47, ${0.4 + Math.sin(fogTime) * 0.1})`);
+                gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.2)');
+                gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
+                fogTime += 0.005;
+            }
+            function handleMouseMove(e) {
+                for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); }
+            }
+            function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawFog(); // Обрати внимание, здесь остался твой туман!
+                particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
+                if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
+                requestAnimationFrame(animate);
+            }
+            window.addEventListener('mousemove', handleMouseMove);
+            window.addEventListener('touchmove', handleTouchMove, { passive: true });
+            animate();
+            window.isUnifiedAnimationInitialized = true;
+            console.log('✅ Единая анимация (пепел + туман) активирована');
+        })();
+    }
+    if (!window.isContentProtectionInitialized) {
+        (function() {
+            document.addEventListener('contextmenu', e => e.preventDefault(), false);
+            document.addEventListener('keydown', e => {
+                if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); }
+            });
+            window.isContentProtectionInitialized = true;
+            console.log('🛡️ Защита активирована');
+        })();
+    }
+    </script>
 </body>
 </html>
