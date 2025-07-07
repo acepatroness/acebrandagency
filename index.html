@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACE DESIGNER | ENTER THE TEMPLE</title>
     <style>
-        /* === РИТУАЛ 1: ШРИФТОВАЯ МАГИЯ (С АБСОЛЮТНЫМИ ПУТЯМИ) === */
+        /* === РИТУАЛ 1: ШРИФТОВАЯ МАГИЯ (С ИСТИННЫМИ ИМЕНАМИ) === */
         @font-face {
             font-family: 'Brahms Gotisch';
-            src: url('/fonts/Brahms-Gotisch.woff2') format('woff2');
+            /* Истинное имя твоего готического шрифта */
+            src: url('/fonts/BrahmsGotischCyr.woff2') format('woff2');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -16,6 +17,7 @@
 
         @font-face {
             font-family: 'Unbounded';
+            /* Этот был правильным, но пусть будет для порядка */
             src: url('/fonts/Unbounded-ExtraLight.woff2') format('woff2');
             font-weight: 200; /* Extra Light */
             font-style: normal;
@@ -43,7 +45,8 @@
             background-color: var(--abyss);
             color: var(--quartz);
             font-family: 'Unbounded', sans-serif;
-            background-image: url('/assets/background.jpg');
+            /* Истинное имя твоего фона. Обрати внимание на .png */
+            background-image: url('/assets/ACE%20Background.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -56,14 +59,14 @@
             align-items: center;
             height: 100vh;
             text-align: center;
-            position: relative; /* Для позиционирования логотипа */
+            position: relative;
         }
 
         .logo {
             position: absolute;
             top: 40px;
             left: 40px;
-            width: 80px; /* Настрой под свой лого */
+            width: 150px; /* Немного увеличил для видимости */
         }
 
         /* === РИТУАЛ 3: ВРАТА ПОСВЯЩЕНИЯ (Кнопка) === */
@@ -82,16 +85,15 @@
         }
 
         .enter-button:hover {
-            background-color: rgba(17, 17, 17, 0.5); /* #111111 с 50% прозрачности */
+            background-color: rgba(17, 17, 17, 0.5);
             border: 2px solid var(--quartz);
-            color: var(--quartz);
         }
 
         /* === РИТУАЛ 4: ПЕРЕКЛЮЧЕНИЕ ЯЗЫКОВ === */
         .language-switcher {
             margin-top: 50px;
             font-family: 'Unbounded', sans-serif;
-            font-weight: 200; /* Extra Light */
+            font-weight: 200;
             font-size: 16px;
             letter-spacing: 1px;
         }
@@ -112,7 +114,8 @@
 <body>
 
     <div class="temple-gate">
-        <img src="/assets/logo.svg" alt="Ace Designer Logo" class="logo">
+        <!-- Истинное имя твоего логотипа. %20 - это кодировка пробелов. -->
+        <img src="/assets/ACE%20BRAND%20AGENCY%20white%20logo.svg" alt="Ace Designer Logo" class="logo">
 
         <a href="/manifesto/" class="enter-button" id="enter-btn">ENTER</a>
 
@@ -149,7 +152,6 @@
         langEn.addEventListener('click', () => switchLanguage('en'));
         langRu.addEventListener('click', () => switchLanguage('ru'));
         
-        // Инициализация по умолчанию (английский)
         switchLanguage('en');
     </script>
     
