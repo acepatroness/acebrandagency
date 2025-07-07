@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- По умолчанию английский -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACE DESIGNER | ENTER THE TEMPLE</title>
+    <style>
+        /* === РИТУАЛ 1: ШРИФТОВАЯ МАГИЯ === */
+        @font-face {
+            font-family: 'Brahms Gotisch';
+            src: url('./fonts/Brahms-Gotisch.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Unbounded';
+            src: url('./fonts/Unbounded-ExtraLight.woff2') format('woff2');
+            font-weight: 200; /* Extra Light */
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* === РИТУАЛ 2: АРХИТЕКТУРА ХРАМА === */
+        :root {
+            --abyss: #111111;
+            --quartz: #EFF0F4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden; /* Запрещаем скролл */
+        }
+
+        body {
+            background-color: var(--abyss);
+            color: var(--quartz);
+            font-family: 'Unbounded', sans-serif;
+            background-image: url('./assets/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .temple-gate {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .logo {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            width: 80px; /* Настрой под свой лого */
+        }
+
+        /* === РИТУАЛ 3: ВРАТА ПОСВЯЩЕНИЯ (Кнопка) === */
+        .enter-button {
+            background-color: var(--abyss);
+            border: 2px solid var(--abyss);
+            color: var(--quartz);
+            padding: 15px 60px;
+            font-family: 'Brahms Gotisch', serif;
+            font-size: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            cursor: crosshair;
+            transition: all 0.4s ease;
+        }
+
+        .enter-button:hover {
+            background-color: rgba(17, 17, 17, 0.5); /* #111111 с 50% прозрачности */
+            border: 2px solid var(--quartz);
+            color: var(--quartz);
+        }
+
+        /* === РИТУАЛ 4: ПЕРЕКЛЮЧЕНИЕ ЯЗЫКОВ === */
+        .language-switcher {
+            margin-top: 50px;
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 200; /* Extra Light */
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        .language-switcher span {
+            cursor: pointer;
+            padding: 0 10px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .language-switcher span:hover,
+        .language-switcher span.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="temple-gate">
+        <img src="./assets/logo.svg" alt="Ace Designer Logo" class="logo">
+
+        <a href="/manifesto/" class="enter-button" id="enter-btn">ENTER</a>
+
+        <div class="language-switcher">
+            <span id="lang-en" class="active">english</span>
+            <span id="lang-ru">русский</span>
+        </div>
+    </div>
+
+    <!-- Магия переключения языка -->
+    <script>
+        const enterButton = document.getElementById('enter-btn');
+        const langEn = document.getElementById('lang-en');
+        const langRu = document.getElementById('lang-ru');
+
+        const content = {
+            en: { button: 'ENTER', lang: 'en' },
+            ru: { button: 'ВХОД', lang: 'ru' }
+        };
+
+        function switchLanguage(lang) {
+            document.documentElement.lang = content[lang].lang;
+            enterButton.textContent = content[lang].button;
+            
+            if (lang === 'ru') {
+                langRu.classList.add('active');
+                langEn.classList.remove('active');
+            } else {
+                langEn.classList.add('active');
+                langRu.classList.remove('active');
+            }
+        }
+
+        langEn.addEventListener('click', () => switchLanguage('en'));
+        langRu.addEventListener('click', () => switchLanguage('ru'));
+        
+        // Инициализация по умолчанию (английский)
+        switchLanguage('en');
+    </script>
+    
+    <!-- Сюда вставь наш глобальный код с анимацией курсора и защитой -->
+
+</body>
+</html>
