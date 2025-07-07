@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACE DESIGNER | ENTER THE TEMPLE</title>
     <style>
-        /* === РИТУАЛ 1: ШРИФТОВАЯ МАГИЯ (С ИСТИННЫМИ ИМЕНАМИ) === */
+        /* === РИТУАЛ 1: ШРИФТОВАЯ МАГИЯ === */
         @font-face {
             font-family: 'Brahms Gotisch';
-            /* Истинное имя твоего готического шрифта */
             src: url('/fonts/BrahmsGotischCyr.woff2') format('woff2');
             font-weight: normal;
             font-style: normal;
@@ -17,9 +16,8 @@
 
         @font-face {
             font-family: 'Unbounded';
-            /* Этот был правильным, но пусть будет для порядка */
             src: url('/fonts/Unbounded-ExtraLight.woff2') format('woff2');
-            font-weight: 200; /* Extra Light */
+            font-weight: 200;
             font-style: normal;
             font-display: swap;
         }
@@ -30,22 +28,13 @@
             --quartz: #EFF0F4;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-            overflow: hidden; /* Запрещаем скролл */
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
 
         body {
             background-color: var(--abyss);
             color: var(--quartz);
             font-family: 'Unbounded', sans-serif;
-            /* Истинное имя твоего фона. Обрати внимание на .png */
             background-image: url('/assets/ACE%20Background.png');
             background-size: cover;
             background-position: center;
@@ -66,10 +55,10 @@
             position: absolute;
             top: 40px;
             left: 40px;
-            width: 150px; /* Немного увеличил для видимости */
+            width: 150px;
         }
 
-        /* === РИТУАЛ 3: ВРАТА ПОСВЯЩЕНИЯ (Кнопка) === */
+        /* === РИТУАЛ 3: ВРАТА ПОСВЯЩЕНИЯ (Кнопка) - ИСПРАВЛЕНО === */
         .enter-button {
             background-color: var(--abyss);
             border: 2px solid var(--abyss);
@@ -77,7 +66,7 @@
             padding: 15px 60px;
             font-family: 'Brahms Gotisch', serif;
             font-size: 30px;
-            text-transform: uppercase;
+            /* УБРАЛИ text-transform: uppercase; */
             letter-spacing: 2px;
             text-decoration: none;
             cursor: crosshair;
@@ -114,10 +103,10 @@
 <body>
 
     <div class="temple-gate">
-        <!-- Истинное имя твоего логотипа. %20 - это кодировка пробелов. -->
-        <img src="/assets/ACE%20BRAND%20AGENCY%20white%20logo.svg" alt="Ace Designer Logo" class="logo">
+        <!-- ИЗМЕНИЛИ .svg НА .png. Убедись, что ты загрузила файл 'logo.png' в папку assets. -->
+        <img src="/assets/logo.png" alt="Ace Designer Logo" class="logo">
 
-        <a href="/manifesto/" class="enter-button" id="enter-btn">ENTER</a>
+        <a href="/manifesto/" class="enter-button" id="enter-btn">enter</a>
 
         <div class="language-switcher">
             <span id="lang-en" class="active">english</span>
@@ -132,8 +121,8 @@
         const langRu = document.getElementById('lang-ru');
 
         const content = {
-            en: { button: 'ENTER', lang: 'en' },
-            ru: { button: 'ВХОД', lang: 'ru' }
+            en: { button: 'enter', lang: 'en' }, // Текст кнопки теперь строчными
+            ru: { button: 'вход', lang: 'ru' }   // И здесь тоже
         };
 
         function switchLanguage(lang) {
@@ -155,7 +144,7 @@
         switchLanguage('en');
     </script>
     
-    <!-- Не забудь потом сюда вставить наш глобальный код с анимацией курсора и защитой! -->
+    <!-- Сюда вставь наш глобальный код с анимацией курсора и защитой! -->
 
 </body>
 </html>
