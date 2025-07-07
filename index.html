@@ -40,14 +40,24 @@
             pointer-events: none;
         }
         
-        /* === ТОЧНЫЕ КООРДИНАТЫ КАК ТЫ ПРИКАЗАЛА === */
+        /* === ЛОГОТИП: ТОЧНЫЕ КООРДИНАТЫ === */
         .logo {
             position: absolute;
-            top: 85px;       /* ТОЧНО 85 пикселей сверху */
-            right: 73px;     /* ТОЧНО 73 пикселя от правого края */
-            width: 180px;    /* УВЕЛИЧЕНО В ПОЛТОРА РАЗА (было 120px) */
+            top: 85px;
+            right: 73px;
+            width: 180px;
             height: auto;
             z-index: 2;
+        }
+
+        /* === АНИМАЦИЯ КУРСОРА === */
+        #global-ash-canvas {
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%;
+            z-index: 99999; 
+            pointer-events: none; 
+            opacity: 1;
         }
 
         .gate-area {
@@ -62,4 +72,170 @@
             color: var(--quartz); padding: 15px 60px;
             margin-top: 15vh; font-family: 'Brahms Gotisch', serif;
             font-size: 30px; letter-spacing: 2px;
-            text-decoration: none; cursor
+            text-decoration: none; cursor: crosshair;
+            transition: all 0.4s ease;
+        }
+        .enter-button:hover {
+            background-color: rgba(17, 17, 17, 0.5); border: 2px solid var(--quartz);
+        }
+        
+        .language-switcher {
+            margin-top: 50px; font-family: 'Unbounded', sans-serif;
+            font-weight: 200; font-size: 16px; letter-spacing: 1px;
+        }
+        .language-switcher span {
+            cursor: pointer; padding: 0 10px; opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        .language-switcher span:hover, .language-switcher span.active { opacity: 1; }
+
+        /* === ЗАЩИТА ОТ КОПИРОВАНИЯ === */
+        body, body * {
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+            -webkit-touch-callout: none; -khtml-user-select: none;
+        }
+        img, svg { pointer-events: none; }
+    </style>
+</head>
+<body>
+    <!-- HTML ЭЛЕМЕНТЫ -->
+    <canvas id="global-ash-canvas"></canvas>
+    <img src="/assets/logoo.png" alt="ACE Brand Agency Logo" class="logo">
+
+    <div class="gate-area">
+        <a href="/manifesto/" class="enter-button" id="enter-btn">enter</a>
+        <div class="language-switcher">
+            <span id="lang-en" class="active">english</span>
+            <span id="lang-ru">русский</span>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+    // === АНИМАЦИЯ ПЕПЛА + ТУМАН ===
+    if (!window.isUnifiedAnimationInitialized) {
+        (function() {
+            const canvas = document.getElementById('global-ash-canvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            function resizeCanvas() { 
+                canvas.width = window.innerWidth; 
+                canvas.height = window.innerHeight; 
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            let particles = []; 
+            let fogTime = 0;
+            
+            class AshParticle {
+                constructor(x, y) {
+                    this.x = x; this.y = y; 
+                    this.vx = (Math.random() - 0.5) * 0.8; 
+                    this.vy = -Math.random() * 0.5 - 0.2;
+                    this.life = 1; 
+                    this.decay = 0.008 + Math.random() * 0.012; 
+                    this.size = Math.random() * 3 + 1;
+                    this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF';
+                }
+                update() { 
+                    this.x += this.vx; this.y += this.vy; 
+                    this.vx *= 0.98; this.vy += 0.01; 
+                    this.life -= this.decay; this.size *= 0.998; 
+                }
+                draw() { 
+                    ctx.save(); 
+                    ctx.globalAlpha = this.life * 0.8; 
+                    ctx.fillStyle = this.color; 
+                    ctx.beginPath(); 
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); 
+                    ctx.fill(); 
+                    ctx.restore(); 
+                }
+            }
+            
+            function drawFog() {
+                const fogHeight = 120;
+                const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
+                gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`); 
+                gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)'); 
+                gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
+                ctx.fillStyle = gradient; 
+                ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight); 
+                fogTime += 0.005;
+            }
+            
+            function handleMouseMove(e) { 
+                for (let i = 0; i < 6; i++) { 
+                    particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); 
+                } 
+            }
+            function handleTouchMove(e) { 
+                if (e.touches[0]) { 
+                    handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); 
+                } 
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                drawFog();
+                particles = particles.filter(p => { 
+                    p.update(); p.draw(); 
+                    return p.life > 0 && p.size > 0.1; 
+                });
+                if (Math.random() < 0.03) { 
+                    particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); 
+                }
+                requestAnimationFrame(animate);
+            }
+            
+            window.addEventListener('mousemove', handleMouseMove); 
+            window.addEventListener('touchmove', handleTouchMove, { passive: true });
+            animate(); 
+            window.isUnifiedAnimationInitialized = true;
+            console.log('✅ Единая анимация (пепел + туман) активирована');
+        })();
+    }
+
+    // === ЗАЩИТА КОНТЕНТА ===
+    if (!window.isContentProtectionInitialized) {
+        (function() {
+            document.addEventListener('contextmenu', e => e.preventDefault(), false);
+            document.addEventListener('keydown', e => { 
+                if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { 
+                    e.preventDefault(); 
+                } 
+            });
+            window.isContentProtectionInitialized = true;
+            console.log('🛡️ Защита активирована');
+        })();
+    }
+
+    // === ПЕРЕКЛЮЧЕНИЕ ЯЗЫКОВ ===
+    const enterButton = document.getElementById('enter-btn'); 
+    const langEn = document.getElementById('lang-en'); 
+    const langRu = document.getElementById('lang-ru');
+    const content = { 
+        en: { button: 'enter', lang: 'en' }, 
+        ru: { button: 'вход', lang: 'ru' } 
+    };
+    
+    function switchLanguage(lang) {
+        document.documentElement.lang = content[lang].lang; 
+        enterButton.textContent = content[lang].button;
+        if (lang === 'ru') {
+            langRu.classList.add('active'); 
+            langEn.classList.remove('active');
+        } else {
+            langEn.classList.add('active'); 
+            langRu.classList.remove('active');
+        }
+    }
+    
+    langEn.addEventListener('click', () => switchLanguage('en')); 
+    langRu.addEventListener('click', () => switchLanguage('ru'));
+    switchLanguage('en');
+    </script>
+</body>
+</html>
