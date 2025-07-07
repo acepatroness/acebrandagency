@@ -30,14 +30,14 @@
             position: relative;
         }
         
-        /* === ИЗМЕНЕНИЯ ЗДЕСЬ: АДАПТИВНАЯ ГЕОМЕТРИЯ ЛОГОТИПА === */
+        /* === АДАПТИВНАЯ ГЕОМЕТРИЯ ЛОГОТИПА === */
         .logo {
             position: absolute;
-            top: 3.5vw;      /* Отступ относительно высоты экрана */
-            right: 4.5vw;    /* Отступ относительно ширины экрана */
-            width: 8vw;      /* ШИРИНА ОТНОСИТЕЛЬНО ШИРИНЫ ЭКРАНА */
-            max-width: 160px;/* Максимальный размер, чтобы не был гигантским на 4K мониторах */
-            min-width: 90px; /* Минимальный размер для мобильных устройств */
+            top: 3.5vw;
+            right: 4.5vw;
+            width: 8vw;
+            max-width: 160px;
+            min-width: 90px;
             height: auto;
         }
 
@@ -71,7 +71,8 @@
     </style>
 </head>
 <body>
-    <img src="/assets/logo.png" alt="Ace Designer Logo" class="logo">
+    <!-- ИЗМЕНЕНИЕ ЗДЕСЬ: ПУТЬ К НОВОМУ ЛОГОТИПУ 'logoo.png' -->
+    <img src="/assets/logoo.png" alt="Ace Designer Logo" class="logo">
 
     <div class="gate-area">
         <a href="/manifesto/" class="enter-button" id="enter-btn">enter</a>
