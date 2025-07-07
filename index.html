@@ -29,10 +29,14 @@
             background-size: cover; background-position: center; background-repeat: no-repeat;
             position: relative;
         }
-
+        
+        /* === ИЗМЕНЕНИЯ ЗДЕСЬ: КАЛИБРОВКА ЛОГОТИПА === */
         .logo {
-            position: absolute; top: 40px; right: 40px;
-            width: 150px; height: auto;
+            position: absolute;
+            top: 55px;      /* УВЕЛИЧЕН ОТСТУП СВЕРХУ для "воздуха" */
+            right: 65px;    /* УВЕЛИЧЕН ОТСТУП СПРАВА для баланса */
+            width: 140px;   /* УСТАНОВЛЕН РАЗМЕР в середине твоего диапазона */
+            height: auto;
         }
 
         .gate-area {
@@ -65,7 +69,6 @@
     </style>
 </head>
 <body>
-    <!-- ИСПРАВЛЕННЫЙ ПУТЬ К ЛОГОТИПУ -->
     <img src="/assets/logo.png" alt="Ace Designer Logo" class="logo">
 
     <div class="gate-area">
@@ -98,78 +101,44 @@
             function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
-            let particles = [];
-            let fogTime = 0;
-            
+            let particles = []; let fogTime = 0;
             class AshParticle {
-                constructor(x, y) {
-                    this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2;
-                    this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1;
-                    this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF';
-                }
+                constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
                 update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
                 draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
             }
-
-            // ФУНКЦИЯ ДЛЯ РИСОВАНИЯ ТУМАНА
             function drawFog() {
                 const fogHeight = 120;
                 const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
-                // `rgba(45, 44, 47` - это твой цвет Тени Гримуара
-                gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`);
-                gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)');
-                gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
-                ctx.fillStyle = gradient;
-                ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
-                fogTime += 0.005; // Скорость дыхания тумана
+                gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`); gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)'); gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
+                ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight); fogTime += 0.005;
             }
-            
-            function handleMouseMove(e) {
-                for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); }
-            }
+            function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
             function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
-            
             function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                // ВЫЗЫВАЕМ ТУМАН ПЕРЕД ОТРИСОВКОЙ ПЕПЛА
-                drawFog();
+                ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog();
                 particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
                 if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
                 requestAnimationFrame(animate);
             }
-            
-            window.addEventListener('mousemove', handleMouseMove);
-            window.addEventListener('touchmove', handleTouchMove, { passive: true });
-            animate();
-            window.isUnifiedAnimationInitialized = true;
-            console.log('✅ Единая анимация (пепел + туман) активирована');
+            window.addEventListener('mousemove', handleMouseMove); window.addEventListener('touchmove', handleTouchMove, { passive: true });
+            animate(); window.isUnifiedAnimationInitialized = true; console.log('✅ Единая анимация (пепел + туман) активирована');
         })();
     }
     if (!window.isContentProtectionInitialized) {
         (function() {
             document.addEventListener('contextmenu', e => e.preventDefault(), false);
-            document.addEventListener('keydown', e => {
-                if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); }
-            });
-            window.isContentProtectionInitialized = true;
-            console.log('🛡️ Защита активирована');
+            document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
+            window.isContentProtectionInitialized = true; console.log('🛡️ Защита активирована');
         })();
     }
-    // Магия переключения языка
-    const enterButton = document.getElementById('enter-btn');
-    const langEn = document.getElementById('lang-en');
-    const langRu = document.getElementById('lang-ru');
-    const content = {
-        en: { button: 'enter', lang: 'en' },
-        ru: { button: 'вход', lang: 'ru' }
-    };
+    const enterButton = document.getElementById('enter-btn'); const langEn = document.getElementById('lang-en'); const langRu = document.getElementById('lang-ru');
+    const content = { en: { button: 'enter', lang: 'en' }, ru: { button: 'вход', lang: 'ru' } };
     function switchLanguage(lang) {
-        document.documentElement.lang = content[lang].lang;
-        enterButton.textContent = content[lang].button;
+        document.documentElement.lang = content[lang].lang; enterButton.textContent = content[lang].button;
         lang === 'ru' ? (langRu.classList.add('active'), langEn.classList.remove('active')) : (langEn.classList.add('active'), langRu.classList.remove('active'));
     }
-    langEn.addEventListener('click', () => switchLanguage('en'));
-    langRu.addEventListener('click', () => switchLanguage('ru'));
+    langEn.addEventListener('click', () => switchLanguage('en')); langRu.addEventListener('click', () => switchLanguage('ru'));
     switchLanguage('en');
     </script>
 </body>
