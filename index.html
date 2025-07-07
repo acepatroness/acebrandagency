@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"> <!-- По умолчанию английский -->
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACE BRAND AGENCY | ENTER THE TEMPLE</title>
     <style>
-        /* === РИТУАЛ 1: ШРИФТОВАЯ МАГИЯ === */
         @font-face {
             font-family: 'Brahms Gotisch';
             src: url('/fonts/BrahmsGotischCyr.woff2') format('woff2');
@@ -17,7 +16,6 @@
             font-weight: 200; font-style: normal; font-display: swap;
         }
 
-        /* === РИТУАЛ 2: АРХИТЕКТУРА ХРАМА === */
         :root { --abyss: #111111; --quartz: #EFF0F4; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow: hidden; }
@@ -30,11 +28,11 @@
             position: relative;
         }
         
-        /* === ИЗМЕНЕНИЯ ЗДЕСЬ: ПРИБИТО ГВОЗДЯМИ К ОБЛАКУ === */
+        /* === ИСПРАВЛЕНИЕ: ЛОГОТИП ТАМ, ГДЕ ТЫ ЕГО НАРИСОВАЛА === */
         .logo {
             position: absolute;
-            top: 27vh;      /* ТОЧНАЯ ВЫСОТА ОБЛАКА */
-            right: 21vw;    /* ТОЧНОЕ МЕСТО НАД ШПИЛЕМ */
+            top: 8vh;        /* ПОДНЯТ ВЫСОКО, как на твоем рисунке */
+            right: 15vw;     /* Правильная позиция справа */
             width: 15vw;
             max-width: 260px;
             min-width: 140px;
@@ -71,7 +69,7 @@
     </style>
 </head>
 <body>
-    <img src="/assets/logoo.png" alt="Ace Designer Logo" class="logo">
+    <img src="/assets/logoo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="gate-area">
         <a href="/manifesto/" class="enter-button" id="enter-btn">enter</a>
@@ -81,7 +79,7 @@
         </div>
     </div>
 
-    <!-- === ГЛОБАЛЬНЫЙ КОД: АНИМАЦИЯ ДНК + ТУМАН + ЗАЩИТА === -->
+    <!-- АНИМАЦИЯ + ЗАЩИТА -->
     <canvas id="global-ash-canvas"></canvas>
     <style>
     #global-ash-canvas {
@@ -124,14 +122,14 @@
                 requestAnimationFrame(animate);
             }
             window.addEventListener('mousemove', handleMouseMove); window.addEventListener('touchmove', handleTouchMove, { passive: true });
-            animate(); window.isUnifiedAnimationInitialized = true; console.log('✅ Единая анимация (пепел + туман) активирована');
+            animate(); window.isUnifiedAnimationInitialized = true;
         })();
     }
     if (!window.isContentProtectionInitialized) {
         (function() {
             document.addEventListener('contextmenu', e => e.preventDefault(), false);
             document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
-            window.isContentProtectionInitialized = true; console.log('🛡️ Защита активирована');
+            window.isContentProtectionInitialized = true;
         })();
     }
     const enterButton = document.getElementById('enter-btn'); const langEn = document.getElementById('lang-en'); const langRu = document.getElementById('lang-ru');
