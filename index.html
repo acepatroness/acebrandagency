@@ -23,7 +23,6 @@
         body {
             background-color: var(--abyss); color: var(--quartz);
             font-family: 'Unbounded', sans-serif;
-            /* ПРИЗЫВАЕМ ФОН ПО ЕГО НОВОМУ, БОЕВОМУ ИМЕНИ */
             background-image: url('/assets/temple-bg.png');
             background-size: cover;
             background-position: center 65%;
@@ -51,11 +50,17 @@
             z-index: 99999; pointer-events: none; opacity: 1;
         }
 
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ОПУСКАЕМ ВЕСЬ БЛОК === */
         .gate-area {
-            position: absolute; top: 50%; left: 50%;
+            position: absolute;
+            top: calc(50% + 30px); /* Сдвигаем ниже центра на 30px */
+            left: 50%;
             transform: translate(-50%, -50%);
-            display: flex; flex-direction: column; align-items: center;
-            z-index: 2; width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            width: 90%;
         }
 
         .enter-button {
@@ -98,6 +103,7 @@
 
             .gate-area {
                 padding-top: 15vh;
+                top: 50%; /* На мобильных можно оставить по центру */
             }
         }
     </style>
@@ -132,7 +138,7 @@
                 const fogHeight = 120;
                 const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
                 gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`); gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)'); gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
-                ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight); fogTime += 0.005;
+                ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogTime); fogTime += 0.005;
             }
             function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
             function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
