@@ -24,7 +24,10 @@
             background-color: var(--abyss); color: var(--quartz);
             font-family: 'Unbounded', sans-serif;
             background-image: url('/assets/ACE%20Background.png');
-            background-size: cover; background-position: center; background-repeat: no-repeat;
+            background-size: cover;
+            /* ИЗМЕНЕНИЕ ЗДЕСЬ: СДВИГАЕМ ФОН ВНИЗ */
+            background-position: center 65%; /* Было 'center'. 50% - центр, >50% - ниже центра */
+            background-repeat: no-repeat;
             position: relative;
         }
         
@@ -34,7 +37,6 @@
             opacity: 0.3; z-index: 1; pointer-events: none;
         }
         
-        /* === ДЕСКТОПНАЯ ГЕОМЕТРИЯ ЛОГОТИПА (КАК В ТВОЕМ КОДЕ) === */
         .logo {
             position: absolute;
             top: 20px;
@@ -59,7 +61,7 @@
         .enter-button {
             background-color: var(--abyss); border: 2px solid var(--abyss);
             color: var(--quartz); padding: 15px 60px;
-            margin-top: 0; /* Будет управляться контейнером */
+            margin-top: 0; 
             font-family: 'Brahms Gotisch', serif;
             font-size: 30px; letter-spacing: 2px;
             text-decoration: none; cursor: crosshair;
@@ -85,10 +87,8 @@
         }
         img { pointer-events: none; }
 
-        /* === ЗАКЛИНАНИЕ АДАПТИВНОСТИ (ДЛЯ МОБИЛЬНЫХ) === */
         @media (max-width: 768px) {
             .logo {
-                /* Переопределяем геометрию для мобильных */
                 top: 20px;
                 right: auto;
                 left: 50%;
@@ -97,7 +97,7 @@
             }
 
             .gate-area {
-                padding-top: 15vh; /* Создаем пространство для кнопки под логотипом */
+                padding-top: 15vh;
             }
         }
     </style>
