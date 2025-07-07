@@ -34,7 +34,7 @@
             opacity: 0.3; z-index: 1; pointer-events: none;
         }
         
-        /* === ДЕСКТОПНАЯ ГЕОМЕТРИЯ ЛОГОТИПА (КАК ТЫ ПРИКАЗАЛА) === */
+        /* === ДЕСКТОПНАЯ ГЕОМЕТРИЯ ЛОГОТИПА (КАК В ТВОЕМ КОДЕ) === */
         .logo {
             position: absolute;
             top: 20px;
@@ -59,7 +59,8 @@
         .enter-button {
             background-color: var(--abyss); border: 2px solid var(--abyss);
             color: var(--quartz); padding: 15px 60px;
-            margin-top: 15vh; font-family: 'Brahms Gotisch', serif;
+            margin-top: 0; /* Будет управляться контейнером */
+            font-family: 'Brahms Gotisch', serif;
             font-size: 30px; letter-spacing: 2px;
             text-decoration: none; cursor: crosshair;
             transition: all 0.4s ease;
@@ -87,28 +88,25 @@
         /* === ЗАКЛИНАНИЕ АДАПТИВНОСТИ (ДЛЯ МОБИЛЬНЫХ) === */
         @media (max-width: 768px) {
             .logo {
-                position: static; /* Отменяем абсолютное позиционирование */
-                order: -1;        /* ПРИКАЗ: Быть первым элементом в группе */
+                /* Переопределяем геометрию для мобильных */
+                top: 20px;
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
                 width: 180px;
-                margin-bottom: 40px; /* Отступ до кнопки */
             }
 
             .gate-area {
-                justify-content: center;
-            }
-
-            .enter-button {
-                margin-top: 0;
+                padding-top: 15vh; /* Создаем пространство для кнопки под логотипом */
             }
         }
     </style>
 </head>
 <body>
     <canvas id="global-ash-canvas"></canvas>
+    <img src="/assets/logoo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="gate-area">
-        <!-- Логотип перенесен сюда для корректной мобильной верстки -->
-        <img src="/assets/logoo.png" alt="ACE Brand Agency Logo" class="logo">
         <a href="/manifesto/" class="enter-button" id="enter-btn">enter</a>
         <div class="language-switcher">
             <span id="lang-en" class="active">english</span>
