@@ -25,6 +25,9 @@
             --abyss: #111111; 
             --quartz: #EFF0F4;
             --ink-dark: #2D2C2F;
+            --concrete-base: #EFF0F4;
+            --concrete-dark: #e1e2e6;
+            --concrete-light: #f7f8fc;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -46,44 +49,97 @@
             padding: 20px 5vw;
         }
         
-        /* === ПРОСТОЙ И ЧЕТКИЙ ПЕРГАМЕНТ === */
+        /* === ПЕРГАМЕНТ С РВАНЫМИ КРАЯМИ И ТЕКСТУРОЙ БЕТОНА === */
         .parchment {
-            /* Твой цвет без компромиссов */
-            background-color: #EFF0F4;
+            /* Базовый цвет - твой #EFF0F4 с холодным оттенком */
+            background-color: var(--concrete-base);
             
-            /* Простые, элегантные границы */
-            border: 2px solid #d4c4a0;
-            border-radius: 8px;
+            /* Создаём текстуру бетона/шифера через множественные градиенты */
+            background-image: 
+                /* Мелкие поры и неровности бетона */
+                radial-gradient(circle at 15% 25%, rgba(45, 44, 47, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 85% 75%, rgba(45, 44, 47, 0.06) 1px, transparent 1px),
+                radial-gradient(circle at 45% 65%, rgba(45, 44, 47, 0.04) 1px, transparent 1px),
+                radial-gradient(circle at 75% 35%, rgba(45, 44, 47, 0.05) 1px, transparent 1px),
+                /* Более крупные пятна на бетоне */
+                radial-gradient(ellipse at 20% 80%, rgba(193, 191, 191, 0.15) 3px, transparent 6px),
+                radial-gradient(ellipse at 70% 20%, rgba(193, 191, 191, 0.12) 2px, transparent 5px),
+                radial-gradient(ellipse at 90% 90%, rgba(45, 44, 47, 0.08) 2px, transparent 4px),
+                /* Основной градиент для холодного оттенка */
+                linear-gradient(135deg, var(--concrete-light) 0%, var(--concrete-base) 50%, var(--concrete-dark) 100%),
+                /* Шум для текстуры */
+                linear-gradient(45deg, transparent 48%, rgba(193, 191, 191, 0.03) 49%, rgba(193, 191, 191, 0.03) 51%, transparent 52%);
             
-            /* Минимальная тень для глубины */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            /* Размеры фоновых элементов для текстуры */
+            background-size: 
+                20px 20px, 25px 25px, 18px 18px, 22px 22px,
+                40px 40px, 35px 35px, 30px 30px,
+                100% 100%,
+                8px 8px;
             
-            /* Размеры */
+            /* Рваные края через clip-path */
+            clip-path: polygon(
+                2% 5%, 8% 1%, 15% 6%, 22% 2%, 28% 7%, 35% 3%, 42% 8%, 48% 4%, 
+                55% 9%, 62% 5%, 68% 10%, 75% 6%, 82% 11%, 88% 7%, 95% 12%, 98% 8%,
+                99% 15%, 97% 22%, 100% 28%, 96% 35%, 99% 42%, 95% 48%, 98% 55%,
+                94% 62%, 97% 68%, 93% 75%, 96% 82%, 92% 88%, 95% 95%, 91% 98%,
+                85% 96%, 78% 99%, 72% 95%, 65% 98%, 58% 94%, 52% 97%, 45% 93%,
+                38% 96%, 32% 92%, 25% 95%, 18% 91%, 12% 94%, 5% 90%, 2% 85%,
+                4% 78%, 1% 72%, 5% 65%, 2% 58%, 6% 52%, 3% 45%, 7% 38%,
+                4% 32%, 8% 25%, 5% 18%, 9% 12%, 6% 5%
+            );
+            
+            /* Тень для объёма */
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                0 5px 15px rgba(0, 0, 0, 0.3),
+                inset 0 0 30px rgba(45, 44, 47, 0.1);
+            
+            /* Размеры и позиционирование */
             max-width: 900px;
             width: 100%;
             padding: 200px 80px;
             position: relative;
             
-            /* Анимация разворачивания - простая и четкая */
+            /* Анимация разворачивания из свитка */
             opacity: 0;
-            transform: scaleY(0.1);
+            transform: rotateX(90deg) scaleY(0.1);
             transform-origin: top center;
-            animation: unfurl 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+            transform-style: preserve-3d;
+            animation: unfurlScroll 2.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
         }
 
-        /* === ПРОСТАЯ АНИМАЦИЯ РАЗВОРАЧИВАНИЯ === */
-        @keyframes unfurl {
+        /* === АНИМАЦИЯ РАЗВОРАЧИВАНИЯ ИЗ СВИТКА === */
+        @keyframes unfurlScroll {
             0% {
                 opacity: 0;
-                transform: scaleY(0.1);
+                transform: rotateX(90deg) scaleY(0.05) rotateY(5deg);
+                filter: blur(2px);
             }
-            50% {
+            20% {
+                opacity: 0.3;
+                transform: rotateX(75deg) scaleY(0.2) rotateY(3deg);
+                filter: blur(1.5px);
+            }
+            40% {
+                opacity: 0.6;
+                transform: rotateX(45deg) scaleY(0.5) rotateY(1deg);
+                filter: blur(1px);
+            }
+            60% {
                 opacity: 0.8;
-                transform: scaleY(0.7);
+                transform: rotateX(25deg) scaleY(0.7) rotateY(0.5deg);
+                filter: blur(0.5px);
+            }
+            80% {
+                opacity: 0.95;
+                transform: rotateX(10deg) scaleY(0.9) rotateY(0deg);
+                filter: blur(0.2px);
             }
             100% {
                 opacity: 1;
-                transform: scaleY(1);
+                transform: rotateX(0deg) scaleY(1) rotateY(0deg);
+                filter: blur(0px);
             }
         }
 
@@ -92,7 +148,7 @@
             opacity: 0;
             text-align: left;
             padding-top: 50px;
-            transition: opacity 1s ease-in-out 1.2s;
+            transition: opacity 1.5s ease-in-out 2s;
         }
         .parchment.revealed .manifesto-content {
             opacity: 1;
@@ -124,6 +180,7 @@
             right: 40px;
             width: 150px;
             height: 150px;
+            z-index: 10;
         }
         
         .seal-button {
@@ -136,13 +193,13 @@
             border-radius: 50%;
             opacity: 0;
             animation: 
-                sealAppear 1s ease-out 2s forwards,
-                pulse 2s infinite 3s;
+                sealAppear 1s ease-out 3s forwards,
+                pulse 2s infinite 4s;
         }
         
         @keyframes sealAppear {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: scale(0.8) rotate(-180deg); }
+            to { opacity: 1; transform: scale(1) rotate(0deg); }
         }
         
         @keyframes pulse {
@@ -155,6 +212,14 @@
         @media (max-width: 768px) {
             .parchment {
                 padding: 150px 40px;
+                /* Упрощённые рваные края для мобильных */
+                clip-path: polygon(
+                    3% 7%, 12% 2%, 20% 8%, 28% 3%, 37% 9%, 45% 4%, 
+                    53% 10%, 62% 5%, 70% 11%, 78% 6%, 87% 12%, 95% 7%,
+                    97% 20%, 92% 33%, 96% 46%, 91% 59%, 95% 72%, 90% 85%,
+                    85% 93%, 72% 97%, 59% 92%, 46% 96%, 33% 91%, 20% 95%,
+                    7% 90%, 3% 77%, 8% 64%, 4% 51%, 9% 38%, 5% 25%
+                );
             }
             
             #en-manifesto h1 { font-size: 60px; }
