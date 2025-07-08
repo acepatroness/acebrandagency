@@ -25,9 +25,6 @@
             --abyss: #111111; 
             --quartz: #EFF0F4;
             --ink-dark: #2D2C2F;
-            --concrete-base: #EFF0F4;
-            --concrete-dark: #e1e2e6;
-            --concrete-light: #f7f8fc;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -49,98 +46,80 @@
             padding: 20px 5vw;
         }
         
-        /* === ПЕРГАМЕНТ С РВАНЫМИ КРАЯМИ И ТЕКСТУРОЙ БЕТОНА === */
+        /* === ТВОЙ ПЕРГАМЕНТ С КРАСИВОЙ АНИМАЦИЕЙ === */
         .parchment {
-            /* Базовый цвет - твой #EFF0F4 с холодным оттенком */
-            background-color: var(--concrete-base);
+            /* Используем твой файл parchment-bg */
+            background-image: url('../assets/parchment-bg.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
             
-            /* Создаём текстуру бетона/шифера через множественные градиенты */
-            background-image: 
-                /* Мелкие поры и неровности бетона */
-                radial-gradient(circle at 15% 25%, rgba(45, 44, 47, 0.08) 1px, transparent 1px),
-                radial-gradient(circle at 85% 75%, rgba(45, 44, 47, 0.06) 1px, transparent 1px),
-                radial-gradient(circle at 45% 65%, rgba(45, 44, 47, 0.04) 1px, transparent 1px),
-                radial-gradient(circle at 75% 35%, rgba(45, 44, 47, 0.05) 1px, transparent 1px),
-                /* Более крупные пятна на бетоне */
-                radial-gradient(ellipse at 20% 80%, rgba(193, 191, 191, 0.15) 3px, transparent 6px),
-                radial-gradient(ellipse at 70% 20%, rgba(193, 191, 191, 0.12) 2px, transparent 5px),
-                radial-gradient(ellipse at 90% 90%, rgba(45, 44, 47, 0.08) 2px, transparent 4px),
-                /* Основной градиент для холодного оттенка */
-                linear-gradient(135deg, var(--concrete-light) 0%, var(--concrete-base) 50%, var(--concrete-dark) 100%),
-                /* Шум для текстуры */
-                linear-gradient(45deg, transparent 48%, rgba(193, 191, 191, 0.03) 49%, rgba(193, 191, 191, 0.03) 51%, transparent 52%);
-            
-            /* Размеры фоновых элементов для текстуры */
-            background-size: 
-                20px 20px, 25px 25px, 18px 18px, 22px 22px,
-                40px 40px, 35px 35px, 30px 30px,
-                100% 100%,
-                8px 8px;
-            
-            /* Рваные края через clip-path */
-            clip-path: polygon(
-                2% 5%, 8% 1%, 15% 6%, 22% 2%, 28% 7%, 35% 3%, 42% 8%, 48% 4%, 
-                55% 9%, 62% 5%, 68% 10%, 75% 6%, 82% 11%, 88% 7%, 95% 12%, 98% 8%,
-                99% 15%, 97% 22%, 100% 28%, 96% 35%, 99% 42%, 95% 48%, 98% 55%,
-                94% 62%, 97% 68%, 93% 75%, 96% 82%, 92% 88%, 95% 95%, 91% 98%,
-                85% 96%, 78% 99%, 72% 95%, 65% 98%, 58% 94%, 52% 97%, 45% 93%,
-                38% 96%, 32% 92%, 25% 95%, 18% 91%, 12% 94%, 5% 90%, 2% 85%,
-                4% 78%, 1% 72%, 5% 65%, 2% 58%, 6% 52%, 3% 45%, 7% 38%,
-                4% 32%, 8% 25%, 5% 18%, 9% 12%, 6% 5%
-            );
-            
-            /* Тень для объёма */
-            box-shadow: 
-                0 15px 40px rgba(0, 0, 0, 0.4),
-                0 5px 15px rgba(0, 0, 0, 0.3),
-                inset 0 0 30px rgba(45, 44, 47, 0.1);
-            
-            /* Размеры и позиционирование */
+            /* Размеры */
             max-width: 900px;
             width: 100%;
             padding: 200px 80px;
             position: relative;
             
-            /* Анимация разворачивания из свитка */
+            /* Начальное состояние для анимации */
             opacity: 0;
-            transform: rotateX(90deg) scaleY(0.1);
-            transform-origin: top center;
-            transform-style: preserve-3d;
-            animation: unfurlScroll 2.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+            transform: scale(0.3) rotateY(45deg);
+            filter: blur(8px) brightness(0.3);
+            
+            /* Драматическая анимация появления */
+            animation: parchmentMaterialize 3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
         }
 
-        /* === АНИМАЦИЯ РАЗВОРАЧИВАНИЯ ИЗ СВИТКА === */
-        @keyframes unfurlScroll {
+        /* === ДРАМАТИЧЕСКАЯ АНИМАЦИЯ МАТЕРИАЛИЗАЦИИ === */
+        @keyframes parchmentMaterialize {
             0% {
                 opacity: 0;
-                transform: rotateX(90deg) scaleY(0.05) rotateY(5deg);
-                filter: blur(2px);
+                transform: scale(0.3) rotateY(45deg) translateY(-50px);
+                filter: blur(8px) brightness(0.3);
             }
-            20% {
+            25% {
                 opacity: 0.3;
-                transform: rotateX(75deg) scaleY(0.2) rotateY(3deg);
-                filter: blur(1.5px);
+                transform: scale(0.6) rotateY(25deg) translateY(-25px);
+                filter: blur(5px) brightness(0.5);
             }
-            40% {
+            50% {
                 opacity: 0.6;
-                transform: rotateX(45deg) scaleY(0.5) rotateY(1deg);
-                filter: blur(1px);
+                transform: scale(0.8) rotateY(10deg) translateY(-10px);
+                filter: blur(3px) brightness(0.7);
             }
-            60% {
-                opacity: 0.8;
-                transform: rotateX(25deg) scaleY(0.7) rotateY(0.5deg);
-                filter: blur(0.5px);
-            }
-            80% {
-                opacity: 0.95;
-                transform: rotateX(10deg) scaleY(0.9) rotateY(0deg);
-                filter: blur(0.2px);
+            75% {
+                opacity: 0.9;
+                transform: scale(0.95) rotateY(2deg) translateY(-2px);
+                filter: blur(1px) brightness(0.9);
             }
             100% {
                 opacity: 1;
-                transform: rotateX(0deg) scaleY(1) rotateY(0deg);
-                filter: blur(0px);
+                transform: scale(1) rotateY(0deg) translateY(0px);
+                filter: blur(0px) brightness(1);
             }
+        }
+
+        /* === МЕРЦАНИЕ В НАЧАЛЕ === */
+        .parchment::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                transparent 0%, 
+                rgba(239, 240, 244, 0.3) 45%, 
+                rgba(239, 240, 244, 0.6) 50%, 
+                rgba(239, 240, 244, 0.3) 55%, 
+                transparent 100%);
+            transform: translateX(-100%);
+            animation: shimmer 2s ease-in-out 1s;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         /* === СОДЕРЖИМОЕ === */
@@ -148,7 +127,7 @@
             opacity: 0;
             text-align: left;
             padding-top: 50px;
-            transition: opacity 1.5s ease-in-out 2s;
+            transition: opacity 2s ease-in-out 2.5s;
         }
         .parchment.revealed .manifesto-content {
             opacity: 1;
@@ -158,7 +137,7 @@
         .manifesto-block.active { display: block; }
         
         .manifesto-block h1 { color: var(--ink-dark); margin-bottom: 20px; line-height: 1.1; }
-        .manifesto-block h2 { color: var(--ink-dark); margin-bottom: 40px; line-height: 1.1; }
+        .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
         .manifesto-block p { color: var(--ink-dark); line-height: 1.8; }
         
         /* Английская версия */
@@ -180,7 +159,6 @@
             right: 40px;
             width: 150px;
             height: 150px;
-            z-index: 10;
         }
         
         .seal-button {
@@ -192,14 +170,25 @@
             display: block;
             border-radius: 50%;
             opacity: 0;
+            transform: scale(0) rotate(360deg);
             animation: 
-                sealAppear 1s ease-out 3s forwards,
-                pulse 2s infinite 4s;
+                sealAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 3.5s forwards,
+                pulse 2s infinite 5s;
         }
         
         @keyframes sealAppear {
-            from { opacity: 0; transform: scale(0.8) rotate(-180deg); }
-            to { opacity: 1; transform: scale(1) rotate(0deg); }
+            0% { 
+                opacity: 0; 
+                transform: scale(0) rotate(360deg); 
+            }
+            70% { 
+                opacity: 0.8; 
+                transform: scale(1.1) rotate(0deg); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1) rotate(0deg); 
+            }
         }
         
         @keyframes pulse {
@@ -212,14 +201,6 @@
         @media (max-width: 768px) {
             .parchment {
                 padding: 150px 40px;
-                /* Упрощённые рваные края для мобильных */
-                clip-path: polygon(
-                    3% 7%, 12% 2%, 20% 8%, 28% 3%, 37% 9%, 45% 4%, 
-                    53% 10%, 62% 5%, 70% 11%, 78% 6%, 87% 12%, 95% 7%,
-                    97% 20%, 92% 33%, 96% 46%, 91% 59%, 95% 72%, 90% 85%,
-                    85% 93%, 72% 97%, 59% 92%, 46% 96%, 33% 91%, 20% 95%,
-                    7% 90%, 3% 77%, 8% 64%, 4% 51%, 9% 38%, 5% 25%
-                );
             }
             
             #en-manifesto h1 { font-size: 60px; }
@@ -266,194 +247,4 @@
                         we architect brands and events<br>
                         that become your unfair advantage.<br><br>
                         ready for the ritual?<br>
-                        welcome to the altar.<br><br>
-                        for the few.<br>
-                        for you?
-                    </p>
-                </div>
-
-                <!-- РУССКАЯ ВЕРСИЯ -->
-                <div id="ru-manifesto" class="manifesto-block">
-                    <h1 class="font-display">наш храм не для всех</h1>
-                    <h2 class="font-display">только для смелых</h2>
-                    <p>
-                        вы ищете просто «агентство» или «исполнителя»?!<br>
-                        закройте эту вкладку прямой сейчас!<br><br>
-                        мы работает с теми, кто готов к реинкарнации,<br>
-                        а не к стерильному «ребрендингу» или<br>
-                        «а сделайте вот так же как у конкурентов».<br>
-                        мы не копируем! мы создаем!<br><br>
-                        мы против шаблонов и заезженных решений.<br>
-                        нас тошнит от фейка и «успешного успеха».<br>
-                        мы против копипаста и воровства идей!<br><br>
-                        мы не придумываем лживую легенду.<br>
-                        мы погружаемся в ваш хаос и тьму.<br>
-                        мы вскрываем ваш личный код днк!<br><br>
-                        мы сжигаем всё лишнее. весь мусор.<br>
-                        на этом пепле строим вашу империю.<br>
-                        мы сжигаем шаблоны и строим легенды.<br><br>
-                        мы создаем бренды и мероприятия,<br>
-                        даруя вам справедливое превосходство!<br><br>
-                        готовы к персональному ритуалу?<br>
-                        добро пожаловать к алтарю.
-                    </p>
-                </div>
-
-            </div>
-            
-            <!-- ПЕЧАТЬ-КНОПКА -->
-            <div class="seal-container">
-                <a href="../initiation/" class="seal-button" id="seal-btn"></a>
-            </div>
-        </div>
-    </div>
-
-    <!-- АНИМАЦИЯ ПЕПЛА -->
-    <canvas id="global-ash-canvas"></canvas>
-    
-    <!-- СТИЛИ И ЗАЩИТА -->
-    <style>
-        #global-ash-canvas { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            z-index: -1; pointer-events: none; opacity: 1; 
-        }
-        body, body * { 
-            -webkit-user-select: none; -moz-user-select: none; 
-            -ms-user-select: none; user-select: none; 
-            -webkit-touch-callout: none; -khtml-user-select: none; 
-        }
-        img, svg { pointer-events: none; }
-    </style>
-    
-    <!-- JAVASCRIPT -->
-    <script>
-        // АНИМАЦИЯ ПЕПЛА
-        if (!window.isUnifiedAnimationInitialized) {
-            (function() {
-                const canvas = document.getElementById('global-ash-canvas');
-                if (!canvas) return;
-                const ctx = canvas.getContext('2d');
-                
-                function resizeCanvas() { 
-                    canvas.width = window.innerWidth; 
-                    canvas.height = window.innerHeight; 
-                }
-                resizeCanvas();
-                window.addEventListener('resize', resizeCanvas);
-                
-                let particles = []; 
-                let fogTime = 0;
-                
-                class AshParticle {
-                    constructor(x, y) { 
-                        this.x = x; this.y = y; 
-                        this.vx = (Math.random() - 0.5) * 0.8; 
-                        this.vy = -Math.random() * 0.5 - 0.2; 
-                        this.life = 1; 
-                        this.decay = 0.008 + Math.random() * 0.012; 
-                        this.size = Math.random() * 3 + 1; 
-                        this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; 
-                    }
-                    update() { 
-                        this.x += this.vx; this.y += this.vy; 
-                        this.vx *= 0.98; this.vy += 0.01; 
-                        this.life -= this.decay; this.size *= 0.998; 
-                    }
-                    draw() { 
-                        ctx.save(); 
-                        ctx.globalAlpha = this.life * 0.8; 
-                        ctx.fillStyle = this.color; 
-                        ctx.beginPath(); 
-                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); 
-                        ctx.fill(); 
-                        ctx.restore(); 
-                    }
-                }
-                
-                function drawFog() {
-                    const fogHeight = 120;
-                    const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
-                    gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`);
-                    gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)');
-                    gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
-                    ctx.fillStyle = gradient;
-                    ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
-                    fogTime += 0.005;
-                }
-                
-                function handleMouseMove(e) { 
-                    for (let i = 0; i < 6; i++) { 
-                        particles.push(new AshParticle(
-                            e.clientX + (Math.random() - 0.5) * 30, 
-                            e.clientY + (Math.random() - 0.5) * 30
-                        )); 
-                    } 
-                }
-                
-                function handleTouchMove(e) { 
-                    if (e.touches[0]) { 
-                        handleMouseMove({ 
-                            clientX: e.touches[0].clientX, 
-                            clientY: e.touches[0].clientY 
-                        }); 
-                    } 
-                }
-                
-                function animate() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height); 
-                    drawFog();
-                    particles = particles.filter(p => { 
-                        p.update(); p.draw(); 
-                        return p.life > 0 && p.size > 0.1; 
-                    });
-                    if (Math.random() < 0.03) { 
-                        particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); 
-                    }
-                    requestAnimationFrame(animate);
-                }
-                
-                window.addEventListener('mousemove', handleMouseMove);
-                window.addEventListener('touchmove', handleTouchMove, { passive: true });
-                animate();
-                window.isUnifiedAnimationInitialized = true;
-            })();
-        }
-        
-        // ПЕРЕКЛЮЧЕНИЕ ЯЗЫКОВ И АНИМАЦИИ
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const lang = params.get('lang') || 'en';
-            
-            const parchment = document.getElementById('parchment');
-            const sealButton = document.getElementById('seal-btn');
-
-            if (lang === 'ru') {
-                document.documentElement.lang = 'ru';
-                document.getElementById('ru-manifesto').classList.add('active');
-                sealButton.style.backgroundImage = "url('../assets/seal-ru.png')";
-            } else {
-                document.documentElement.lang = 'en';
-                document.getElementById('en-manifesto').classList.add('active');
-                sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
-            }
-
-            parchment.addEventListener('animationend', () => {
-                parchment.classList.add('revealed');
-            });
-        });
-        
-        // ЗАЩИТА ОТ КОПИРОВАНИЯ
-        if (!window.isContentProtectionInitialized) {
-            (function() {
-                document.addEventListener('contextmenu', e => e.preventDefault(), false);
-                document.addEventListener('keydown', e => { 
-                    if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { 
-                        e.preventDefault(); 
-                    } 
-                });
-                window.isContentProtectionInitialized = true;
-            })();
-        }
-    </script>
-</body>
-</html>
+                        welcome to the altar
