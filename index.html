@@ -95,6 +95,7 @@
         /* === ЗАКЛИНАНИЕ АДАПТИВНОСТИ (ИЗМЕНЕНИЯ ТОЛЬКО ЗДЕСЬ) === */
         @media (max-width: 768px) {
             .logo {
+                /* ГАРАНТИЯ ЦЕНТРИРОВАНИЯ ЛОГОТИПА */
                 top: 10px;
                 right: auto;
                 left: 50%;
@@ -108,13 +109,16 @@
 
             .language-switcher {
                 margin-top: 50px;
-                /* 1. ПРИКАЗ: УМЕНЬШИТЬСЯ ЕЩЕ НА 4px */
-                font-size: 12px; /* Было 16px на десктопе, теперь 12px */
+                font-size: 12px;
             }
 
             .gate-area {
+                 /* ГАРАНТИЯ ЦЕНТРИРОВАНИЯ БЛОКА С КНОПКОЙ */
                 top: calc(50% + 190px);
+                left: 50%;
                 transform: translate(-50%, -50%);
+                 /* ГАРАНТИЯ ЦЕНТРИРОВАНИЯ СОДЕРЖИМОГО */
+                align-items: center;
             }
         }
     </style>
