@@ -98,13 +98,14 @@
                 right: auto;
                 left: 50%;
                 transform: translateX(-50%);
-                width: 230px; /* УВЕЛИЧЕНО НА 50px (было 180px) */
+                width: 230px;
             }
 
             .gate-area {
-                top: calc(50% + 100px); /* ОПУЩЕНО НА 100px */
+                /* ОПУЩЕНО ЕЩЕ НА 100px */
+                top: calc(50% + 200px); 
                 transform: translate(-50%, -50%);
-                padding-top: 15vh; /* Сохраняем внутренний отступ для баланса */
+                padding-top: 15vh;
             }
         }
     </style>
@@ -139,35 +140,4 @@
                 const fogHeight = 120;
                 const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
                 gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`); gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)'); gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
-                ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight); fogTime += 0.005;
-            }
-            function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
-            function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog();
-                particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
-                if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
-                requestAnimationFrame(animate);
-            }
-            window.addEventListener('mousemove', handleMouseMove); window.addEventListener('touchmove', handleTouchMove, { passive: true });
-            animate(); window.isUnifiedAnimationInitialized = true;
-        })();
-    }
-    if (!window.isContentProtectionInitialized) {
-        (function() {
-            document.addEventListener('contextmenu', e => e.preventDefault(), false);
-            document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
-            window.isContentProtectionInitialized = true;
-        })();
-    }
-    const enterButton = document.getElementById('enter-btn'); const langEn = document.getElementById('lang-en'); const langRu = document.getElementById('lang-ru');
-    const content = { en: { button: 'enter', lang: 'en' }, ru: { button: 'вход', lang: 'ru' } };
-    function switchLanguage(lang) {
-        document.documentElement.lang = content[lang].lang; enterButton.textContent = content[lang].button;
-        if (lang === 'ru') { langRu.classList.add('active'); langEn.classList.remove('active'); } else { langEn.classList.add('active'); langRu.classList.remove('active'); }
-    }
-    langEn.addEventListener('click', () => switchLanguage('en')); langRu.addEventListener('click', () => switchLanguage('ru'));
-    switchLanguage('en');
-    </script>
-</body>
-</html>
+                ctx.fillStyle = gradient;
