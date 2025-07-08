@@ -45,13 +45,15 @@
             padding: 20px 5vw;
         }
         
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ПЕРГАМЕНТ НАКАЧАН НА 100PX === */
         .parchment {
             background-image: url('../assets/parchment-bg.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             max-width: 900px;
             width: 100%;
-            padding: 100px 80px;
+            /* Отступы увеличены на 50px сверху и снизу = +100px к высоте */
+            padding: 150px 80px; 
             position: relative;
             opacity: 0;
             transform: scaleY(0);
@@ -78,21 +80,15 @@
         .manifesto-block { display: none; }
         .manifesto-block.active { display: block; }
         
-        .manifesto-block h1 { color: var(--ink-dark); margin-bottom: 20px; line-height: 1.1; }
+        .manifesto-block h1 { color: var(--ink-dark); margin-bottom: 20px; line-height: 1.1; margin-top: -15px; }
         .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
         .manifesto-block p { color: var(--ink-dark); line-height: 1.8; }
         
-        /* Английская версия */
         #en-manifesto .font-display { font-family: 'Manufacturing Consent', sans-serif; }
-        #en-manifesto h1 {
-            font-size: 90px;
-            /* ПРИКАЗ: ПОДТЯНУТЬ ВВЕРХ ДЛЯ ВИЗУАЛЬНОГО РАВЕНСТВА */
-            margin-top: -15px; 
-        }
+        #en-manifesto h1 { font-size: 90px; }
         #en-manifesto h2 { font-size: 73px; }
         #en-manifesto p { font-size: 26px; }
 
-        /* Русская версия (без изменений) */
         #ru-manifesto .font-display { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { font-size: 57px; }
         #ru-manifesto h2 { font-size: 38px; }
