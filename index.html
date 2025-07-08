@@ -36,7 +36,6 @@
             opacity: 0.3; z-index: 1; pointer-events: none;
         }
         
-        /* ДЕСКТОПНАЯ ВЕРСИЯ - НЕ ТРОНУТА, КРОМЕ ВЫСОТЫ КНОПКИ */
         .logo {
             position: absolute;
             top: 20px;
@@ -51,10 +50,9 @@
             z-index: 99999; pointer-events: none; opacity: 1;
         }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ПОДНЯТО НА 50px === */
         .gate-area {
             position: absolute;
-            top: 550px; /* ПРИКАЗ: 550 пикселей от верхнего края (было 600px) */
+            top: 550px; 
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -93,25 +91,14 @@
         }
         img { pointer-events: none; }
 
-        /* МОБИЛЬНАЯ ВЕРСИЯ - СОВЕРШЕННА И НЕ ТРОНУТА */
         @media (max-width: 768px) {
             .logo {
-                top: 10px;
-                right: auto;
-                left: 50%;
+                top: 10px; right: auto; left: 50%;
                 transform: translateX(-50%);
                 width: 180px;
             }
-
-            .enter-button {
-                padding: 15px 45px; 
-            }
-
-            .language-switcher {
-                margin-top: 50px;
-                font-size: 12px;
-            }
-
+            .enter-button { padding: 15px 45px; }
+            .language-switcher { margin-top: 50px; font-size: 12px; }
             .gate-area {
                 top: calc(50% + 190px);
                 transform: translate(-50%, -50%);
@@ -124,14 +111,15 @@
     <img src="/assets/logoo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="gate-area">
-        <a href="/manifesto/" class="enter-button" id="enter-btn">enter</a>
+        <!-- Изначальная ссылка тоже исправлена на относительную -->
+        <a href="manifesto/index.html?lang=en" class="enter-button" id="enter-btn">enter</a>
         <div class="language-switcher">
             <span id="lang-en" class="active">english</span>
             <span id="lang-ru">русский</span>
         </div>
     </div>
 
-    <!-- JAVASCRIPT ОСТАЕТСЯ БЕЗ ИЗМЕНЕНИЙ -->
+    <!-- JAVASCRIPT С ИСПРАВЛЕННЫМИ ОТНОСИТЕЛЬНЫМИ ССЫЛКАМИ -->
     <script>
     if (!window.isUnifiedAnimationInitialized) {
         (function() {
@@ -148,7 +136,7 @@
             function drawFog() {
                 const fogHeight = 120;
                 const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
-                gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`); gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)'); gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
+                gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`); gradient.addColorStop(0.5, `rgba(45, 44, 47, 0.15)'); gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
                 ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight); fogTime += 0.005;
             }
             function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
@@ -170,13 +158,32 @@
             window.isContentProtectionInitialized = true;
         })();
     }
-    const enterButton = document.getElementById('enter-btn'); const langEn = document.getElementById('lang-en'); const langRu = document.getElementById('lang-ru');
-    const content = { en: { button: 'enter', lang: 'en' }, ru: { button: 'вход', lang: 'ru' } };
+
+    const enterButton = document.getElementById('enter-btn'); 
+    const langEn = document.getElementById('lang-en'); 
+    const langRu = document.getElementById('lang-ru');
+    const content = { 
+        // ИЗМЕНЕНИЕ ЗДЕСЬ: УБРАН СЛЭШ В НАЧАЛЕ ПУТИ
+        en: { button: 'enter', lang: 'en', link: 'manifesto/index.html?lang=en' }, 
+        ru: { button: 'вход', lang: 'ru', link: 'manifesto/index.html?lang=ru' } 
+    };
+    
     function switchLanguage(lang) {
-        document.documentElement.lang = content[lang].lang; enterButton.textContent = content[lang].button;
-        if (lang === 'ru') { langRu.classList.add('active'); langEn.classList.remove('active'); } else { langEn.classList.add('active'); langRu.classList.remove('active'); }
+        document.documentElement.lang = content[lang].lang; 
+        enterButton.textContent = content[lang].button;
+        enterButton.href = content[lang].link; // ПРИКАЗ ОБНОВЛЕН
+        
+        if (lang === 'ru') {
+            langRu.classList.add('active'); 
+            langEn.classList.remove('active');
+        } else {
+            langEn.classList.add('active'); 
+            langRu.classList.remove('active');
+        }
     }
-    langEn.addEventListener('click', () => switchLanguage('en')); langRu.addEventListener('click', () => switchLanguage('ru'));
+    
+    langEn.addEventListener('click', () => switchLanguage('en')); 
+    langRu.addEventListener('click', () => switchLanguage('ru'));
     switchLanguage('en');
     </script>
 </body>
