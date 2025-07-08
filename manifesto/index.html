@@ -45,15 +45,15 @@
             padding: 20px 5vw;
         }
         
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ПЕРГАМЕНТ НАКАЧАН НА 100PX === */
+        /* === ИЗМЕНЕНИЕ 1: ПЕРГАМЕНТ НАКАЧАН ЕЩЕ НА 100PX === */
         .parchment {
             background-image: url('../assets/parchment-bg.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             max-width: 900px;
             width: 100%;
-            /* Отступы увеличены на 50px сверху и снизу = +100px к высоте */
-            padding: 150px 80px; 
+            /* Отступы увеличены до 200px сверху и снизу */
+            padding: 200px 80px; 
             position: relative;
             opacity: 0;
             transform: scaleY(0);
@@ -68,9 +68,11 @@
             }
         }
 
+        /* === ИЗМЕНЕНИЕ 2: ШРИФТЫ ОПУЩЕНЫ НА 50PX === */
         .manifesto-content {
             opacity: 0;
             text-align: left;
+            padding-top: 50px; /* Приказ на смещение вниз */
             transition: opacity 1s ease-in-out 1.2s;
         }
         .parchment.revealed .manifesto-content {
@@ -80,7 +82,7 @@
         .manifesto-block { display: none; }
         .manifesto-block.active { display: block; }
         
-        .manifesto-block h1 { color: var(--ink-dark); margin-bottom: 20px; line-height: 1.1; margin-top: -15px; }
+        .manifesto-block h1 { color: var(--ink-dark); margin-bottom: 20px; line-height: 1.1; }
         .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
         .manifesto-block p { color: var(--ink-dark); line-height: 1.8; }
         
