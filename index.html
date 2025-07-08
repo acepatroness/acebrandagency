@@ -36,6 +36,7 @@
             opacity: 0.3; z-index: 1; pointer-events: none;
         }
         
+        /* ДЕСКТОПНАЯ ВЕРСИЯ - НЕ ТРОНУТА */
         .logo {
             position: absolute;
             top: 20px;
@@ -91,7 +92,7 @@
         }
         img { pointer-events: none; }
 
-        /* === ЗАКЛИНАНИЕ АДАПТИВНОСТИ (ИЗМЕНЕНИЯ ЗДЕСЬ) === */
+        /* === ЗАКЛИНАНИЕ АДАПТИВНОСТИ (ИЗМЕНЕНИЯ ТОЛЬКО ЗДЕСЬ) === */
         @media (max-width: 768px) {
             .logo {
                 top: 10px;
@@ -102,17 +103,17 @@
             }
 
             .enter-button {
-                /* Уменьшаем кнопку */
-                padding: 15px 30px; 
+                /* 3. КНОПКА УВЕЛИЧЕНА */
+                padding: 15px 40px; 
             }
             .language-switcher {
-                /* Уменьшаем отступ над языками */
-                margin-top: 20px;
+                /* 2. РАССТОЯНИЕ ВОССТАНОВЛЕНО */
+                margin-top: 50px;
             }
 
             .gate-area {
-                /* Опускаем весь блок ниже */
-                top: calc(50% + 120px);
+                /* 4. БЛОК ОПУЩЕН НИЖЕ */
+                top: calc(50% + 170px);
                 transform: translate(-50%, -50%);
             }
         }
@@ -124,7 +125,7 @@
 
     <div class="gate-area">
         <a href="/manifesto/" class="enter-button" id="enter-btn">enter</a>
-        <div class.language-switcher">
+        <div class="language-switcher">
             <span id="lang-en" class="active">english</span>
             <span id="lang-ru">русский</span>
         </div>
