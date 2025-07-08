@@ -27,7 +27,6 @@
             --abyss: #111111; 
             --quartz: #EFF0F4;
             --ink-dark: #2D2C2F;
-            --ink-color: #0a0a0a;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -37,52 +36,22 @@
             font-family: 'Unbounded', sans-serif;
             font-weight: 200;
             text-transform: lowercase;
-            overflow: hidden; /* Запрещаем скролл во время анимации */
+            overflow-y: auto;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px 5vw;
         }
 
-        /* === СЦЕНА ДЛЯ РИТУАЛА === */
+        /* === КОНТЕЙНЕР ДЛЯ РИТУАЛА ВОЗРОЖДЕНИЯ === */
         .grimoire-wrapper {
+            position: relative;
             width: 100%;
             max-width: 900px;
-            padding: 20px 5vw;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        /* === 1. КАПЛЯ ЧЕРНИЛ === */
-        .inkblot {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            background: var(--ink-color);
-            border-radius: 50%;
-            box-shadow: 0 0 20px 10px var(--ink-color);
-            filter: blur(5px);
-            /* Анимация пульсации и взрыва */
-            animation:
-                inkPulse 1.5s ease-in-out infinite,
-                inkExplode 2s cubic-bezier(0.7, 0, 0.3, 1) 3s forwards;
-            z-index: 20;
-        }
-        @keyframes inkPulse {
-            0% { transform: scale(1); box-shadow: 0 0 20px 10px var(--ink-color); }
-            50% { transform: scale(1.2); box-shadow: 0 0 30px 15px var(--ink-color); }
-            100% { transform: scale(1); box-shadow: 0 0 20px 10px var(--ink-color); }
-        }
-        @keyframes inkExplode {
-            to {
-                transform: scale(300); /* Расползается на весь экран */
-                opacity: 0;
-            }
-        }
-
-        /* === 2. ПОЯВЛЕНИЕ ПЕРГАМЕНТА ИЗ ЧЕРНИЛ === */
+        /* === ПЕРГАМЕНТ (ИЗНАЧАЛЬНО НЕВИДИМ) === */
         .parchment {
             width: 100%;
             background-image: url('../assets/parchment-bg.png');
@@ -90,36 +59,48 @@
             background-repeat: no-repeat;
             padding: 150px 80px;
             position: relative;
-            /* Изначально невидим */
+            
+            /* Эффект появления из пепла */
             opacity: 0;
             transform: scale(0.8);
-            /* Появляется из центра чернильного пятна */
-            animation: parchmentEmerge 2s ease-out 4s forwards;
-            z-index: 10;
+            filter: brightness(0.3) contrast(1.5);
+            
+            /* Анимация материализации из пепла */
+            animation: ashReconstruction 3s ease-out 4s forwards;
         }
-        @keyframes parchmentEmerge {
-            from {
+
+        @keyframes ashReconstruction {
+            0% {
                 opacity: 0;
                 transform: scale(0.8);
-                filter: brightness(0);
+                filter: brightness(0.3) contrast(1.5) blur(2px);
             }
-            to {
+            30% {
+                opacity: 0.3;
+                transform: scale(0.9);
+                filter: brightness(0.5) contrast(1.3) blur(1px);
+            }
+            70% {
+                opacity: 0.8;
+                transform: scale(0.98);
+                filter: brightness(0.8) contrast(1.1) blur(0.5px);
+            }
+            100% {
                 opacity: 1;
                 transform: scale(1);
-                filter: brightness(1);
+                filter: brightness(1) contrast(1) blur(0px);
             }
         }
 
-        /* === 3. ПОЯВЛЕНИЕ КОНТЕНТА === */
+        /* === СОДЕРЖИМОЕ === */
         .manifesto-content {
             opacity: 0;
-            transition: opacity 1.5s ease-out 5.5s;
+            transition: opacity 2s ease-out 6s;
         }
         .parchment.revealed .manifesto-content {
             opacity: 1;
         }
 
-        /* === СТИЛИ ТЕКСТА И ПЕЧАТИ (без изменений) === */
         .manifesto-block { display: none; }
         .manifesto-block.active { display: block; }
         .manifesto-block h1 { color: var(--ink-dark); margin-bottom: 20px; line-height: 1.1; }
@@ -137,7 +118,7 @@
         #ru-manifesto p { font-size: 22px; }
 
         .seal-container { position: absolute; bottom: 40px; right: 40px; width: 150px; height: 150px; }
-        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; opacity: 0; transform: scale(0); animation: sealAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 6s forwards, pulse 2s infinite 7.5s; }
+        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; opacity: 0; transform: scale(0); animation: sealAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 7s forwards, pulse 2s infinite 8.5s; }
         @keyframes sealAppear { to { opacity: 1; transform: scale(1); } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
@@ -151,20 +132,60 @@
 </head>
 <body>
     <div class="grimoire-wrapper">
-        <div class="inkblot" id="inkblot"></div>
         <div class="parchment" id="parchment">
             <div class="manifesto-content">
                 <!-- АНГЛИЙСКАЯ ВЕРСИЯ -->
                 <div id="en-manifesto" class="manifesto-block">
                     <h1 class="font-display">we don't sell</h1>
                     <h2 class="font-display">we anoint</h2>
-                    <p>...</p> <!-- Текст манифеста здесь -->
+                    <p>
+                        seeking an "agency" or a "freelancer"?<br>
+                        close this tab. now.<br><br>
+                        we forge titans ready for rebirth,<br>
+                        not cowards who mimic their rivals.<br>
+                        we don't copy. we create.<br><br>
+                        we despise templates. we shatter formulas.<br>
+                        we loathe the very thought of stolen ideas.<br>
+                        we hate fake "success".<br><br>
+                        we descend into your chaos, your darkness.<br>
+                        we don't invent false myths…<br>
+                        we decode your core dna!<br><br>
+                        we burn the waste. the excess. all of it.<br>
+                        from the ashes, we build your empire.<br>
+                        we burn templates to build legends.<br><br>
+                        we architect brands and events<br>
+                        that become your unfair advantage.<br><br>
+                        ready for the ritual?<br>
+                        welcome to the altar.<br><br>
+                        for the few.<br>
+                        for you?
+                    </p>
                 </div>
                 <!-- РУССКАЯ ВЕРСИЯ -->
                 <div id="ru-manifesto" class="manifesto-block">
                     <h1 class="font-display">наш храм не для всех</h1>
                     <h2 class="font-display">только для смелых</h2>
-                    <p>...</p> <!-- Текст манифеста здесь -->
+                    <p>
+                        вы ищете просто «агентство» или «исполнителя»?!<br>
+                        закройте эту вкладку прямой сейчас!<br><br>
+                        мы работает с теми, кто готов к реинкарнации,<br>
+                        а не к стерильному «ребрендингу» или<br>
+                        «а сделайте вот так же как у конкурентов».<br>
+                        мы не копируем! мы создаем!<br><br>
+                        мы против шаблонов и заезженных решений.<br>
+                        нас тошнит от фейка и «успешного успеха».<br>
+                        мы против копипаста и воровства идей!<br><br>
+                        мы не придумываем лживую легенду.<br>
+                        мы погружаемся в ваш хаос и тьму.<br>
+                        мы вскрываем ваш личный код днк!<br><br>
+                        мы сжигаем всё лишнее. весь мусор.<br>
+                        на этом пепле строим вашу империю.<br>
+                        мы сжигаем шаблоны и строим легенды.<br><br>
+                        мы создаем бренды и мероприятия,<br>
+                        даруя вам справедливое превосходство!<br><br>
+                        готовы к персональному ритуалу?<br>
+                        добро пожаловать к алтарю.
+                    </p>
                 </div>
             </div>
             <div class="seal-container">
@@ -172,16 +193,192 @@
             </div>
         </div>
     </div>
+
+    <!-- КАНВАС ДЛЯ МАГИИ ПЕПЛА -->
     <canvas id="global-ash-canvas"></canvas>
+    
     <style>
-        #global-ash-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -10; pointer-events: none; opacity: 1; }
+        #global-ash-canvas { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: 5; pointer-events: none; opacity: 1; 
+        }
+        body, body * { 
+            -webkit-user-select: none; -moz-user-select: none; 
+            -ms-user-select: none; user-select: none; 
+            -webkit-touch-callout: none; -khtml-user-select: none; 
+        }
+        img, svg { pointer-events: none; }
     </style>
+    
     <script>
-        // АНИМАЦИЯ ПЕПЛА
-        if (!window.isUnifiedAnimationInitialized) { (function() { const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return; const ctx = canvas.getContext('2d'); function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; } resizeCanvas(); window.addEventListener('resize', resizeCanvas); let particles = []; let fogTime = 0; class AshParticle { constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; } update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; } draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); } } function drawFog() { const fogHeight = 120; const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight); gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`); gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)'); gradient.addColorStop(1, 'rgba(45, 44, 47, 0)'); ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight); fogTime += 0.005; } function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } } function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } } function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog(); particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; }); if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); } requestAnimationFrame(animate); } window.addEventListener('mousemove', handleMouseMove); window.addEventListener('touchmove', handleTouchMove, { passive: true }); animate(); window.isUnifiedAnimationInitialized = true; })(); }
+        // МАГИЯ СБОРКИ ИЗ ПЕПЛА
+        if (!window.isUnifiedAnimationInitialized) {
+            (function() {
+                const canvas = document.getElementById('global-ash-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                
+                function resizeCanvas() { 
+                    canvas.width = window.innerWidth; 
+                    canvas.height = window.innerHeight; 
+                }
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+                
+                let particles = []; 
+                let fogTime = 0;
+                let ashReconstructionPhase = 'gathering'; // gathering -> reconstruction -> normal
+                let reconstructionStartTime = 0;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                
+                class AshParticle {
+                    constructor(x, y, isReconstructing = false) { 
+                        this.x = x || Math.random() * canvas.width; 
+                        this.y = y || canvas.height + 10; 
+                        this.originalVx = (Math.random() - 0.5) * 0.8;
+                        this.originalVy = -Math.random() * 0.5 - 0.2;
+                        this.vx = this.originalVx;
+                        this.vy = this.originalVy;
+                        this.life = 1; 
+                        this.decay = 0.008 + Math.random() * 0.012; 
+                        this.size = Math.random() * 3 + 1; 
+                        this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF';
+                        this.isReconstructing = isReconstructing;
+                        this.reconstructionForce = 0;
+                    }
+                    
+                    update() {
+                        // ФАЗА СБОРКИ: частицы летят к центру
+                        if (ashReconstructionPhase === 'reconstruction' && !this.isReconstructing) {
+                            const dx = centerX - this.x;
+                            const dy = centerY - this.y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+                            
+                            if (distance > 50) {
+                                // Притягиваем к центру
+                                this.reconstructionForce += 0.02;
+                                this.vx += (dx / distance) * this.reconstructionForce;
+                                this.vy += (dy / distance) * this.reconstructionForce;
+                                this.vx *= 0.95; // Замедляем по мере приближения
+                                this.vy *= 0.95;
+                            } else {
+                                // Достигли центра - уплотняемся
+                                this.vx *= 0.1;
+                                this.vy *= 0.1;
+                                this.life -= 0.05; // Быстро исчезаем в центре
+                                this.size *= 0.95;
+                            }
+                        } else {
+                            // Обычное движение
+                            this.vx = this.originalVx;
+                            this.vy = this.originalVy;
+                            this.vx *= 0.98; 
+                            this.vy += 0.01;
+                        }
+                        
+                        this.x += this.vx; 
+                        this.y += this.vy;
+                        
+                        if (ashReconstructionPhase !== 'reconstruction') {
+                            this.life -= this.decay; 
+                            this.size *= 0.998;
+                        }
+                    }
+                    
+                    draw() { 
+                        ctx.save(); 
+                        ctx.globalAlpha = this.life * 0.8; 
+                        ctx.fillStyle = this.color; 
+                        ctx.beginPath(); 
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); 
+                        ctx.fill(); 
+                        ctx.restore(); 
+                    }
+                }
+                
+                function drawFog() {
+                    const fogHeight = 120;
+                    const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
+                    gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`);
+                    gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)');
+                    gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
+                    fogTime += 0.005;
+                }
+                
+                function handleMouseMove(e) { 
+                    if (ashReconstructionPhase === 'normal') {
+                        for (let i = 0; i < 6; i++) { 
+                            particles.push(new AshParticle(
+                                e.clientX + (Math.random() - 0.5) * 30, 
+                                e.clientY + (Math.random() - 0.5) * 30
+                            )); 
+                        }
+                    }
+                }
+                
+                function handleTouchMove(e) { 
+                    if (e.touches[0]) { 
+                        handleMouseMove({ 
+                            clientX: e.touches[0].clientX, 
+                            clientY: e.touches[0].clientY 
+                        }); 
+                    } 
+                }
+                
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    drawFog();
+                    
+                    // Управление фазами реконструкции
+                    const currentTime = Date.now();
+                    
+                    if (ashReconstructionPhase === 'gathering' && currentTime > 2000) {
+                        // Начинаем фазу сборки через 2 секунды
+                        ashReconstructionPhase = 'reconstruction';
+                        reconstructionStartTime = currentTime;
+                        
+                        // Создаём больше частиц для эффектной сборки
+                        for (let i = 0; i < 100; i++) {
+                            particles.push(new AshParticle(
+                                Math.random() * canvas.width,
+                                Math.random() * canvas.height
+                            ));
+                        }
+                    }
+                    
+                    if (ashReconstructionPhase === 'reconstruction' && currentTime - reconstructionStartTime > 4000) {
+                        // Заканчиваем реконструкцию через 4 секунды
+                        ashReconstructionPhase = 'normal';
+                        canvas.style.zIndex = '-1'; // Опускаем канвас под пергамент
+                    }
+                    
+                    // Обновляем и рисуем частицы
+                    particles = particles.filter(p => { 
+                        p.update(); 
+                        p.draw(); 
+                        return p.life > 0 && p.size > 0.1; 
+                    });
+                    
+                    // Добавляем новые частицы только в нормальном режиме
+                    if (ashReconstructionPhase === 'normal' && Math.random() < 0.03) { 
+                        particles.push(new AshParticle()); 
+                    }
+                    
+                    requestAnimationFrame(animate);
+                }
+                
+                window.addEventListener('mousemove', handleMouseMove);
+                window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                animate();
+                window.isUnifiedAnimationInitialized = true;
+            })();
+        }
+        
         // ПЕРЕКЛЮЧЕНИЕ ЯЗЫКОВ И АНИМАЦИИ
         document.addEventListener('DOMContentLoaded', () => {
-            const inkblot = document.getElementById('inkblot');
             const parchment = document.getElementById('parchment');
             const sealButton = document.getElementById('seal-btn');
             const params = new URLSearchParams(window.location.search);
@@ -197,21 +394,25 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
 
-            inkblot.addEventListener('animationend', (e) => {
-                if (e.animationName === 'inkExplode') {
-                    inkblot.style.display = 'none';
-                    document.body.style.overflowY = 'auto'; // Возвращаем скролл
-                }
-            });
-
             parchment.addEventListener('animationend', (e) => {
-                if (e.animationName === 'parchmentEmerge') {
+                if (e.animationName === 'ashReconstruction') {
                     parchment.classList.add('revealed');
                 }
             });
         });
+        
         // ЗАЩИТА ОТ КОПИРОВАНИЯ
-        if (!window.isContentProtectionInitialized) { (function() { document.addEventListener('contextmenu', e => e.preventDefault(), false); document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } }); window.isContentProtectionInitialized = true; })(); }
+        if (!window.isContentProtectionInitialized) {
+            (function() {
+                document.addEventListener('contextmenu', e => e.preventDefault(), false);
+                document.addEventListener('keydown', e => { 
+                    if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { 
+                        e.preventDefault(); 
+                    } 
+                });
+                window.isContentProtectionInitialized = true;
+            })();
+        }
     </script>
 </body>
 </html>
