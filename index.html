@@ -23,7 +23,7 @@
         body {
             background-color: var(--abyss); color: var(--quartz);
             font-family: 'Unbounded', sans-serif;
-            background-image: url('/assets/temple-bg.png');
+            background-image: url('assets/temple-bg.png');
             background-size: cover;
             background-position: center 65%;
             background-repeat: no-repeat;
@@ -108,10 +108,9 @@
 </head>
 <body>
     <canvas id="global-ash-canvas"></canvas>
-    <img src="/assets/logoo.png" alt="ACE Brand Agency Logo" class="logo">
+    <img src="assets/logoo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="gate-area">
-        <!-- Изначальная ссылка тоже исправлена на относительную -->
         <a href="manifesto/index.html?lang=en" class="enter-button" id="enter-btn">enter</a>
         <div class="language-switcher">
             <span id="lang-en" class="active">english</span>
@@ -163,7 +162,6 @@
     const langEn = document.getElementById('lang-en'); 
     const langRu = document.getElementById('lang-ru');
     const content = { 
-        // ИЗМЕНЕНИЕ ЗДЕСЬ: УБРАН СЛЭШ В НАЧАЛЕ ПУТИ
         en: { button: 'enter', lang: 'en', link: 'manifesto/index.html?lang=en' }, 
         ru: { button: 'вход', lang: 'ru', link: 'manifesto/index.html?lang=ru' } 
     };
@@ -171,7 +169,7 @@
     function switchLanguage(lang) {
         document.documentElement.lang = content[lang].lang; 
         enterButton.textContent = content[lang].button;
-        enterButton.href = content[lang].link; // ПРИКАЗ ОБНОВЛЕН
+        enterButton.href = content[lang].link;
         
         if (lang === 'ru') {
             langRu.classList.add('active'); 
