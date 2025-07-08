@@ -37,17 +37,14 @@
             overflow-y: auto;
         }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ТОЧНЫЕ ОТСТУПЫ 20PX === */
+        /* === ИЗМЕНЕНИЕ: УБИРАЕМ FLEXBOX, ДЕЛАЕМ ЖЁСТКО === */
         .grimoire-container {
             width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            /* ПРИКАЗ: Ровно 20px сверху, ровно 20px снизу */
-            padding-top: 20px;
-            padding-bottom: 20px;
-            padding-left: 5vw;
-            padding-right: 5vw;
+            /* Явно задаём отступы как margin */
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 5vw;
+            margin-right: 5vw;
         }
         
         .parchment {
@@ -56,6 +53,7 @@
             background-repeat: no-repeat;
             max-width: 900px;
             width: 100%;
+            margin: 0 auto; /* Центрируем пергамент */
             padding: 100px 80px;
             position: relative;
             opacity: 0;
