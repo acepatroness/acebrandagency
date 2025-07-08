@@ -7,12 +7,12 @@
     <style>
         @font-face {
             font-family: 'Brahms Gotisch';
-            src: url('/fonts/BrahmsGotischCyr.woff2') format('woff2');
+            src: url('fonts/BrahmsGotischCyr.woff2') format('woff2');
             font-weight: normal; font-style: normal; font-display: swap;
         }
         @font-face {
             font-family: 'Unbounded';
-            src: url('/fonts/Unbounded-ExtraLight.woff2') format('woff2');
+            src: url('fonts/Unbounded-ExtraLight.woff2') format('woff2');
             font-weight: 200; font-style: normal; font-display: swap;
         }
 
@@ -118,8 +118,8 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT С ИСПРАВЛЕННЫМИ ОТНОСИТЕЛЬНЫМИ ССЫЛКАМИ -->
     <script>
+    // АНИМАЦИЯ ПЕПЛА
     if (!window.isUnifiedAnimationInitialized) {
         (function() {
             const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
@@ -135,7 +135,9 @@
             function drawFog() {
                 const fogHeight = 120;
                 const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
-                gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`); gradient.addColorStop(0.5, `rgba(45, 44, 47, 0.15)'); gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
+                gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`);
+                gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)');
+                gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
                 ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight); fogTime += 0.005;
             }
             function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
@@ -150,6 +152,8 @@
             animate(); window.isUnifiedAnimationInitialized = true;
         })();
     }
+
+    // ЗАЩИТА КОНТЕНТА
     if (!window.isContentProtectionInitialized) {
         (function() {
             document.addEventListener('contextmenu', e => e.preventDefault(), false);
@@ -158,31 +162,37 @@
         })();
     }
 
-    const enterButton = document.getElementById('enter-btn'); 
-    const langEn = document.getElementById('lang-en'); 
-    const langRu = document.getElementById('lang-ru');
-    const content = { 
-        en: { button: 'enter', lang: 'en', link: 'manifesto/index.html?lang=en' }, 
-        ru: { button: 'вход', lang: 'ru', link: 'manifesto/index.html?lang=ru' } 
-    };
-    
-    function switchLanguage(lang) {
-        document.documentElement.lang = content[lang].lang; 
-        enterButton.textContent = content[lang].button;
-        enterButton.href = content[lang].link;
+    // === ИЗМЕНЕНИЕ ЗДЕСЬ: ПРИКАЗ ЖДАТЬ ПОЛНОЙ ЗАГРУЗКИ ===
+    document.addEventListener('DOMContentLoaded', () => {
+        const enterButton = document.getElementById('enter-btn'); 
+        const langEn = document.getElementById('lang-en'); 
+        const langRu = document.getElementById('lang-ru');
         
-        if (lang === 'ru') {
-            langRu.classList.add('active'); 
-            langEn.classList.remove('active');
-        } else {
-            langEn.classList.add('active'); 
-            langRu.classList.remove('active');
+        const content = { 
+            en: { button: 'enter', lang: 'en', link: 'manifesto/index.html?lang=en' }, 
+            ru: { button: 'вход', lang: 'ru', link: 'manifesto/index.html?lang=ru' } 
+        };
+        
+        function switchLanguage(lang) {
+            document.documentElement.lang = content[lang].lang; 
+            enterButton.textContent = content[lang].button;
+            enterButton.href = content[lang].link;
+            
+            if (lang === 'ru') {
+                langRu.classList.add('active'); 
+                langEn.classList.remove('active');
+            } else {
+                langEn.classList.add('active'); 
+                langRu.classList.remove('active');
+            }
         }
-    }
-    
-    langEn.addEventListener('click', () => switchLanguage('en')); 
-    langRu.addEventListener('click', () => switchLanguage('ru'));
-    switchLanguage('en');
+        
+        langEn.addEventListener('click', () => switchLanguage('en')); 
+        langRu.addEventListener('click', () => switchLanguage('ru'));
+        
+        // Устанавливаем язык по умолчанию после того, как все готово
+        switchLanguage('en');
+    });
     </script>
 </body>
 </html>
