@@ -68,16 +68,14 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* === КОНТЕНТ (ИСПРАВЛЕН) === */
+        /* === КОНТЕНТ === */
         .manifesto-content {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* 2. СМЕЩЕНИЕ ВПРАВО | 3. ПОЗИЦИЯ НА ПЕРГАМЕНТЕ */
             padding: 120px 80px 120px 130px; 
-            /* 1. МГНОВЕННОЕ ПОЯВЛЕНИЕ */
             opacity: 0;
             animation: fadeInContent 1s ease-out 1.5s forwards;
         }
@@ -97,7 +95,6 @@
         
         .manifesto-block h1 { margin-bottom: 20px; line-height: 1.1; }
         .manifesto-block h2 { margin-bottom: 40px; line-height: 1.1; }
-        .manifesto-block p { line-height: 1.8; }
         
         #en-manifesto .font-display,
         #en-manifesto p { 
@@ -105,7 +102,11 @@
         }
         #en-manifesto h1 { font-size: 90px; } 
         #en-manifesto h2 { font-size: 73px; } 
-        #en-manifesto p { font-size: 26px; }
+        #en-manifesto p { 
+            font-size: 26px;
+            /* ИЗМЕНЕНИЕ ЗДЕСЬ: УПЛОТНЕННЫЙ ИНТЕРВАЛ */
+            line-height: 1.6; 
+        }
 
         #ru-manifesto .font-display,
         #ru-manifesto p { 
@@ -113,7 +114,11 @@
         }
         #ru-manifesto h1 { font-size: 57px; } 
         #ru-manifesto h2 { font-size: 38px; } 
-        #ru-manifesto p { font-size: 22px; }
+        #ru-manifesto p { 
+            font-size: 22px;
+            /* Русский интервал остается без изменений */
+            line-height: 1.8;
+        }
 
         .seal-container { position: absolute; bottom: 40px; right: 40px; width: 150px; height: 150px; opacity: 0; animation: fadeInSeal 1s ease-out 2.5s forwards; }
         .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 3.5s; }
@@ -122,8 +127,10 @@
         
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 60px 100px 60px; }
-            #en-manifesto h1 { font-size: 60px; } #en-manifesto h2 { font-size: 50px; } #en-manifesto p { font-size: 20px; }
-            #ru-manifesto h1 { font-size: 40px; } #ru-manifesto h2 { font-size: 28px; } #ru-manifesto p { font-size: 18px; }
+            #en-manifesto h1 { font-size: 60px; } #en-manifesto h2 { font-size: 50px; } 
+            #en-manifesto p { font-size: 20px; line-height: 1.6; }
+            #ru-manifesto h1 { font-size: 40px; } #ru-manifesto h2 { font-size: 28px; } 
+            #ru-manifesto p { font-size: 18px; line-height: 1.8; }
             .seal-container { width: 120px; height: 120px; bottom: 30px; right: 30px; }
         }
     </style>
@@ -194,7 +201,6 @@
     <style> #global-ash-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; } </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Логика выбора языка
             const sealButton = document.getElementById('seal-btn');
             const params = new URLSearchParams(window.location.search);
             const lang = params.get('lang') || 'en';
@@ -209,7 +215,6 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
         });
-        // ... фоновый пепел и защита ...
     </script>
 </body>
 </html>
