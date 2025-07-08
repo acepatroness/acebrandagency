@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACE BRAND AGENCY | MANIFESTO</title>
     <style>
+        /* === ШРИФТОВАЯ МАГИЯ (ИМЕНА ИЗ ТВОИХ ФАЙЛОВ) === */
         @font-face {
             font-family: 'Brahms Gotisch';
             src: url('../fonts/BrahmsGotischCyr.woff2') format('woff2');
@@ -21,6 +22,7 @@
             font-weight: 200; font-style: normal; font-display: swap;
         }
 
+        /* === АРХИТЕКТУРА АЛТАРЯ === */
         :root { 
             --abyss: #111111; 
             --quartz: #EFF0F4;
@@ -34,17 +36,18 @@
             font-family: 'Unbounded', sans-serif;
             font-weight: 200;
             text-transform: lowercase;
-            overflow-y: auto; /* Позволяем скролл, если контент не влезает */
+            overflow-y: auto;
         }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: АБСОЛЮТНЫЕ ОТСТУПЫ 40PX === */
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: АБСОЛЮТНЫЕ ОТСТУПЫ 30PX === */
         .grimoire-container {
             width: 100%;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 40px 5vw; 
-            min-height: 100vh;
+            /* ПРИКАЗ: 30px сверху/снизу */
+            padding: 30px 5vw; 
         }
         .parchment {
             background-image: url('../assets/parchment-bg.png');
@@ -251,11 +254,4 @@
         
         if (!window.isContentProtectionInitialized) {
             (function() {
-                document.addEventListener('contextmenu', e => e.preventDefault(), false);
-                document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
-                window.isContentProtectionInitialized = true;
-            })();
-        }
-    </script>
-</body>
-</html>
+                document.addEventListener('contextmenu
