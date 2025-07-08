@@ -37,9 +37,12 @@
             overflow-y: auto;
         }
 
-        /* === ПРОСТОЕ И ЧЕТКОЕ РЕШЕНИЕ === */
-        body {
-            padding: 20px 5vw; /* 20px сверху и снизу, 5vw по бокам */
+        .grimoire-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px 5vw;
         }
         
         .parchment {
@@ -48,7 +51,6 @@
             background-repeat: no-repeat;
             max-width: 900px;
             width: 100%;
-            margin: 0 auto; /* Центрируем */
             padding: 100px 80px;
             position: relative;
             opacity: 0;
@@ -80,16 +82,20 @@
         .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
         .manifesto-block p { color: var(--ink-dark); line-height: 1.8; }
         
-        /* АНГЛИЙСКАЯ ВЕРСИЯ - ТАКИЕ ЖЕ ОТСТУПЫ КАК В РУССКОЙ */
+        /* Английская версия */
         #en-manifesto .font-display { font-family: 'Manufacturing Consent', sans-serif; }
-        #en-manifesto h1 { font-size: 90px; margin-bottom: 20px; }
-        #en-manifesto h2 { font-size: 73px; margin-bottom: 40px; }
+        #en-manifesto h1 {
+            font-size: 90px;
+            /* ПРИКАЗ: ПОДТЯНУТЬ ВВЕРХ ДЛЯ ВИЗУАЛЬНОГО РАВЕНСТВА */
+            margin-top: -15px; 
+        }
+        #en-manifesto h2 { font-size: 73px; }
         #en-manifesto p { font-size: 26px; }
 
-        /* РУССКАЯ ВЕРСИЯ */
+        /* Русская версия (без изменений) */
         #ru-manifesto .font-display { font-family: 'Brahms Gotisch', serif; }
-        #ru-manifesto h1 { font-size: 57px; margin-bottom: 20px; }
-        #ru-manifesto h2 { font-size: 38px; margin-bottom: 40px; }
+        #ru-manifesto h1 { font-size: 57px; }
+        #ru-manifesto h2 { font-size: 38px; }
         #ru-manifesto p { font-size: 22px; }
 
         .seal-container {
@@ -116,65 +122,67 @@
     </style>
 </head>
 <body>
-    <div class="parchment" id="parchment">
-        <div class="manifesto-content">
-            
-            <div id="en-manifesto" class="manifesto-block">
-                <h1 class="font-display">we don't sell</h1>
-                <h2 class="font-display">we anoint</h2>
-                <p>
-                    seeking an "agency" or a "freelancer"?<br>
-                    close this tab. now.<br><br>
-                    we forge titans ready for rebirth,<br>
-                    not cowards who mimic their rivals.<br>
-                    we don't copy. we create.<br><br>
-                    we despise templates. we shatter formulas.<br>
-                    we loathe the very thought of stolen ideas.<br>
-                    we hate fake "success".<br><br>
-                    we descend into your chaos, your darkness.<br>
-                    we don't invent false myths…<br>
-                    we decode your core dna!<br><br>
-                    we burn the waste. the excess. all of it.<br>
-                    from the ashes, we build your empire.<br>
-                    we burn templates to build legends.<br><br>
-                    we architect brands and events<br>
-                    that become your unfair advantage.<br><br>
-                    ready for the ritual?<br>
-                    welcome to the altar.<br><br>
-                    for the few.<br>
-                    for you?
-                </p>
-            </div>
+    <div class="grimoire-container">
+        <div class="parchment" id="parchment">
+            <div class="manifesto-content">
+                
+                <div id="en-manifesto" class="manifesto-block">
+                    <h1 class="font-display">we don't sell</h1>
+                    <h2 class="font-display">we anoint</h2>
+                    <p>
+                        seeking an "agency" or a "freelancer"?<br>
+                        close this tab. now.<br><br>
+                        we forge titans ready for rebirth,<br>
+                        not cowards who mimic their rivals.<br>
+                        we don't copy. we create.<br><br>
+                        we despise templates. we shatter formulas.<br>
+                        we loathe the very thought of stolen ideas.<br>
+                        we hate fake "success".<br><br>
+                        we descend into your chaos, your darkness.<br>
+                        we don't invent false myths…<br>
+                        we decode your core dna!<br><br>
+                        we burn the waste. the excess. all of it.<br>
+                        from the ashes, we build your empire.<br>
+                        we burn templates to build legends.<br><br>
+                        we architect brands and events<br>
+                        that become your unfair advantage.<br><br>
+                        ready for the ritual?<br>
+                        welcome to the altar.<br><br>
+                        for the few.<br>
+                        for you?
+                    </p>
+                </div>
 
-            <div id="ru-manifesto" class="manifesto-block">
-                <h1 class="font-display">наш храм не для всех</h1>
-                <h2 class="font-display">только для смелых</h2>
-                <p>
-                    вы ищете просто «агентство» или «исполнителя»?!<br>
-                    закройте эту вкладку прямой сейчас!<br><br>
-                    мы работает с теми, кто готов к реинкарнации,<br>
-                    а не к стерильному «ребрендингу» или<br>
-                    «а сделайте вот так же как у конкурентов».<br>
-                    мы не копируем! мы создаем!<br><br>
-                    мы против шаблонов и заезженных решений.<br>
-                    нас тошнит от фейка и «успешного успеха».<br>
-                    мы против копипаста и воровства идей!<br><br>
-                    мы не придумываем лживую легенду.<br>
-                    мы погружаемся в ваш хаос и тьму.<br>
-                    мы вскрываем ваш личный код днк!<br><br>
-                    мы сжигаем всё лишнее. весь мусор.<br>
-                    на этом пепле строим вашу империю.<br>
-                    мы сжигаем шаблоны и строим легенды.<br><br>
-                    мы создаем бренды и мероприятия,<br>
-                    даруя вам справедливое превосходство!<br><br>
-                    готовы к персональному ритуалу?<br>
-                    добро пожаловать к алтарю.
-                </p>
-            </div>
+                <div id="ru-manifesto" class="manifesto-block">
+                    <h1 class="font-display">наш храм не для всех</h1>
+                    <h2 class="font-display">только для смелых</h2>
+                    <p>
+                        вы ищете просто «агентство» или «исполнителя»?!<br>
+                        закройте эту вкладку прямой сейчас!<br><br>
+                        мы работает с теми, кто готов к реинкарнации,<br>
+                        а не к стерильному «ребрендингу» или<br>
+                        «а сделайте вот так же как у конкурентов».<br>
+                        мы не копируем! мы создаем!<br><br>
+                        мы против шаблонов и заезженных решений.<br>
+                        нас тошнит от фейка и «успешного успеха».<br>
+                        мы против копипаста и воровства идей!<br><br>
+                        мы не придумываем лживую легенду.<br>
+                        мы погружаемся в ваш хаос и тьму.<br>
+                        мы вскрываем ваш личный код днк!<br><br>
+                        мы сжигаем всё лишнее. весь мусор.<br>
+                        на этом пепле строим вашу империю.<br>
+                        мы сжигаем шаблоны и строим легенды.<br><br>
+                        мы создаем бренды и мероприятия,<br>
+                        даруя вам справедливое превосходство!<br><br>
+                        готовы к персональному ритуалу?<br>
+                        добро пожаловать к алтарю.
+                    </p>
+                </div>
 
-        </div>
-        <div class="seal-container">
-            <a href="../initiation/" class="seal-button" id="seal-btn"></a>
+            </div>
+            <div class="seal-container">
+                <a href="../initiation/" class="seal-button" id="seal-btn"></a>
+            </div>
         </div>
     </div>
 
