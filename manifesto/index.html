@@ -68,14 +68,15 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* === КОНТЕНТ === */
+        /* === КОНТЕНТ (ИСПРАВЛЕН) === */
         .manifesto-content {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 120px 80px 120px 130px; 
+            /* 1. ОПУЩЕН НА 50PX | 6. СДВИНУТ ВПРАВО НА 30PX */
+            padding: 170px 80px 120px 160px; 
             opacity: 0;
             animation: fadeInContent 1s ease-out 1.5s forwards;
         }
@@ -88,14 +89,30 @@
         .manifesto-block.active { display: block; }
         
         .manifesto-block h1,
-        .manifesto-block h2,
         .manifesto-block p { 
             color: var(--ink-dark); 
         }
+
+        /* 2. ПОДЗАГОЛОВКИ СИЯЮТ */
+        .manifesto-block h2 {
+            color: var(--quartz);
+            margin-bottom: 40px; 
+            line-height: 1.1;
+        }
         
-        .manifesto-block h1 { margin-bottom: 20px; line-height: 1.1; }
-        .manifesto-block h2 { margin-bottom: 40px; line-height: 1.1; }
+        /* 3. РАССТОЯНИЕ МЕЖДУ ЗАГОЛОВКАМИ */
+        .manifesto-block h1 { 
+            margin-bottom: 10px; 
+            line-height: 1.1; 
+        }
+
+        /* 5. ПРОБЕЛ МЕЖДУ БЛОКАМИ ТЕКСТА */
+        .manifesto-block p span.space {
+            display: block;
+            height: 8px;
+        }
         
+        /* АНГЛИЙСКАЯ ВЕРСИЯ */
         #en-manifesto .font-display,
         #en-manifesto p { 
             font-family: 'Manufacturing Consent', sans-serif; 
@@ -104,10 +121,11 @@
         #en-manifesto h2 { font-size: 73px; } 
         #en-manifesto p { 
             font-size: 26px;
-            /* ИЗМЕНЕНИЕ ЗДЕСЬ: УПЛОТНЕННЫЙ ИНТЕРВАЛ */
-            line-height: 1.6; 
+            /* 4. МЕЖСТРОЧНЫЙ ИНТЕРВАЛ */
+            line-height: 1.4; 
         }
 
+        /* РУССКАЯ ВЕРСИЯ */
         #ru-manifesto .font-display,
         #ru-manifesto p { 
             font-family: 'Brahms Gotisch', serif; 
@@ -116,8 +134,8 @@
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { 
             font-size: 22px;
-            /* Русский интервал остается без изменений */
-            line-height: 1.8;
+            /* 4. МЕЖСТРОЧНЫЙ ИНТЕРВАЛ */
+            line-height: 1.4;
         }
 
         .seal-container { position: absolute; bottom: 40px; right: 40px; width: 150px; height: 150px; opacity: 0; animation: fadeInSeal 1s ease-out 2.5s forwards; }
@@ -127,10 +145,8 @@
         
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 60px 100px 60px; }
-            #en-manifesto h1 { font-size: 60px; } #en-manifesto h2 { font-size: 50px; } 
-            #en-manifesto p { font-size: 20px; line-height: 1.6; }
-            #ru-manifesto h1 { font-size: 40px; } #ru-manifesto h2 { font-size: 28px; } 
-            #ru-manifesto p { font-size: 18px; line-height: 1.8; }
+            #en-manifesto h1 { font-size: 60px; } #en-manifesto h2 { font-size: 50px; } #en-manifesto p { font-size: 20px; line-height: 1.4; }
+            #ru-manifesto h1 { font-size: 40px; } #ru-manifesto h2 { font-size: 28px; } #ru-manifesto p { font-size: 18px; line-height: 1.4; }
             .seal-container { width: 120px; height: 120px; bottom: 30px; right: 30px; }
         }
     </style>
@@ -145,23 +161,23 @@
                     <h2 class="font-display">we anoint</h2>
                     <p>
                         seeking an "agency" or a "freelancer"?<br>
-                        close this tab. now.<br><br>
+                        close this tab. now.<span class="space"></span>
                         we forge titans ready for rebirth,<br>
                         not cowards who mimic their rivals.<br>
-                        we don't copy. we create.<br><br>
+                        we don't copy. we create.<span class="space"></span>
                         we despise templates. we shatter formulas.<br>
                         we loathe the very thought of stolen ideas.<br>
-                        we hate fake "success".<br><br>
+                        we hate fake "success".<span class="space"></span>
                         we descend into your chaos, your darkness.<br>
                         we don't invent false myths…<br>
-                        we decode your core dna!<br><br>
+                        we decode your core dna!<span class="space"></span>
                         we burn the waste. the excess. all of it.<br>
                         from the ashes, we build your empire.<br>
-                        we burn templates to build legends.<br><br>
+                        we burn templates to build legends.<span class="space"></span>
                         we architect brands and events<br>
-                        that become your unfair advantage.<br><br>
+                        that become your unfair advantage.<span class="space"></span>
                         ready for the ritual?<br>
-                        welcome to the altar.<br><br>
+                        welcome to the altar.<span class="space"></span>
                         for the few.<br>
                         for you?
                     </p>
@@ -171,22 +187,22 @@
                     <h2 class="font-display">только для смелых</h2>
                     <p>
                         вы ищете просто «агентство» или «исполнителя»?!<br>
-                        закройте эту вкладку прямой сейчас!<br><br>
+                        закройте эту вкладку прямой сейчас!<span class="space"></span>
                         мы работает с теми, кто готов к реинкарнации,<br>
                         а не к стерильному «ребрендингу» или<br>
                         «а сделайте вот так же как у конкурентов».<br>
-                        мы не копируем! мы создаем!<br><br>
+                        мы не копируем! мы создаем!<span class="space"></span>
                         мы против шаблонов и заезженных решений.<br>
                         нас тошнит от фейка и «успешного успеха».<br>
-                        мы против копипаста и воровства идей!<br><br>
+                        мы против копипаста и воровства идей!<span class="space"></span>
                         мы не придумываем лживую легенду.<br>
                         мы погружаемся в ваш хаос и тьму.<br>
-                        мы вскрываем ваш личный код днк!<br><br>
+                        мы вскрываем ваш личный код днк!<span class="space"></span>
                         мы сжигаем всё лишнее. весь мусор.<br>
                         на этом пепле строим вашу империю.<br>
-                        мы сжигаем шаблоны и строим легенды.<br><br>
+                        мы сжигаем шаблоны и строим легенды.<span class="space"></span>
                         мы создаем бренды и мероприятия,<br>
-                        даруя вам справедливое превосходство!<br><br>
+                        даруя вам справедливое превосходство!<span class="space"></span>
                         готовы к персональному ритуалу?<br>
                         добро пожаловать к алтарю.
                     </p>
@@ -215,6 +231,7 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
         });
+        // ... фоновый пепел и защита ...
     </script>
 </body>
 </html>
