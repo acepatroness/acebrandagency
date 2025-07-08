@@ -27,6 +27,8 @@
             --abyss: #111111; 
             --quartz: #EFF0F4;
             --ink-dark: #2D2C2F;
+            --fire-glow: #ff8c00; /* Цвет огненного свечения */
+            --fire-core: #ffd700; /* Цвет ядра пламени */
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -44,53 +46,66 @@
             padding: 20px 5vw;
         }
 
-        /* === 3D-ПРОСТРАНСТВО ДЛЯ РИТУАЛА === */
-        .grimoire-container {
-            perspective: 1800px; /* Глубина 3D-сцены */
+        /* === КОНТЕЙНЕР ДЛЯ РИТУАЛА === */
+        .parchment-wrapper {
+            position: relative;
             width: 100%;
             max-width: 900px;
         }
+
+        /* === 1. ОГНЕННЫЙ КОНТУР (SVG) === */
+        .parchment-outline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            stroke-width: 3px;
+            fill: transparent;
+            stroke: var(--fire-core);
+            filter: drop-shadow(0 0 5px var(--fire-glow)) drop-shadow(0 0 10px var(--fire-glow));
+            /* Подготовка к анимации рисования */
+            stroke-dasharray: 4000; /* Общая длина пути, с запасом */
+            stroke-dashoffset: 4000;
+            animation: drawFireOutline 3s ease-in-out forwards;
+        }
+
+        @keyframes drawFireOutline {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
         
-        /* === ПЕРГАМЕНТ И АНИМАЦИЯ ПЕРЕВОРОТА === */
+        /* === 2. ПОЯВЛЕНИЕ ПЕРГАМЕНТА ВНУТРИ КОНТУРА === */
         .parchment {
             width: 100%;
             background-image: url('../assets/parchment-bg.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
-            
             padding: 150px 80px;
             position: relative;
-            transform-style: preserve-3d;
-            transform-origin: left center; /* Точка вращения - как у книги */
-            
-            /* Начальное состояние: страница закрыта */
-            transform: rotateY(-110deg);
+            /* Изначально невидим */
             opacity: 0;
-
-            /* Анимация переворота */
-            animation: grimoireFlip 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+            /* Появляется с задержкой, когда контур уже рисуется */
+            animation: fillParchment 2s ease-out 1.5s forwards;
         }
 
-        /* === КЛЮЧЕВЫЕ КАДРЫ ПЕРЕВОРОТА СТРАНИЦЫ === */
-        @keyframes grimoireFlip {
-            0% {
-                transform: rotateY(-110deg);
+        @keyframes fillParchment {
+            from {
                 opacity: 0;
+                filter: brightness(0.5);
             }
-            50% {
-                transform: rotateY(-20deg);
+            to {
                 opacity: 1;
-            }
-            100% {
-                transform: rotateY(0deg);
-                opacity: 1;
+                filter: brightness(1);
             }
         }
 
-        /* === ПОЯВЛЕНИЕ КОНТЕНТА ПОСЛЕ ПЕРЕВОРОТА === */
+        /* === 3. ПОЯВЛЕНИЕ КОНТЕНТА === */
         .manifesto-content {
             opacity: 0;
-            transition: opacity 1.5s ease-out 1.8s; /* Появляется с задержкой */
+            transition: opacity 1.5s ease-out 3s; /* Появляется после всего */
         }
         .parchment.revealed .manifesto-content {
             opacity: 1;
@@ -98,7 +113,6 @@
 
         .manifesto-block { display: none; }
         .manifesto-block.active { display: block; }
-        
         .manifesto-block h1 { color: var(--ink-dark); margin-bottom: 20px; line-height: 1.1; }
         .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
         .manifesto-block p { color: var(--ink-dark); line-height: 1.8; }
@@ -113,106 +127,40 @@
         #ru-manifesto h2 { font-size: 38px; }
         #ru-manifesto p { font-size: 22px; }
 
-        /* === ПЕЧАТЬ === */
-        .seal-container {
-            position: absolute;
-            bottom: 40px;
-            right: 40px;
-            width: 150px;
-            height: 150px;
-        }
-        .seal-button {
-            width: 100%;
-            height: 100%;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            display: block;
-            border-radius: 50%;
-            opacity: 0;
-            transform: scale(0);
-            animation: 
-                sealAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 3s forwards,
-                pulse 2s infinite 4.5s;
-        }
-        @keyframes sealAppear {
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1); }
-        }
+        .seal-container { position: absolute; bottom: 40px; right: 40px; width: 150px; height: 150px; }
+        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; opacity: 0; transform: scale(0); animation: sealAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 3.5s forwards, pulse 2s infinite 5s; }
+        @keyframes sealAppear { to { opacity: 1; transform: scale(1); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
-        /* === АДАПТИВНОСТЬ === */
         @media (max-width: 768px) {
             .parchment { padding: 120px 40px; }
-            #en-manifesto h1 { font-size: 60px; }
-            #en-manifesto h2 { font-size: 50px; }
-            #en-manifesto p { font-size: 20px; }
-            #ru-manifesto h1 { font-size: 40px; }
-            #ru-manifesto h2 { font-size: 28px; }
-            #ru-manifesto p { font-size: 18px; }
+            #en-manifesto h1 { font-size: 60px; } #en-manifesto h2 { font-size: 50px; } #en-manifesto p { font-size: 20px; }
+            #ru-manifesto h1 { font-size: 40px; } #ru-manifesto h2 { font-size: 28px; } #ru-manifesto p { font-size: 18px; }
             .seal-container { width: 120px; height: 120px; bottom: 30px; right: 30px; }
         }
     </style>
 </head>
 <body>
-    <div class="grimoire-container">
+    <div class="parchment-wrapper">
+        <!-- Контур, который будет выжигаться огнем -->
+        <svg class="parchment-outline" viewBox="0 0 900 648" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 20 Q10 10, 25 5 L150 5 Q160 2, 165 10 L250 12 Q260 8, 265 18 L380 22 Q390 18, 395 28 L500 30 Q510 25, 515 35 L650 38 Q660 33, 665 42 L780 45 Q790 40, 795 50 L880 52 Q895 50, 890 60 L885 200 Q898 210, 880 215 L875 350 Q890 360, 870 365 L865 500 Q885 510, 860 515 L855 600 Q860 615, 845 618 L700 625 Q690 635, 680 628 L550 626 Q540 638, 525 629 L400 628 Q390 640, 375 630 L250 629 Q240 642, 225 631 L100 630 Q90 645, 75 632 L30 630 Q15 635, 12 620 L8 500 Q-5 490, 10 485 L14 350 Q-8 340, 16 335 L18 200 Q2 190, 20 185 Z"/>
+        </svg>
+
+        <!-- Твой пергамент, который появляется внутри -->
         <div class="parchment" id="parchment">
             <div class="manifesto-content">
                 <!-- АНГЛИЙСКАЯ ВЕРСИЯ -->
                 <div id="en-manifesto" class="manifesto-block">
                     <h1 class="font-display">we don't sell</h1>
                     <h2 class="font-display">we anoint</h2>
-                    <p>
-                        seeking an "agency" or a "freelancer"?<br>
-                        close this tab. now.<br><br>
-                        we forge titans ready for rebirth,<br>
-                        not cowards who mimic their rivals.<br>
-                        we don't copy. we create.<br><br>
-                        we despise templates. we shatter formulas.<br>
-                        we loathe the very thought of stolen ideas.<br>
-                        we hate fake "success".<br><br>
-                        we descend into your chaos, your darkness.<br>
-                        we don't invent false myths…<br>
-                        we decode your core dna!<br><br>
-                        we burn the waste. the excess. all of it.<br>
-                        from the ashes, we build your empire.<br>
-                        we burn templates to build legends.<br><br>
-                        we architect brands and events<br>
-                        that become your unfair advantage.<br><br>
-                        ready for the ritual?<br>
-                        welcome to the altar.<br><br>
-                        for the few.<br>
-                        for you?
-                    </p>
+                    <p>...</p>
                 </div>
                 <!-- РУССКАЯ ВЕРСИЯ -->
                 <div id="ru-manifesto" class="manifesto-block">
                     <h1 class="font-display">наш храм не для всех</h1>
                     <h2 class="font-display">только для смелых</h2>
-                    <p>
-                        вы ищете просто «агентство» или «исполнителя»?!<br>
-                        закройте эту вкладку прямой сейчас!<br><br>
-                        мы работает с теми, кто готов к реинкарнации,<br>
-                        а не к стерильному «ребрендингу» или<br>
-                        «а сделайте вот так же как у конкурентов».<br>
-                        мы не копируем! мы создаем!<br><br>
-                        мы против шаблонов и заезженных решений.<br>
-                        нас тошнит от фейка и «успешного успеха».<br>
-                        мы против копипаста и воровства идей!<br><br>
-                        мы не придумываем лживую легенду.<br>
-                        мы погружаемся в ваш хаос и тьму.<br>
-                        мы вскрываем ваш личный код днк!<br><br>
-                        мы сжигаем всё лишнее. весь мусор.<br>
-                        на этом пепле строим вашу империю.<br>
-                        мы сжигаем шаблоны и строим легенды.<br><br>
-                        мы создаем бренды и мероприятия,<br>
-                        даруя вам справедливое превосходство!<br><br>
-                        готовы к персональному ритуалу?<br>
-                        добро пожаловать к алтарю.
-                    </p>
+                    <p>...</p>
                 </div>
             </div>
             <div class="seal-container">
@@ -222,69 +170,15 @@
     </div>
     <canvas id="global-ash-canvas"></canvas>
     <style>
-        #global-ash-canvas { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            z-index: -10; pointer-events: none; opacity: 1; 
-        }
+        #global-ash-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -10; pointer-events: none; opacity: 1; }
     </style>
     <script>
         // АНИМАЦИЯ ПЕПЛА
-        if (!window.isUnifiedAnimationInitialized) {
-            (function() {
-                const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
-                const ctx = canvas.getContext('2d');
-                function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-                resizeCanvas(); window.addEventListener('resize', resizeCanvas);
-                let particles = []; let fogTime = 0;
-                class AshParticle {
-                    constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
-                    update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
-                    draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
-                }
-                function drawFog() {
-                    const fogHeight = 120; const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
-                    gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`); gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)'); gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
-                    ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight); fogTime += 0.005;
-                }
-                function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
-                function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
-                function animate() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog();
-                    particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
-                    if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
-                    requestAnimationFrame(animate);
-                }
-                window.addEventListener('mousemove', handleMouseMove); window.addEventListener('touchmove', handleTouchMove, { passive: true });
-                animate(); window.isUnifiedAnimationInitialized = true;
-            })();
-        }
+        if (!window.isUnifiedAnimationInitialized) { (function() { const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return; const ctx = canvas.getContext('2d'); function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; } resizeCanvas(); window.addEventListener('resize', resizeCanvas); let particles = []; let fogTime = 0; class AshParticle { constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; } update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; } draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); } } function drawFog() { const fogHeight = 120; const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight); gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`); gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)'); gradient.addColorStop(1, 'rgba(45, 44, 47, 0)'); ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight); fogTime += 0.005; } function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } } function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } } function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog(); particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; }); if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); } requestAnimationFrame(animate); } window.addEventListener('mousemove', handleMouseMove); window.addEventListener('touchmove', handleTouchMove, { passive: true }); animate(); window.isUnifiedAnimationInitialized = true; })(); }
         // ПЕРЕКЛЮЧЕНИЕ ЯЗЫКОВ И АНИМАЦИИ
-        document.addEventListener('DOMContentLoaded', () => {
-            const parchment = document.getElementById('parchment');
-            const sealButton = document.getElementById('seal-btn');
-            const params = new URLSearchParams(window.location.search);
-            const lang = params.get('lang') || 'en';
-            if (lang === 'ru') {
-                document.documentElement.lang = 'ru';
-                document.getElementById('ru-manifesto').classList.add('active');
-                sealButton.style.backgroundImage = "url('../assets/seal-ru.png')";
-            } else {
-                document.documentElement.lang = 'en';
-                document.getElementById('en-manifesto').classList.add('active');
-                sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
-            }
-            parchment.addEventListener('animationend', () => {
-                parchment.classList.add('revealed');
-            });
-        });
+        document.addEventListener('DOMContentLoaded', () => { const parchment = document.getElementById('parchment'); const sealButton = document.getElementById('seal-btn'); const params = new URLSearchParams(window.location.search); const lang = params.get('lang') || 'en'; if (lang === 'ru') { document.documentElement.lang = 'ru'; document.getElementById('ru-manifesto').classList.add('active'); sealButton.style.backgroundImage = "url('../assets/seal-ru.png')"; } else { document.documentElement.lang = 'en'; document.getElementById('en-manifesto').classList.add('active'); sealButton.style.backgroundImage = "url('../assets/seal-en.png')"; } parchment.addEventListener('animationend', () => { parchment.classList.add('revealed'); }); });
         // ЗАЩИТА ОТ КОПИРОВАНИЯ
-        if (!window.isContentProtectionInitialized) {
-            (function() {
-                document.addEventListener('contextmenu', e => e.preventDefault(), false);
-                document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
-                window.isContentProtectionInitialized = true;
-            })();
-        }
+        if (!window.isContentProtectionInitialized) { (function() { document.addEventListener('contextmenu', e => e.preventDefault(), false); document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } }); window.isContentProtectionInitialized = true; })(); }
     </script>
 </body>
 </html>
