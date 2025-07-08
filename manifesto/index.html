@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACE BRAND AGENCY | MANIFESTO</title>
     <style>
-        /* === ИСПРАВЛЕННЫЕ ПУТИ К ШРИФТАМ === */
+        /* === ШРИФТОВАЯ МАГИЯ (ИМЕНА ИЗ ТВОИХ ФАЙЛОВ) === */
         @font-face {
             font-family: 'Brahms Gotisch';
             src: url('../fonts/BrahmsGotischCyr.woff2') format('woff2');
@@ -22,6 +22,7 @@
             font-weight: 200; font-style: normal; font-display: swap;
         }
 
+        /* === АРХИТЕКТУРА АЛТАРЯ === */
         :root { 
             --abyss: #111111; 
             --quartz: #EFF0F4;
@@ -38,16 +39,17 @@
             overflow-x: hidden;
         }
 
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: КОНТЕЙНЕР ПОДНЯТ === */
         .grimoire-container {
-            width: 100%;
-            min-height: 100vh;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 5vh 5vw;
+            /* Сдвигаем всё содержимое выше на 20px */
+            padding-bottom: 40px; 
         }
         .parchment {
-            /* ИСПРАВЛЕННЫЙ ПУТЬ К ПЕРГАМЕНТУ */
             background-image: url('../assets/parchment-bg.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
@@ -238,12 +240,10 @@
             if (lang === 'ru') {
                 document.documentElement.lang = 'ru';
                 document.getElementById('ru-manifesto').classList.add('active');
-                // ИСПРАВЛЕННЫЙ ПУТЬ К ПЕЧАТИ
                 sealButton.style.backgroundImage = "url('../assets/seal-ru.png')";
             } else {
                 document.documentElement.lang = 'en';
                 document.getElementById('en-manifesto').classList.add('active');
-                // ИСПРАВЛЕННЫЙ ПУТЬ К ПЕЧАТИ
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
 
