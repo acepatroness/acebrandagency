@@ -3,17 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACE BRAND AGENCY | MANIFESTO</title>
+    <title>ACE BRAND AGENCY | ENTER THE TEMPLE</title>
     <style>
-        /* === РИТУАЛ 1: ШРИФТОВАЯ МАГИЯ (ИСПРАВЛЕННЫЕ ИМЕНА) === */
         @font-face {
             font-family: 'Brahms Gotisch';
             src: url('/fonts/BrahmsGotischCyr.woff2') format('woff2');
-            font-weight: normal; font-style: normal; font-display: swap;
-        }
-        @font-face {
-            font-family: 'Manufacturing Consent';
-            src: url('/fonts/ManufacturingConsent-Regular.woff2') format('woff2');
             font-weight: normal; font-style: normal; font-display: swap;
         }
         @font-face {
@@ -22,253 +16,116 @@
             font-weight: 200; font-style: normal; font-display: swap;
         }
 
-        /* === РИТУАЛ 2: АРХИТЕКТУРА АЛТАРЯ === */
-        :root { 
-            --abyss: #111111; 
-            --quartz: #EFF0F4;
-            --ink-dark: #2D2C2F;
-        }
+        :root { --abyss: #111111; --quartz: #EFF0F4; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html, body { height: 100%; overflow: hidden; }
+
         body {
-            background-image: linear-gradient(to right, #111111, #2D2C2F, #111111);
-            color: var(--quartz);
+            background-color: var(--abyss); color: var(--quartz);
             font-family: 'Unbounded', sans-serif;
-            font-weight: 200;
-            text-transform: lowercase; /* Глобальный приказ на строчные буквы */
-            overflow-x: hidden;
-        }
-
-        /* === РИТУАЛ 3: РАЗВОРАЧИВАЮЩИЙСЯ ПЕРГАМЕНТ === */
-        .grimoire-container {
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 5vh 5vw;
-        }
-        .parchment {
-            background-image: url('/assets/parchment-bg.png');
-            background-size: 100% 100%;
+            background-image: url('/assets/temple-bg.png');
+            background-size: cover;
+            background-position: center 65%;
             background-repeat: no-repeat;
-            max-width: 900px;
-            width: 100%;
-            padding: 100px 80px; /* Воздух внутри пергамента */
             position: relative;
-            opacity: 0; /* Изначально невидим */
-            transform: scaleY(0); /* Изначально свернут */
-            transform-origin: top;
-            animation: unfurl 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
         }
-
-        @keyframes unfurl {
-            to {
-                opacity: 1;
-                transform: scaleY(1);
-            }
-        }
-
-        /* === РИТУАЛ 4: ТЕКСТ, ВЫСЕЧЕННЫЙ В КАМНЕ === */
-        .manifesto-content {
-            opacity: 0; /* Появляется после пергамента */
-            text-align: left;
-            transition: opacity 1s ease-in-out 1.2s; /* Плавное появление с задержкой */
-        }
-        .parchment.revealed .manifesto-content {
-            opacity: 1;
-        }
-
-        /* Стили для текстов */
-        .manifesto-block { display: none; } /* По умолчанию все блоки скрыты */
-        .manifesto-block.active { display: block; }
         
-        .manifesto-block h1 { color: var(--ink-dark); margin-bottom: 20px; line-height: 1.1; }
-        .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
-        .manifesto-block p { color: var(--ink-dark); line-height: 1.8; }
+        body::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; background-color: #111111;
+            opacity: 0.3; z-index: 1; pointer-events: none;
+        }
         
-        /* Английская версия */
-        #en-manifesto .font-display { font-family: 'Manufacturing Consent', sans-serif; }
-        #en-manifesto h1 { font-size: 90px; }
-        #en-manifesto h2 { font-size: 73px; }
-        #en-manifesto p { font-size: 26px; }
-
-        /* Русская версия */
-        #ru-manifesto .font-display { font-family: 'Brahms Gotisch', serif; }
-        #ru-manifesto h1 { font-size: 57px; }
-        #ru-manifesto h2 { font-size: 38px; }
-        #ru-manifesto p { font-size: 22px; }
-
-        /* === РИТУАЛ 5: ПУЛЬСИРУЮЩАЯ ПЕЧАТЬ === */
-        .seal-container {
+        /* ДЕСКТОПНАЯ ВЕРСИЯ - ИДЕАЛЬНА И НЕ ТРОНУТА */
+        .logo {
             position: absolute;
-            bottom: 40px;
-            right: 40px;
-            width: 150px;
-            height: 150px;
+            top: 20px;
+            right: 60px;
+            width: 230px;
+            height: auto;
+            z-index: 2;
         }
-        .seal-button {
-            width: 100%;
-            height: 100%;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            display: block;
-            animation: pulse 2s infinite;
+
+        #global-ash-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 99999; pointer-events: none; opacity: 1;
         }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1); }
+
+        .gate-area {
+            position: absolute;
+            top: 550px; /* Идеальная высота, утвержденная тобой */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            width: 90%;
+        }
+
+        .enter-button {
+            background-color: var(--abyss); border: 2px solid var(--abyss);
+            color: var(--quartz); padding: 15px 60px;
+            margin-top: 0; 
+            font-family: 'Brahms Gotisch', serif;
+            font-size: 30px; letter-spacing: 2px;
+            text-decoration: none; cursor: crosshair;
+            transition: all 0.4s ease;
+        }
+        .enter-button:hover {
+            background-color: rgba(17, 17, 17, 0.5); border: 2px solid var(--quartz);
+        }
+        
+        .language-switcher {
+            margin-top: 50px; font-family: 'Unbounded', sans-serif;
+            font-weight: 200; font-size: 16px; letter-spacing: 1px;
+        }
+        .language-switcher span {
+            cursor: pointer; padding: 0 10px; opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        .language-switcher span:hover, .language-switcher span.active { opacity: 1; }
+
+        body, body * {
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+            -webkit-touch-callout: none; -khtml-user-select: none;
+        }
+        img { pointer-events: none; }
+
+        /* МОБИЛЬНАЯ ВЕРСИЯ - ИДЕАЛЬНА И НЕ ТРОНУТА */
+        @media (max-width: 768px) {
+            .logo {
+                top: 10px; right: auto; left: 50%;
+                transform: translateX(-50%);
+                width: 180px;
+            }
+            .enter-button { padding: 15px 45px; }
+            .language-switcher { margin-top: 50px; font-size: 12px; }
+            .gate-area {
+                top: calc(50% + 190px);
+                transform: translate(-50%, -50%);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="grimoire-container">
-        <div class="parchment" id="parchment">
-            <div class="manifesto-content">
-                
-                <!-- АНГЛИЙСКИЙ МАНИФЕСТ -->
-                <div id="en-manifesto" class="manifesto-block">
-                    <h1 class="font-display">we don't sell</h1>
-                    <h2 class="font-display">we anoint</h2>
-                    <p>
-                        seeking an "agency" or a "freelancer"?<br>
-                        close this tab. now.<br><br>
-                        we forge titans ready for rebirth,<br>
-                        not cowards who mimic their rivals.<br>
-                        we don't copy. we create.<br><br>
-                        we despise templates. we shatter formulas.<br>
-                        we loathe the very thought of stolen ideas.<br>
-                        we hate fake "success".<br><br>
-                        we descend into your chaos, your darkness.<br>
-                        we don't invent false myths…<br>
-                        we decode your core dna!<br><br>
-                        we burn the waste. the excess. all of it.<br>
-                        from the ashes, we build your empire.<br>
-                        we burn templates to build legends.<br><br>
-                        we architect brands and events<br>
-                        that become your unfair advantage.<br><br>
-                        ready for the ritual?<br>
-                        welcome to the altar.<br><br>
-                        for the few.<br>
-                        for you?
-                    </p>
-                </div>
+    <canvas id="global-ash-canvas"></canvas>
+    <img src="/assets/logoo.png" alt="ACE Brand Agency Logo" class="logo">
 
-                <!-- РУССКИЙ МАНИФЕСТ -->
-                <div id="ru-manifesto" class="manifesto-block">
-                    <h1 class="font-display">наш храм не для всех</h1>
-                    <h2 class="font-display">только для смелых</h2>
-                    <p>
-                        вы ищете просто «агентство» или «исполнителя»?!<br>
-                        закройте эту вкладку прямой сейчас!<br><br>
-                        мы работает с теми, кто готов к реинкарнации,<br>
-                        а не к стерильному «ребрендингу» или<br>
-                        «а сделайте вот так же как у конкурентов».<br>
-                        мы не копируем! мы создаем!<br><br>
-                        мы против шаблонов и заезженных решений.<br>
-                        нас тошнит от фейка и «успешного успеха».<br>
-                        мы против копипаста и воровства идей!<br><br>
-                        мы не придумываем лживую легенду.<br>
-                        мы погружаемся в ваш хаос и тьму.<br>
-                        мы вскрываем ваш личный код днк!<br><br>
-                        мы сжигаем всё лишнее. весь мусор.<br>
-                        на этом пепле строим вашу империю.<br>
-                        мы сжигаем шаблоны и строим легенды.<br><br>
-                        мы создаем бренды и мероприятия,<br>
-                        даруя вам справедливое превосходство!<br><br>
-                        готовы к персональному ритуалу?<br>
-                        добро пожаловать к алтарю.
-                    </p>
-                </div>
-
-            </div>
-            <div class="seal-container">
-                <a href="/initiation/" class="seal-button" id="seal-btn"></a>
-            </div>
+    <div class="gate-area">
+        <a href="/manifesto/index.html?lang=en" class="enter-button" id="enter-btn">enter</a>
+        <div class="language-switcher">
+            <span id="lang-en" class="active">english</span>
+            <span id="lang-ru">русский</span>
         </div>
     </div>
 
-    <!-- === ГЛОБАЛЬНЫЙ КОД: АНИМАЦИЯ + ЗАЩИТА === -->
-    <canvas id="global-ash-canvas"></canvas>
-    <style>
-        #global-ash-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 1; }
-        body, body * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none; -khtml-user-select: none; }
-        img, svg { pointer-events: none; }
-    </style>
+    <!-- JAVASCRIPT С ИСПРАВЛЕННЫМИ ССЫЛКАМИ -->
     <script>
-        // АНИМАЦИЯ ПЕПЛА (идентична главной)
-        if (!window.isUnifiedAnimationInitialized) {
-            (function() {
-                const canvas = document.getElementById('global-ash-canvas');
-                if (!canvas) return;
-                const ctx = canvas.getContext('2d');
-                function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-                resizeCanvas();
-                window.addEventListener('resize', resizeCanvas);
-                let particles = []; let fogTime = 0;
-                class AshParticle {
-                    constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
-                    update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
-                    draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
-                }
-                function drawFog() {
-                    const fogHeight = 120;
-                    const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
-                    gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`);
-                    gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)');
-                    gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
-                    ctx.fillStyle = gradient;
-                    ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
-                    fogTime += 0.005;
-                }
-                function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
-                function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
-                function animate() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog();
-                    particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
-                    if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
-                    requestAnimationFrame(animate);
-                }
-                window.addEventListener('mousemove', handleMouseMove);
-                window.addEventListener('touchmove', handleTouchMove, { passive: true });
-                animate();
-                window.isUnifiedAnimationInitialized = true;
-            })();
-        }
-        
-        // РИТУАЛ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКОВ И АНИМАЦИИ
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const lang = params.get('lang') || 'en';
-            
-            const parchment = document.getElementById('parchment');
-            const sealButton = document.getElementById('seal-btn');
-
-            if (lang === 'ru') {
-                document.documentElement.lang = 'ru';
-                document.getElementById('ru-manifesto').classList.add('active');
-                sealButton.style.backgroundImage = "url('/assets/seal-ru.png')";
-            } else {
-                document.documentElement.lang = 'en';
-                document.getElementById('en-manifesto').classList.add('active');
-                sealButton.style.backgroundImage = "url('/assets/seal-en.png')";
-            }
-
-            parchment.addEventListener('animationend', () => {
-                parchment.classList.add('revealed');
-            });
-        });
-        
-        // ЗАЩИТА КОНТЕНТА (идентична главной)
-        if (!window.isContentProtectionInitialized) {
-            (function() {
-                document.addEventListener('contextmenu', e => e.preventDefault(), false);
-                document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
-                window.isContentProtectionInitialized = true;
-            })();
-        }
-    </script>
-</body>
-</html>
+    if (!window.isUnifiedAnimationInitialized) {
+        (function() {
+            const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+            let particles = []; let fogTime =
