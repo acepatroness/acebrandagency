@@ -37,11 +37,12 @@
             font-weight: 200;
             text-transform: lowercase;
             overflow-y: auto;
+            /* 2. ИДЕАЛЬНАЯ СИММЕТРИЯ */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px 5vw;
+            padding: 20px 5vw; 
         }
 
         /* === КОНТЕЙНЕР === */
@@ -51,7 +52,7 @@
             max-width: 900px;
         }
         
-        /* === 1. ПЕРГАМЕНТ: УВЕЛИЧЕН НА 200PX === */
+        /* === ПЕРГАМЕНТ === */
         .parchment {
             width: 100%;
             height: auto;
@@ -79,21 +80,18 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* 1. УВЕЛИЧЕН НА 200PX | 4. ОПУЩЕН НА 100PX */
-            padding: 200px 80px 100px 80px; 
+            padding: 200px 80px 100px 80px;
         }
         
-        /* 3. ПОДГОТОВКА К БЫСТРОМУ ПОЯВЛЕНИЮ */
         .manifesto-block h1,
         .manifesto-block h2,
         .manifesto-block p > span {
             opacity: 0;
-            transition: opacity 0.4s ease-out; /* Скорость проявления */
+            transition: opacity 0.5s ease-out;
         }
 
         .manifesto-block p > span { display: block; }
         
-        /* 2. ЕДИНСТВО ЦВЕТА */
         .manifesto-block h1,
         .manifesto-block h2,
         .manifesto-block p { 
@@ -104,12 +102,19 @@
         .manifesto-block h2 { margin-bottom: 40px; line-height: 1.1; }
         .manifesto-block p { line-height: 1.8; }
         
-        #en-manifesto .font-display { font-family: 'Manufacturing Consent', sans-serif; }
+        /* 1. ЕДИНСТВО ШРИФТА */
+        #en-manifesto .font-display,
+        #en-manifesto p { 
+            font-family: 'Manufacturing Consent', sans-serif; 
+        }
         #en-manifesto h1 { font-size: 90px; } 
         #en-manifesto h2 { font-size: 73px; } 
         #en-manifesto p { font-size: 26px; }
 
-        #ru-manifesto .font-display { font-family: 'Brahms Gotisch', serif; }
+        #ru-manifesto .font-display,
+        #ru-manifesto p { 
+            font-family: 'Brahms Gotisch', serif; 
+        }
         #ru-manifesto h1 { font-size: 57px; } 
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; }
@@ -132,8 +137,8 @@
             <img src="../assets/parchment-bg.png" alt="Manifesto Parchment" class="parchment-image">
             <div class="manifesto-content">
                 <div id="en-manifesto" class="manifesto-block">
-                    <h1>we don't sell</h1>
-                    <h2>we anoint</h2>
+                    <h1 class="font-display">we don't sell</h1>
+                    <h2 class="font-display">we anoint</h2>
                     <p>
                         <span>seeking an "agency" or a "freelancer"?</span>
                         <span>close this tab. now.</span>
@@ -165,8 +170,8 @@
                     </p>
                 </div>
                 <div id="ru-manifesto" class="manifesto-block">
-                    <h1>наш храм не для всех</h1>
-                    <h2>только для смелых</h2>
+                    <h1 class="font-display">наш храм не для всех</h1>
+                    <h2 class="font-display">только для смелых</h2>
                     <p>
                         <span>вы ищете просто «агентство» или «исполнителя»?!</span>
                         <span>закройте эту вкладку прямой сейчас!</span>
@@ -204,7 +209,6 @@
     <canvas id="global-ash-canvas"></canvas>
     <style> #global-ash-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; } </style>
     <script>
-        // ЛОГИКА АНИМАЦИИ
         document.addEventListener('DOMContentLoaded', () => {
             const parchment = document.getElementById('parchment');
             
@@ -219,17 +223,15 @@
                     if (i < lines.length) {
                         lines[i].style.opacity = '1';
                         i++;
-                        // 3. УСКОРЕННЫЙ ИНТЕРВАЛ
-                        setTimeout(showNextLine, 80); 
+                        setTimeout(showNextLine, 100); 
                     } else {
                         document.querySelector('.seal-container').style.opacity = '1';
                     }
                 }
                 
-                setTimeout(showNextLine, 200); 
+                setTimeout(showNextLine, 500); 
             });
 
-            // Логика выбора языка
             const sealButton = document.getElementById('seal-btn');
             const params = new URLSearchParams(window.location.search);
             const lang = params.get('lang') || 'en';
@@ -244,8 +246,7 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
         });
-
-        // ... фоновый пепел и защита (если нужны) ...
+        // ... фоновый пепел и защита ...
     </script>
 </body>
 </html>
