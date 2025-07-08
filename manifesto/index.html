@@ -36,46 +36,44 @@
             font-family: 'Unbounded', sans-serif;
             font-weight: 200;
             text-transform: lowercase;
-            overflow: hidden;
+            overflow-y: auto;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px 5vw;
         }
 
-        /* === КОНТЕЙНЕР ДЛЯ РИТУАЛА === */
+        /* === КОНТЕЙНЕР === */
         .grimoire-wrapper {
             position: relative;
             width: 100%;
             max-width: 900px;
-            padding: 20px 5vw;
         }
         
-        /* === КАНВАС ДЛЯ ЧАСТИЦ === */
-        #particle-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        /* === ПЕРГАМЕНТ === */
+        /* === 1. ПЕРГАМЕНТ: ПРОСТОЙ FADE IN === */
         .parchment {
             width: 100%;
             height: auto;
             position: relative;
-            opacity: 0; /* Появляется после сборки частиц */
+            opacity: 0;
+            transform: scale(0.98);
+            /* Анимация проявления */
+            animation: fadeInParchment 2s ease-out forwards;
         }
         .parchment-image {
             display: block;
             width: 100%;
             height: auto;
         }
+        @keyframes fadeInParchment {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
 
-        /* === КОНТЕНТ И АНИМАЦИЯ СТРОК === */
+        /* === 2. КОНТЕНТ: ПОДГОТОВКА К ПОСТРОЧНОМУ ПОЯВЛЕНИЮ === */
         .manifesto-content {
             position: absolute;
             top: 0;
@@ -85,21 +83,17 @@
             padding: 150px 80px;
         }
         
+        .manifesto-block h1,
+        .manifesto-block h2,
         .manifesto-block p > span {
-            display: inline-block; /* или block */
             opacity: 0;
-            transition: opacity 0.8s ease-out;
+            transition: opacity 0.7s ease-out; /* Плавность появления каждой строки */
         }
 
-        .manifesto-block h1, .manifesto-block h2 {
-             opacity: 0;
-             transition: opacity 1.2s ease-out;
-        }
-
-        /* ... остальные стили ... */
+        /* ... остальные стили текста ... */
         .manifesto-block { display: none; }
         .manifesto-block.active { display: block; }
-        
+        .manifesto-block p > span { display: block; } /* Каждая строка - отдельный блок */
         .manifesto-block h1 { color: var(--ink-dark); margin-bottom: 20px; line-height: 1.1; }
         .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
         .manifesto-block p { color: var(--ink-dark); line-height: 1.8; }
@@ -124,57 +118,69 @@
 </head>
 <body>
     <div class="grimoire-wrapper">
-        <canvas id="particle-canvas"></canvas>
         <div class="parchment" id="parchment">
             <img src="../assets/parchment-bg.png" alt="Manifesto Parchment" class="parchment-image">
             <div class="manifesto-content">
                 <div id="en-manifesto" class="manifesto-block">
-                    <h1 class="font-display"><span>we don't sell</span></h1>
-                    <h2 class="font-display"><span>we anoint</span></h2>
+                    <h1>we don't sell</h1>
+                    <h2>we anoint</h2>
                     <p>
                         <span>seeking an "agency" or a "freelancer"?</span>
                         <span>close this tab. now.</span>
+                        <span></span>
                         <span>we forge titans ready for rebirth,</span>
                         <span>not cowards who mimic their rivals.</span>
                         <span>we don't copy. we create.</span>
+                        <span></span>
                         <span>we despise templates. we shatter formulas.</span>
                         <span>we loathe the very thought of stolen ideas.</span>
                         <span>we hate fake "success".</span>
+                        <span></span>
                         <span>we descend into your chaos, your darkness.</span>
                         <span>we don't invent false myths…</span>
                         <span>we decode your core dna!</span>
+                        <span></span>
                         <span>we burn the waste. the excess. all of it.</span>
                         <span>from the ashes, we build your empire.</span>
                         <span>we burn templates to build legends.</span>
+                        <span></span>
                         <span>we architect brands and events</span>
                         <span>that become your unfair advantage.</span>
+                        <span></span>
                         <span>ready for the ritual?</span>
                         <span>welcome to the altar.</span>
+                        <span></span>
                         <span>for the few.</span>
                         <span>for you?</span>
                     </p>
                 </div>
                 <div id="ru-manifesto" class="manifesto-block">
-                    <h1 class="font-display"><span>наш храм не для всех</span></h1>
-                    <h2 class="font-display"><span>только для смелых</span></h2>
+                    <h1>наш храм не для всех</h1>
+                    <h2>только для смелых</h2>
                     <p>
                         <span>вы ищете просто «агентство» или «исполнителя»?!</span>
                         <span>закройте эту вкладку прямой сейчас!</span>
+                        <span></span>
                         <span>мы работает с теми, кто готов к реинкарнации,</span>
                         <span>а не к стерильному «ребрендингу» или</span>
                         <span>«а сделайте вот так же как у конкурентов».</span>
                         <span>мы не копируем! мы создаем!</span>
+                        <span></span>
                         <span>мы против шаблонов и заезженных решений.</span>
                         <span>нас тошнит от фейка и «успешного успеха».</span>
                         <span>мы против копипаста и воровства идей!</span>
+                        <span></span>
                         <span>мы не придумываем лживую легенду.</span>
                         <span>мы погружаемся в ваш хаос и тьму.</span>
                         <span>мы вскрываем ваш личный код днк!</span>
+                        <span></span>
                         <span>мы сжигаем всё лишнее. весь мусор.</span>
                         <span>на этом пепле строим вашу империю.</span>
                         <span>мы сжигаем шаблоны и строим легенды.</span>
+                        <span></span>
                         <span>мы создаем бренды и мероприятия,</span>
                         <span>даруя вам справедливое превосходство!</span>
+                        <span></span>
                         <span>готовы к персональному ритуалу?</span>
                         <span>добро пожаловать к алтарю.</span>
                     </p>
@@ -188,132 +194,39 @@
     <canvas id="global-ash-canvas"></canvas>
     <style> #global-ash-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; } </style>
     <script>
+        // ЛОГИКА АНИМАЦИИ
         document.addEventListener('DOMContentLoaded', () => {
-            const canvas = document.getElementById('particle-canvas');
-            const ctx = canvas.getContext('2d');
-            const parchmentWrapper = document.querySelector('.grimoire-wrapper');
-            const parchmentEl = document.getElementById('parchment');
+            const parchment = document.getElementById('parchment');
+            
+            // Запускаем ритуал после того, как пергамент появился
+            parchment.addEventListener('animationend', () => {
+                const activeLangBlock = document.querySelector('.manifesto-block.active');
+                if (!activeLangBlock) return;
 
-            let particles = [];
-            const numParticles = 500;
-            const easing = 0.08;
-
-            const polygonPoints = [
-                [2,5],[8,1],[15,6],[22,2],[28,7],[35,3],[42,8],[48,4],[55,9],[62,5],[68,10],[75,6],[82,11],[88,7],[95,12],[98,8],[99,15],[97,22],[100,28],[96,35],[99,42],[95,48],[98,55],[94,62],[97,68],[93,75],[96,82],[92,88],[95,95],[91,98],[85,96],[78,99],[72,95],[65,98],[58,94],[52,97],[45,93],[38,96],[32,92],[25,95],[18,91],[12,94],[5,90],[2,85],[4,78],[1,72],[5,65],[2,58],[6,52],[3,45],[7,38],[4,32],[8,25],[5,18],[9,12],[6,5]
-            ];
-            let pathPoints = [];
-            let animationFrameId;
-
-            function resizeCanvas() {
-                const rect = parchmentWrapper.getBoundingClientRect();
-                canvas.width = rect.width;
-                canvas.height = rect.height;
-                pathPoints = polygonPoints.map(p => ({
-                    x: (p[0] / 100) * canvas.width,
-                    y: (p[1] / 100) * canvas.height
-                }));
-            }
-
-            class Particle {
-                constructor(targetX, targetY) {
-                    this.x = Math.random() * window.innerWidth - (window.innerWidth - canvas.width) / 2;
-                    this.y = Math.random() * window.innerHeight;
-                    this.targetX = targetX;
-                    this.targetY = targetY;
-                    this.size = Math.random() * 2 + 0.5;
-                    this.alpha = 1;
-                    this.isDna = Math.random() > 0.8;
-                    this.color = this.isDna ? '#510FD5' : '#C1BFBF';
-                    this.glow = this.isDna ? 'rgba(81, 15, 213, 0.6)' : 'rgba(193, 191, 191, 0.6)';
-                }
-                update() {
-                    const dx = this.targetX - this.x;
-                    const dy = this.targetY - this.y;
-                    this.x += dx * easing;
-                    this.y += dy * easing;
-                    if (this.alpha > 0) {
-                        this.alpha -= 0.005; // Fade out effect
+                const lines = activeLangBlock.querySelectorAll('h1, h2, p > span');
+                let i = 0;
+                
+                // Функция для показа следующей строки
+                function showNextLine() {
+                    if (i < lines.length) {
+                        lines[i].style.opacity = '1';
+                        i++;
+                        setTimeout(showNextLine, 150); // Интервал между строками 150ms
+                    } else {
+                        // Показываем печать, когда весь текст появился
+                        document.querySelector('.seal-container').style.opacity = '1';
                     }
                 }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.globalAlpha = this.alpha;
-                    ctx.fillStyle = this.color;
-                    ctx.shadowColor = this.glow;
-                    ctx.shadowBlur = 6;
-                    ctx.fill();
-                }
-            }
 
-            function initParticles() {
-                for (let i = 0; i < numParticles; i++) {
-                    const segment = Math.floor(i * (pathPoints.length / numParticles));
-                    const nextSegment = (segment + 1) % pathPoints.length;
-                    const p1 = pathPoints[segment];
-                    const p2 = pathPoints[nextSegment];
-                    const randomPoint = Math.random();
-                    const targetX = p1.x + (p2.x - p1.x) * randomPoint;
-                    const targetY = p1.y + (p2.y - p1.y) * randomPoint;
-                    particles.push(new Particle(targetX, targetY));
-                }
-            }
+                // Начинаем показ текста с небольшой задержкой
+                setTimeout(showNextLine, 500); 
+            });
 
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => { p.update(); p.draw(); });
-                animationFrameId = requestAnimationFrame(animate);
-            }
-
-            function startRitual() {
-                resizeCanvas();
-                initParticles();
-                animate();
-
-                // Фаза 2: Появление пергамента и исчезновение частиц
-                setTimeout(() => {
-                    parchmentEl.style.opacity = '1';
-                    
-                    // Запускаем плавное исчезновение частиц
-                    const fadeOutInterval = setInterval(() => {
-                        let allFaded = true;
-                        particles.forEach(p => {
-                            p.alpha -= 0.05;
-                            if (p.alpha > 0) allFaded = false;
-                        });
-                        if (allFaded) {
-                            clearInterval(fadeOutInterval);
-                            cancelAnimationFrame(animationFrameId);
-                            ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        }
-                    }, 50);
-
-                }, 3500); // Частицы летят 3.5 секунды
-
-                // Фаза 3: Появление текста строка за строкой
-                setTimeout(() => {
-                    const activeLangBlock = document.querySelector('.manifesto-block.active');
-                    const lines = activeLangBlock.querySelectorAll('h1, h2, p > span');
-                    let i = 0;
-                    const interval = setInterval(() => {
-                        if (i < lines.length) {
-                            lines[i].style.opacity = '1';
-                            i++;
-                        } else {
-                            clearInterval(interval);
-                            document.querySelector('.seal-container').style.opacity = '1';
-                        }
-                    }, 150); // Интервал появления строк
-                }, 4000); // Текст начинает появляться после пергамента
-            }
-            
-            startRitual();
-            window.addEventListener('resize', resizeCanvas);
-            
-            // ... остальной код для языков ...
+            // Логика выбора языка
             const sealButton = document.getElementById('seal-btn');
             const params = new URLSearchParams(window.location.search);
             const lang = params.get('lang') || 'en';
+            
             if (lang === 'ru') {
                 document.documentElement.lang = 'ru';
                 document.getElementById('ru-manifesto').classList.add('active');
@@ -324,6 +237,7 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
         });
+
         // ... фоновый пепел и защита ...
     </script>
 </body>
