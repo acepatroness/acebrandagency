@@ -94,19 +94,26 @@
         /* === ЗАКЛИНАНИЕ АДАПТИВНОСТИ (ИЗМЕНЕНИЯ ЗДЕСЬ) === */
         @media (max-width: 768px) {
             .logo {
-                /* 1. ПОДНЯТ ВЫШЕ */
-                top: 10px; 
+                top: 10px;
                 right: auto;
                 left: 50%;
                 transform: translateX(-50%);
                 width: 180px;
             }
 
+            .enter-button {
+                /* Уменьшаем кнопку */
+                padding: 15px 30px; 
+            }
+            .language-switcher {
+                /* Уменьшаем отступ над языками */
+                margin-top: 20px;
+            }
+
             .gate-area {
-                 /* 2. ПОЛОЖЕНИЕ СКОРРЕКТИРОВАНО */
-                top: calc(50% + 20px); /* Уменьшено на 180px от предыдущей версии, стало выше */
+                /* Опускаем весь блок ниже */
+                top: calc(50% + 120px);
                 transform: translate(-50%, -50%);
-                padding-top: 25vh; /* Увеличил отступ, чтобы кнопка ушла ниже */
             }
         }
     </style>
@@ -117,13 +124,13 @@
 
     <div class="gate-area">
         <a href="/manifesto/" class="enter-button" id="enter-btn">enter</a>
-        <div class="language-switcher">
+        <div class.language-switcher">
             <span id="lang-en" class="active">english</span>
             <span id="lang-ru">русский</span>
         </div>
     </div>
 
-    <!-- JAVASCRIPT: МАГИЯ СЛОВА "ВХОД" УЖЕ ВНЕСЕНА -->
+    <!-- JAVASCRIPT ОСТАЕТСЯ БЕЗ ИЗМЕНЕНИЙ -->
     <script>
     if (!window.isUnifiedAnimationInitialized) {
         (function() {
@@ -162,28 +169,13 @@
             window.isContentProtectionInitialized = true;
         })();
     }
-    const enterButton = document.getElementById('enter-btn'); 
-    const langEn = document.getElementById('lang-en'); 
-    const langRu = document.getElementById('lang-ru');
-    const content = { 
-        en: { button: 'enter', lang: 'en' }, 
-        ru: { button: 'вход', lang: 'ru' } // 3. СЛОВО "ВХОД" УЖЕ ЗДЕСЬ
-    };
-    
+    const enterButton = document.getElementById('enter-btn'); const langEn = document.getElementById('lang-en'); const langRu = document.getElementById('lang-ru');
+    const content = { en: { button: 'enter', lang: 'en' }, ru: { button: 'вход', lang: 'ru' } };
     function switchLanguage(lang) {
-        document.documentElement.lang = content[lang].lang; 
-        enterButton.textContent = content[lang].button;
-        if (lang === 'ru') {
-            langRu.classList.add('active'); 
-            langEn.classList.remove('active');
-        } else {
-            langEn.classList.add('active'); 
-            langRu.classList.remove('active');
-        }
+        document.documentElement.lang = content[lang].lang; enterButton.textContent = content[lang].button;
+        if (lang === 'ru') { langRu.classList.add('active'); langEn.classList.remove('active'); } else { langEn.classList.add('active'); langRu.classList.remove('active'); }
     }
-    
-    langEn.addEventListener('click', () => switchLanguage('en')); 
-    langRu.addEventListener('click', () => switchLanguage('ru'));
+    langEn.addEventListener('click', () => switchLanguage('en')); langRu.addEventListener('click', () => switchLanguage('ru'));
     switchLanguage('en');
     </script>
 </body>
