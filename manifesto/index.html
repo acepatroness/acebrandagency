@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACE BRAND AGENCY | MANIFESTO</title>
     <style>
+        /* === ШРИФТОВАЯ МАГИЯ === */
         @font-face {
             font-family: 'Brahms Gotisch';
             src: url('../fonts/BrahmsGotischCyr.woff2') format('woff2');
@@ -21,12 +22,12 @@
             font-weight: 200; font-style: normal; font-display: swap;
         }
 
+        /* === БАЗОВАЯ АРХИТЕКТУРА === */
         :root { 
             --abyss: #111111; 
             --quartz: #EFF0F4;
             --ink-dark: #2D2C2F;
         }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
@@ -36,98 +37,60 @@
             font-weight: 200;
             text-transform: lowercase;
             overflow-y: auto;
-        }
-
-        .grimoire-container {
-            width: 100%;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
+            min-height: 100vh;
             padding: 20px 5vw;
         }
+
+        /* === 3D-ПРОСТРАНСТВО ДЛЯ РИТУАЛА === */
+        .grimoire-container {
+            perspective: 1800px; /* Глубина 3D-сцены */
+            width: 100%;
+            max-width: 900px;
+        }
         
-        /* === ТВОЙ ПЕРГАМЕНТ С КРАСИВОЙ АНИМАЦИЕЙ === */
+        /* === ПЕРГАМЕНТ И АНИМАЦИЯ ПЕРЕВОРОТА === */
         .parchment {
-            /* Используем твой файл parchment-bg */
+            width: 100%;
             background-image: url('../assets/parchment-bg.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
-            background-position: center;
             
-            /* Размеры */
-            max-width: 900px;
-            width: 100%;
-            padding: 200px 80px;
+            padding: 150px 80px;
             position: relative;
+            transform-style: preserve-3d;
+            transform-origin: left center; /* Точка вращения - как у книги */
             
-            /* Начальное состояние для анимации */
+            /* Начальное состояние: страница закрыта */
+            transform: rotateY(-110deg);
             opacity: 0;
-            transform: scale(0.3) rotateY(45deg);
-            filter: blur(8px) brightness(0.3);
-            
-            /* Драматическая анимация появления */
-            animation: parchmentMaterialize 3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+
+            /* Анимация переворота */
+            animation: grimoireFlip 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
         }
 
-        /* === ДРАМАТИЧЕСКАЯ АНИМАЦИЯ МАТЕРИАЛИЗАЦИИ === */
-        @keyframes parchmentMaterialize {
+        /* === КЛЮЧЕВЫЕ КАДРЫ ПЕРЕВОРОТА СТРАНИЦЫ === */
+        @keyframes grimoireFlip {
             0% {
+                transform: rotateY(-110deg);
                 opacity: 0;
-                transform: scale(0.3) rotateY(45deg) translateY(-50px);
-                filter: blur(8px) brightness(0.3);
-            }
-            25% {
-                opacity: 0.3;
-                transform: scale(0.6) rotateY(25deg) translateY(-25px);
-                filter: blur(5px) brightness(0.5);
             }
             50% {
-                opacity: 0.6;
-                transform: scale(0.8) rotateY(10deg) translateY(-10px);
-                filter: blur(3px) brightness(0.7);
-            }
-            75% {
-                opacity: 0.9;
-                transform: scale(0.95) rotateY(2deg) translateY(-2px);
-                filter: blur(1px) brightness(0.9);
+                transform: rotateY(-20deg);
+                opacity: 1;
             }
             100% {
+                transform: rotateY(0deg);
                 opacity: 1;
-                transform: scale(1) rotateY(0deg) translateY(0px);
-                filter: blur(0px) brightness(1);
             }
         }
 
-        /* === МЕРЦАНИЕ В НАЧАЛЕ === */
-        .parchment::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, 
-                transparent 0%, 
-                rgba(239, 240, 244, 0.3) 45%, 
-                rgba(239, 240, 244, 0.6) 50%, 
-                rgba(239, 240, 244, 0.3) 55%, 
-                transparent 100%);
-            transform: translateX(-100%);
-            animation: shimmer 2s ease-in-out 1s;
-            pointer-events: none;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* === СОДЕРЖИМОЕ === */
+        /* === ПОЯВЛЕНИЕ КОНТЕНТА ПОСЛЕ ПЕРЕВОРОТА === */
         .manifesto-content {
             opacity: 0;
-            text-align: left;
-            padding-top: 50px;
-            transition: opacity 2s ease-in-out 2.5s;
+            transition: opacity 1.5s ease-out 1.8s; /* Появляется с задержкой */
         }
         .parchment.revealed .manifesto-content {
             opacity: 1;
@@ -140,13 +103,11 @@
         .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
         .manifesto-block p { color: var(--ink-dark); line-height: 1.8; }
         
-        /* Английская версия */
         #en-manifesto .font-display { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { font-size: 90px; }
         #en-manifesto h2 { font-size: 73px; }
         #en-manifesto p { font-size: 26px; }
 
-        /* Русская версия */
         #ru-manifesto .font-display { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { font-size: 57px; }
         #ru-manifesto h2 { font-size: 38px; }
@@ -160,7 +121,6 @@
             width: 150px;
             height: 150px;
         }
-        
         .seal-button {
             width: 100%;
             height: 100%;
@@ -170,27 +130,14 @@
             display: block;
             border-radius: 50%;
             opacity: 0;
-            transform: scale(0) rotate(360deg);
+            transform: scale(0);
             animation: 
-                sealAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 3.5s forwards,
-                pulse 2s infinite 5s;
+                sealAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 3s forwards,
+                pulse 2s infinite 4.5s;
         }
-        
         @keyframes sealAppear {
-            0% { 
-                opacity: 0; 
-                transform: scale(0) rotate(360deg); 
-            }
-            70% { 
-                opacity: 0.8; 
-                transform: scale(1.1) rotate(0deg); 
-            }
-            100% { 
-                opacity: 1; 
-                transform: scale(1) rotate(0deg); 
-            }
+            to { opacity: 1; transform: scale(1); }
         }
-        
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.08); }
@@ -199,24 +146,14 @@
 
         /* === АДАПТИВНОСТЬ === */
         @media (max-width: 768px) {
-            .parchment {
-                padding: 150px 40px;
-            }
-            
+            .parchment { padding: 120px 40px; }
             #en-manifesto h1 { font-size: 60px; }
             #en-manifesto h2 { font-size: 50px; }
             #en-manifesto p { font-size: 20px; }
-            
             #ru-manifesto h1 { font-size: 40px; }
             #ru-manifesto h2 { font-size: 28px; }
             #ru-manifesto p { font-size: 18px; }
-            
-            .seal-container {
-                width: 120px;
-                height: 120px;
-                bottom: 30px;
-                right: 30px;
-            }
+            .seal-container { width: 120px; height: 120px; bottom: 30px; right: 30px; }
         }
     </style>
 </head>
@@ -224,7 +161,6 @@
     <div class="grimoire-container">
         <div class="parchment" id="parchment">
             <div class="manifesto-content">
-                
                 <!-- АНГЛИЙСКАЯ ВЕРСИЯ -->
                 <div id="en-manifesto" class="manifesto-block">
                     <h1 class="font-display">we don't sell</h1>
@@ -247,4 +183,108 @@
                         we architect brands and events<br>
                         that become your unfair advantage.<br><br>
                         ready for the ritual?<br>
-                        welcome to the altar
+                        welcome to the altar.<br><br>
+                        for the few.<br>
+                        for you?
+                    </p>
+                </div>
+                <!-- РУССКАЯ ВЕРСИЯ -->
+                <div id="ru-manifesto" class="manifesto-block">
+                    <h1 class="font-display">наш храм не для всех</h1>
+                    <h2 class="font-display">только для смелых</h2>
+                    <p>
+                        вы ищете просто «агентство» или «исполнителя»?!<br>
+                        закройте эту вкладку прямой сейчас!<br><br>
+                        мы работает с теми, кто готов к реинкарнации,<br>
+                        а не к стерильному «ребрендингу» или<br>
+                        «а сделайте вот так же как у конкурентов».<br>
+                        мы не копируем! мы создаем!<br><br>
+                        мы против шаблонов и заезженных решений.<br>
+                        нас тошнит от фейка и «успешного успеха».<br>
+                        мы против копипаста и воровства идей!<br><br>
+                        мы не придумываем лживую легенду.<br>
+                        мы погружаемся в ваш хаос и тьму.<br>
+                        мы вскрываем ваш личный код днк!<br><br>
+                        мы сжигаем всё лишнее. весь мусор.<br>
+                        на этом пепле строим вашу империю.<br>
+                        мы сжигаем шаблоны и строим легенды.<br><br>
+                        мы создаем бренды и мероприятия,<br>
+                        даруя вам справедливое превосходство!<br><br>
+                        готовы к персональному ритуалу?<br>
+                        добро пожаловать к алтарю.
+                    </p>
+                </div>
+            </div>
+            <div class="seal-container">
+                <a href="../initiation/" class="seal-button" id="seal-btn"></a>
+            </div>
+        </div>
+    </div>
+    <canvas id="global-ash-canvas"></canvas>
+    <style>
+        #global-ash-canvas { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: -10; pointer-events: none; opacity: 1; 
+        }
+    </style>
+    <script>
+        // АНИМАЦИЯ ПЕПЛА
+        if (!window.isUnifiedAnimationInitialized) {
+            (function() {
+                const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+                resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+                let particles = []; let fogTime = 0;
+                class AshParticle {
+                    constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
+                    update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
+                    draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+                }
+                function drawFog() {
+                    const fogHeight = 120; const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
+                    gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`); gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)'); gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
+                    ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight); fogTime += 0.005;
+                }
+                function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
+                function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog();
+                    particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
+                    if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
+                    requestAnimationFrame(animate);
+                }
+                window.addEventListener('mousemove', handleMouseMove); window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                animate(); window.isUnifiedAnimationInitialized = true;
+            })();
+        }
+        // ПЕРЕКЛЮЧЕНИЕ ЯЗЫКОВ И АНИМАЦИИ
+        document.addEventListener('DOMContentLoaded', () => {
+            const parchment = document.getElementById('parchment');
+            const sealButton = document.getElementById('seal-btn');
+            const params = new URLSearchParams(window.location.search);
+            const lang = params.get('lang') || 'en';
+            if (lang === 'ru') {
+                document.documentElement.lang = 'ru';
+                document.getElementById('ru-manifesto').classList.add('active');
+                sealButton.style.backgroundImage = "url('../assets/seal-ru.png')";
+            } else {
+                document.documentElement.lang = 'en';
+                document.getElementById('en-manifesto').classList.add('active');
+                sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
+            }
+            parchment.addEventListener('animationend', () => {
+                parchment.classList.add('revealed');
+            });
+        });
+        // ЗАЩИТА ОТ КОПИРОВАНИЯ
+        if (!window.isContentProtectionInitialized) {
+            (function() {
+                document.addEventListener('contextmenu', e => e.preventDefault(), false);
+                document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
+                window.isContentProtectionInitialized = true;
+            })();
+        }
+    </script>
+</body>
+</html>
