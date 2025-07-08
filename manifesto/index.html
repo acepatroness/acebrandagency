@@ -27,8 +27,7 @@
             --abyss: #111111; 
             --quartz: #EFF0F4;
             --ink-dark: #2D2C2F;
-            --fire-glow: #ff8c00; /* Цвет огненного свечения */
-            --fire-core: #ffd700; /* Цвет ядра пламени */
+            --ink-color: #0a0a0a;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -38,46 +37,52 @@
             font-family: 'Unbounded', sans-serif;
             font-weight: 200;
             text-transform: lowercase;
-            overflow-y: auto;
+            overflow: hidden; /* Запрещаем скролл во время анимации */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px 5vw;
         }
 
-        /* === КОНТЕЙНЕР ДЛЯ РИТУАЛА === */
-        .parchment-wrapper {
-            position: relative;
+        /* === СЦЕНА ДЛЯ РИТУАЛА === */
+        .grimoire-wrapper {
             width: 100%;
             max-width: 900px;
+            padding: 20px 5vw;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* === 1. ОГНЕННЫЙ КОНТУР (SVG) === */
-        .parchment-outline {
+        /* === 1. КАПЛЯ ЧЕРНИЛ === */
+        .inkblot {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            stroke-width: 3px;
-            fill: transparent;
-            stroke: var(--fire-core);
-            filter: drop-shadow(0 0 5px var(--fire-glow)) drop-shadow(0 0 10px var(--fire-glow));
-            /* Подготовка к анимации рисования */
-            stroke-dasharray: 4000; /* Общая длина пути, с запасом */
-            stroke-dashoffset: 4000;
-            animation: drawFireOutline 3s ease-in-out forwards;
+            width: 1px;
+            height: 1px;
+            background: var(--ink-color);
+            border-radius: 50%;
+            box-shadow: 0 0 20px 10px var(--ink-color);
+            filter: blur(5px);
+            /* Анимация пульсации и взрыва */
+            animation:
+                inkPulse 1.5s ease-in-out infinite,
+                inkExplode 2s cubic-bezier(0.7, 0, 0.3, 1) 3s forwards;
+            z-index: 20;
         }
-
-        @keyframes drawFireOutline {
+        @keyframes inkPulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px 10px var(--ink-color); }
+            50% { transform: scale(1.2); box-shadow: 0 0 30px 15px var(--ink-color); }
+            100% { transform: scale(1); box-shadow: 0 0 20px 10px var(--ink-color); }
+        }
+        @keyframes inkExplode {
             to {
-                stroke-dashoffset: 0;
+                transform: scale(300); /* Расползается на весь экран */
+                opacity: 0;
             }
         }
-        
-        /* === 2. ПОЯВЛЕНИЕ ПЕРГАМЕНТА ВНУТРИ КОНТУРА === */
+
+        /* === 2. ПОЯВЛЕНИЕ ПЕРГАМЕНТА ИЗ ЧЕРНИЛ === */
         .parchment {
             width: 100%;
             background-image: url('../assets/parchment-bg.png');
@@ -87,17 +92,20 @@
             position: relative;
             /* Изначально невидим */
             opacity: 0;
-            /* Появляется с задержкой, когда контур уже рисуется */
-            animation: fillParchment 2s ease-out 1.5s forwards;
+            transform: scale(0.8);
+            /* Появляется из центра чернильного пятна */
+            animation: parchmentEmerge 2s ease-out 4s forwards;
+            z-index: 10;
         }
-
-        @keyframes fillParchment {
+        @keyframes parchmentEmerge {
             from {
                 opacity: 0;
-                filter: brightness(0.5);
+                transform: scale(0.8);
+                filter: brightness(0);
             }
             to {
                 opacity: 1;
+                transform: scale(1);
                 filter: brightness(1);
             }
         }
@@ -105,12 +113,13 @@
         /* === 3. ПОЯВЛЕНИЕ КОНТЕНТА === */
         .manifesto-content {
             opacity: 0;
-            transition: opacity 1.5s ease-out 3s; /* Появляется после всего */
+            transition: opacity 1.5s ease-out 5.5s;
         }
         .parchment.revealed .manifesto-content {
             opacity: 1;
         }
 
+        /* === СТИЛИ ТЕКСТА И ПЕЧАТИ (без изменений) === */
         .manifesto-block { display: none; }
         .manifesto-block.active { display: block; }
         .manifesto-block h1 { color: var(--ink-dark); margin-bottom: 20px; line-height: 1.1; }
@@ -128,7 +137,7 @@
         #ru-manifesto p { font-size: 22px; }
 
         .seal-container { position: absolute; bottom: 40px; right: 40px; width: 150px; height: 150px; }
-        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; opacity: 0; transform: scale(0); animation: sealAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 3.5s forwards, pulse 2s infinite 5s; }
+        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; opacity: 0; transform: scale(0); animation: sealAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 6s forwards, pulse 2s infinite 7.5s; }
         @keyframes sealAppear { to { opacity: 1; transform: scale(1); } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
@@ -141,26 +150,21 @@
     </style>
 </head>
 <body>
-    <div class="parchment-wrapper">
-        <!-- Контур, который будет выжигаться огнем -->
-        <svg class="parchment-outline" viewBox="0 0 900 648" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 20 Q10 10, 25 5 L150 5 Q160 2, 165 10 L250 12 Q260 8, 265 18 L380 22 Q390 18, 395 28 L500 30 Q510 25, 515 35 L650 38 Q660 33, 665 42 L780 45 Q790 40, 795 50 L880 52 Q895 50, 890 60 L885 200 Q898 210, 880 215 L875 350 Q890 360, 870 365 L865 500 Q885 510, 860 515 L855 600 Q860 615, 845 618 L700 625 Q690 635, 680 628 L550 626 Q540 638, 525 629 L400 628 Q390 640, 375 630 L250 629 Q240 642, 225 631 L100 630 Q90 645, 75 632 L30 630 Q15 635, 12 620 L8 500 Q-5 490, 10 485 L14 350 Q-8 340, 16 335 L18 200 Q2 190, 20 185 Z"/>
-        </svg>
-
-        <!-- Твой пергамент, который появляется внутри -->
+    <div class="grimoire-wrapper">
+        <div class="inkblot" id="inkblot"></div>
         <div class="parchment" id="parchment">
             <div class="manifesto-content">
                 <!-- АНГЛИЙСКАЯ ВЕРСИЯ -->
                 <div id="en-manifesto" class="manifesto-block">
                     <h1 class="font-display">we don't sell</h1>
                     <h2 class="font-display">we anoint</h2>
-                    <p>...</p>
+                    <p>...</p> <!-- Текст манифеста здесь -->
                 </div>
                 <!-- РУССКАЯ ВЕРСИЯ -->
                 <div id="ru-manifesto" class="manifesto-block">
                     <h1 class="font-display">наш храм не для всех</h1>
                     <h2 class="font-display">только для смелых</h2>
-                    <p>...</p>
+                    <p>...</p> <!-- Текст манифеста здесь -->
                 </div>
             </div>
             <div class="seal-container">
@@ -176,7 +180,36 @@
         // АНИМАЦИЯ ПЕПЛА
         if (!window.isUnifiedAnimationInitialized) { (function() { const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return; const ctx = canvas.getContext('2d'); function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; } resizeCanvas(); window.addEventListener('resize', resizeCanvas); let particles = []; let fogTime = 0; class AshParticle { constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; } update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; } draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); } } function drawFog() { const fogHeight = 120; const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight); gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`); gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)'); gradient.addColorStop(1, 'rgba(45, 44, 47, 0)'); ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight); fogTime += 0.005; } function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } } function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } } function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog(); particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; }); if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); } requestAnimationFrame(animate); } window.addEventListener('mousemove', handleMouseMove); window.addEventListener('touchmove', handleTouchMove, { passive: true }); animate(); window.isUnifiedAnimationInitialized = true; })(); }
         // ПЕРЕКЛЮЧЕНИЕ ЯЗЫКОВ И АНИМАЦИИ
-        document.addEventListener('DOMContentLoaded', () => { const parchment = document.getElementById('parchment'); const sealButton = document.getElementById('seal-btn'); const params = new URLSearchParams(window.location.search); const lang = params.get('lang') || 'en'; if (lang === 'ru') { document.documentElement.lang = 'ru'; document.getElementById('ru-manifesto').classList.add('active'); sealButton.style.backgroundImage = "url('../assets/seal-ru.png')"; } else { document.documentElement.lang = 'en'; document.getElementById('en-manifesto').classList.add('active'); sealButton.style.backgroundImage = "url('../assets/seal-en.png')"; } parchment.addEventListener('animationend', () => { parchment.classList.add('revealed'); }); });
+        document.addEventListener('DOMContentLoaded', () => {
+            const inkblot = document.getElementById('inkblot');
+            const parchment = document.getElementById('parchment');
+            const sealButton = document.getElementById('seal-btn');
+            const params = new URLSearchParams(window.location.search);
+            const lang = params.get('lang') || 'en';
+            
+            if (lang === 'ru') {
+                document.documentElement.lang = 'ru';
+                document.getElementById('ru-manifesto').classList.add('active');
+                sealButton.style.backgroundImage = "url('../assets/seal-ru.png')";
+            } else {
+                document.documentElement.lang = 'en';
+                document.getElementById('en-manifesto').classList.add('active');
+                sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
+            }
+
+            inkblot.addEventListener('animationend', (e) => {
+                if (e.animationName === 'inkExplode') {
+                    inkblot.style.display = 'none';
+                    document.body.style.overflowY = 'auto'; // Возвращаем скролл
+                }
+            });
+
+            parchment.addEventListener('animationend', (e) => {
+                if (e.animationName === 'parchmentEmerge') {
+                    parchment.classList.add('revealed');
+                }
+            });
+        });
         // ЗАЩИТА ОТ КОПИРОВАНИЯ
         if (!window.isContentProtectionInitialized) { (function() { document.addEventListener('contextmenu', e => e.preventDefault(), false); document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } }); window.isContentProtectionInitialized = true; })(); }
     </script>
