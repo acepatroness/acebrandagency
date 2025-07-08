@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACE BRAND AGENCY | MANIFESTO</title>
     <style>
-        /* === ШРИФТОВАЯ МАГИЯ (ИМЕНА ИЗ ТВОИХ ФАЙЛОВ) === */
         @font-face {
             font-family: 'Brahms Gotisch';
             src: url('../fonts/BrahmsGotischCyr.woff2') format('woff2');
@@ -22,7 +21,6 @@
             font-weight: 200; font-style: normal; font-display: swap;
         }
 
-        /* === АРХИТЕКТУРА АЛТАРЯ === */
         :root { 
             --abyss: #111111; 
             --quartz: #EFF0F4;
@@ -36,18 +34,17 @@
             font-family: 'Unbounded', sans-serif;
             font-weight: 200;
             text-transform: lowercase;
-            overflow-x: hidden;
+            overflow-y: auto; /* Позволяем скролл, если контент не влезает */
         }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: АБСОЛЮТНЫЕ ОТСТУПЫ 50PX === */
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: АБСОЛЮТНЫЕ ОТСТУПЫ 40PX === */
         .grimoire-container {
             width: 100%;
-            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* ПРИКАЗ: 50px сверху/снизу */
-            padding: 50px 5vw; 
+            padding: 40px 5vw; 
+            min-height: 100vh;
         }
         .parchment {
             background-image: url('../assets/parchment-bg.png');
@@ -179,7 +176,7 @@
 
             </div>
             <div class="seal-container">
-                <a href="/initiation/" class="seal-button" id="seal-btn"></a>
+                <a href="../initiation/" class="seal-button" id="seal-btn"></a>
             </div>
         </div>
     </div>
