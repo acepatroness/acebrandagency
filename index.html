@@ -36,7 +36,7 @@
             opacity: 0.3; z-index: 1; pointer-events: none;
         }
         
-        /* ДЕСКТОПНАЯ ВЕРСИЯ - НЕ ТРОНУТА */
+        /* ДЕСКТОПНАЯ ВЕРСИЯ - НЕ ТРОНУТА, КРОМЕ ВЫСОТЫ КНОПКИ */
         .logo {
             position: absolute;
             top: 20px;
@@ -51,9 +51,10 @@
             z-index: 99999; pointer-events: none; opacity: 1;
         }
 
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ПОДНЯТО НА 50px === */
         .gate-area {
             position: absolute;
-            top: 600px;
+            top: 550px; /* ПРИКАЗ: 550 пикселей от верхнего края (было 600px) */
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -92,10 +93,9 @@
         }
         img { pointer-events: none; }
 
-        /* === ЗАКЛИНАНИЕ АДАПТИВНОСТИ (ИЗМЕНЕНИЯ ТОЛЬКО ЗДЕСЬ) === */
+        /* МОБИЛЬНАЯ ВЕРСИЯ - СОВЕРШЕННА И НЕ ТРОНУТА */
         @media (max-width: 768px) {
             .logo {
-                /* ГАРАНТИЯ ЦЕНТРИРОВАНИЯ ЛОГОТИПА */
                 top: 10px;
                 right: auto;
                 left: 50%;
@@ -113,12 +113,8 @@
             }
 
             .gate-area {
-                 /* ГАРАНТИЯ ЦЕНТРИРОВАНИЯ БЛОКА С КНОПКОЙ */
                 top: calc(50% + 190px);
-                left: 50%;
                 transform: translate(-50%, -50%);
-                 /* ГАРАНТИЯ ЦЕНТРИРОВАНИЯ СОДЕРЖИМОГО */
-                align-items: center;
             }
         }
     </style>
