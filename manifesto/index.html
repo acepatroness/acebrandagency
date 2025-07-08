@@ -44,14 +44,15 @@
             padding: 20px 5vw;
         }
 
-        /* === КОНТЕЙНЕР ДЛЯ РИТУАЛА ВОЗРОЖДЕНИЯ === */
+        /* === КОНТЕЙНЕР ДЛЯ ИДЕАЛЬНОГО СВИТКА === */
         .grimoire-wrapper {
             position: relative;
             width: 100%;
             max-width: 900px;
+            height: auto;
         }
 
-        /* === ПЕРГАМЕНТ (ИЗНАЧАЛЬНО НЕВИДИМ) === */
+        /* === ИДЕАЛЬНЫЙ ДРЕВНИЙ СВИТОК === */
         .parchment {
             width: 100%;
             background-image: url('../assets/parchment-bg.png');
@@ -60,42 +61,98 @@
             padding: 150px 80px;
             position: relative;
             
-            /* Эффект появления из пепла */
-            opacity: 0;
-            transform: scale(0.8);
-            filter: brightness(0.3) contrast(1.5);
+            /* Тень для объёма и реалистичности */
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                0 5px 15px rgba(0, 0, 0, 0.2);
             
-            /* Анимация материализации из пепла */
-            animation: ashReconstruction 3s ease-out 4s forwards;
+            /* Изначальное состояние: свёрнут сверху */
+            transform: scaleY(0);
+            transform-origin: top center;
+            opacity: 0;
+            
+            /* Классическая анимация разворачивания */
+            animation: perfectScrollUnfurl 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
-        @keyframes ashReconstruction {
+        /* === АНИМАЦИЯ ИДЕАЛЬНОГО РАЗВОРАЧИВАНИЯ === */
+        @keyframes perfectScrollUnfurl {
             0% {
+                transform: scaleY(0);
                 opacity: 0;
-                transform: scale(0.8);
-                filter: brightness(0.3) contrast(1.5) blur(2px);
+                box-shadow: 
+                    0 5px 20px rgba(0, 0, 0, 0.6),
+                    0 2px 10px rgba(0, 0, 0, 0.4);
             }
-            30% {
-                opacity: 0.3;
-                transform: scale(0.9);
-                filter: brightness(0.5) contrast(1.3) blur(1px);
+            25% {
+                transform: scaleY(0.2);
+                opacity: 0.7;
+                box-shadow: 
+                    0 8px 25px rgba(0, 0, 0, 0.5),
+                    0 3px 12px rgba(0, 0, 0, 0.3);
             }
-            70% {
-                opacity: 0.8;
-                transform: scale(0.98);
-                filter: brightness(0.8) contrast(1.1) blur(0.5px);
+            50% {
+                transform: scaleY(0.6);
+                opacity: 0.9;
+                box-shadow: 
+                    0 9px 28px rgba(0, 0, 0, 0.45),
+                    0 4px 14px rgba(0, 0, 0, 0.25);
+            }
+            75% {
+                transform: scaleY(0.9);
+                opacity: 1;
+                box-shadow: 
+                    0 10px 30px rgba(0, 0, 0, 0.4),
+                    0 5px 15px rgba(0, 0, 0, 0.2);
             }
             100% {
+                transform: scaleY(1);
                 opacity: 1;
-                transform: scale(1);
-                filter: brightness(1) contrast(1) blur(0px);
+                box-shadow: 
+                    0 10px 30px rgba(0, 0, 0, 0.4),
+                    0 5px 15px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        /* === ЭФФЕКТ "СКРУЧЕННОЙ" ЧАСТИ === */
+        .parchment::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(
+                to bottom,
+                rgba(45, 44, 47, 0.3) 0%,
+                rgba(45, 44, 47, 0.15) 50%,
+                transparent 100%
+            );
+            border-radius: 100px 100px 0 0;
+            opacity: 0;
+            animation: scrollShadow 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes scrollShadow {
+            0% {
+                opacity: 0.8;
+                transform: translateX(-50%) scaleY(0.2);
+            }
+            50% {
+                opacity: 0.6;
+                transform: translateX(-50%) scaleY(0.8);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) scaleY(1);
             }
         }
 
         /* === СОДЕРЖИМОЕ === */
         .manifesto-content {
             opacity: 0;
-            transition: opacity 2s ease-out 6s;
+            transition: opacity 1.5s ease-out 2s;
         }
         .parchment.revealed .manifesto-content {
             opacity: 1;
@@ -117,15 +174,49 @@
         #ru-manifesto h2 { font-size: 38px; }
         #ru-manifesto p { font-size: 22px; }
 
-        .seal-container { position: absolute; bottom: 40px; right: 40px; width: 150px; height: 150px; }
-        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; opacity: 0; transform: scale(0); animation: sealAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 7s forwards, pulse 2s infinite 8.5s; }
-        @keyframes sealAppear { to { opacity: 1; transform: scale(1); } }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+        /* === ПЕЧАТЬ === */
+        .seal-container { 
+            position: absolute; 
+            bottom: 40px; 
+            right: 40px; 
+            width: 150px; 
+            height: 150px; 
+        }
+        .seal-button { 
+            width: 100%; 
+            height: 100%; 
+            background-size: contain; 
+            background-repeat: no-repeat; 
+            background-position: center;
+            display: block; 
+            border-radius: 50%; 
+            opacity: 0; 
+            transform: scale(0.8) rotate(-10deg);
+            animation: 
+                sealAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 3s forwards,
+                pulse 2s infinite 4.5s; 
+        }
+        @keyframes sealAppear { 
+            to { 
+                opacity: 1; 
+                transform: scale(1) rotate(0deg); 
+            } 
+        }
+        @keyframes pulse { 
+            0% { transform: scale(1); } 
+            50% { transform: scale(1.08); } 
+            100% { transform: scale(1); } 
+        }
 
+        /* === АДАПТИВНОСТЬ === */
         @media (max-width: 768px) {
             .parchment { padding: 120px 40px; }
-            #en-manifesto h1 { font-size: 60px; } #en-manifesto h2 { font-size: 50px; } #en-manifesto p { font-size: 20px; }
-            #ru-manifesto h1 { font-size: 40px; } #ru-manifesto h2 { font-size: 28px; } #ru-manifesto p { font-size: 18px; }
+            #en-manifesto h1 { font-size: 60px; } 
+            #en-manifesto h2 { font-size: 50px; } 
+            #en-manifesto p { font-size: 20px; }
+            #ru-manifesto h1 { font-size: 40px; } 
+            #ru-manifesto h2 { font-size: 28px; } 
+            #ru-manifesto p { font-size: 18px; }
             .seal-container { width: 120px; height: 120px; bottom: 30px; right: 30px; }
         }
     </style>
@@ -194,13 +285,13 @@
         </div>
     </div>
 
-    <!-- КАНВАС ДЛЯ МАГИИ ПЕПЛА -->
+    <!-- КАНВАС ДЛЯ ПЕПЛА -->
     <canvas id="global-ash-canvas"></canvas>
     
     <style>
         #global-ash-canvas { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            z-index: 5; pointer-events: none; opacity: 1; 
+            z-index: -1; pointer-events: none; opacity: 1; 
         }
         body, body * { 
             -webkit-user-select: none; -moz-user-select: none; 
@@ -211,7 +302,7 @@
     </style>
     
     <script>
-        // МАГИЯ СБОРКИ ИЗ ПЕПЛА
+        // АНИМАЦИЯ ПЕПЛА
         if (!window.isUnifiedAnimationInitialized) {
             (function() {
                 const canvas = document.getElementById('global-ash-canvas');
@@ -227,65 +318,26 @@
                 
                 let particles = []; 
                 let fogTime = 0;
-                let ashReconstructionPhase = 'gathering'; // gathering -> reconstruction -> normal
-                let reconstructionStartTime = 0;
-                const centerX = window.innerWidth / 2;
-                const centerY = window.innerHeight / 2;
                 
                 class AshParticle {
-                    constructor(x, y, isReconstructing = false) { 
-                        this.x = x || Math.random() * canvas.width; 
-                        this.y = y || canvas.height + 10; 
-                        this.originalVx = (Math.random() - 0.5) * 0.8;
-                        this.originalVy = -Math.random() * 0.5 - 0.2;
-                        this.vx = this.originalVx;
-                        this.vy = this.originalVy;
+                    constructor(x, y) { 
+                        this.x = x; 
+                        this.y = y; 
+                        this.vx = (Math.random() - 0.5) * 0.8; 
+                        this.vy = -Math.random() * 0.5 - 0.2; 
                         this.life = 1; 
                         this.decay = 0.008 + Math.random() * 0.012; 
                         this.size = Math.random() * 3 + 1; 
-                        this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF';
-                        this.isReconstructing = isReconstructing;
-                        this.reconstructionForce = 0;
+                        this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; 
                     }
-                    
-                    update() {
-                        // ФАЗА СБОРКИ: частицы летят к центру
-                        if (ashReconstructionPhase === 'reconstruction' && !this.isReconstructing) {
-                            const dx = centerX - this.x;
-                            const dy = centerY - this.y;
-                            const distance = Math.sqrt(dx * dx + dy * dy);
-                            
-                            if (distance > 50) {
-                                // Притягиваем к центру
-                                this.reconstructionForce += 0.02;
-                                this.vx += (dx / distance) * this.reconstructionForce;
-                                this.vy += (dy / distance) * this.reconstructionForce;
-                                this.vx *= 0.95; // Замедляем по мере приближения
-                                this.vy *= 0.95;
-                            } else {
-                                // Достигли центра - уплотняемся
-                                this.vx *= 0.1;
-                                this.vy *= 0.1;
-                                this.life -= 0.05; // Быстро исчезаем в центре
-                                this.size *= 0.95;
-                            }
-                        } else {
-                            // Обычное движение
-                            this.vx = this.originalVx;
-                            this.vy = this.originalVy;
-                            this.vx *= 0.98; 
-                            this.vy += 0.01;
-                        }
-                        
+                    update() { 
                         this.x += this.vx; 
-                        this.y += this.vy;
-                        
-                        if (ashReconstructionPhase !== 'reconstruction') {
-                            this.life -= this.decay; 
-                            this.size *= 0.998;
-                        }
+                        this.y += this.vy; 
+                        this.vx *= 0.98; 
+                        this.vy += 0.01; 
+                        this.life -= this.decay; 
+                        this.size *= 0.998; 
                     }
-                    
                     draw() { 
                         ctx.save(); 
                         ctx.globalAlpha = this.life * 0.8; 
@@ -309,14 +361,12 @@
                 }
                 
                 function handleMouseMove(e) { 
-                    if (ashReconstructionPhase === 'normal') {
-                        for (let i = 0; i < 6; i++) { 
-                            particles.push(new AshParticle(
-                                e.clientX + (Math.random() - 0.5) * 30, 
-                                e.clientY + (Math.random() - 0.5) * 30
-                            )); 
-                        }
-                    }
+                    for (let i = 0; i < 6; i++) { 
+                        particles.push(new AshParticle(
+                            e.clientX + (Math.random() - 0.5) * 30, 
+                            e.clientY + (Math.random() - 0.5) * 30
+                        )); 
+                    } 
                 }
                 
                 function handleTouchMove(e) { 
@@ -329,44 +379,16 @@
                 }
                 
                 function animate() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height); 
                     drawFog();
-                    
-                    // Управление фазами реконструкции
-                    const currentTime = Date.now();
-                    
-                    if (ashReconstructionPhase === 'gathering' && currentTime > 2000) {
-                        // Начинаем фазу сборки через 2 секунды
-                        ashReconstructionPhase = 'reconstruction';
-                        reconstructionStartTime = currentTime;
-                        
-                        // Создаём больше частиц для эффектной сборки
-                        for (let i = 0; i < 100; i++) {
-                            particles.push(new AshParticle(
-                                Math.random() * canvas.width,
-                                Math.random() * canvas.height
-                            ));
-                        }
-                    }
-                    
-                    if (ashReconstructionPhase === 'reconstruction' && currentTime - reconstructionStartTime > 4000) {
-                        // Заканчиваем реконструкцию через 4 секунды
-                        ashReconstructionPhase = 'normal';
-                        canvas.style.zIndex = '-1'; // Опускаем канвас под пергамент
-                    }
-                    
-                    // Обновляем и рисуем частицы
                     particles = particles.filter(p => { 
                         p.update(); 
                         p.draw(); 
                         return p.life > 0 && p.size > 0.1; 
                     });
-                    
-                    // Добавляем новые частицы только в нормальном режиме
-                    if (ashReconstructionPhase === 'normal' && Math.random() < 0.03) { 
-                        particles.push(new AshParticle()); 
+                    if (Math.random() < 0.03) { 
+                        particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); 
                     }
-                    
                     requestAnimationFrame(animate);
                 }
                 
@@ -395,7 +417,7 @@
             }
 
             parchment.addEventListener('animationend', (e) => {
-                if (e.animationName === 'ashReconstruction') {
+                if (e.animationName === 'perfectScrollUnfurl') {
                     parchment.classList.add('revealed');
                 }
             });
