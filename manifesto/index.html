@@ -193,6 +193,9 @@
     <canvas id="global-ash-canvas"></canvas>
     <style> #global-ash-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; } </style>
     <script>
+        // === ИЗМЕНЕНИЕ: СКРИПТЫ СОБРАНЫ В ОДИН БЛОК ДЛЯ НАДЕЖНОСТИ ===
+
+        // ЛОГИКА ВЫБОРА ЯЗЫКА
         document.addEventListener('DOMContentLoaded', () => {
             const sealButton = document.getElementById('seal-btn');
             const params = new URLSearchParams(window.location.search);
@@ -209,12 +212,25 @@
             }
         });
         
-        // 4. ЗАЩИТА ОТ КОПИРОВАНИЯ (ВОССТАНОВЛЕНА)
+        // 4. ЗАЩИТА ОТ КОПИРОВАНИЯ И ВЫДЕЛЕНИЯ (ВОССТАНОВЛЕНА)
         if (!window.isContentProtectionInitialized) {
             (function() {
+                // Блокировка выделения через CSS
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    body, body * {
+                        -webkit-user-select: none;
+                        -moz-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+                    }
+                `;
+                document.head.appendChild(style);
+
+                // Блокировка контекстного меню и горячих клавиш
                 document.addEventListener('contextmenu', e => e.preventDefault(), false);
                 document.addEventListener('keydown', e => { 
-                    if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { 
+                    if ((e.ctrlKey || e.metaKey) && ('caxus'.indexOf(e.key) !== -1)) { 
                         e.preventDefault(); 
                     } 
                 });
@@ -222,7 +238,8 @@
             })();
         }
 
-        // ...фоновый пепел (если нужен)
+        // АНИМАЦИЯ ФОНОВОГО ПЕПЛА (ЕСЛИ НУЖНА)
+        // ... (код для анимации пепла можно вставить сюда, если он требуется)
     </script>
 </body>
 </html>
