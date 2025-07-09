@@ -68,14 +68,13 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* === КОНТЕНТ (ИСПРАВЛЕН) === */
+        /* === КОНТЕНТ === */
         .manifesto-content {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* 1. ОПУЩЕН НА 50PX | 6. СДВИНУТ ВПРАВО НА 30PX */
             padding: 170px 80px 120px 160px; 
             opacity: 0;
             animation: fadeInContent 1s ease-out 1.5s forwards;
@@ -88,55 +87,33 @@
         .manifesto-block { display: none; }
         .manifesto-block.active { display: block; }
         
-        .manifesto-block h1,
-        .manifesto-block p { 
-            color: var(--ink-dark); 
-        }
-
-        /* 2. ПОДЗАГОЛОВКИ СИЯЮТ */
-        .manifesto-block h2 {
-            color: var(--quartz);
-            margin-bottom: 40px; 
-            line-height: 1.1;
-        }
+        .manifesto-block h1, .manifesto-block p { color: var(--ink-dark); }
+        .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
+        .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
+        .manifesto-block p span.space { display: block; height: 8px; }
         
-        /* 3. РАССТОЯНИЕ МЕЖДУ ЗАГОЛОВКАМИ */
-        .manifesto-block h1 { 
-            margin-bottom: 10px; 
-            line-height: 1.1; 
-        }
-
-        /* 5. ПРОБЕЛ МЕЖДУ БЛОКАМИ ТЕКСТА */
-        .manifesto-block p span.space {
-            display: block;
-            height: 8px;
-        }
-        
-        /* АНГЛИЙСКАЯ ВЕРСИЯ */
-        #en-manifesto .font-display,
-        #en-manifesto p { 
-            font-family: 'Manufacturing Consent', sans-serif; 
-        }
-        #en-manifesto h1 { font-size: 90px; } 
+        /* === АНГЛИЙСКАЯ ВЕРСИЯ (ИСПРАВЛЕНА) === */
+        #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
+        #en-manifesto h1 { 
+            font-size: 90px; 
+            position: relative;
+            /* 1. ЗАГОЛОВОК ОПУЩЕН */
+            top: 5px;
+        } 
         #en-manifesto h2 { font-size: 73px; } 
         #en-manifesto p { 
             font-size: 26px;
-            /* 4. МЕЖСТРОЧНЫЙ ИНТЕРВАЛ */
             line-height: 1.4; 
+            position: relative;
+            /* 3. ОСНОВНОЙ ТЕКСТ ПОДНЯТ */
+            top: -5px;
         }
 
-        /* РУССКАЯ ВЕРСИЯ */
-        #ru-manifesto .font-display,
-        #ru-manifesto p { 
-            font-family: 'Brahms Gotisch', serif; 
-        }
+        /* РУССКАЯ ВЕРСИЯ (НЕ ТРОНУТА) */
+        #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { font-size: 57px; } 
         #ru-manifesto h2 { font-size: 38px; } 
-        #ru-manifesto p { 
-            font-size: 22px;
-            /* 4. МЕЖСТРОЧНЫЙ ИНТЕРВАЛ */
-            line-height: 1.4;
-        }
+        #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
         .seal-container { position: absolute; bottom: 40px; right: 40px; width: 150px; height: 150px; opacity: 0; animation: fadeInSeal 1s ease-out 2.5s forwards; }
         .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 3.5s; }
@@ -231,7 +208,21 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
         });
-        // ... фоновый пепел и защита ...
+        
+        // 4. ЗАЩИТА ОТ КОПИРОВАНИЯ (ВОССТАНОВЛЕНА)
+        if (!window.isContentProtectionInitialized) {
+            (function() {
+                document.addEventListener('contextmenu', e => e.preventDefault(), false);
+                document.addEventListener('keydown', e => { 
+                    if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { 
+                        e.preventDefault(); 
+                    } 
+                });
+                window.isContentProtectionInitialized = true;
+            })();
+        }
+
+        // ...фоновый пепел (если нужен)
     </script>
 </body>
 </html>
