@@ -99,15 +99,15 @@
         #en-manifesto h1 { 
             font-size: 90px; 
             position: relative;
-            /* ОПУЩЕН ЕЩЁ НА 5PX (было 15px, стало 20px) */
-            top: 20px; 
+            /* ОПУЩЕН ЕЩЁ НА 5PX (было 20px, стало 25px) */
+            top: 25px; 
             left: 90px;
         } 
         #en-manifesto h2 { 
             font-size: 73px; 
             position: relative;
-            /* ОПУЩЕН НА 5PX */
-            top: 5px; 
+            /* ОПУЩЕН ЕЩЁ НА 5PX (было 5px, стало 10px) */
+            top: 10px; 
             left: 90px;
         } 
         #en-manifesto p { 
@@ -126,10 +126,10 @@
         /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФИНАЛЬНАЯ ПОЗИЦИЯ КНОПКИ === */
         .seal-container { 
             position: absolute; 
-            /* Поднимаем ещё на 5px (170px + 5px = 175px) */
+            /* Поднимаем ещё на 5px (175px) - остается без изменений */
             bottom: 175px; 
-            /* Сдвигаем на 5px правее (120px - 5px = 115px) */
-            right: 115px; 
+            /* Сдвигаем на 5px правее (115px - 5px = 110px) */
+            right: 110px; 
             width: 150px; 
             height: 150px; 
             opacity: 0; 
@@ -148,7 +148,7 @@
         
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 60px 100px 60px; }
-            #en-manifesto h1, #en-manifesto h2, #en-manifesto p { left: 0; } /* Убираем сдвиг на мобильных */
+            #en-manifesto h1, #en-manifesto h2, #en-manifesto p { left: 0; top: 0; } /* Убираем сдвиги на мобильных */
             #en-manifesto h1 { font-size: 60px; } 
             #en-manifesto h2 { font-size: 50px; } 
             #en-manifesto p { font-size: 20px; line-height: 1.4; }
