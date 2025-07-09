@@ -94,28 +94,25 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФИНАЛЬНАЯ ЮСТИРОВКА === */
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ЗАГОЛОВОК ОПУЩЕН === */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
             position: relative;
-            /* ОПУЩЕН ЕЩЁ НА 5PX (было 20px, стало 25px) */
-            top: 25px; 
-            left: 90px;
+            top: 20px; /* Было 15px, стало 20px */
+            left: 110px;
         } 
         #en-manifesto h2 { 
             font-size: 73px; 
             position: relative;
-            /* ОПУЩЕН ЕЩЁ НА 5PX (было 5px, стало 10px) */
-            top: 10px; 
-            left: 90px;
+            left: 110px;
         } 
         #en-manifesto p { 
             font-size: 26px;
             line-height: 1.4; 
             position: relative;
             top: -15px;
-            left: 90px;
+            left: 110px;
         }
 
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
@@ -123,13 +120,10 @@
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФИНАЛЬНАЯ ПОЗИЦИЯ КНОПКИ === */
         .seal-container { 
             position: absolute; 
-            /* Поднимаем ещё на 5px (175px) - остается без изменений */
-            bottom: 175px; 
-            /* Сдвигаем на 5px правее (115px - 5px = 110px) */
-            right: 110px; 
+            bottom: 150px; 
+            right: 130px; 
             width: 150px; 
             height: 150px; 
             opacity: 0; 
@@ -148,7 +142,7 @@
         
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 60px 100px 60px; }
-            #en-manifesto h1, #en-manifesto h2, #en-manifesto p { left: 0; top: 0; } /* Убираем сдвиги на мобильных */
+            #en-manifesto h1, #en-manifesto h2, #en-manifesto p { left: 0; }
             #en-manifesto h1 { font-size: 60px; } 
             #en-manifesto h2 { font-size: 50px; } 
             #en-manifesto p { font-size: 20px; line-height: 1.4; }
