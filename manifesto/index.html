@@ -94,27 +94,28 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
-        /* === АНГЛИЙСКАЯ ВЕРСИЯ (ФИНАЛЬНЫЕ КОРРЕКТИРОВКИ) === */
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ТЕКСТ СДВИНУТ ВПРАВО === */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
             position: relative;
             top: 15px;
-            left: 50px; /* СДВИНУТ ЕЩЁ НА 30PX (было 20px, стало 50px) */
+            left: 70px; /* БЫЛО 50px, СТАЛО 70px */
         } 
         #en-manifesto h2 { 
             font-size: 73px; 
             position: relative;
-            left: 50px; /* СДВИНУТ ЕЩЁ НА 30PX (было 20px, стало 50px) */
+            left: 70px; /* БЫЛО 50px, СТАЛО 70px */
         } 
         #en-manifesto p { 
             font-size: 26px;
             line-height: 1.4; 
             position: relative;
             top: -15px;
-            left: 50px; /* СДВИНУТ ЕЩЁ НА 30PX (было 20px, стало 50px) */
+            left: 70px; /* БЫЛО 50px, СТАЛО 70px */
         }
 
+        /* РУССКАЯ ВЕРСИЯ (НЕ ТРОНУТА) */
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { font-size: 57px; } 
         #ru-manifesto h2 { font-size: 38px; } 
@@ -123,9 +124,10 @@
         /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФИНАЛЬНАЯ ПОЗИЦИЯ КНОПКИ === */
         .seal-container { 
             position: absolute; 
-            /* Поднимаем ещё на 20px (150px + 20px = 170px) */
-            bottom: 170px; 
-            right: 130px; 
+            /* Поднимаем ещё на 5px (150px + 5px = 155px) */
+            bottom: 155px; 
+            /* Сдвигаем на 5px правее (130px - 5px = 125px) */
+            right: 125px; 
             width: 150px; 
             height: 150px; 
             opacity: 0; 
