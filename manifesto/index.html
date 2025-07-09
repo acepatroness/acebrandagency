@@ -56,6 +56,7 @@
             width: 100%;
             height: auto;
             position: relative;
+            z-index: 1;
             animation: fadeInParchment 1.5s ease-out forwards;
         }
         .parchment-image {
@@ -77,6 +78,7 @@
             height: 100%;
             padding: 170px 80px 120px 160px; 
             opacity: 0;
+            z-index: 2;
             animation: fadeInContent 1s ease-out 1.5s forwards;
         }
 
@@ -92,7 +94,6 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
-        /* === АНГЛИЙСКАЯ ВЕРСИЯ (ФИНАЛЬНЫЕ КОРРЕКТИРОВКИ) === */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
@@ -109,19 +110,18 @@
             top: -15px;
         }
 
-        /* РУССКАЯ ВЕРСИЯ (НЕ ТРОНУТА) */
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { font-size: 57px; } 
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
-        /* === ПЕЧАТЬ (ФИНАЛЬНЫЕ КОРРЕКТИРОВКИ ДЛЯ АНГЛИЙСКОЙ ВЕРСИИ) === */
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФИНАЛЬНАЯ ПОЗИЦИЯ КНОПКИ === */
         .seal-container { 
             position: absolute; 
-            /* Поднимаем на 30px (100px + 30px = 130px) */
-            bottom: 130px; 
-            /* Сдвигаем на 10px левее (100px - 10px = 90px) */
-            right: 90px; 
+            /* Поднимаем ещё на 20px (130px + 20px = 150px) */
+            bottom: 150px; 
+            /* Сдвигаем ещё на 20px левее (110px + 20px = 130px) */
+            right: 130px; 
             width: 150px; 
             height: 150px; 
             opacity: 0; 
@@ -129,7 +129,6 @@
             animation: fadeInSeal 1s ease-out 2.5s forwards; 
         }
         
-        /* Для русской версии печать остается на исходном месте */
         #ru-manifesto.active ~ .seal-container {
             bottom: 40px;
             right: 40px;
@@ -209,10 +208,7 @@
             </div>
         </div>
     </div>
-
-    <!-- АНИМАЦИЯ КУРСОРА ПОВЕРХ ВСЕГО -->
     <canvas id="global-ash-canvas"></canvas>
-    
     <style>
         #global-ash-canvas { 
             position: fixed; 
@@ -231,9 +227,8 @@
         }
         img, svg { pointer-events: none; }
     </style>
-    
     <script>
-        // === АНИМАЦИЯ ПЕПЛА ===
+        // АНИМАЦИЯ ПЕПЛА
         if (!window.isUnifiedAnimationInitialized) {
             (function() {
                 const canvas = document.getElementById('global-ash-canvas');
