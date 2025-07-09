@@ -57,7 +57,7 @@
             height: auto;
             position: relative;
             z-index: 1;
-            animation: fadeInParchment 1.5s ease-out forwards;
+            animation: fadeInParchment 0.5s ease-out forwards;
         }
         .parchment-image {
             display: block;
@@ -69,17 +69,18 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* === КОНТЕНТ === */
+        /* === КОНТЕНТ (ИСПРАВЛЕН) === */
         .manifesto-content {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 170px 80px 120px 160px; 
+            /* 1. ТЕКСТ ПОДНЯТ НА 10PX */
+            padding: 150px 80px 120px 160px; 
             opacity: 0;
             z-index: 2;
-            animation: fadeInContent 1s ease-out 1.5s forwards;
+            animation: fadeInContent 1s ease-out 0.5s forwards;
         }
 
         @keyframes fadeInContent {
@@ -120,15 +121,17 @@
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
+        /* === ПЕЧАТЬ (ИСПРАВЛЕНА) === */
         .seal-container { 
             position: absolute; 
             bottom: 175px; 
-            right: 110px; 
+            /* 2. КНОПКА СДВИНУТА ЛЕВЕЕ НА 20PX */
+            right: 130px; 
             width: 150px; 
             height: 150px; 
             opacity: 0; 
             z-index: 3; 
-            animation: fadeInSeal 1s ease-out 2.5s forwards; 
+            animation: fadeInSeal 1s ease-out 0.5s forwards; 
         }
         
         #ru-manifesto.active ~ .seal-container {
@@ -136,7 +139,7 @@
             right: 40px;
         }
         
-        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 3.5s; }
+        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 1.5s; }
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
@@ -155,7 +158,7 @@
 
             #en-manifesto h1, #en-manifesto h2, #en-manifesto p {
                 position: relative;
-                left: 0;
+                left: 20px;
             }
             #en-manifesto h1 { 
                 font-size: 50px; 
@@ -247,24 +250,14 @@
     <canvas id="global-ash-canvas"></canvas>
     <style>
         #global-ash-canvas { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            z-index: 999; 
-            pointer-events: none; 
-            opacity: 1; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; pointer-events: none; opacity: 1; 
         }
         body, body * { 
-            -webkit-user-select: none; -moz-user-select: none; 
-            -ms-user-select: none; user-select: none; 
-            -webkit-touch-callout: none; -khtml-user-select: none; 
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; 
         }
         img, svg { pointer-events: none; }
     </style>
     <script>
-        // АНИМАЦИЯ ПЕПЛА
         if (!window.isUnifiedAnimationInitialized) {
             (function() {
                 const canvas = document.getElementById('global-ash-canvas');
@@ -299,7 +292,6 @@
                 animate(); window.isUnifiedAnimationInitialized = true;
             })();
         }
-        // ЛОГИКА ВЫБОРА ЯЗЫКА
         document.addEventListener('DOMContentLoaded', () => {
             const sealButton = document.getElementById('seal-btn');
             const params = new URLSearchParams(window.location.search);
@@ -314,7 +306,6 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
         });
-        // ЗАЩИТА ОТ КОПИРОВАНИЯ
         if (!window.isContentProtectionInitialized) {
             (function() {
                 document.addEventListener('contextmenu', e => e.preventDefault(), false);
