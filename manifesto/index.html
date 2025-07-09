@@ -57,8 +57,7 @@
             height: auto;
             position: relative;
             z-index: 1;
-            /* 1. АНИМАЦИЯ УСКОРЕНА */
-            animation: fadeInParchment 0.5s ease-out forwards;
+            animation: fadeInParchment 1.5s ease-out forwards;
         }
         .parchment-image {
             display: block;
@@ -70,19 +69,17 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* === КОНТЕНТ (ИСПРАВЛЕН) === */
+        /* === КОНТЕНТ === */
         .manifesto-content {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* 2. ТЕКСТ ПОДНЯТ НА 10PX */
-            padding: 160px 80px 120px 160px; 
+            padding: 170px 80px 120px 160px; 
             opacity: 0;
             z-index: 2;
-            /* 1. АНИМАЦИЯ УСКОРЕНА */
-            animation: fadeInContent 1s ease-out 0.5s forwards;
+            animation: fadeInContent 1s ease-out 1.5s forwards;
         }
 
         @keyframes fadeInContent {
@@ -101,7 +98,7 @@
         #en-manifesto h1 { 
             font-size: 90px; 
             position: relative;
-            top: 25px; 
+            top: 40px; 
             left: 90px;
         } 
         #en-manifesto h2 { 
@@ -114,7 +111,7 @@
             font-size: 26px;
             line-height: 1.4; 
             position: relative;
-            top: -15px;
+            top: -20px;
             left: 90px;
         }
 
@@ -123,7 +120,6 @@
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
-        /* === ПЕЧАТЬ (АНИМАЦИЯ УСКОРЕНА) === */
         .seal-container { 
             position: absolute; 
             bottom: 175px; 
@@ -132,7 +128,7 @@
             height: 150px; 
             opacity: 0; 
             z-index: 3; 
-            animation: fadeInSeal 1s ease-out 1.5s forwards; 
+            animation: fadeInSeal 1s ease-out 2.5s forwards; 
         }
         
         #ru-manifesto.active ~ .seal-container {
@@ -140,13 +136,12 @@
             right: 40px;
         }
         
-        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 2.5s; }
+        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 3.5s; }
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
         @media (max-width: 768px) {
-            /* 2. ТЕКСТ ПОДНЯТ НА 10PX (МОБИЛЬНАЯ ВЕРСИЯ) */
-            .manifesto-content { padding: 90px 60px 100px 60px; }
+            .manifesto-content { padding: 100px 60px 100px 60px; }
             #en-manifesto h1, #en-manifesto h2, #en-manifesto p { left: 0; top: 0; }
             #en-manifesto h1 { font-size: 60px; } 
             #en-manifesto h2 { font-size: 50px; } 
@@ -161,7 +156,8 @@
 <body>
     <div class="grimoire-wrapper">
         <div class="parchment" id="parchment">
-            <img src="../assets/parchment-bg.png" alt="Manifesto Parchment" class="parchment-image">
+            <!-- ИЗМЕНЕНИЕ ЗДЕСЬ -->
+            <img src="../assets/parchment-bgd.png" alt="Manifesto Parchment" class="parchment-image">
             <div class="manifesto-content">
                 <div id="en-manifesto" class="manifesto-block">
                     <h1 class="font-display">we don't sell</h1>
