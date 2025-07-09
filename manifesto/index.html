@@ -69,7 +69,7 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* === КОНТЕНТ === */
+        /* === КОНТЕНТ (ДЕКСТОП) === */
         .manifesto-content {
             position: absolute;
             top: 0;
@@ -94,19 +94,17 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФИНАЛЬНАЯ ЮСТИРОВКА === */
+        /* === АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП) === */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
             position: relative;
-            /* ОПУЩЕН ЕЩЁ НА 5PX (было 20px, стало 25px) */
             top: 40px; 
             left: 90px;
         } 
         #en-manifesto h2 { 
             font-size: 73px; 
             position: relative;
-            /* ОПУЩЕН ЕЩЁ НА 5PX (было 5px, стало 10px) */
             top: 10px; 
             left: 90px;
         } 
@@ -118,17 +116,16 @@
             left: 90px;
         }
 
+        /* === РУССКАЯ ВЕРСИЯ (ДЕКСТОП) === */
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { font-size: 57px; } 
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФИНАЛЬНАЯ ПОЗИЦИЯ КНОПКИ === */
+        /* === ПЕЧАТЬ (ДЕКСТОП) === */
         .seal-container { 
             position: absolute; 
-            /* Поднимаем ещё на 5px (175px) - остается без изменений */
             bottom: 175px; 
-            /* Сдвигаем на 5px правее (115px - 5px = 110px) */
             right: 110px; 
             width: 150px; 
             height: 150px; 
@@ -146,16 +143,37 @@
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
+        /* === ИЗМЕНЕНИЯ ЗДЕСЬ: МОБИЛЬНАЯ ВЕРСИЯ === */
         @media (max-width: 768px) {
-            .manifesto-content { padding: 100px 60px 100px 60px; }
-            #en-manifesto h1, #en-manifesto h2, #en-manifesto p { left: 0; top: 0; } /* Убираем сдвиги на мобильных */
-            #en-manifesto h1 { font-size: 60px; } 
-            #en-manifesto h2 { font-size: 50px; } 
+            .manifesto-content { padding: 100px 40px; }
+            #en-manifesto h1, #en-manifesto h2, #en-manifesto p { 
+                left: 0; 
+                top: 0; 
+            }
+            
+            /* === НОВЫЕ РАЗМЕРЫ ДЛЯ АНГЛИЙСКОЙ МОБИЛЬНОЙ ВЕРСИИ === */
+            #en-manifesto h1 { font-size: 45px; } 
+            #en-manifesto h2 { font-size: 40px; } 
             #en-manifesto p { font-size: 20px; line-height: 1.4; }
+            
+            /* === РУССКАЯ МОБИЛЬНАЯ ВЕРСИЯ (без изменений) === */
             #ru-manifesto h1 { font-size: 40px; } 
             #ru-manifesto h2 { font-size: 28px; } 
             #ru-manifesto p { font-size: 18px; line-height: 1.4; }
-            .seal-container { width: 120px; height: 120px; bottom: 30px; right: 30px; }
+            
+            /* Общие стили для кнопки на мобильных */
+            .seal-container { 
+                width: 120px; 
+                height: 120px; 
+                bottom: 30px; 
+                right: 30px; 
+            }
+
+            /* === УМЕНЬШЕННАЯ КНОПКА ТОЛЬКО ДЛЯ АНГЛИЙСКОЙ ВЕРСИИ === */
+            #en-manifesto.active ~ .seal-container {
+                width: 90px;  /* 120px - 30px */
+                height: 90px; /* 120px - 30px */
+            }
         }
     </style>
 </head>
