@@ -56,7 +56,6 @@
             width: 100%;
             height: auto;
             position: relative;
-            z-index: 1; /* Пергамент на базовом уровне */
             animation: fadeInParchment 1.5s ease-out forwards;
         }
         .parchment-image {
@@ -78,7 +77,6 @@
             height: 100%;
             padding: 170px 80px 120px 160px; 
             opacity: 0;
-            z-index: 2; /* Контент поверх пергамента */
             animation: fadeInContent 1s ease-out 1.5s forwards;
         }
 
@@ -99,18 +97,15 @@
         #en-manifesto h1 { 
             font-size: 90px; 
             position: relative;
-            /* 3. ЗАГОЛОВОК ОПУЩЕН ЕЩЁ НА 5PX (итого 15px от начала) */
             top: 15px;
         } 
         #en-manifesto h2 { 
             font-size: 73px; 
-            /* 4. ПОДЗАГОЛОВОК НЕ МЕНЯЕМ */
         } 
         #en-manifesto p { 
             font-size: 26px;
             line-height: 1.4; 
             position: relative;
-            /* 5. ОСНОВНОЙ ТЕКСТ ПОДНЯТ ЕЩЁ НА 5PX (итого 15px вверх) */
             top: -15px;
         }
 
@@ -123,13 +118,14 @@
         /* === ПЕЧАТЬ (ФИНАЛЬНЫЕ КОРРЕКТИРОВКИ ДЛЯ АНГЛИЙСКОЙ ВЕРСИИ) === */
         .seal-container { 
             position: absolute; 
-            /* Для английской версии: 1. ПОДНЯТА ЕЩЁ НА 30PX | 2. СДВИНУТА ЕЩЁ НА 30PX ЛЕВЕЕ */
-            bottom: 100px; /* было 70px, стало 100px */
-            right: 100px; /* было 70px, стало 100px */
+            /* Поднимаем на 30px (100px + 30px = 130px) */
+            bottom: 130px; 
+            /* Сдвигаем на 10px левее (100px - 10px = 90px) */
+            right: 90px; 
             width: 150px; 
             height: 150px; 
             opacity: 0; 
-            z-index: 3; /* Печать поверх всего */
+            z-index: 3; 
             animation: fadeInSeal 1s ease-out 2.5s forwards; 
         }
         
@@ -224,7 +220,6 @@
             left: 0; 
             width: 100%; 
             height: 100%; 
-            /* ИСПРАВЛЕНО: АНИМАЦИЯ ПОВЕРХ ПЕРГАМЕНТА */
             z-index: 999; 
             pointer-events: none; 
             opacity: 1; 
@@ -238,7 +233,7 @@
     </style>
     
     <script>
-        // === АНИМАЦИЯ ПЕПЛА ПОВЕРХ ВСЕГО ===
+        // === АНИМАЦИЯ ПЕПЛА ===
         if (!window.isUnifiedAnimationInitialized) {
             (function() {
                 const canvas = document.getElementById('global-ash-canvas');
