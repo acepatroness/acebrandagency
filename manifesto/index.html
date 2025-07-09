@@ -94,20 +94,25 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ВЕСЬ ТЕКСТ СДВИНУТ ВПРАВО === */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
             position: relative;
             top: 15px;
+            left: 20px; /* СДВИНУТ */
         } 
         #en-manifesto h2 { 
             font-size: 73px; 
+            position: relative;
+            left: 20px; /* СДВИНУТ */
         } 
         #en-manifesto p { 
             font-size: 26px;
             line-height: 1.4; 
             position: relative;
             top: -15px;
+            left: 20px; /* СДВИНУТ */
         }
 
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
@@ -115,10 +120,8 @@
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФИНАЛЬНАЯ ПОЗИЦИЯ КНОПКИ === */
         .seal-container { 
             position: absolute; 
-            /* Поднимаем ещё на 20px (130px + 20px = 150px) */
             bottom: 150px; 
             right: 130px; 
             width: 150px; 
@@ -139,8 +142,13 @@
         
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 60px 100px 60px; }
-            #en-manifesto h1 { font-size: 60px; } #en-manifesto h2 { font-size: 50px; } #en-manifesto p { font-size: 20px; line-height: 1.4; }
-            #ru-manifesto h1 { font-size: 40px; } #ru-manifesto h2 { font-size: 28px; } #ru-manifesto p { font-size: 18px; line-height: 1.4; }
+            #en-manifesto h1, #en-manifesto h2, #en-manifesto p { left: 0; } /* Убираем сдвиг на мобильных */
+            #en-manifesto h1 { font-size: 60px; } 
+            #en-manifesto h2 { font-size: 50px; } 
+            #en-manifesto p { font-size: 20px; line-height: 1.4; }
+            #ru-manifesto h1 { font-size: 40px; } 
+            #ru-manifesto h2 { font-size: 28px; } 
+            #ru-manifesto p { font-size: 18px; line-height: 1.4; }
             .seal-container { width: 120px; height: 120px; bottom: 30px; right: 30px; }
         }
     </style>
