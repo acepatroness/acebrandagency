@@ -94,6 +94,7 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
+        /* === АНГЛИЙСКАЯ ВЕРСИЯ === */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
@@ -115,11 +116,13 @@
             left: 90px;
         }
 
+        /* РУССКАЯ ВЕРСИЯ */
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { font-size: 57px; } 
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
+        /* === ПЕЧАТЬ === */
         .seal-container { 
             position: absolute; 
             bottom: 205px; 
@@ -140,6 +143,7 @@
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
+        /* МОБИЛЬНАЯ ВЕРСИЯ */
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 40px; }
             #ru-manifesto h1, #ru-manifesto h2, #ru-manifesto p { position: static; }
@@ -147,7 +151,10 @@
             #ru-manifesto h2 { font-size: 28px; } 
             #ru-manifesto p { font-size: 18px; line-height: 1.8; }
             #ru-manifesto.active ~ .seal-container {
-                width: 120px; height: 120px; bottom: 30px; right: 30px; 
+                width: 120px; 
+                height: 120px; 
+                bottom: 30px; 
+                right: 30px; 
             }
 
             #en-manifesto h1, #en-manifesto h2, #en-manifesto p {
@@ -155,19 +162,26 @@
                 left: 20px;
             }
             #en-manifesto h1 { 
-                font-size: 50px; top: -5px;
+                font-size: 50px; 
+                top: -5px;
             }
             #en-manifesto h2 { 
-                font-size: 45px; top: -10px;
+                font-size: 45px; 
+                top: -10px;
             }
             #en-manifesto p { 
-                font-size: 18px; line-height: 1.25; top: -20px;
+                font-size: 18px; 
+                line-height: 1.25; 
+                top: -20px;
             }
             #en-manifesto p span.space {
                 height: 5px;
             }
             #en-manifesto.active ~ .seal-container {
-                width: 90px; height: 90px; bottom: 10px; right: 10px;
+                width: 90px;
+                height: 90px;
+                bottom: 10px;
+                right: 10px;
             }
         }
     </style>
@@ -177,7 +191,6 @@
         <div class="parchment" id="parchment">
             <img src="../assets/parchment-bgd.png" alt="Manifesto Parchment" class="parchment-image">
             <div class="manifesto-content">
-                <!-- Текст манифеста -->
                 <div id="en-manifesto" class="manifesto-block">
                     <h1 class="font-display">we don't sell</h1>
                     <h2 class="font-display">we anoint</h2>
@@ -246,67 +259,45 @@
         img, svg { pointer-events: none; }
     </style>
     <script>
-        // === ИЗМЕНЕНИЕ ЗДЕСЬ: ЛОГИКА ТУМАНА ===
         if (!window.isUnifiedAnimationInitialized) {
             (function() {
                 const canvas = document.getElementById('global-ash-canvas');
                 if (!canvas) return;
                 const ctx = canvas.getContext('2d');
-
                 function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-                resizeCanvas();
-                window.addEventListener('resize', resizeCanvas);
-                
-                let particles = []; 
-                let fogTime = 0;
-                
+                resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+                let particles = []; let fogTime = 0;
                 class AshParticle {
                     constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
                     update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
                     draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
                 }
                 
+                // === ИЗМЕНЕНИЕ ЗДЕСЬ: ТУМАН СТАЛ ВИДИМЫМ ===
                 function drawFog() {
-                    const parchmentEl = document.getElementById('parchment');
-                    if (!parchmentEl) return;
-                    
-                    const fogBaseY = parchmentEl.getBoundingClientRect().bottom;
                     const fogHeight = 120;
-                    
-                    const gradient = ctx.createLinearGradient(0, fogBaseY, 0, fogBaseY - fogHeight);
-                    gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`);
-                    gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)');
-                    gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
+                    const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
+                    // Туман сделан светло-серым, чтобы быть видимым на тёмном фоне
+                    gradient.addColorStop(0, `rgba(193, 191, 191, ${0.25 + Math.sin(fogTime) * 0.1})`);
+                    gradient.addColorStop(0.6, 'rgba(193, 191, 191, 0.1)');
+                    gradient.addColorStop(1, 'rgba(193, 191, 191, 0)');
                     ctx.fillStyle = gradient;
-                    ctx.fillRect(0, fogBaseY - fogHeight, canvas.width, fogHeight);
+                    ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
                     fogTime += 0.005;
                 }
-                
+
                 function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
                 function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
-                
                 function animate() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height); 
-                    drawFog();
-                    particles = particles.filter(p => { 
-                        p.update(); 
-                        p.draw(); 
-                        return p.life > 0 && p.size > 0.1; 
-                    });
-                    if (Math.random() < 0.03) { 
-                        particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); 
-                    }
+                    ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog();
+                    particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
+                    if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
                     requestAnimationFrame(animate);
                 }
-                
-                window.addEventListener('mousemove', handleMouseMove);
-                window.addEventListener('touchmove', handleTouchMove, { passive: true });
-                animate();
-                window.isUnifiedAnimationInitialized = true;
+                window.addEventListener('mousemove', handleMouseMove); window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                animate(); window.isUnifiedAnimationInitialized = true;
             })();
         }
-        
-        // Остальные скрипты
         document.addEventListener('DOMContentLoaded', () => {
             const sealButton = document.getElementById('seal-btn');
             const params = new URLSearchParams(window.location.search);
