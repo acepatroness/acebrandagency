@@ -117,11 +117,15 @@
         html[lang="en"] #en-manifesto h2 { font-size: clamp(2.2rem, 7vw, 2.5625rem); top: -4.6875rem; }
         html[lang="en"] #en-manifesto p { font-size: clamp(0.8rem, 2.5vw, 0.8125rem); line-height: 1.25; top: -6.5625rem; }
         html[lang="en"] .seal-container {
-            width: 5rem; height: 5rem; bottom: 1.25rem; right: 3.75rem;
+            width: 5rem; height: 5rem; bottom: 1.5625rem; right: 3.75rem;
         }
         
         /* === РАСШИРЕНИЕ ДО ДЕСКТОПА (min-width: 768px) === */
         @media (min-width: 48em) { /* 768px */
+            body {
+                padding: 50px 5vw;
+            }
+
             .manifesto-content {
                 padding: 8.125rem 5rem 8.125rem 10rem;
             }
