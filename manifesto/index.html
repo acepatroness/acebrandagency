@@ -57,7 +57,7 @@
             height: auto;
             position: relative;
             z-index: 1;
-            animation: fadeInParchment 0.5s ease-out forwards;
+            animation: fadeInParchment 1.5s ease-out forwards;
         }
         .parchment-image {
             display: block;
@@ -76,10 +76,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 140px 80px 120px 160px;
+            padding: 170px 80px 120px 160px; 
             opacity: 0;
             z-index: 2;
-            animation: fadeInContent 1s ease-out 0.5s forwards;
+            animation: fadeInContent 1s ease-out 1.5s forwards;
         }
 
         @keyframes fadeInContent {
@@ -94,47 +94,47 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
-        /* === АНГЛИЙСКАЯ ВЕРСИЯ (ИСПРАВЛЕНА) === */
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФИНАЛЬНАЯ ЮСТИРОВКА === */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
             position: relative;
-            top: 30px; 
+            /* ОПУЩЕН ЕЩЁ НА 5PX (было 20px, стало 25px) */
+            top: 40px; 
             left: 90px;
         } 
         #en-manifesto h2 { 
             font-size: 73px; 
             position: relative;
-            /* 1. ПОДЗАГОЛОВОК ПОДНЯТ НА 5PX (было 10px, стало 5px) */
-            top: 5px; 
+            /* ОПУЩЕН ЕЩЁ НА 5PX (было 5px, стало 10px) */
+            top: 10px; 
             left: 90px;
         } 
         #en-manifesto p { 
             font-size: 26px;
             line-height: 1.4; 
             position: relative;
-            /* 2. ОСНОВНОЙ ТЕКСТ ПОДНЯТ НА 10PX (было -15px, стало -25px) */
-            top: -25px;
+            top: -20px;
             left: 90px;
         }
 
-        /* РУССКАЯ ВЕРСИЯ (НЕ ТРОНУТА) */
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { font-size: 57px; } 
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
-        /* === ПЕЧАТЬ === */
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФИНАЛЬНАЯ ПОЗИЦИЯ КНОПКИ === */
         .seal-container { 
             position: absolute; 
+            /* Поднимаем ещё на 5px (175px) - остается без изменений */
             bottom: 175px; 
-            /* 3. КНОПКА СДВИНУТА ЛЕВЕЕ НА 20PX (было 160px, стало 180px) */
-            right: 180px; 
+            /* Сдвигаем на 5px правее (115px - 5px = 110px) */
+            right: 110px; 
             width: 150px; 
             height: 150px; 
             opacity: 0; 
             z-index: 3; 
-            animation: fadeInSeal 1s ease-out 0.5s forwards; 
+            animation: fadeInSeal 1s ease-out 2.5s forwards; 
         }
         
         #ru-manifesto.active ~ .seal-container {
@@ -142,57 +142,27 @@
             right: 40px;
         }
         
-        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 1.5s; }
+        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 3.5s; }
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
-        /* МОБИЛЬНАЯ ВЕРСИЯ (НЕ ТРОНУТА) */
         @media (max-width: 768px) {
-            .manifesto-content { padding: 100px 40px; }
-            #ru-manifesto h1, #ru-manifesto h2, #ru-manifesto p { position: static; }
+            .manifesto-content { padding: 100px 60px 100px 60px; }
+            #en-manifesto h1, #en-manifesto h2, #en-manifesto p { left: 0; top: 0; } /* Убираем сдвиги на мобильных */
+            #en-manifesto h1 { font-size: 60px; } 
+            #en-manifesto h2 { font-size: 50px; } 
+            #en-manifesto p { font-size: 20px; line-height: 1.4; }
             #ru-manifesto h1 { font-size: 40px; } 
             #ru-manifesto h2 { font-size: 28px; } 
-            #ru-manifesto p { font-size: 18px; line-height: 1.8; }
-            #ru-manifesto.active ~ .seal-container {
-                width: 120px; 
-                height: 120px; 
-                bottom: 30px; 
-                right: 30px; 
-            }
-
-            #en-manifesto h1, #en-manifesto h2, #en-manifesto p {
-                position: relative;
-                left: 20px;
-            }
-            #en-manifesto h1 { 
-                font-size: 50px; 
-                top: -5px;
-            }
-            #en-manifesto h2 { 
-                font-size: 45px; 
-                top: -10px;
-            }
-            #en-manifesto p { 
-                font-size: 18px; 
-                line-height: 1.25; 
-                top: -20px;
-            }
-            #en-manifesto p span.space {
-                height: 5px;
-            }
-            #en-manifesto.active ~ .seal-container {
-                width: 90px;
-                height: 90px;
-                bottom: 10px;
-                right: 10px;
-            }
+            #ru-manifesto p { font-size: 18px; line-height: 1.4; }
+            .seal-container { width: 120px; height: 120px; bottom: 30px; right: 30px; }
         }
     </style>
 </head>
 <body>
     <div class="grimoire-wrapper">
         <div class="parchment" id="parchment">
-            <img src="../assets/parchment-bgd.png" alt="Manifesto Parchment" class="parchment-image">
+            <img src="../assets/parchment-bg.png" alt="Manifesto Parchment" class="parchment-image">
             <div class="manifesto-content">
                 <div id="en-manifesto" class="manifesto-block">
                     <h1 class="font-display">we don't sell</h1>
@@ -254,52 +224,126 @@
     <canvas id="global-ash-canvas"></canvas>
     <style>
         #global-ash-canvas { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; pointer-events: none; opacity: 1; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 999; 
+            pointer-events: none; 
+            opacity: 1; 
         }
         body, body * { 
-            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; 
+            -webkit-user-select: none; -moz-user-select: none; 
+            -ms-user-select: none; user-select: none; 
+            -webkit-touch-callout: none; -khtml-user-select: none; 
         }
         img, svg { pointer-events: none; }
     </style>
     <script>
+        // АНИМАЦИЯ ПЕПЛА
         if (!window.isUnifiedAnimationInitialized) {
             (function() {
                 const canvas = document.getElementById('global-ash-canvas');
                 if (!canvas) return;
                 const ctx = canvas.getContext('2d');
-                function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-                resizeCanvas(); window.addEventListener('resize', resizeCanvas);
-                let particles = []; let fogTime = 0;
-                class AshParticle {
-                    constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
-                    update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
-                    draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+                
+                function resizeCanvas() { 
+                    canvas.width = window.innerWidth; 
+                    canvas.height = window.innerHeight; 
                 }
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+                
+                let particles = []; 
+                let fogTime = 0;
+                
+                class AshParticle {
+                    constructor(x, y) { 
+                        this.x = x; 
+                        this.y = y; 
+                        this.vx = (Math.random() - 0.5) * 0.8; 
+                        this.vy = -Math.random() * 0.5 - 0.2; 
+                        this.life = 1; 
+                        this.decay = 0.008 + Math.random() * 0.012; 
+                        this.size = Math.random() * 3 + 1; 
+                        this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; 
+                    }
+                    update() { 
+                        this.x += this.vx; 
+                        this.y += this.vy; 
+                        this.vx *= 0.98; 
+                        this.vy += 0.01; 
+                        this.life -= this.decay; 
+                        this.size *= 0.998; 
+                    }
+                    draw() { 
+                        ctx.save(); 
+                        ctx.globalAlpha = this.life * 0.8; 
+                        ctx.fillStyle = this.color; 
+                        ctx.beginPath(); 
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); 
+                        ctx.fill(); 
+                        ctx.restore(); 
+                    }
+                }
+                
                 function drawFog() {
                     const fogHeight = 120;
                     const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
                     gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`);
                     gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)');
                     gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
-                    ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
                     fogTime += 0.005;
                 }
-                function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
-                function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
+                
+                function handleMouseMove(e) { 
+                    for (let i = 0; i < 6; i++) { 
+                        particles.push(new AshParticle(
+                            e.clientX + (Math.random() - 0.5) * 30, 
+                            e.clientY + (Math.random() - 0.5) * 30
+                        )); 
+                    } 
+                }
+                
+                function handleTouchMove(e) { 
+                    if (e.touches[0]) { 
+                        handleMouseMove({ 
+                            clientX: e.touches[0].clientX, 
+                            clientY: e.touches[0].clientY 
+                        }); 
+                    } 
+                }
+                
                 function animate() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog();
-                    particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
-                    if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
+                    ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                    drawFog();
+                    particles = particles.filter(p => { 
+                        p.update(); 
+                        p.draw(); 
+                        return p.life > 0 && p.size > 0.1; 
+                    });
+                    if (Math.random() < 0.03) { 
+                        particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); 
+                    }
                     requestAnimationFrame(animate);
                 }
-                window.addEventListener('mousemove', handleMouseMove); window.addEventListener('touchmove', handleTouchMove, { passive: true });
-                animate(); window.isUnifiedAnimationInitialized = true;
+                
+                window.addEventListener('mousemove', handleMouseMove);
+                window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                animate();
+                window.isUnifiedAnimationInitialized = true;
             })();
         }
+
+        // ЛОГИКА ВЫБОРА ЯЗЫКА
         document.addEventListener('DOMContentLoaded', () => {
             const sealButton = document.getElementById('seal-btn');
             const params = new URLSearchParams(window.location.search);
             const lang = params.get('lang') || 'en';
+            
             if (lang === 'ru') {
                 document.documentElement.lang = 'ru';
                 document.getElementById('ru-manifesto').classList.add('active');
@@ -310,10 +354,16 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
         });
+        
+        // ЗАЩИТА ОТ КОПИРОВАНИЯ
         if (!window.isContentProtectionInitialized) {
             (function() {
                 document.addEventListener('contextmenu', e => e.preventDefault(), false);
-                document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
+                document.addEventListener('keydown', e => { 
+                    if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { 
+                        e.preventDefault(); 
+                    } 
+                });
                 window.isContentProtectionInitialized = true;
             })();
         }
