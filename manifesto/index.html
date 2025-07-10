@@ -69,14 +69,14 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* === ИЗМЕНЕНИЕ №1: ТЕКСТ ПОДНЯТ НА 10PX === */
+        /* === КОНТЕНТ === */
         .manifesto-content {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 140px 80px 120px 160px; /* Было 150px сверху */
+            padding: 140px 80px 120px 160px;
             opacity: 0;
             z-index: 2;
             animation: fadeInContent 1s ease-out 0.5s forwards;
@@ -94,6 +94,7 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
+        /* === АНГЛИЙСКАЯ ВЕРСИЯ (ИСПРАВЛЕНА) === */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
@@ -104,27 +105,31 @@
         #en-manifesto h2 { 
             font-size: 73px; 
             position: relative;
-            top: 10px; 
+            /* 1. ПОДЗАГОЛОВОК ПОДНЯТ НА 5PX (было 10px, стало 5px) */
+            top: 5px; 
             left: 90px;
         } 
         #en-manifesto p { 
             font-size: 26px;
             line-height: 1.4; 
             position: relative;
-            top: -15px;
+            /* 2. ОСНОВНОЙ ТЕКСТ ПОДНЯТ НА 10PX (было -20px, стало -30px) */
+            top: -30px;
             left: 90px;
         }
 
+        /* РУССКАЯ ВЕРСИЯ (НЕ ТРОНУТА) */
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { font-size: 57px; } 
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
-        /* === ИЗМЕНЕНИЕ №2: КНОПКА СДВИНУТА ЛЕВЕЕ НА 30PX === */
+        /* === ПЕЧАТЬ === */
         .seal-container { 
             position: absolute; 
             bottom: 175px; 
-            right: 160px; /* Было 130px */
+            /* 3. КНОПКА СДВИНУТА ЛЕВЕЕ НА 20PX (было 110px, стало 130px) */
+            right: 130px; 
             width: 150px; 
             height: 150px; 
             opacity: 0; 
@@ -141,6 +146,7 @@
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
+        /* МОБИЛЬНАЯ ВЕРСИЯ (НЕ ТРОНУТА) */
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 40px; }
             #ru-manifesto h1, #ru-manifesto h2, #ru-manifesto p { position: static; }
