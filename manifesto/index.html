@@ -94,7 +94,7 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
-        /* АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП - ФИНАЛЬНАЯ КАЛИБРОВКА) */
+        /* АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП - ИДЕАЛЬНА) */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
@@ -110,10 +110,8 @@
         } 
         #en-manifesto p { 
             font-size: 26px;
-            /* ИЗМЕНЕНИЕ №1: УВЕЛИЧЕН МЕЖСТРОЧНЫЙ ИНТЕРВАЛ */
             line-height: 1.52; 
             position: relative;
-            /* ИЗМЕНЕНИЕ №2: ТЕКСТ ОПУЩЕН НА 5PX */
             top: -25px;
             left: 90px;
         }
@@ -128,9 +126,9 @@
         .seal-container { 
             position: absolute; 
             bottom: 130px;
-            right: 290px; 
+            right: 180px; 
             width: 150px; 
-            height: 140px; 
+            height: 150px; 
             opacity: 0; 
             z-index: 3; 
             animation: fadeInSeal 1s ease-out 0.5s forwards; 
@@ -160,21 +158,21 @@
                 right: 30px; 
             }
 
+            /* === ПРАВКИ ДЛЯ МОБИЛЬНОЙ АНГЛИЙСКОЙ ВЕРСИИ === */
             #en-manifesto h1, #en-manifesto h2, #en-manifesto p {
                 position: relative;
                 left: 20px;
-                top: -10px;
             }
-            #en-manifesto h1 { font-size: 50px; }
-            #en-manifesto h2 { font-size: 45px; }
-            #en-manifesto p { font-size: 17px; line-height: 1.25; }
+            #en-manifesto h1 { font-size: 50px; top: -30px; } /* Поднят на 20px */
+            #en-manifesto h2 { font-size: 45px; top: -40px; } /* Поднят на 30px */
+            #en-manifesto p { font-size: 17px; line-height: 1.25; top: -60px; } /* Поднят на 50px */
             #en-manifesto p span.space { height: 5px; }
             
             #en-manifesto.active ~ .seal-container {
-                width: 90px;
-                height: 90px;
-                bottom: 10px;
-                right: 60px;
+                width: 60px;      /* Уменьшена на 30px */
+                height: 60px;     /* Уменьшена на 30px */
+                bottom: -40px;    /* Опущена на 50px */
+                right: 130px;     /* Сдвинута влево на 70px */
             }
         }
     </style>
