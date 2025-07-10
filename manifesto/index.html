@@ -41,7 +41,8 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px 5vw;
+            /* ВОССТАНОВЛЕН ИСХОДНЫЙ ОТСТУП */
+            padding: 20px 5vw; 
         }
 
         /* === КОНТЕЙНЕР === */
@@ -49,8 +50,7 @@
             position: relative;
             width: 100%;
             max-width: 900px;
-            /* ИЗМЕНЕНИЕ ЗДЕСЬ: РУЧНАЯ КОРРЕКЦИЯ ПОЛОЖЕНИЯ */
-            top: 35px; 
+            /* УБРАНА РУЧНАЯ КОРРЕКЦИЯ 'TOP' */
         }
         
         /* === ПЕРГАМЕНТ === */
@@ -78,6 +78,7 @@
             left: 0;
             width: 100%;
             height: 100%;
+            /* ГЛАВНАЯ СИММЕТРИЯ: 130PX СВЕРХУ И СНИЗУ */
             padding: 130px 80px 130px 160px;
             opacity: 0;
             z-index: 2;
@@ -127,10 +128,11 @@
         /* ПЕЧАТЬ (ДЕКСТОП - ФИНАЛЬНАЯ КАЛИБРОВКА) */
         .seal-container { 
             position: absolute; 
+            /* СИНХРОНИЗИРОВАНО С НИЖНИМ ОТСТУПОМ КОНТЕНТА */
             bottom: 130px;
-            right: 230px; 
+            right: 180px; 
             width: 150px; 
-            height: 220px; 
+            height: 150px; 
             opacity: 0; 
             z-index: 3; 
             animation: fadeInSeal 1s ease-out 0.5s forwards; 
@@ -147,9 +149,6 @@
         
         /* МОБИЛЬНАЯ ВЕРСИЯ (ФИНАЛЬНАЯ КАЛИБРОВКА) */
         @media (max-width: 768px) {
-            .grimoire-wrapper {
-                top: 0; /* Сбрасываем сдвиг на мобильных */
-            }
             .manifesto-content { padding: 100px 40px; }
             
             #ru-manifesto h1, #ru-manifesto h2, #ru-manifesto p { position: static; }
