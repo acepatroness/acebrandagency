@@ -122,7 +122,7 @@
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
-        /* ПЕЧАТЬ (ДЕКСТОП - ФИНАЛЬНАЯ КАЛИБРОВКА) */
+        /* ПЕЧАТЬ (ДЕКСТОП) */
         .seal-container { 
             position: absolute; 
             bottom: 130px;
@@ -143,7 +143,7 @@
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
-        /* МОБИЛЬНАЯ ВЕРСИЯ (ФИНАЛЬНАЯ КАЛИБРОВКА) */
+        /* === МОБИЛЬНАЯ ВЕРСИЯ (ФИНАЛЬНАЯ КАЛИБРОВКА) === */
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 40px; }
             
@@ -163,16 +163,16 @@
                 position: relative;
                 left: 20px;
             }
-            #en-manifesto h1 { font-size: 50px; top: -30px; } /* Поднят на 20px */
-            #en-manifesto h2 { font-size: 45px; top: -40px; } /* Поднят на 30px */
-            #en-manifesto p { font-size: 17px; line-height: 1.25; top: -60px; } /* Поднят на 50px */
+            #en-manifesto h1 { font-size: 50px; top: -30px; } /* Поднят на 20px от исходных -10px */
+            #en-manifesto h2 { font-size: 45px; top: -40px; } /* Поднят на 30px от исходных -10px */
+            #en-manifesto p { font-size: 17px; line-height: 1.25; top: -80px; } /* Поднят на 70px от исходных -10px */
             #en-manifesto p span.space { height: 5px; }
             
             #en-manifesto.active ~ .seal-container {
-                width: 60px;      /* Уменьшена на 30px */
-                height: 60px;     /* Уменьшена на 30px */
-                bottom: -40px;    /* Опущена на 50px */
-                right: 130px;     /* Сдвинута влево на 70px */
+                width: 60px;      /* Уменьшена на 30px (90-30) */
+                height: 60px;     /* Уменьшена на 30px (90-30) */
+                bottom: -80px;    /* Опущена на 90px (10-90) */
+                right: 130px;     /* Сдвинута влево на 70px (60+70) */
             }
         }
     </style>
