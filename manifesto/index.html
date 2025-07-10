@@ -122,7 +122,7 @@
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
-        /* ПЕЧАТЬ (ДЕКСТОП) */
+        /* ПЕЧАТЬ (ДЕКСТОП - ПРАВИЛО ВОССТАНОВЛЕНО) */
         .seal-container { 
             position: absolute; 
             bottom: 130px;
@@ -170,10 +170,10 @@
             
             /* ИЗГНАНИЕ ДЕМОНА ИЗ КНОПКИ */
             html[lang="en"] .seal-container {
-                width: 80px;      /* Уменьшена на 10px */
-                height: 80px;     /* Уменьшена на 10px */
-                bottom: -20px;    /* Опущена на 30px */
-                right: 30px;      /* Сдвинута вправо на 30px */
+                width: 80px;
+                height: 80px;
+                bottom: -5px; /* Поднята на 15px */
+                right: 40px; /* Сдвинута к тексту на 10px */
             }
         }
     </style>
@@ -258,12 +258,12 @@
             const params = new URLSearchParams(window.location.search);
             const lang = params.get('lang') || 'en';
             
+            document.documentElement.lang = lang; // Устанавливаем язык на <html>
+            
             if (lang === 'ru') {
-                document.documentElement.lang = 'ru';
                 document.getElementById('ru-manifesto').classList.add('active');
                 sealButton.style.backgroundImage = "url('../assets/seal-ru.png')";
             } else {
-                document.documentElement.lang = 'en';
                 document.getElementById('en-manifesto').classList.add('active');
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
