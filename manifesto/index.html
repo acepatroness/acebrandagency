@@ -49,6 +49,8 @@
             position: relative;
             width: 100%;
             max-width: 900px;
+            /* ИЗМЕНЕНИЕ ЗДЕСЬ: РУЧНАЯ КОРРЕКЦИЯ ПОЛОЖЕНИЯ */
+            top: 35px; 
         }
         
         /* === ПЕРГАМЕНТ === */
@@ -76,7 +78,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* ИЗМЕНЕНИЕ БЫЛО ЗДЕСЬ: СДЕЛАЛА НИЖНИЙ ОТСТУП РАВНЫМ ВЕРХНЕМУ */
             padding: 130px 80px 130px 160px;
             opacity: 0;
             z-index: 2;
@@ -126,7 +127,7 @@
         /* ПЕЧАТЬ (ДЕКСТОП - ФИНАЛЬНАЯ КАЛИБРОВКА) */
         .seal-container { 
             position: absolute; 
-            bottom: 130px; /* ЭТО ЗНАЧЕНИЕ ТЕПЕРЬ СИНХРОНИЗИРОВАНО С ОТСТУПАМИ */
+            bottom: 130px;
             right: 180px; 
             width: 150px; 
             height: 150px; 
@@ -146,6 +147,9 @@
         
         /* МОБИЛЬНАЯ ВЕРСИЯ (ФИНАЛЬНАЯ КАЛИБРОВКА) */
         @media (max-width: 768px) {
+            .grimoire-wrapper {
+                top: 0; /* Сбрасываем сдвиг на мобильных */
+            }
             .manifesto-content { padding: 100px 40px; }
             
             #ru-manifesto h1, #ru-manifesto h2, #ru-manifesto p { position: static; }
