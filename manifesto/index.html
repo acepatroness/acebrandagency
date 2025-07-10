@@ -134,11 +134,6 @@
             animation: fadeInSeal 1s ease-out 0.5s forwards; 
         }
         
-        #ru-manifesto.active ~ .seal-container {
-            bottom: 40px;
-            right: 40px;
-        }
-        
         .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 1.5s; }
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
@@ -147,33 +142,38 @@
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 40px; }
             
-            #ru-manifesto h1, #ru-manifesto h2, #ru-manifesto p { position: static; }
-            #ru-manifesto h1 { font-size: 40px; } 
-            #ru-manifesto h2 { font-size: 28px; } 
-            #ru-manifesto p { font-size: 18px; line-height: 1.4; }
-            #ru-manifesto.active ~ .seal-container {
+            /* СТИЛИ ДЛЯ РУССКОЙ МОБИЛЬНОЙ ВЕРСИИ */
+            html[lang="ru"] #ru-manifesto h1, 
+            html[lang="ru"] #ru-manifesto h2, 
+            html[lang="ru"] #ru-manifesto p { position: static; }
+            html[lang="ru"] #ru-manifesto h1 { font-size: 40px; } 
+            html[lang="ru"] #ru-manifesto h2 { font-size: 28px; } 
+            html[lang="ru"] #ru-manifesto p { font-size: 18px; line-height: 1.4; }
+            html[lang="ru"] .seal-container {
                 width: 120px; 
                 height: 120px; 
                 bottom: 30px; 
                 right: 30px; 
             }
 
-            /* === ПРАВКИ ДЛЯ МОБИЛЬНОЙ АНГЛИЙСКОЙ ВЕРСИИ === */
-            #en-manifesto h1, #en-manifesto h2, #en-manifesto p {
+            /* СТИЛИ ДЛЯ АНГЛИЙСКОЙ МОБИЛЬНОЙ ВЕРСИИ */
+            html[lang="en"] #en-manifesto h1, 
+            html[lang="en"] #en-manifesto h2, 
+            html[lang="en"] #en-manifesto p {
                 position: relative;
                 left: 20px;
             }
-            #en-manifesto h1 { font-size: 50px; top: -55px; }
-            #en-manifesto h2 { font-size: 41px; top: -75px; } 
-            #en-manifesto p { font-size: 13px; line-height: 1.25; top: -105px; } 
-            #en-manifesto p span.space { height: 5px; }
+            html[lang="en"] #en-manifesto h1 { font-size: 50px; top: -55px; }
+            html[lang="en"] #en-manifesto h2 { font-size: 41px; top: -75px; } 
+            html[lang="en"] #en-manifesto p { font-size: 13px; line-height: 1.25; top: -105px; } 
+            html[lang="en"] #en-manifesto p span.space { height: 5px; }
             
-            /* ФИНАЛЬНЫЙ УДАР ПО КНОПКЕ */
-            body .grimoire-wrapper .parchment #en-manifesto.active ~ .seal-container {
-                width: 50px !important;
-                height: 50px !important;
-                bottom: -140px !important;
-                right: 70px !important;
+            /* ИЗГНАНИЕ ДЕМОНА ИЗ КНОПКИ */
+            html[lang="en"] .seal-container {
+                width: 80px;      /* Уменьшена на 10px */
+                height: 80px;     /* Уменьшена на 10px */
+                bottom: -20px;    /* Опущена на 30px */
+                right: 30px;      /* Сдвинута вправо на 30px */
             }
         }
     </style>
