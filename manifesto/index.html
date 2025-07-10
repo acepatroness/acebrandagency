@@ -94,6 +94,7 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
+        /* === АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП) === */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
@@ -115,15 +116,17 @@
             left: 90px;
         }
 
+        /* === РУССКАЯ ВЕРСИЯ (ДЕКСТОП) === */
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { font-size: 57px; } 
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
+        /* === ПЕЧАТЬ (ДЕКСТОП) === */
         .seal-container { 
             position: absolute; 
-            bottom: 205px; 
-            right: 130px; 
+            bottom: 235px; 
+            right: 150px; 
             width: 150px; 
             height: 150px; 
             opacity: 0; 
@@ -140,6 +143,7 @@
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
+        /* === МОБИЛЬНАЯ ВЕРСИЯ === */
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 40px; }
             #ru-manifesto h1, #ru-manifesto h2, #ru-manifesto p { position: static; }
@@ -255,6 +259,7 @@
         img, svg { pointer-events: none; }
     </style>
     <script>
+        // === АНИМАЦИЯ ПЕПЛА И ТУМАНА ===
         if (!window.isUnifiedAnimationInitialized) {
             (function() {
                 const canvas = document.getElementById('global-ash-canvas');
@@ -262,69 +267,46 @@
                 const ctx = canvas.getContext('2d');
                 function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
                 resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+                
                 let particles = []; 
-                let fogTime = 0; // Наш счётчик времени для тумана
-
+                let fogTime = 0;
+                
                 class AshParticle {
                     constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
                     update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
                     draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
                 }
                 
-                // === ИЗМЕНЕНИЕ ЗДЕСЬ: РИТУАЛ ПРИЗЫВА ТУМАНА ===
+                // === ВОТ ОНА, СУКА, ДЫМКА ТУМАНА ===
                 function drawFog() {
-                    const fogLayers = 4; // Количество слоёв дымки
-                    const baseFogHeight = canvas.height * 0.20; // Высота тумана
-                    
-                    // Режим смешивания для создания эффекта свечения/дымки
-                    ctx.globalCompositeOperation = 'lighter';
-
-                    for (let i = 1; i <= fogLayers; i++) {
-                        const timeOffset = fogTime + i * 20;
-                        const swell = baseFogHeight + Math.sin(timeOffset * 0.1 + i * 2) * 15 * i;
-                        const opacity = 0.015 * i + Math.sin(timeOffset * 0.05) * 0.01;
-                        
-                        const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - swell);
-                        gradient.addColorStop(0, `rgba(60, 58, 62, ${opacity})`);
-                        gradient.addColorStop(0.7, `rgba(45, 44, 47, 0)`);
-                        
-                        ctx.fillStyle = gradient;
-                        
-                        // Рисуем не линию, а волнистую фигуру
-                        ctx.beginPath();
-                        ctx.moveTo(-100, canvas.height + 50); // Начинаем за пределами экрана
-                        for (let x = -100; x < canvas.width + 100; x += 40) {
-                            const yOffset = Math.sin(x * 0.005 + timeOffset * 0.1) * 20 * i;
-                            ctx.lineTo(x, canvas.height - swell * 0.2 + yOffset);
-                        }
-                        ctx.lineTo(canvas.width + 100, canvas.height + 50); // Заканчиваем за пределами
-                        ctx.closePath();
-                        ctx.fill();
-                    }
-                    
-                    // Возвращаем стандартный режим наложения
-                    ctx.globalCompositeOperation = 'source-over';
-                    fogTime += 0.02;
+                    const fogHeight = 120;
+                    const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
+                    gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`);
+                    gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)');
+                    gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
+                    ctx.fillStyle = gradient; 
+                    ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
+                    fogTime += 0.005;
                 }
-
+                
                 function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
                 function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
                 
                 function animate() {
                     ctx.clearRect(0, 0, canvas.width, canvas.height); 
-                    drawFog(); // Вызываем наш новый, сука, живой туман
+                    drawFog(); // <--- ОНА ВЫЗЫВАЕТСЯ ЗДЕСЬ, КАЖДЫЙ КАДР
                     particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
                     if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
                     requestAnimationFrame(animate);
                 }
-
-                window.addEventListener('mousemove', handleMouseMove); 
-                window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                
+                window.addEventListener('mousemove', handleMouseMove); window.addEventListener('touchmove', handleTouchMove, { passive: true });
                 animate(); 
                 window.isUnifiedAnimationInitialized = true;
             })();
         }
         
+        // === ЛОГИКА ВЫБОРА ЯЗЫКА ===
         document.addEventListener('DOMContentLoaded', () => {
             const sealButton = document.getElementById('seal-btn');
             const params = new URLSearchParams(window.location.search);
@@ -340,6 +322,7 @@
             }
         });
         
+        // === ЗАЩИТА ОТ КОПИРОВАНИЯ ===
         if (!window.isContentProtectionInitialized) {
             (function() {
                 document.addEventListener('contextmenu', e => e.preventDefault(), false);
