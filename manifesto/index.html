@@ -69,14 +69,15 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* === КОНТЕНТ === */
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: КОНТЕНТ (ДЕКСТОП) === */
         .manifesto-content {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 140px 80px 120px 160px;
+            /* 1. ТЕКСТ ПОДНЯТ НА 10PX (было 140px, стало 130px) */
+            padding: 130px 80px 120px 160px;
             opacity: 0;
             z-index: 2;
             animation: fadeInContent 1s ease-out 0.5s forwards;
@@ -94,7 +95,7 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
-        /* === АНГЛИЙСКАЯ ВЕРСИЯ (НЕ ТРОНУТА) === */
+        /* === АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП) === */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
@@ -116,18 +117,18 @@
             left: 90px;
         }
 
-        /* РУССКАЯ ВЕРСИЯ (НЕ ТРОНУТА) */
+        /* === РУССКАЯ ВЕРСИЯ (ДЕКСТОП) === */
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { font-size: 57px; } 
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ПЕЧАТЬ ПРИБЛИЖЕНА К ТЕКСТУ === */
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ПЕЧАТЬ (ДЕКСТОП) === */
         .seal-container { 
             position: absolute; 
-            /* Поднята на 30px (было 205px, стало 235px) */
-            bottom: 235px; 
-            right: 130px; 
+            bottom: 205px; 
+            /* 2. КНОПКА СДВИНУТА ЛЕВЕЕ НА 20PX (было 130px, стало 150px) */
+            right: 150px; 
             width: 150px; 
             height: 150px; 
             opacity: 0; 
@@ -144,7 +145,7 @@
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
-        /* МОБИЛЬНАЯ ВЕРСИЯ (НЕ ТРОНУТА) */
+        /* === МОБИЛЬНАЯ ВЕРСИЯ (НЕ ТРОНУТА) === */
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 40px; }
             #ru-manifesto h1, #ru-manifesto h2, #ru-manifesto p { position: static; }
