@@ -30,6 +30,8 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: АБСОЛЮТНОЕ ВЕРТИКАЛЬНОЕ ЦЕНТРИРОВАНИЕ === */
         body {
             background-image: linear-gradient(to right, #111111, #2D2C2F, #111111);
             color: var(--quartz);
@@ -41,7 +43,8 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px 5vw;
+            /* Убраны вертикальные отступы для идеального центрирования */
+            padding: 0 5vw; 
         }
 
         /* === КОНТЕЙНЕР === */
@@ -49,6 +52,8 @@
             position: relative;
             width: 100%;
             max-width: 900px;
+            /* Добавляем отступы здесь, чтобы они не влияли на центрирование */
+            margin: 20px 0;
         }
         
         /* === ПЕРГАМЕНТ === */
@@ -69,15 +74,14 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: СИММЕТРИЧНЫЕ ОТСТУПЫ === */
+        /* === КОНТЕНТ (ДЕКСТОП) === */
         .manifesto-content {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* Отступ снизу теперь равен отступу сверху (130px) */
-            padding: 130px 80px 130px 160px;
+            padding: 130px 80px 120px 160px;
             opacity: 0;
             z-index: 2;
             animation: fadeInContent 1s ease-out 0.5s forwards;
@@ -127,7 +131,7 @@
         .seal-container { 
             position: absolute; 
             bottom: 205px; 
-            right: 240px; 
+            right: 180px; 
             width: 150px; 
             height: 150px; 
             opacity: 0; 
@@ -146,6 +150,7 @@
         
         /* === МОБИЛЬНАЯ ВЕРСИЯ (НЕ ТРОНУТА) === */
         @media (max-width: 768px) {
+            .grimoire-wrapper { margin: 0; }
             .manifesto-content { padding: 100px 40px; }
             #ru-manifesto h1, #ru-manifesto h2, #ru-manifesto p { position: static; }
             #ru-manifesto h1 { font-size: 40px; } 
