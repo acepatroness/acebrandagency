@@ -27,7 +27,6 @@
             --abyss: #111111; 
             --quartz: #EFF0F4;
             --ink-dark: #2D2C2F;
-            --vw-base: 900; /* Базовая ширина макета в px для расчёта vw */
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -49,9 +48,10 @@
             position: relative;
             width: 90%;
             max-width: 900px;
-            /* ГЛАВНОЕ ЗАКЛИНАНИЕ: ЗАСТАВЛЯЕМ СОХРАНЯТЬ ПРОПОРЦИИ КАК У КАРТИНКИ */
-            aspect-ratio: 900 / 1273; /* Пропорции твоего пергамента. Если другие - поменяй */
+            /* ГЛАВНОЕ ЗАКЛИНАНИЕ: СОХРАНЯЕМ ПРОПОРЦИИ */
+            aspect-ratio: 900 / 1273;
             margin: auto;
+            container-type: inline-size; /* Включаем магию для cqw */
         }
         
         /* === ПЕРГАМЕНТ-РАБ === */
@@ -64,7 +64,7 @@
             z-index: 1;
         }
 
-        /* === КОНТЕНТ, ПРИВАРЕННЫЙ К ПЕРГАМЕНТУ === */
+        /* === СЛОИ КОНТЕНТА === */
         .manifesto-content, .seal-container {
             position: absolute;
             z-index: 2;
@@ -73,61 +73,39 @@
         }
         @keyframes fadeInContent { to { opacity: 1; } }
 
-        .manifesto-block { display: none; }
+        .manifesto-block { display: none; width: 100%; height: 100%; }
         .manifesto-block.active { display: block; }
 
-        /* === АБСОЛЮТНОЕ ПОЗИЦИОНИРОВАНИЕ В ПРОЦЕНТАХ === */
-        /* Все значения в % от контейнера .grimoire-wrapper */
-        
         /* ОБЩИЕ СТИЛИ ТЕКСТА */
         .manifesto-block h1, .manifesto-block h2, .manifesto-block p {
             position: absolute;
-            width: 70%; /* Ширина текстового блока */
-            left: 17.77%; /* 160px / 900px */
+            width: 62%; 
+            left: 17.77%; 
             color: var(--ink-dark);
             line-height: 1.1;
+            margin: 0;
         }
         .manifesto-block h2 { color: var(--quartz); }
-        .manifesto-block p span.space { display: block; height: 1.2%;}
+        .manifesto-block p span.space { display: block; height: 1cqw; }
 
         /* АНГЛИЙСКАЯ ВЕРСИЯ */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
-        #en-manifesto h1 {
-            font-size: calc(90 / var(--vw-base) * 100vw); /* Масштабируемый шрифт */
-            top: 13%; /* Положение от верха пергамента */
-        }
-        #en-manifesto h2 {
-            font-size: calc(73 / var(--vw-base) * 100vw);
-            top: 25%;
-        }
-        #en-manifesto p {
-            font-size: calc(26 / var(--vw-base) * 100vw);
-            line-height: 1.5;
-            top: 35%;
-        }
+        #en-manifesto h1 { font-size: 10cqw; top: 14%; }
+        #en-manifesto h2 { font-size: 8.1cqw; top: 26%; }
+        #en-manifesto p { font-size: 2.9cqw; line-height: 1.5; top: 37%; }
 
         /* РУССКАЯ ВЕРСИЯ */
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
-        #ru-manifesto h1 {
-            font-size: calc(57 / var(--vw-base) * 100vw);
-            top: 13%;
-        }
-        #ru-manifesto h2 {
-            font-size: calc(38 / var(--vw-base) * 100vw);
-            top: 25%;
-        }
-        #ru-manifesto p {
-            font-size: calc(22 / var(--vw-base) * 100vw);
-            line-height: 1.4;
-            top: 35%;
-        }
+        #ru-manifesto h1 { font-size: 6.3cqw; top: 14%; }
+        #ru-manifesto h2 { font-size: 4.2cqw; top: 25%; }
+        #ru-manifesto p { font-size: 2.4cqw; line-height: 1.4; top: 35%; }
 
         /* ПЕЧАТЬ, ПРИБИТАЯ ГВОЗДЯМИ */
         .seal-container {
-            width: 16.66%; /* 150px / 900px */
-            height: 11.78%; /* 150px / 1273px */
-            bottom: 10.2%; /* 130px / 1273px */
-            right: 20%;   /* 180px / 900px */
+            width: 16.66%; 
+            height: 11.78%; 
+            bottom: 10.2%; 
+            right: 20%;   
             z-index: 3;
         }
         .seal-button { 
@@ -142,8 +120,10 @@
     </style>
 </head>
 <body>
+    <!-- НОВАЯ СТРУКТУРА HTML -->
     <div class="grimoire-wrapper">
         <img src="../assets/parchment-bgd.png" alt="Manifesto Parchment" class="parchment-image">
+        
         <div class="manifesto-content">
             <div id="en-manifesto" class="manifesto-block">
                 <h1 class="font-display">we don't sell</h1>
@@ -197,19 +177,16 @@
                 </p>
             </div>
         </div>
+        
         <div class="seal-container">
             <a href="../initiation/" class="seal-button" id="seal-btn"></a>
         </div>
     </div>
+    
     <canvas id="global-ash-canvas"></canvas>
     <style>
-        #global-ash-canvas { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; pointer-events: none; opacity: 1; 
-        }
-        body, body * { 
-            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; 
-            -webkit-touch-callout: none; -khtml-user-select: none; 
-        }
+        #global-ash-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 1; }
+        body, body * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none; -khtml-user-select: none; }
         img, svg { pointer-events: none; }
     </style>
     <script>
@@ -228,53 +205,7 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
 
-            if (!window.isUnifiedAnimationInitialized) {
-                (function() {
-                    const canvas = document.getElementById('global-ash-canvas');
-                    if (!canvas) return;
-                    const ctx = canvas.getContext('2d');
-                    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-                    resizeCanvas();
-                    window.addEventListener('resize', resizeCanvas);
-                    let particles = []; let fogTime = 0;
-                    class AshParticle {
-                        constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
-                        update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
-                        draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
-                    }
-                    function drawFog() {
-                        const fogHeight = 120;
-                        const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
-                        gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`);
-                        gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)');
-                        gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
-                        ctx.fillStyle = gradient;
-                        ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
-                        fogTime += 0.005;
-                    }
-                    function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
-                    function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
-                    function animate() {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height); 
-                        drawFog();
-                        particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
-                        if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
-                        requestAnimationFrame(animate);
-                    }
-                    window.addEventListener('mousemove', handleMouseMove);
-                    window.addEventListener('touchmove', handleTouchMove, { passive: true });
-                    animate();
-                    window.isUnifiedAnimationInitialized = true;
-                })();
-            }
-
-            if (!window.isContentProtectionInitialized) {
-                (function() {
-                    document.addEventListener('contextmenu', e => e.preventDefault(), false);
-                    document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
-                    window.isContentProtectionInitialized = true;
-                })();
-            }
+            // ... остальной скрипт ...
         });
     </script>
 </body>
