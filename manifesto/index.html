@@ -69,14 +69,15 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* === КОНТЕНТ (ДЕКСТОП) === */
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: СИММЕТРИЧНЫЕ ОТСТУПЫ === */
         .manifesto-content {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 130px 80px 120px 160px;
+            /* Отступ снизу теперь равен отступу сверху (130px) */
+            padding: 130px 80px 130px 160px;
             opacity: 0;
             z-index: 2;
             animation: fadeInContent 1s ease-out 0.5s forwards;
@@ -122,11 +123,10 @@
         #ru-manifesto h2 { font-size: 38px; } 
         #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ПЕЧАТЬ (ДЕКСТОП) === */
+        /* === ПЕЧАТЬ (ДЕКСТОП) === */
         .seal-container { 
             position: absolute; 
             bottom: 205px; 
-            /* СДВИНУТА ЛЕВЕЕ ЕЩЁ НА 30PX (было 150px, стало 180px) */
             right: 240px; 
             width: 150px; 
             height: 150px; 
