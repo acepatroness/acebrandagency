@@ -36,248 +36,171 @@
             font-family: 'Unbounded', sans-serif;
             font-weight: 200;
             text-transform: lowercase;
-            overflow-y: auto;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 50px 5vw; 
+            padding: 2vw; 
         }
 
-        /* === КОНТЕЙНЕР === */
+        /* === КОНТЕЙНЕР-ДИКТАТОР === */
         .grimoire-wrapper {
             position: relative;
-            width: 100%;
+            width: 90%;
             max-width: 900px;
+            /* ГЛАВНОЕ ЗАКЛИНАНИЕ: СОХРАНЯЕМ ПРОПОРЦИИ (900x1273px) */
+            aspect-ratio: 900 / 1273;
+            margin: auto;
+            container-type: inline-size; /* Включаем магию для cqw */
         }
         
-        /* === ПЕРГАМЕНТ === */
-        .parchment {
-            width: 100%;
-            height: auto;
-            position: relative;
-            z-index: 1;
-            animation: fadeInParchment 0.5s ease-out forwards;
-        }
+        /* === ПЕРГАМЕНТ-РАБ === */
         .parchment-image {
             display: block;
             width: 100%;
-            height: auto;
-        }
-        @keyframes fadeInParchment {
-            from { opacity: 0; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            z-index: 1;
         }
 
-        /* === КОНТЕНТ (ДЕКСТОП) === */
-        .manifesto-content {
+        /* === СЛОИ КОНТЕНТА === */
+        .manifesto-content, .seal-container {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 130px 80px 130px 160px;
-            opacity: 0;
             z-index: 2;
+            opacity: 0;
             animation: fadeInContent 1s ease-out 0.5s forwards;
         }
+        @keyframes fadeInContent { to { opacity: 1; } }
 
-        @keyframes fadeInContent {
-            to { opacity: 1; }
-        }
-        
-        .manifesto-block { display: none; }
+        .manifesto-block { display: none; width: 100%; height: 100%; }
         .manifesto-block.active { display: block; }
-        
-        .manifesto-block h1, .manifesto-block p { color: var(--ink-dark); }
-        .manifesto-block h2 { color: var(--quartz); line-height: 1.1; }
-        .manifesto-block h1 { line-height: 1.1; }
-        .manifesto-block p span.space { display: block; height: 8px; }
-        
-        /* АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП - ИДЕАЛЬНА) */
-        #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
-        #en-manifesto h1 { 
-            font-size: 90px; 
-            position: relative;
-            top: 30px; 
-            left: 90px;
-            margin-bottom: 10px;
-        } 
-        #en-manifesto h2 { 
-            font-size: 73px; 
-            position: relative;
-            top: 0; 
-            left: 90px;
-            margin-bottom: 40px;
-        } 
-        #en-manifesto p { 
-            font-size: 26px;
-            line-height: 1.52; 
-            position: relative;
-            top: -25px;
-            left: 90px;
-        }
 
-        /* РУССКАЯ ВЕРСИЯ (ДЕКСТОП) */
-        #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
-        #ru-manifesto h1 { 
-            font-size: 57px; 
-            margin-top: 70px;
-            margin-bottom: 12px;
+        /* ОБЩИЕ СТИЛИ ТЕКСТА (ПРИВАРЕНЫ К ХОЛСТУ) */
+        .manifesto-block h1, .manifesto-block h2, .manifesto-block p {
+            position: absolute;
+            width: 65%; 
+            color: var(--ink-dark);
+            line-height: 1.1;
+            margin: 0;
         }
-        #ru-manifesto h2 { 
-            font-size: 48px;
-            margin-bottom: 60px;
-        } 
-        #ru-manifesto p { 
-            font-size: 22px; 
-            line-height: 1.7; 
-        }
+        .manifesto-block h2 { color: var(--quartz); }
+        .manifesto-block p span.space { display: block; height: 1.5cqw; }
 
-        /* ПЕЧАТЬ (ДЕКСТОП) */
-        .seal-container { 
-            position: absolute; 
-            bottom: 130px;
-            right: 200px; 
-            width: 150px; 
-            height: 120px; 
-            opacity: 0; 
-            z-index: 3; 
-            animation: fadeInSeal 1s ease-out 0.5s forwards; 
+        /* АНГЛИЙСКАЯ ВЕРСИЯ */
+        #en-manifesto .font-display, #en-manifesto p { 
+            font-family: 'Manufacturing Consent', sans-serif;
+            left: 27.77%; /* (160+90)/900 */
         }
-        
-        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 1.5s; }
-        @keyframes fadeInSeal { to { opacity: 1; } }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
-        
-        /* === МОБИЛЬНАЯ ВЕРСИЯ === */
-        @media (max-width: 768px) {
-            .manifesto-content { padding: 100px 40px; }
-            
-            /* СТИЛИ ДЛЯ РУССКОЙ МОБИЛЬНОЙ ВЕРСИИ - ИЗМЕНЕНО */
-            html[lang="ru"] #ru-manifesto {
-                position: relative;
-                top: -15px;      /* Поднимаем блок на 15px */
-                left: 10px;        /* Двигаем вправо на 10px */
-            }
-            html[lang="ru"] #ru-manifesto h1, 
-            html[lang="ru"] #ru-manifesto h2, 
-            html[lang="ru"] #ru-manifesto p { 
-                position: static;
-                margin: 0;
-            }
-            html[lang="ru"] #ru-manifesto h1 { font-size: 23px; margin-bottom: 8px; } 
-            html[lang="ru"] #ru-manifesto h2 { font-size: 20px; margin-bottom: 15px; } 
-            html[lang="ru"] #ru-manifesto p { font-size: 10px; line-height: 1.2; }
-            html[lang="ru"] .seal-container {
-                width: 90px; 
-                height: 80px; 
-                bottom: 30px; 
-                right: 50px; 
-            }
+        #en-manifesto h1 { font-size: 10cqw; top: 12.5%; }  /* 90/900 | 160/1273 */
+        #en-manifesto h2 { font-size: 8.1cqw; top: 23.5%; } /* 73/900 | 300/1273 */
+        #en-manifesto p  { font-size: 2.8cqw; line-height: 1.5; top: 35%; } /* 26/900 | 445/1273 */
 
-            /* СТИЛИ ДЛЯ АНГЛИЙСКОЙ МОБИЛЬНОЙ ВЕРСИИ */
-            html[lang="en"] #en-manifesto h1, 
-            html[lang="en"] #en-manifesto h2, 
-            html[lang="en"] #en-manifesto p {
-                position: relative;
-                left: 20px;
-            }
-            html[lang="en"] #en-manifesto h1 { font-size: 50px; top: -55px; }
-            html[lang="en"] #en-manifesto h2 { font-size: 41px; top: -75px; } 
-            html[lang="en"] #en-manifesto p { font-size: 13px; line-height: 1.25; top: -105px; } 
-            html[lang="en"] #en-manifesto p span.space { height: 5px; }
-            
-            html[lang="en"] .seal-container {
-                width: 80px;
-                height: 80px;
-                bottom: 20px;
-                right: 60px;
-            }
+        /* РУССКАЯ ВЕРСИЯ */
+        #ru-manifesto .font-display, #ru-manifesto p { 
+            font-family: 'Brahms Gotisch', serif; 
+            left: 17.77%; /* 160/900 */
         }
+        #ru-manifesto h1 { font-size: 6.3cqw; top: 10.2%; } /* 57/900 | 130/1273 */
+        #ru-manifesto h2 { font-size: 4.2cqw; top: 23.5%; }
+        #ru-manifesto p  { font-size: 2.4cqw; line-height: 1.4; top: 33%; }
+
+        /* ПЕЧАТЬ, ПРИБИТАЯ ГВОЗДЯМИ */
+        .seal-container {
+            width: 16.66%;   /* 150/900 */
+            height: 11.78%;  /* 150/1273 */
+            bottom: 10.2%;   /* 130/1273 */
+            right: 20%;      /* 180/900 */
+            z-index: 3;
+        }
+        .seal-button { 
+            width: 100%; height: 100%; 
+            background-size: contain; 
+            background-repeat: no-repeat; 
+            display: block; 
+            border-radius: 50%; 
+            animation: pulse 2s infinite 1.5s; 
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
+    <!-- НОВАЯ СТРУКТУРА HTML -->
     <div class="grimoire-wrapper">
-        <div class="parchment" id="parchment">
-            <img src="../assets/parchment-bgd.png" alt="Manifesto Parchment" class="parchment-image">
-            <div class="manifesto-content">
-                <div id="en-manifesto" class="manifesto-block">
-                    <h1 class="font-display">we don't sell</h1>
-                    <h2 class="font-display">we anoint</h2>
-                    <p>
-                        seeking an "agency" or a "freelancer"?<br>
-                        close this tab. now.<span class="space"></span>
-                        we forge titans ready for rebirth,<br>
-                        not cowards who mimic their rivals.<br>
-                        we don't copy. we create.<span class="space"></span>
-                        we despise templates. we shatter formulas.<br>
-                        we loathe the very thought of stolen ideas.<br>
-                        we hate fake "success".<span class="space"></span>
-                        we descend into your chaos, your darkness.<br>
-                        we don't invent false myths…<br>
-                        we decode your core dna!<span class="space"></span>
-                        we burn the waste. the excess. all of it.<br>
-                        from the ashes, we build your empire.<br>
-                        we burn templates to build legends.<span class="space"></span>
-                        we architect brands and events<br>
-                        that become your unfair advantage.<span class="space"></span>
-                        ready for the ritual?<br>
-                        welcome to the altar.<span class="space"></span>
-                        for the few.<br>
-                        for you?
-                    </p>
-                </div>
-                <div id="ru-manifesto" class="manifesto-block">
-                    <h1 class="font-display">наш храм не для всех</h1>
-                    <h2 class="font-display">только для смелых</h2>
-                    <p>
-                        вы ищете просто «агентство» или «исполнителя»?!<br>
-                        закройте эту вкладку прямой сейчас!<span class="space"></span>
-                        мы работает с теми, кто готов к реинкарнации,<br>
-                        а не к стерильному «ребрендингу» или<br>
-                        «а сделайте вот так же как у конкурентов».<br>
-                        мы не копируем! мы создаем!<span class="space"></span>
-                        мы против шаблонов и заезженных решений.<br>
-                        нас тошнит от фейка и «успешного успеха».<br>
-                        мы против копипаста и воровства идей!<span class="space"></span>
-                        мы не придумываем лживую легенду.<br>
-                        мы погружаемся в ваш хаос и тьму.<br>
-                        мы вскрываем ваш личный код днк!<span class="space"></span>
-                        мы сжигаем всё лишнее. весь мусор.<br>
-                        на этом пепле строим вашу империю.<br>
-                        мы сжигаем шаблоны и строим легенды.<span class="space"></span>
-                        мы создаем бренды и мероприятия,<br>
-                        даруя вам справедливое превосходство!<span class="space"></span>
-                        готовы к персональному ритуалу?<br>
-                        добро пожаловать к алтарю.
-                    </p>
-                </div>
+        <img src="../assets/parchment-bgd.png" alt="Manifesto Parchment" class="parchment-image">
+        
+        <div class="manifesto-content">
+            <div id="en-manifesto" class="manifesto-block">
+                <h1 class="font-display">we don't sell</h1>
+                <h2 class="font-display">we anoint</h2>
+                <p>
+                    seeking an "agency" or a "freelancer"?<br>
+                    close this tab. now.<span class="space"></span>
+                    we forge titans ready for rebirth,<br>
+                    not cowards who mimic their rivals.<br>
+                    we don't copy. we create.<span class="space"></span>
+                    we despise templates. we shatter formulas.<br>
+                    we loathe the very thought of stolen ideas.<br>
+                    we hate fake "success".<span class="space"></span>
+                    we descend into your chaos, your darkness.<br>
+                    we don't invent false myths…<br>
+                    we decode your core dna!<span class="space"></span>
+                    we burn the waste. the excess. all of it.<br>
+                    from the ashes, we build your empire.<br>
+                    we burn templates to build legends.<span class="space"></span>
+                    we architect brands and events<br>
+                    that become your unfair advantage.<span class="space"></span>
+                    ready for the ritual?<br>
+                    welcome to the altar.<span class="space"></span>
+                    for the few.<br>
+                    for you?
+                </p>
             </div>
-            <div class="seal-container">
-                <a href="../initiation/" class="seal-button" id="seal-btn"></a>
+            <div id="ru-manifesto" class="manifesto-block">
+                <h1 class="font-display">наш храм не для всех</h1>
+                <h2 class="font-display">только для смелых</h2>
+                <p>
+                    вы ищете просто «агентство» или «исполнителя»?!<br>
+                    закройте эту вкладку прямой сейчас!<span class="space"></span>
+                    мы работает с теми, кто готов к реинкарнации,<br>
+                    а не к стерильному «ребрендингу» или<br>
+                    «а сделайте вот так же как у конкурентов».<br>
+                    мы не копируем! мы создаем!<span class="space"></span>
+                    мы против шаблонов и заезженных решений.<br>
+                    нас тошнит от фейка и «успешного успеха».<br>
+                    мы против копипаста и воровства идей!<span class="space"></span>
+                    мы не придумываем лживую легенду.<br>
+                    мы погружаемся в ваш хаос и тьму.<br>
+                    мы вскрываем ваш личный код днк!<span class="space"></span>
+                    мы сжигаем всё лишнее. весь мусор.<br>
+                    на этом пепле строим вашу империю.<br>
+                    мы сжигаем шаблоны и строим легенды.<span class="space"></span>
+                    мы создаем бренды и мероприятия,<br>
+                    даруя вам справедливое превосходство!<span class="space"></span>
+                    готовы к персональному ритуалу?<br>
+                    добро пожаловать к алтарю.
+                </p>
             </div>
         </div>
+        
+        <div class="seal-container">
+            <a href="../initiation/" class="seal-button" id="seal-btn"></a>
+        </div>
     </div>
+    
     <canvas id="global-ash-canvas"></canvas>
     <style>
-        #global-ash-canvas { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; pointer-events: none; opacity: 1; 
-        }
-        body, body * { 
-            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; 
-            -webkit-touch-callout: none; -khtml-user-select: none; 
-        }
+        #global-ash-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 1; }
+        body, body * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none; -khtml-user-select: none; }
         img, svg { pointer-events: none; }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // ЛОГИКА ВЫБОРА ЯЗЫКА
             const sealButton = document.getElementById('seal-btn');
             const params = new URLSearchParams(window.location.search);
             const lang = params.get('lang') || 'en';
             
-            document.documentElement.lang = lang; // Устанавливаем язык на <html>
+            document.documentElement.lang = lang; 
             
             if (lang === 'ru') {
                 document.getElementById('ru-manifesto').classList.add('active');
@@ -293,29 +216,15 @@
                     const canvas = document.getElementById('global-ash-canvas');
                     if (!canvas) return;
                     const ctx = canvas.getContext('2d');
-                    
-                    function resizeCanvas() { 
-                        canvas.width = window.innerWidth; 
-                        canvas.height = window.innerHeight; 
-                    }
+                    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
                     resizeCanvas();
                     window.addEventListener('resize', resizeCanvas);
-                    
-                    let particles = []; 
-                    let fogTime = 0;
-                    
+                    let particles = []; let fogTime = 0;
                     class AshParticle {
-                        constructor(x, y) { 
-                            this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; 
-                        }
-                        update() { 
-                            this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; 
-                        }
-                        draw() { 
-                            ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); 
-                        }
+                        constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
+                        update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
+                        draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
                     }
-                    
                     function drawFog() {
                         const fogHeight = 120;
                         const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
@@ -326,15 +235,8 @@
                         ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
                         fogTime += 0.005;
                     }
-                    
-                    function handleMouseMove(e) { 
-                        for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } 
-                    }
-                    
-                    function handleTouchMove(e) { 
-                        if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } 
-                    }
-                    
+                    function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
+                    function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
                     function animate() {
                         ctx.clearRect(0, 0, canvas.width, canvas.height); 
                         drawFog();
@@ -342,7 +244,6 @@
                         if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
                         requestAnimationFrame(animate);
                     }
-                    
                     window.addEventListener('mousemove', handleMouseMove);
                     window.addEventListener('touchmove', handleTouchMove, { passive: true });
                     animate();
@@ -354,9 +255,7 @@
             if (!window.isContentProtectionInitialized) {
                 (function() {
                     document.addEventListener('contextmenu', e => e.preventDefault(), false);
-                    document.addEventListener('keydown', e => { 
-                        if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } 
-                    });
+                    document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
                     window.isContentProtectionInitialized = true;
                 })();
             }
