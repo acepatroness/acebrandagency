@@ -152,11 +152,10 @@
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 40px; }
             
-            /* === ИЗМЕНЕНИЕ ЗДЕСЬ === */
             html[lang="ru"] #ru-manifesto {
                 position: relative;
                 top: -15px;
-                left: 20px;   /* Было 10px, сдвигаем еще на 10px */
+                left: 20px;
             }
 
             html[lang="ru"] #ru-manifesto h1, 
@@ -278,12 +277,14 @@
             
             document.documentElement.lang = lang; // Устанавливаем язык на <html>
             
+            // === ИЗМЕНЕНИЕ ЗДЕСЬ ===
+            // Устанавливаем единый путь к логотипу для всех версий
+            sealButton.style.backgroundImage = "url('acebrandagency/assets/logo.png')";
+            
             if (lang === 'ru') {
                 document.getElementById('ru-manifesto').classList.add('active');
-                sealButton.style.backgroundImage = "url('../assets/seal-ru.png')";
             } else {
                 document.getElementById('en-manifesto').classList.add('active');
-                sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
 
             // ИСПРАВЛЕННАЯ АНИМАЦИЯ ПЕПЛА
