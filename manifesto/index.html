@@ -90,23 +90,25 @@
         .manifesto-block.active { display: block; }
         
         .manifesto-block h1, .manifesto-block p { color: var(--ink-dark); }
-        .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
-        .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
+        .manifesto-block h2 { color: var(--quartz); line-height: 1.1; }
+        .manifesto-block h1 { line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
-        /* АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП) */
+        /* АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП - ИДЕАЛЬНА) */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
             position: relative;
             top: 30px; 
             left: 90px;
+            margin-bottom: 10px;
         } 
         #en-manifesto h2 { 
             font-size: 73px; 
             position: relative;
             top: 0; 
             left: 90px;
+            margin-bottom: 40px;
         } 
         #en-manifesto p { 
             font-size: 26px;
@@ -116,24 +118,29 @@
             left: 90px;
         }
 
-        /* РУССКАЯ ВЕРСИЯ (ДЕКСТОП) - ИСПРАВЛЕНО */
-        #ru-manifesto { text-align: center; } /* Центрируем дочерние блоки */
-        #ru-manifesto .font-display, #ru-manifesto p { 
-            font-family: 'Brahms Gotisch', serif; 
-            display: inline-block; /* Позволяет блоку принять ширину контента и центрироваться */
-            text-align: left; /* Текст внутри блока - по левому краю */
+        /* РУССКАЯ ВЕРСИЯ (ДЕКСТОП - КАЛИБРОВКА) */
+        #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
+        #ru-manifesto h1 { 
+            font-size: 57px; 
+            margin-top: 70px; /* 200px от верха = 130px padding + 70px margin */
+            margin-bottom: 12px; /* Расстояние до подзаголовка */
         }
-        #ru-manifesto h1 { font-size: 57px; } 
-        #ru-manifesto h2 { font-size: 38px; } 
-        #ru-manifesto p { font-size: 22px; line-height: 1.4; }
+        #ru-manifesto h2 { 
+            font-size: 38px;
+            margin-bottom: 50px; /* Расстояние до основного текста */
+        } 
+        #ru-manifesto p { 
+            font-size: 22px; 
+            line-height: 1.4; 
+        }
 
-        /* ПЕЧАТЬ (ДЕКСТОП) - ИСПРАВЛЕНО */
+        /* ПЕЧАТЬ (ДЕКСТОП) */
         .seal-container { 
             position: absolute; 
-            bottom: 110px; /* Было 130px */
-            right: 200px; /* Было 180px */
+            bottom: 130px;
+            right: 200px; 
             width: 150px; 
-            height: 150px; 
+            height: 120px; 
             opacity: 0; 
             z-index: 3; 
             animation: fadeInSeal 1s ease-out 0.5s forwards; 
@@ -143,73 +150,49 @@
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
-        /* ---------- TABLET (769-1024 px) ---------- */
-        @media (max-width: 1024px) {
-            .manifesto-content { padding: 110px 60px 110px 120px; }
-
-            #en-manifesto h1 { font-size: 70px; left: 70px; top: 20px; }
-            #en-manifesto h2 { font-size: 57px; left: 70px; }
-            #en-manifesto p { font-size: 20px; left: 70px; top: -15px; }
-
-            #ru-manifesto h1 { font-size: 46px; }
-            #ru-manifesto h2 { font-size: 32px; }
-            #ru-manifesto p { font-size: 18px; }
-            
-            /* Кнопка на планшете - ИСПРАВЛЕНО */
-            .seal-container { width: 120px; height: 120px; bottom: 70px; right: 160px; }
-        }
-
-        /* ---------- MOBILE (481-768 px) ---------- */
+        /* === МОБИЛЬНАЯ ВЕРСИЯ (ФИНАЛЬНАЯ КАЛИБРОВКА) === */
         @media (max-width: 768px) {
-            .manifesto-content { padding: 90px 35px; }
-
+            .manifesto-content { padding: 100px 40px; }
+            
             /* РУССКАЯ МОБИЛЬНАЯ ВЕРСИЯ */
-            html[lang="ru"] #ru-manifesto { text-align: left; } /* Возвращаем стандартное выравнивание */
             html[lang="ru"] #ru-manifesto h1, 
             html[lang="ru"] #ru-manifesto h2, 
             html[lang="ru"] #ru-manifesto p { 
-                position: static; 
-                display: block; /* Возвращаем блочное поведение */
+                position: static;
+                text-align: left;
             }
-            html[lang="ru"] #ru-manifesto h1 { font-size: 40px; }
-            html[lang="ru"] #ru-manifesto h2 { font-size: 28px; }
-            html[lang="ru"] #ru-manifesto p { font-size: 18px; line-height: 1.4; }
-            
-            /* АНГЛИЙСКАЯ МОБИЛЬНАЯ ВЕРСИЯ - СТАБИЛИЗИРОВАНО */
+            html[lang="ru"] #ru-manifesto {
+                position: relative;
+                top: -15px;
+                left: 10px;
+            }
+            html[lang="ru"] #ru-manifesto h1 { font-size: 23px; margin-bottom: 6px; } 
+            html[lang="ru"] #ru-manifesto h2 { font-size: 19px; margin-bottom: 15px; } 
+            html[lang="ru"] #ru-manifesto p { font-size: 10px; line-height: 1.2; }
+            html[lang="ru"] .seal-container {
+                width: 90px; 
+                height: 80px; 
+                bottom: 30px; 
+                right: 50px; 
+            }
+
+            /* АНГЛИЙСКАЯ МОБИЛЬНАЯ ВЕРСИЯ */
             html[lang="en"] #en-manifesto h1, 
             html[lang="en"] #en-manifesto h2, 
             html[lang="en"] #en-manifesto p {
                 position: relative;
-                left: 15px;
+                left: 20px;
             }
-            html[lang="en"] #en-manifesto h1 { font-size: 45px; top: -10px; }
-            html[lang="en"] #en-manifesto h2 { font-size: 36px; top: -20px; }
-            html[lang="en"] #en-manifesto p { font-size: 12px; line-height: 1.25; top: -30px; }
+            html[lang="en"] #en-manifesto h1 { font-size: 50px; top: -55px; }
+            html[lang="en"] #en-manifesto h2 { font-size: 41px; top: -75px; } 
+            html[lang="en"] #en-manifesto p { font-size: 13px; line-height: 1.25; top: -105px; } 
             html[lang="en"] #en-manifesto p span.space { height: 5px; }
-            
-            /* Кнопка на мобильной - ИСПРАВЛЕНО */
-            .seal-container {
+            html[lang="en"] .seal-container {
                 width: 80px;
                 height: 80px;
-                bottom: 5px; /* Было 25px */
-                right: 70px; /* Было 50px */
+                bottom: 20px;
+                right: 60px;
             }
-        }
-
-        /* ---------- VERY SMALL (≤ 480 px) ---------- */
-        @media (max-width: 480px) {
-            .manifesto-content { padding: 70px 25px; }
-
-            html[lang="ru"] #ru-manifesto h1 { font-size: 32px; }
-            html[lang="ru"] #ru-manifesto h2 { font-size: 22px; }
-            html[lang="ru"] #ru-manifesto p { font-size: 15px; }
-
-            html[lang="en"] #en-manifesto h1 { font-size: 34px; top: -5px; }
-            html[lang="en"] #en-manifesto h2 { font-size: 28px; top: -10px; }
-            html[lang="en"] #en-manifesto p { font-size: 11px; top: -15px;}
-
-            /* Кнопка на маленькой мобильной - ИСПРАВЛЕНО */
-            .seal-container { width: 70px; height: 70px; bottom: 0px; right: 60px; }
         }
     </style>
 </head>
