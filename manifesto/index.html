@@ -94,7 +94,7 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
-        /* АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП - ИДЕАЛЬНА) */
+        /* АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП) */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
         #en-manifesto h1 { 
             font-size: 90px; 
@@ -125,7 +125,8 @@
         /* ПЕЧАТЬ (ДЕКСТОП) */
         .seal-container { 
             position: absolute; 
-            bottom: 130px;
+            /* ИЗМЕНЕНИЕ: КНОПКА ПОДНЯТА НА 15PX */
+            bottom: 145px;
             right: 180px; 
             width: 150px; 
             height: 150px; 
@@ -150,7 +151,8 @@
             #ru-manifesto h2 { font-size: 32px; }
             #ru-manifesto p { font-size: 18px; }
 
-            .seal-container { width: 120px; height: 120px; bottom: 90px; right: 140px; }
+            /* ИЗМЕНЕНИЕ: КНОПКА ПОДНЯТА НА 15PX */
+            .seal-container { width: 120px; height: 120px; bottom: 105px; right: 140px; }
         }
 
         /* ---------- MOBILE (481-768 px) ---------- */
@@ -164,10 +166,11 @@
             html[lang="ru"] #ru-manifesto h1 { font-size: 40px; }
             html[lang="ru"] #ru-manifesto h2 { font-size: 28px; }
             html[lang="ru"] #ru-manifesto p { font-size: 18px; line-height: 1.4; }
+            /* ИЗМЕНЕНИЕ: КНОПКА ПОДНЯТА НА 15PX */
             html[lang="ru"] .seal-container {
                 width: 100px; 
                 height: 100px; 
-                bottom: 30px; 
+                bottom: 45px; 
                 right: 40px; 
             }
 
@@ -177,16 +180,17 @@
             html[lang="en"] #en-manifesto p {
                 position: relative;
                 left: 15px;
-                top: 0;
             }
-            html[lang="en"] #en-manifesto h1 { font-size: 45px; }
-            html[lang="en"] #en-manifesto h2 { font-size: 36px; }
-            html[lang="en"] #en-manifesto p { font-size: 12px; line-height: 1.25; }
+            /* ИЗМЕНЕНИЕ: ВОЗВРАЩЕНЫ ОТРИЦАТЕЛЬНЫЕ TOP ДЛЯ ВЫРАВНИВАНИЯ */
+            html[lang="en"] #en-manifesto h1 { font-size: 45px; top: -10px; }
+            html[lang="en"] #en-manifesto h2 { font-size: 36px; top: -15px; }
+            html[lang="en"] #en-manifesto p { font-size: 12px; line-height: 1.25; top: -20px; }
             html[lang="en"] #en-manifesto p span.space { height: 5px; }
+            /* ИЗМЕНЕНИЕ: КНОПКА ПОДНЯТА НА 15PX */
             html[lang="en"] .seal-container {
                 width: 80px;
                 height: 80px;
-                bottom: 25px;
+                bottom: 40px;
                 right: 50px;
             }
         }
@@ -199,11 +203,12 @@
             html[lang="ru"] #ru-manifesto h2 { font-size: 22px; }
             html[lang="ru"] #ru-manifesto p { font-size: 15px; }
 
-            html[lang="en"] #en-manifesto h1 { font-size: 34px; }
-            html[lang="en"] #en-manifesto h2 { font-size: 28px; }
-            html[lang="en"] #en-manifesto p { font-size: 11px; }
+            html[lang="en"] #en-manifesto h1 { font-size: 34px; top: -5px; }
+            html[lang="en"] #en-manifesto h2 { font-size: 28px; top: -8px; }
+            html[lang="en"] #en-manifesto p { font-size: 11px; top: -10px; }
 
-            .seal-container { width: 70px; height: 70px; bottom: 20px; right: 40px; }
+            /* ИЗМЕНЕНИЕ: КНОПКА ПОДНЯТА НА 15PX */
+            .seal-container { width: 70px; height: 70px; bottom: 35px; right: 40px; }
         }
     </style>
 </head>
