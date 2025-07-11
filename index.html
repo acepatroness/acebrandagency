@@ -108,7 +108,9 @@
 </head>
 <body>
     <canvas id="global-ash-canvas"></canvas>
-    <img src="assets/logoo.png" alt="ACE Brand Agency Logo" class="logo">
+    
+    <!-- ИЗМЕНЕНИЕ ЗДЕСЬ -->
+    <img src="assets/logo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="gate-area">
         <a href="manifesto/index.html?lang=en" class="enter-button" id="enter-btn">enter</a>
@@ -162,7 +164,6 @@
         })();
     }
 
-    // === ИЗМЕНЕНИЕ ЗДЕСЬ: ПРИКАЗ ЖДАТЬ ПОЛНОЙ ЗАГРУЗКИ ===
     document.addEventListener('DOMContentLoaded', () => {
         const enterButton = document.getElementById('enter-btn'); 
         const langEn = document.getElementById('lang-en'); 
@@ -190,7 +191,6 @@
         langEn.addEventListener('click', () => switchLanguage('en')); 
         langRu.addEventListener('click', () => switchLanguage('ru'));
         
-        // Устанавливаем язык по умолчанию после того, как все готово
         switchLanguage('en');
     });
     </script>
