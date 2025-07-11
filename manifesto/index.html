@@ -90,9 +90,8 @@
         .manifesto-block.active { display: block; }
         
         .manifesto-block h1, .manifesto-block p { color: var(--ink-dark); }
-        /* Общие отступы убраны отсюда, чтобы задать их конкретно для каждой версии */
-        .manifesto-block h2 { color: var(--quartz); line-height: 1.1; }
-        .manifesto-block h1 { line-height: 1.1; }
+        .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
+        .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
         /* АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП - ИДЕАЛЬНА) */
@@ -102,14 +101,12 @@
             position: relative;
             top: 30px; 
             left: 90px;
-            margin-bottom: 10px;
         } 
         #en-manifesto h2 { 
             font-size: 73px; 
             position: relative;
             top: 0; 
             left: 90px;
-            margin-bottom: 40px;
         } 
         #en-manifesto p { 
             font-size: 26px;
@@ -123,7 +120,7 @@
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { 
             font-size: 57px; 
-            margin-top: 70px; /* 130px (padding) + 70px = 200px */
+            margin-top: 70px;
             margin-bottom: 12px;
         }
         #ru-manifesto h2 { 
@@ -155,12 +152,18 @@
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 40px; }
             
-            /* СТИЛИ ДЛЯ РУССКОЙ МОБИЛЬНОЙ ВЕРСИИ */
+            /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ПОЗИЦИОНИРОВАНИЕ РУССКОГО ТЕКСТА === */
+            html[lang="ru"] #ru-manifesto {
+                position: relative;
+                top: -15px;  /* Поднимаем на 15px */
+                left: 10px;   /* Сдвигаем вправо на 10px */
+            }
+
             html[lang="ru"] #ru-manifesto h1, 
             html[lang="ru"] #ru-manifesto h2, 
             html[lang="ru"] #ru-manifesto p { 
                 position: static;
-                margin: 0; /* Сброс десктопных отступов */
+                margin: 0;
             }
             html[lang="ru"] #ru-manifesto h1 { font-size: 23px; margin-bottom: 8px; } 
             html[lang="ru"] #ru-manifesto h2 { font-size: 20px; margin-bottom: 15px; } 
