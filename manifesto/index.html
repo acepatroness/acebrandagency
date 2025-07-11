@@ -1,203 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ACE BRAND AGENCY | MANIFESTO</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACE BRAND AGENCY | MANIFESTO</title>
+    <style>
+        /* === ШРИФТОВАЯ МАГИЯ === */
+        @font-face {
+            font-family: 'Brahms Gotisch';
+            src: url('../fonts/BrahmsGotischCyr.woff2') format('woff2');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'Manufacturing Consent';
+            src: url('../fonts/ManufacturingConsent-Regular.woff2') format('woff2');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'Unbounded';
+            src: url('../fonts/Unbounded-ExtraLight.woff2') format('woff2');
+            font-weight: 200; font-style: normal; font-display: swap;
+        }
 
-<style>
-/* --- ФОНДЫ --- */
-@font-face{font-family:"Brahms Gotisch";src:url("../fonts/BrahmsGotischCyr.woff2") format("woff2");font-display:swap}
-@font-face{font-family:"Manufacturing Consent";src:url("../fonts/ManufacturingConsent-Regular.woff2") format("woff2");font-display:swap}
-@font-face{font-family:"Unbounded";src:url("../fonts/Unbounded-ExtraLight.woff2") format("woff2");font-weight:200;font-display:swap}
+        /* === БАЗОВАЯ АРХИТЕКТУРА === */
+        :root { 
+            --abyss: #111111; 
+            --quartz: #EFF0F4;
+            --ink-dark: #2D2C2F;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-image: linear-gradient(to right, #111111, #2D2C2F, #111111);
+            color: var(--quartz);
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 200;
+            text-transform: lowercase;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 50px 5vw; 
+        }
 
-/* --- БАЗА --- */
-:root{--abyss:#111;--quartz:#EFF0F4;--ink-dark:#2D2C2F}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  background:linear-gradient(to right,#111,#2D2C2F,#111);
-  color:var(--quartz);font-family:'Unbounded',sans-serif;font-weight:200;
-  text-transform:lowercase;display:flex;justify-content:center;align-items:center;
-  min-height:100vh;padding:50px 5vw;overflow-y:auto}
+        /* === КОНТЕЙНЕР === */
+        .grimoire-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+        }
+        
+        /* === ПЕРГАМЕНТ === */
+        .parchment {
+            width: 100%;
+            height: auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeInParchment 0.5s ease-out forwards;
+        }
+        .parchment-image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        @keyframes fadeInParchment {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
 
-/* --- КОНТЕЙНЕР --- */
-.grimoire-wrapper{position:relative;width:100%;max-width:900px}
+        /* === КОНТЕНТ (ДЕКСТОП) === */
+        .manifesto-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 130px 80px 130px 160px;
+            opacity: 0;
+            z-index: 2;
+            animation: fadeInContent 1s ease-out 0.5s forwards;
+        }
 
-/* --- ПЕРГАМЕНТ --- */
-.parchment{width:100%;position:relative;z-index:1;animation:fadeInParchment .5s ease-out forwards}
-.parchment-image{display:block;width:100%}
-@keyframes fadeInParchment{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
+        @keyframes fadeInContent {
+            to { opacity: 1; }
+        }
+        
+        .manifesto-block { display: none; }
+        .manifesto-block.active { display: block; }
+        
+        .manifesto-block h1, .manifesto-block p { color: var(--ink-dark); }
+        .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
+        .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
+        .manifesto-block p span.space { display: block; height: 8px; }
+        
+        /* АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП - ИДЕАЛЬНА) */
+        #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
+        #en-manifesto h1 { 
+            font-size: 90px; 
+            position: relative;
+            top: 30px; 
+            left: 90px;
+        } 
+        #en-manifesto h2 { 
+            font-size: 73px; 
+            position: relative;
+            top: 0; 
+            left: 90px;
+        } 
+        #en-manifesto p { 
+            font-size: 26px;
+            line-height: 1.52; 
+            position: relative;
+            top: -25px;
+            left: 90px;
+        }
 
-/* --- КОНТЕНТ --- */
-.manifesto-content{
-  position:absolute;top:0;left:0;width:100%;height:100%;
-  padding:130px 80px 130px 160px;opacity:0;z-index:2;
-  animation:fadeInContent 1s ease-out .5s forwards}
-@keyframes fadeInContent{to{opacity:1}}
+        /* РУССКАЯ ВЕРСИЯ (ДЕКСТОП) */
+        #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
+        #ru-manifesto h1 { font-size: 57px; } 
+        #ru-manifesto h2 { font-size: 38px; } 
+        #ru-manifesto p { font-size: 22px; line-height: 1.4; }
 
-.manifesto-block{display:none}
-.manifesto-block.active{display:block}
-.manifesto-block h1,.manifesto-block p{color:var(--ink-dark)}
-.manifesto-block h2{color:var(--quartz);margin-bottom:40px;line-height:1.1}
-.manifesto-block h1{margin-bottom:10px;line-height:1.1}
-.manifesto-block p span.space{display:block;height:8px}
+        /* ПЕЧАТЬ (ДЕКСТОП) */
+        .seal-container { 
+            position: absolute; 
+            bottom: 130px;
+            right: 180px; 
+            width: 150px; 
+            height: 150px; 
+            opacity: 0; 
+            z-index: 3; 
+            animation: fadeInSeal 1s ease-out 0.5s forwards; 
+        }
+        
+        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 1.5s; }
+        @keyframes fadeInSeal { to { opacity: 1; } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+        
+        /* ---------- TABLET (769-1024 px) ---------- */
+        @media (max-width: 1024px) {
+            .manifesto-content { padding: 110px 60px 110px 120px; }
 
-/* --- АНГЛИЙСКИЙ (desktop baseline) --- */
-#en-manifesto .font-display,#en-manifesto p{font-family:'Manufacturing Consent',sans-serif}
-#en-manifesto h1{font-size:90px;position:relative;top:30px;left:90px}
-#en-manifesto h2{font-size:73px;position:relative;left:90px}
-#en-manifesto p {font-size:26px;line-height:1.52;position:relative;top:-25px;left:90px}
+            #en-manifesto h1 { font-size: 70px; left: 70px; top: 20px; }
+            #en-manifesto h2 { font-size: 57px; left: 70px; }
+            #en-manifesto p { font-size: 20px; left: 70px; top: -15px; }
 
-/* --- РУССКИЙ (desktop baseline) --- */
-#ru-manifesto .font-display,#ru-manifesto p{font-family:'Brahms Gotisch',serif}
-#ru-manifesto h1{font-size:57px}
-#ru-manifesto h2{font-size:38px}
-#ru-manifesto p {font-size:22px;line-height:1.4}
+            #ru-manifesto h1 { font-size: 46px; }
+            #ru-manifesto h2 { font-size: 32px; }
+            #ru-manifesto p { font-size: 18px; }
 
-/* --- ПЕЧАТЬ --- */
-.seal-container{
-  position:absolute;bottom:130px;right:180px;width:150px;height:150px;
-  opacity:0;z-index:3;animation:fadeInSeal 1s ease-out .5s forwards}
-.seal-button{width:100%;height:100%;background-size:contain;background-repeat:no-repeat;display:block;border-radius:50%;animation:pulse 2s infinite 1.5s}
-@keyframes fadeInSeal{to{opacity:1}}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+            .seal-container { width: 120px; height: 120px; bottom: 90px; right: 140px; }
+        }
 
-/* ---------- TABLET (769-1024 px) ---------- */
-@media (max-width:1024px){
-  .manifesto-content{padding:110px 60px 110px 120px}
+        /* ---------- MOBILE (481-768 px) ---------- */
+        @media (max-width: 768px) {
+            .manifesto-content { padding: 90px 35px; }
 
-  #en-manifesto h1{font-size:70px;left:70px;top:20px}
-  #en-manifesto h2{font-size:57px;left:70px}
-  #en-manifesto p {font-size:20px;left:70px;top:-20px}
+            /* РУССКАЯ МОБИЛЬНАЯ ВЕРСИЯ */
+            html[lang="ru"] #ru-manifesto h1, 
+            html[lang="ru"] #ru-manifesto h2, 
+            html[lang="ru"] #ru-manifesto p { position: static; }
+            html[lang="ru"] #ru-manifesto h1 { font-size: 40px; }
+            html[lang="ru"] #ru-manifesto h2 { font-size: 28px; }
+            html[lang="ru"] #ru-manifesto p { font-size: 18px; line-height: 1.4; }
+            html[lang="ru"] .seal-container {
+                width: 100px; 
+                height: 100px; 
+                bottom: 30px; 
+                right: 40px; 
+            }
 
-  #ru-manifesto h1{font-size:46px}
-  #ru-manifesto h2{font-size:32px}
-  #ru-manifesto p {font-size:18px}
+            /* АНГЛИЙСКАЯ МОБИЛЬНАЯ ВЕРСИЯ */
+            html[lang="en"] #en-manifesto h1, 
+            html[lang="en"] #en-manifesto h2, 
+            html[lang="en"] #en-manifesto p {
+                position: relative;
+                left: 15px;
+                top: 0;
+            }
+            html[lang="en"] #en-manifesto h1 { font-size: 45px; }
+            html[lang="en"] #en-manifesto h2 { font-size: 36px; }
+            html[lang="en"] #en-manifesto p { font-size: 12px; line-height: 1.25; }
+            html[lang="en"] #en-manifesto p span.space { height: 5px; }
+            html[lang="en"] .seal-container {
+                width: 80px;
+                height: 80px;
+                bottom: 25px;
+                right: 50px;
+            }
+        }
 
-  .seal-container{width:120px;height:120px;bottom:90px;right:140px}
-}
+        /* ---------- VERY SMALL (≤ 480 px) ---------- */
+        @media (max-width: 480px) {
+            .manifesto-content { padding: 70px 25px; }
 
-/* ---------- MOBILE (≤ 768 px) ---------- */
-@media (max-width:768px){
-  .manifesto-content{padding:90px 35px}
+            html[lang="ru"] #ru-manifesto h1 { font-size: 32px; }
+            html[lang="ru"] #ru-manifesto h2 { font-size: 22px; }
+            html[lang="ru"] #ru-manifesto p { font-size: 15px; }
 
-  #ru-manifesto h1,#ru-manifesto h2,#ru-manifesto p{position:static}
-  #ru-manifesto h1{font-size:40px}
-  #ru-manifesto h2{font-size:28px}
-  #ru-manifesto p {font-size:18px;line-height:1.4}
+            html[lang="en"] #en-manifesto h1 { font-size: 34px; }
+            html[lang="en"] #en-manifesto h2 { font-size: 28px; }
+            html[lang="en"] #en-manifesto p { font-size: 11px; }
 
-  #en-manifesto h1,#en-manifesto h2,#en-manifesto p{position:relative;left:20px;top:0}
-  #en-manifesto h1{font-size:50px}
-  #en-manifesto h2{font-size:41px}
-  #en-manifesto p {font-size:13px;line-height:1.25}
-  #en-manifesto p span.space{height:5px}
-
-  .seal-container{width:80px;height:80px;bottom:20px;right:60px}
-}
-</style>
+            .seal-container { width: 70px; height: 70px; bottom: 20px; right: 40px; }
+        }
+    </style>
 </head>
-
 <body>
-<div class="grimoire-wrapper">
-  <div class="parchment">
-    <img src="../assets/parchment-bgd.png" alt="Manifesto Parchment" class="parchment-image">
-
-    <!-- контент -->
-    <div class="manifesto-content">
-      <!-- EN -->
-      <div id="en-manifesto" class="manifesto-block">
-        <h1 class="font-display">we don't sell</h1>
-        <h2 class="font-display">we anoint</h2>
-        <p>
-          seeking an "agency" or a "freelancer"?<br>
-          close this tab. now.<span class="space"></span>
-          we forge titans ready for rebirth,<br>
-          not cowards who mimic their rivals.<br>
-          we don't copy. we create.<span class="space"></span>
-          we despise templates. we shatter formulas.<br>
-          we loathe the very thought of stolen ideas.<br>
-          we hate fake "success".<span class="space"></span>
-          we descend into your chaos, your darkness.<br>
-          we don't invent false myths…<br>
-          we decode your core dna!<span class="space"></span>
-          we burn the waste. the excess. all of it.<br>
-          from the ashes, we build your empire.<br>
-          we burn templates to build legends.<span class="space"></span>
-          we architect brands and events<br>
-          that become your unfair advantage.<span class="space"></span>
-          ready for the ritual?<br>
-          welcome to the altar.<span class="space"></span>
-          for the few.<br>
-          for you?
-        </p>
-      </div>
-
-      <!-- RU -->
-      <div id="ru-manifesto" class="manifesto-block">
-        <h1 class="font-display">наш храм не для всех</h1>
-        <h2 class="font-display">только для смелых</h2>
-        <p>
-          вы ищете просто «агентство» или «исполнителя»?!<br>
-          закройте эту вкладку прямо сейчас!<span class="space"></span>
-          мы работаем с теми, кто готов к реинкарнации,<br>
-          а не к стерильному «ребрендингу».<br>
-          мы не копируем — мы создаём!<span class="space"></span>
-          мы сжигаем шаблоны, ненавидим фейк и «успешный успех».<span class="space"></span>
-          мы погружаемся в ваш хаос и вскрываем ваш личный днк-код!<span class="space"></span>
-          мы выжигаем лишнее и на пепле строим империю.<span class="space"></span>
-          готовы к ритуалу?<br>
-          добро пожаловать к алтарю.
-        </p>
-      </div>
+    <div class="grimoire-wrapper">
+        <div class="parchment" id="parchment">
+            <img src="../assets/parchment-bgd.png" alt="Manifesto Parchment" class="parchment-image">
+            <div class="manifesto-content">
+                <div id="en-manifesto" class="manifesto-block">
+                    <h1 class="font-display">we don't sell</h1>
+                    <h2 class="font-display">we anoint</h2>
+                    <p>
+                        seeking an "agency" or a "freelancer"?<br>
+                        close this tab. now.<span class="space"></span>
+                        we forge titans ready for rebirth,<br>
+                        not cowards who mimic their rivals.<br>
+                        we don't copy. we create.<span class="space"></span>
+                        we despise templates. we shatter formulas.<br>
+                        we loathe the very thought of stolen ideas.<br>
+                        we hate fake "success".<span class="space"></span>
+                        we descend into your chaos, your darkness.<br>
+                        we don't invent false myths…<br>
+                        we decode your core dna!<span class="space"></span>
+                        we burn the waste. the excess. all of it.<br>
+                        from the ashes, we build your empire.<br>
+                        we burn templates to build legends.<span class="space"></span>
+                        we architect brands and events<br>
+                        that become your unfair advantage.<span class="space"></span>
+                        ready for the ritual?<br>
+                        welcome to the altar.<span class="space"></span>
+                        for the few.<br>
+                        for you?
+                    </p>
+                </div>
+                <div id="ru-manifesto" class="manifesto-block">
+                    <h1 class="font-display">наш храм не для всех</h1>
+                    <h2 class="font-display">только для смелых</h2>
+                    <p>
+                        вы ищете просто «агентство» или «исполнителя»?!<br>
+                        закройте эту вкладку прямой сейчас!<span class="space"></span>
+                        мы работает с теми, кто готов к реинкарнации,<br>
+                        а не к стерильному «ребрендингу» или<br>
+                        «а сделайте вот так же как у конкурентов».<br>
+                        мы не копируем! мы создаем!<span class="space"></span>
+                        мы против шаблонов и заезженных решений.<br>
+                        нас тошнит от фейка и «успешного успеха».<br>
+                        мы против копипаста и воровства идей!<span class="space"></span>
+                        мы не придумываем лживую легенду.<br>
+                        мы погружаемся в ваш хаос и тьму.<br>
+                        мы вскрываем ваш личный код днк!<span class="space"></span>
+                        мы сжигаем всё лишнее. весь мусор.<br>
+                        на этом пепле строим вашу империю.<br>
+                        мы сжигаем шаблоны и строим легенды.<span class="space"></span>
+                        мы создаем бренды и мероприятия,<br>
+                        даруя вам справедливое превосходство!<span class="space"></span>
+                        готовы к персональному ритуалу?<br>
+                        добро пожаловать к алтарю.
+                    </p>
+                </div>
+            </div>
+            <div class="seal-container">
+                <a href="../initiation/" class="seal-button" id="seal-btn"></a>
+            </div>
+        </div>
     </div>
+    <canvas id="global-ash-canvas"></canvas>
+    <style>
+        #global-ash-canvas { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; pointer-events: none; opacity: 1; 
+        }
+        body, body * { 
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; 
+            -webkit-touch-callout: none; -khtml-user-select: none; 
+        }
+        img, svg { pointer-events: none; }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ЛОГИКА ВЫБОРА ЯЗЫКА
+            const sealButton = document.getElementById('seal-btn');
+            const params = new URLSearchParams(window.location.search);
+            const lang = params.get('lang') || 'en';
+            
+            document.documentElement.lang = lang; // Устанавливаем язык на <html>
+            
+            if (lang === 'ru') {
+                document.getElementById('ru-manifesto').classList.add('active');
+                sealButton.style.backgroundImage = "url('../assets/seal-ru.png')";
+            } else {
+                document.getElementById('en-manifesto').classList.add('active');
+                sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
+            }
 
-    <!-- печать -->
-    <div class="seal-container">
-      <a href="../initiation/" class="seal-button" id="seal-btn"></a>
-    </div>
-  </div>
-</div>
+            // ИСПРАВЛЕННАЯ АНИМАЦИЯ ПЕПЛА
+            if (!window.isUnifiedAnimationInitialized) {
+                (function() {
+                    const canvas = document.getElementById('global-ash-canvas');
+                    if (!canvas) return;
+                    const ctx = canvas.getContext('2d');
+                    
+                    function resizeCanvas() { 
+                        canvas.width = window.innerWidth; 
+                        canvas.height = window.innerHeight; 
+                    }
+                    resizeCanvas();
+                    window.addEventListener('resize', resizeCanvas);
+                    
+                    let particles = []; 
+                    let fogTime = 0;
+                    
+                    class AshParticle {
+                        constructor(x, y) { 
+                            this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; 
+                        }
+                        update() { 
+                            this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; 
+                        }
+                        draw() { 
+                            ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); 
+                        }
+                    }
+                    
+                    function drawFog() {
+                        const fogHeight = 120;
+                        const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
+                        gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`);
+                        gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)');
+                        gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
+                        fogTime += 0.005;
+                    }
+                    
+                    function handleMouseMove(e) { 
+                        for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } 
+                    }
+                    
+                    function handleTouchMove(e) { 
+                        if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } 
+                    }
+                    
+                    function animate() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                        drawFog();
+                        particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
+                        if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
+                        requestAnimationFrame(animate);
+                    }
+                    
+                    window.addEventListener('mousemove', handleMouseMove);
+                    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                    animate();
+                    window.isUnifiedAnimationInitialized = true;
+                })();
+            }
 
-<!-- анимация пепла – без изменений -->
-<canvas id="global-ash-canvas"></canvas>
-<style>
-#global-ash-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:999;pointer-events:none;opacity:1}
-body,body *{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none}
-img,svg{pointer-events:none}
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded',()=>{
-  const sealButton=document.getElementById('seal-btn');
-  const lang=new URLSearchParams(window.location.search).get('lang')||'en';
-  document.documentElement.lang=lang;
-  if(lang==='ru'){
-    document.getElementById('ru-manifesto').classList.add('active');
-    sealButton.style.backgroundImage="url('../assets/seal-ru.png')";
-  }else{
-    document.getElementById('en-manifesto').classList.add('active');
-    sealButton.style.backgroundImage="url('../assets/seal-en.png')";
-  }
-
-  /* пепел (без изменений) */
-  if(!window.isUnifiedAnimationInitialized){
-    (function(){
-      const c=document.getElementById('global-ash-canvas');if(!c)return;
-      const ctx=c.getContext('2d');
-      function rez(){c.width=innerWidth;c.height=innerHeight}rez();addEventListener('resize',rez);
-      let P=[],t=0;
-      class A{constructor(x,y){this.x=x;this.y=y;this.vx=(Math.random()-.5)*.8;this.vy=-Math.random()*.5-.2;this.l=1;this.d=.008+Math.random()*.012;this.s=Math.random()*3+1;this.c=Math.random()>.8?'#510FD5':'#C1BFBF'}
-      up(){this.x+=this.vx;this.y+=this.vy;this.vx*=.98;this.vy+=.01;this.l-=this.d;this.s*=.998}
-      draw(){ctx.save();ctx.globalAlpha=this.l*.8;ctx.fillStyle=this.c;ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,2*Math.PI);ctx.fill();ctx.restore()}}
-      function fog(){const h=120,g=ctx.createLinearGradient(0,c.height,0,c.height-h);g.addColorStop(0,`rgba(45,44,47,${.3+Math.sin(t)*.1})`);g.addColorStop(.5,'rgba(45,44,47,.15)');g.addColorStop(1,'rgba(45,44,47,0)');ctx.fillStyle=g;ctx.fillRect(0,c.height-h,c.width,h);t+=.005}
-      function anim(){ctx.clearRect(0,0,c.width,c.height);fog();P=P.filter(p=>(p.up(),p.draw(),p.l>0&&p.s>.1));if(Math.random()<.03)P.push(new A(Math.random()*c.width,c.height+10));requestAnimationFrame(anim)}
-      addEventListener('mousemove',e=>{for(let i=0;i<6;i++)P.push(new A(e.clientX+(Math.random()-.5)*30,e.clientY+(Math.random()-.5)*30))});
-      addEventListener('touchmove',e=>{e.touches[0]&&addEventListener('mousemove',{clientX:e.touches[0].clientX,clientY:e.touches[0].clientY})},{passive:true});
-      anim();window.isUnifiedAnimationInitialized=true;
-    })();
-  }
-});
-</script>
+            // ЗАЩИТА ОТ КОПИРОВАНИЯ
+            if (!window.isContentProtectionInitialized) {
+                (function() {
+                    document.addEventListener('contextmenu', e => e.preventDefault(), false);
+                    document.addEventListener('keydown', e => { 
+                        if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } 
+                    });
+                    window.isContentProtectionInitialized = true;
+                })();
+            }
+        });
+    </script>
 </body>
 </html>
