@@ -90,8 +90,9 @@
         .manifesto-block.active { display: block; }
         
         .manifesto-block h1, .manifesto-block p { color: var(--ink-dark); }
-        .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
-        .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
+        /* Общие отступы убраны отсюда, чтобы задать их конкретно для каждой версии */
+        .manifesto-block h2 { color: var(--quartz); line-height: 1.1; }
+        .manifesto-block h1 { line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
         /* АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП - ИДЕАЛЬНА) */
@@ -101,12 +102,14 @@
             position: relative;
             top: 30px; 
             left: 90px;
+            margin-bottom: 10px;
         } 
         #en-manifesto h2 { 
             font-size: 73px; 
             position: relative;
             top: 0; 
             left: 90px;
+            margin-bottom: 40px;
         } 
         #en-manifesto p { 
             font-size: 26px;
@@ -116,19 +119,29 @@
             left: 90px;
         }
 
-        /* РУССКАЯ ВЕРСИЯ (ДЕКСТОП) */
+        /* РУССКАЯ ВЕРСИЯ (ДЕКСТОП - КАЛИБРОВКА) */
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
-        #ru-manifesto h1 { font-size: 57px; } 
-        #ru-manifesto h2 { font-size: 38px; } 
-        #ru-manifesto p { font-size: 22px; line-height: 1.4; }
+        #ru-manifesto h1 { 
+            font-size: 57px; 
+            margin-top: 70px; /* 130px (padding) + 70px = 200px */
+            margin-bottom: 12px;
+        }
+        #ru-manifesto h2 { 
+            font-size: 38px;
+            margin-bottom: 50px;
+        } 
+        #ru-manifesto p { 
+            font-size: 22px; 
+            line-height: 1.4; 
+        }
 
         /* ПЕЧАТЬ (ДЕКСТОП) */
         .seal-container { 
             position: absolute; 
             bottom: 130px;
-            right: 180px; 
+            right: 200px; 
             width: 150px; 
-            height: 150px; 
+            height: 120px; 
             opacity: 0; 
             z-index: 3; 
             animation: fadeInSeal 1s ease-out 0.5s forwards; 
@@ -145,9 +158,12 @@
             /* СТИЛИ ДЛЯ РУССКОЙ МОБИЛЬНОЙ ВЕРСИИ */
             html[lang="ru"] #ru-manifesto h1, 
             html[lang="ru"] #ru-manifesto h2, 
-            html[lang="ru"] #ru-manifesto p { position: static; }
-            html[lang="ru"] #ru-manifesto h1 { font-size: 40px; } 
-            html[lang="ru"] #ru-manifesto h2 { font-size: 28px; } 
+            html[lang="ru"] #ru-manifesto p { 
+                position: static;
+                margin: 0; /* Сброс десктопных отступов */
+            }
+            html[lang="ru"] #ru-manifesto h1 { font-size: 40px; margin-bottom: 10px; } 
+            html[lang="ru"] #ru-manifesto h2 { font-size: 28px; margin-bottom: 20px; } 
             html[lang="ru"] #ru-manifesto p { font-size: 18px; line-height: 1.4; }
             html[lang="ru"] .seal-container {
                 width: 120px; 
@@ -252,11 +268,12 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // ЛОГИКА ВЫБОРА ЯЗЫКА
             const sealButton = document.getElementById('seal-btn');
             const params = new URLSearchParams(window.location.search);
             const lang = params.get('lang') || 'en';
             
-            document.documentElement.lang = lang; 
+            document.documentElement.lang = lang; // Устанавливаем язык на <html>
             
             if (lang === 'ru') {
                 document.getElementById('ru-manifesto').classList.add('active');
@@ -266,20 +283,35 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
 
+            // ИСПРАВЛЕННАЯ АНИМАЦИЯ ПЕПЛА
             if (!window.isUnifiedAnimationInitialized) {
                 (function() {
                     const canvas = document.getElementById('global-ash-canvas');
                     if (!canvas) return;
                     const ctx = canvas.getContext('2d');
-                    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+                    
+                    function resizeCanvas() { 
+                        canvas.width = window.innerWidth; 
+                        canvas.height = window.innerHeight; 
+                    }
                     resizeCanvas();
                     window.addEventListener('resize', resizeCanvas);
-                    let particles = []; let fogTime = 0;
+                    
+                    let particles = []; 
+                    let fogTime = 0;
+                    
                     class AshParticle {
-                        constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
-                        update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
-                        draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+                        constructor(x, y) { 
+                            this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; 
+                        }
+                        update() { 
+                            this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; 
+                        }
+                        draw() { 
+                            ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); 
+                        }
                     }
+                    
                     function drawFog() {
                         const fogHeight = 120;
                         const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
@@ -290,8 +322,15 @@
                         ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
                         fogTime += 0.005;
                     }
-                    function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
-                    function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
+                    
+                    function handleMouseMove(e) { 
+                        for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } 
+                    }
+                    
+                    function handleTouchMove(e) { 
+                        if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } 
+                    }
+                    
                     function animate() {
                         ctx.clearRect(0, 0, canvas.width, canvas.height); 
                         drawFog();
@@ -299,6 +338,7 @@
                         if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
                         requestAnimationFrame(animate);
                     }
+                    
                     window.addEventListener('mousemove', handleMouseMove);
                     window.addEventListener('touchmove', handleTouchMove, { passive: true });
                     animate();
@@ -306,10 +346,13 @@
                 })();
             }
 
+            // ЗАЩИТА ОТ КОПИРОВАНИЯ
             if (!window.isContentProtectionInitialized) {
                 (function() {
                     document.addEventListener('contextmenu', e => e.preventDefault(), false);
-                    document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
+                    document.addEventListener('keydown', e => { 
+                        if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } 
+                    });
                     window.isContentProtectionInitialized = true;
                 })();
             }
