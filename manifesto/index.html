@@ -90,8 +90,8 @@
         .manifesto-block.active { display: block; }
         
         .manifesto-block h1, .manifesto-block p { color: var(--ink-dark); }
-        .manifesto-block h2 { color: var(--quartz); margin-bottom: 40px; line-height: 1.1; }
-        .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
+        .manifesto-block h2 { color: var(--quartz); line-height: 1.1; }
+        .manifesto-block h1 { line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
         /* АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП - ИДЕАЛЬНА) */
@@ -101,12 +101,14 @@
             position: relative;
             top: 30px; 
             left: 90px;
+            margin-bottom: 10px;
         } 
         #en-manifesto h2 { 
             font-size: 73px; 
             position: relative;
             top: 0; 
             left: 90px;
+            margin-bottom: 40px;
         } 
         #en-manifesto p { 
             font-size: 26px;
@@ -116,7 +118,7 @@
             left: 90px;
         }
 
-        /* РУССКАЯ ВЕРСИЯ (ДЕКСТОП - КАЛИБРОВКА) */
+        /* РУССКАЯ ВЕРСИЯ (ДЕКСТОП) */
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
         #ru-manifesto h1 { 
             font-size: 57px; 
@@ -152,20 +154,20 @@
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 40px; }
             
+            /* СТИЛИ ДЛЯ РУССКОЙ МОБИЛЬНОЙ ВЕРСИИ - ИЗМЕНЕНО */
             html[lang="ru"] #ru-manifesto {
                 position: relative;
-                top: -15px;
-                left: 20px;
+                top: -15px; /* Подняли на 15px */
+                left: 10px;  /* Сдвинули вправо на 10px */
             }
-
             html[lang="ru"] #ru-manifesto h1, 
             html[lang="ru"] #ru-manifesto h2, 
             html[lang="ru"] #ru-manifesto p { 
                 position: static;
-                margin: 0;
+                margin: 0; 
             }
-            html[lang="ru"] #ru-manifesto h1 { font-size: 23px; margin-bottom: 6px; } 
-            html[lang="ru"] #ru-manifesto h2 { font-size: 19px; margin-bottom: 15px; } 
+            html[lang="ru"] #ru-manifesto h1 { font-size: 23px; margin-bottom: 8px; } 
+            html[lang="ru"] #ru-manifesto h2 { font-size: 20px; margin-bottom: 15px; } 
             html[lang="ru"] #ru-manifesto p { font-size: 10px; line-height: 1.2; }
             html[lang="ru"] .seal-container {
                 width: 90px; 
@@ -277,14 +279,12 @@
             
             document.documentElement.lang = lang; // Устанавливаем язык на <html>
             
-            // === ИЗМЕНЕНИЕ ЗДЕСЬ ===
-            // Устанавливаем единый путь к логотипу для всех версий
-            sealButton.style.backgroundImage = "url('acebrandagency/assets/logo.png')";
-            
             if (lang === 'ru') {
                 document.getElementById('ru-manifesto').classList.add('active');
+                sealButton.style.backgroundImage = "url('../assets/seal-ru.png')";
             } else {
                 document.getElementById('en-manifesto').classList.add('active');
+                sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
 
             // ИСПРАВЛЕННАЯ АНИМАЦИЯ ПЕПЛА
