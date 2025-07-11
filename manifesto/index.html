@@ -150,21 +150,21 @@
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
-        /* === МОБИЛЬНАЯ ВЕРСИЯ (ФИНАЛЬНАЯ КАЛИБРОВКА) === */
+        /* === МОБИЛЬНАЯ ВЕРСИЯ === */
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 40px; }
             
             /* СТИЛИ ДЛЯ РУССКОЙ МОБИЛЬНОЙ ВЕРСИИ - ИЗМЕНЕНО */
             html[lang="ru"] #ru-manifesto {
                 position: relative;
-                top: -15px; /* Подняли на 15px */
-                left: 10px;  /* Сдвинули вправо на 10px */
+                top: -15px;      /* Поднимаем блок на 15px */
+                left: 10px;        /* Двигаем вправо на 10px */
             }
             html[lang="ru"] #ru-manifesto h1, 
             html[lang="ru"] #ru-manifesto h2, 
             html[lang="ru"] #ru-manifesto p { 
                 position: static;
-                margin: 0; 
+                margin: 0;
             }
             html[lang="ru"] #ru-manifesto h1 { font-size: 23px; margin-bottom: 8px; } 
             html[lang="ru"] #ru-manifesto h2 { font-size: 20px; margin-bottom: 15px; } 
