@@ -81,7 +81,6 @@
             z-index: 2;
             animation: fadeInContent 1s ease-out 0.5s forwards;
         }
-
         @keyframes fadeInContent {
             to { opacity: 1; }
         }
@@ -94,86 +93,74 @@
         .manifesto-block h1 { margin-bottom: 10px; line-height: 1.1; }
         .manifesto-block p span.space { display: block; height: 8px; }
         
-        /* АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП - ИДЕАЛЬНА) */
+        /* === АНГЛИЙСКАЯ ВЕРСИЯ (ДЕКСТОП) === */
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
-        #en-manifesto h1 { 
-            font-size: 90px; 
-            position: relative;
-            top: 30px; 
-            left: 90px;
-        } 
-        #en-manifesto h2 { 
-            font-size: 73px; 
-            position: relative;
-            top: 0; 
-            left: 90px;
-        } 
-        #en-manifesto p { 
-            font-size: 26px;
-            line-height: 1.52; 
-            position: relative;
-            top: -25px;
-            left: 90px;
-        }
+        #en-manifesto h1 { font-size: 90px; position: relative; top: 30px; left: 90px; }
+        #en-manifesto h2 { font-size: 73px; position: relative; top: 0; left: 90px; }
+        #en-manifesto p  { font-size: 26px; line-height: 1.52; position: relative; top: -25px; left: 90px; }
 
-        /* РУССКАЯ ВЕРСИЯ (ДЕКСТОП) */
+        /* === РУССКАЯ ВЕРСИЯ (ДЕКСТОП) === */
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
-        #ru-manifesto h1 { font-size: 57px; } 
-        #ru-manifesto h2 { font-size: 38px; } 
-        #ru-manifesto p { font-size: 22px; line-height: 1.4; }
+        #ru-manifesto h1 { font-size: 57px; }
+        #ru-manifesto h2 { font-size: 38px; }
+        #ru-manifesto p  { font-size: 22px; line-height: 1.4; }
 
-        /* ПЕЧАТЬ (ДЕКСТОП) */
-        .seal-container { 
-            position: absolute; 
+        /* === ПЕЧАТЬ (ДЕКСТОП) === */
+        .seal-container {
+            position: absolute;
             bottom: 130px;
-            right: 180px; 
-            width: 150px; 
-            height: 150px; 
-            opacity: 0; 
-            z-index: 3; 
-            animation: fadeInSeal 1s ease-out 0.5s forwards; 
+            right: 180px;
+            width: 150px;
+            height: 150px;
+            opacity: 0;
+            z-index: 3;
+            animation: fadeInSeal 1s ease-out 0.5s forwards;
         }
-        
-        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 1.5s; }
+        .seal-button {
+            width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            display: block;
+            border-radius: 50%;
+            animation: pulse 2s infinite 1.5s;
+        }
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
-        
-        /* ---------- TABLET (769-1024 px) ---------- */
+
+        /* === TABLET: 769–1024px === */
         @media (max-width: 1024px) {
             .manifesto-content { padding: 110px 60px 110px 120px; }
-
             #en-manifesto h1 { font-size: 70px; left: 70px; top: 20px; }
             #en-manifesto h2 { font-size: 57px; left: 70px; }
-            #en-manifesto p { font-size: 20px; left: 70px; top: -15px; }
-
+            #en-manifesto p  { font-size: 20px; left: 70px; top: -15px; }
             #ru-manifesto h1 { font-size: 46px; }
             #ru-manifesto h2 { font-size: 32px; }
-            #ru-manifesto p { font-size: 18px; }
-
+            #ru-manifesto p  { font-size: 18px; }
             .seal-container { width: 120px; height: 120px; bottom: 90px; right: 140px; }
         }
 
-        /* ---------- MOBILE (481-768 px) ---------- */
+        /* === MOBILE: 481–768px === */
         @media (max-width: 768px) {
             .manifesto-content { padding: 90px 35px; }
 
-            /* РУССКАЯ МОБИЛЬНАЯ ВЕРСИЯ */
-            html[lang="ru"] #ru-manifesto h1, 
-            html[lang="ru"] #ru-manifesto h2, 
-            html[lang="ru"] #ru-manifesto p { position: static; }
+            html[lang="ru"] #ru-manifesto h1,
+            html[lang="ru"] #ru-manifesto h2,
+            html[lang="ru"] #ru-manifesto p {
+                position: static;
+            }
             html[lang="ru"] #ru-manifesto h1 { font-size: 40px; }
             html[lang="ru"] #ru-manifesto h2 { font-size: 28px; }
-            html[lang="ru"] #ru-manifesto p { font-size: 18px; line-height: 1.4; }
+            html[lang="ru"] #ru-manifesto p  { font-size: 18px; line-height:1.4; }
             html[lang="ru"] .seal-container {
-                width: 100px; 
-                height: 100px; 
-                bottom: 30px; 
-                right: 40px; 
+                width: 100px;
+                height: 100px;
+                bottom: 30px;
+                right: 40px;
             }
 
-            /* АНГЛИЙСКАЯ МОБИЛЬНАЯ ВЕРСИЯ */
-            html[lang="en"] #en-manifesto h1, 
-            html[lang="en"] #en-manifesto h2, 
+            html[lang="en"] #en-manifesto h1,
+            html[lang="en"] #en-manifesto h2,
             html[lang="en"] #en-manifesto p {
                 position: relative;
                 left: 15px;
@@ -181,8 +168,8 @@
             }
             html[lang="en"] #en-manifesto h1 { font-size: 45px; }
             html[lang="en"] #en-manifesto h2 { font-size: 36px; }
-            html[lang="en"] #en-manifesto p { font-size: 12px; line-height: 1.25; }
-            html[lang="en"] #en-manifesto p span.space { height: 5px; }
+            html[lang="en"] #en-manifesto p  { font-size: 12px; line-height:1.25; }
+            html[lang="en"] #en-manifesto p span.space { height:5px; }
             html[lang="en"] .seal-container {
                 width: 80px;
                 height: 80px;
@@ -191,19 +178,19 @@
             }
         }
 
-        /* ---------- VERY SMALL (≤ 480 px) ---------- */
+        /* === VERY SMALL: ≤480px === */
         @media (max-width: 480px) {
             .manifesto-content { padding: 70px 25px; }
 
-            html[lang="ru"] #ru-manifesto h1 { font-size: 32px; }
-            html[lang="ru"] #ru-manifesto h2 { font-size: 22px; }
-            html[lang="ru"] #ru-manifesto p { font-size: 15px; }
+            html[lang="ru"] #ru-manifesto h1 { font-size:32px; }
+            html[lang="ru"] #ru-manifesto h2 { font-size:22px; }
+            html[lang="ru"] #ru-manifesto p  { font-size:15px; }
 
-            html[lang="en"] #en-manifesto h1 { font-size: 34px; }
-            html[lang="en"] #en-manifesto h2 { font-size: 28px; }
-            html[lang="en"] #en-manifesto p { font-size: 11px; }
+            html[lang="en"] #en-manifesto h1 { font-size:34px; }
+            html[lang="en"] #en-manifesto h2 { font-size:28px; }
+            html[lang="en"] #en-manifesto p  { font-size:11px; }
 
-            .seal-container { width: 70px; height: 70px; bottom: 20px; right: 40px; }
+            .seal-container { width:70px; height:70px; bottom:20px; right:40px; }
         }
     </style>
 </head>
@@ -243,8 +230,8 @@
                     <h2 class="font-display">только для смелых</h2>
                     <p>
                         вы ищете просто «агентство» или «исполнителя»?!<br>
-                        закройте эту вкладку прямой сейчас!<span class="space"></span>
-                        мы работает с теми, кто готов к реинкарнации,<br>
+                        закройте эту вкладку прямо сейчас!<span class="space"></span>
+                        мы работаем с теми, кто готов к реинкарнации,<br>
                         а не к стерильному «ребрендингу» или<br>
                         «а сделайте вот так же как у конкурентов».<br>
                         мы не копируем! мы создаем!<span class="space"></span>
@@ -269,26 +256,26 @@
             </div>
         </div>
     </div>
+
+    <!-- Анимация пепла и защита от копирования без изменений -->
     <canvas id="global-ash-canvas"></canvas>
     <style>
-        #global-ash-canvas { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; pointer-events: none; opacity: 1; 
+        #global-ash-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 999; pointer-events: none; opacity: 1;
         }
-        body, body * { 
-            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; 
-            -webkit-touch-callout: none; -khtml-user-select: none; 
+        body, body * {
+            -webkit-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            -webkit-touch-callout: none; -khtml-user-select: none;
         }
         img, svg { pointer-events: none; }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // ЛОГИКА ВЫБОРА ЯЗЫКА
             const sealButton = document.getElementById('seal-btn');
-            const params = new URLSearchParams(window.location.search);
-            const lang = params.get('lang') || 'en';
-            
-            document.documentElement.lang = lang; // Устанавливаем язык на <html>
-            
+            const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+            document.documentElement.lang = lang;
             if (lang === 'ru') {
                 document.getElementById('ru-manifesto').classList.add('active');
                 sealButton.style.backgroundImage = "url('../assets/seal-ru.png')";
@@ -297,75 +284,90 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
 
-            // ИСПРАВЛЕННАЯ АНИМАЦИЯ ПЕПЛА
             if (!window.isUnifiedAnimationInitialized) {
                 (function() {
                     const canvas = document.getElementById('global-ash-canvas');
                     if (!canvas) return;
                     const ctx = canvas.getContext('2d');
-                    
-                    function resizeCanvas() { 
-                        canvas.width = window.innerWidth; 
-                        canvas.height = window.innerHeight; 
+                    function resizeCanvas() {
+                        canvas.width = window.innerWidth;
+                        canvas.height = window.innerHeight;
                     }
                     resizeCanvas();
                     window.addEventListener('resize', resizeCanvas);
-                    
-                    let particles = []; 
-                    let fogTime = 0;
-                    
+                    let particles = [], fogTime = 0;
                     class AshParticle {
-                        constructor(x, y) { 
-                            this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; 
+                        constructor(x, y) {
+                            this.x = x; this.y = y;
+                            this.vx = (Math.random() - 0.5) * 0.8;
+                            this.vy = -Math.random() * 0.5 - 0.2;
+                            this.life = 1;
+                            this.decay = 0.008 + Math.random() * 0.012;
+                            this.size = Math.random() * 3 + 1;
+                            this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF';
                         }
-                        update() { 
-                            this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; 
+                        update() {
+                            this.x += this.vx; this.y += this.vy;
+                            this.vx *= 0.98;
+                            this.vy += 0.01;
+                            this.life -= this.decay;
+                            this.size *= 0.998;
                         }
-                        draw() { 
-                            ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); 
+                        draw() {
+                            ctx.save();
+                            ctx.globalAlpha = this.life * 0.8;
+                            ctx.fillStyle = this.color;
+                            ctx.beginPath();
+                            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.restore();
                         }
                     }
-                    
                     function drawFog() {
                         const fogHeight = 120;
                         const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
-                        gradient.addColorStop(0, `rgba(45, 44, 47, ${0.3 + Math.sin(fogTime) * 0.1})`);
-                        gradient.addColorStop(0.5, 'rgba(45, 44, 47, 0.15)');
-                        gradient.addColorStop(1, 'rgba(45, 44, 47, 0)');
+                        gradient.addColorStop(0, `rgba(45,44,47,${0.3 + Math.sin(fogTime) * 0.1})`);
+                        gradient.addColorStop(.5, 'rgba(45,44,47,0.15)');
+                        gradient.addColorStop(1, 'rgba(45,44,47,0)');
                         ctx.fillStyle = gradient;
                         ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
                         fogTime += 0.005;
                     }
-                    
-                    function handleMouseMove(e) { 
-                        for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } 
-                    }
-                    
-                    function handleTouchMove(e) { 
-                        if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } 
-                    }
-                    
                     function animate() {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
                         drawFog();
-                        particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
-                        if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
+                        particles = particles.filter(p => {
+                            p.update(); p.draw();
+                            return p.life > 0 && p.size > 0.1;
+                        });
+                        if (Math.random() < 0.03) {
+                            particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10));
+                        }
                         requestAnimationFrame(animate);
                     }
-                    
-                    window.addEventListener('mousemove', handleMouseMove);
-                    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                    window.addEventListener('mousemove', e => {
+                        for (let i = 0; i < 6; i++) {
+                            particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30));
+                        }
+                    });
+                    window.addEventListener('touchmove', e => {
+                        if (e.touches[0]) {
+                            const t = e.touches[0];
+                            for (let i = 0; i < 6; i++) {
+                                particles.push(new AshParticle(t.clientX + (Math.random() - 0.5) * 30, t.clientY + (Math.random() - 0.5) * 30));
+                            }
+                        }
+                    }, { passive: true });
                     animate();
                     window.isUnifiedAnimationInitialized = true;
                 })();
             }
 
-            // ЗАЩИТА ОТ КОПИРОВАНИЯ
             if (!window.isContentProtectionInitialized) {
                 (function() {
                     document.addEventListener('contextmenu', e => e.preventDefault(), false);
-                    document.addEventListener('keydown', e => { 
-                        if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } 
+                    document.addEventListener('keydown', e => {
+                        if ((e.ctrlKey || e.metaKey) && 'caxu'.includes(e.key)) e.preventDefault();
                     });
                     window.isContentProtectionInitialized = true;
                 })();
