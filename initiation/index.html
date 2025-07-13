@@ -24,7 +24,11 @@
             --purple-haze: #510FD5;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { height: 100%; overflow: hidden; }
+        html, body { 
+            height: 100%; 
+            overflow: hidden; 
+            cursor: crosshair;
+        }
         body {
             background-color: var(--abyss);
             color: var(--quartz);
@@ -46,51 +50,61 @@
             text-align: center;
             margin-bottom: 5vh;
             animation: fadeIn 1s ease-out;
+            z-index: 10;
         }
 
         /* === АЛТАРЬ-ТРИСКЕЛИОН === */
         .triskelion-altar {
             position: relative;
-            width: clamp(280px, 40vw, 500px);
+            width: clamp(300px, 45vw, 550px);
             max-width: 90vw;
             aspect-ratio: 1 / 1;
             animation: fadeIn 1.5s ease-out;
+            z-index: 5;
         }
         #triskelion-svg {
             width: 100%;
             height: 100%;
-            animation: rotate-clockwise 45s linear infinite;
+            animation: rotate-clockwise 60s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(81, 15, 213, 0.3)); /* Внешнее свечение */
+        }
+        #triskelion-svg .petal-link {
+             cursor: crosshair;
         }
         #triskelion-svg .petal {
             fill: none;
             stroke: var(--quartz);
-            stroke-width: 2;
-            stroke-opacity: 0.4;
-            transition: all 0.4s ease;
-            cursor: pointer;
+            stroke-width: 1.5;
+            stroke-opacity: 0.3;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         #triskelion-svg .petal-name {
             font-family: 'Unbounded', sans-serif;
             font-weight: 200;
-            font-size: 14px;
+            font-size: 10px;
             fill: var(--quartz);
-            fill-opacity: 0.6;
+            fill-opacity: 0.5;
             text-anchor: middle;
             pointer-events: none;
             transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .triskelion-altar:hover #triskelion-svg {
-            animation-play-state: paused;
-        }
-        #triskelion-svg .petal:hover {
+        .triskelion-altar .petal-link:hover .petal {
             stroke-opacity: 1;
             stroke: var(--purple-haze);
-            stroke-width: 3;
+            stroke-width: 2.5;
         }
-        #triskelion-svg .petal:hover + .petal-name {
+        .triskelion-altar .petal-link:hover .petal-name {
             fill-opacity: 1;
             fill: var(--quartz);
-            font-weight: bold;
+            font-weight: 400;
+        }
+
+        /* ЦЕНТРАЛЬНОЕ СВЕЧЕНИЕ */
+        #center-glow {
+            fill: var(--purple-haze);
+            filter: url(#glow-filter);
         }
         
         @keyframes rotate-clockwise {
@@ -102,22 +116,49 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* === ШЁПОТ ОРАКУЛА (ОПИСАНИЯ) === */
-        .oracle-whisper {
-            position: absolute;
-            bottom: -15vh;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            max-width: 600px;
-            text-align: center;
-            font-size: clamp(0.8rem, 2vw, 1rem);
-            line-height: 1.6;
+        /* === ВСПЛЫВАЮЩИЙ ГРИМУАР (ОПИСАНИЯ) === */
+        .grimoire-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 100;
+            padding: 5%;
         }
-        .triskelion-altar .petal-link:hover ~ .oracle-whisper {
+        .grimoire-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .grimoire-content {
+            font-family: 'Unbounded', sans-serif;
+            max-width: 650px;
+            text-align: center;
+            line-height: 1.7;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            transform: scale(0.95);
+            transition: transform 0.4s ease;
+        }
+        .grimoire-overlay.visible .grimoire-content {
+            transform: scale(1);
+        }
+        .close-grimoire {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-size: 2rem;
+            color: var(--quartz);
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        .close-grimoire:hover {
             opacity: 1;
         }
 
@@ -127,71 +168,63 @@
     <h1 class="sanctuary-title" id="main-title"></h1>
 
     <div class="triskelion-altar">
-        <svg id="triskelion-svg" viewBox="0 0 100 100">
+        <svg id="triskelion-svg" viewBox="0 0 200 200">
+            <defs>
+                <filter id="glow-filter" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            
+            <circle id="center-glow" cx="100" cy="100" r="15" />
+            
             <!-- Лепесток 1: Реинкарнация -->
             <a id="link-reincarnation" class="petal-link">
-                <path id="petal1" class="petal" d="M50 50 C 10 90, 10 10, 50 50 C 90 10, 90 90, 50 50 Z" transform="rotate(0 50 50)"/>
-                <text id="name-reincarnation" class="petal-name" x="50" y="30"></text>
+                <path class="petal" d="M100,100 C150,150 150,50 100,100 C50,50 50,150 100,100Z" transform="rotate(-90 100 100)" />
+                <text class="petal-name" x="100" y="55"></text>
             </a>
             <!-- Лепесток 2: Мистерия -->
             <a id="link-mystery" class="petal-link">
-                <path id="petal2" class="petal" d="M50 50 C 10 90, 10 10, 50 50 C 90 10, 90 90, 50 50 Z" transform="rotate(120 50 50)"/>
-                <text id="name-mystery" class="petal-name" x="25" y="75"></text>
+                <path class="petal" d="M100,100 C150,150 150,50 100,100 C50,50 50,150 100,100Z" transform="rotate(30 100 100)" />
+                <text class="petal-name" x="145" y="125"></text>
             </a>
             <!-- Лепесток 3: Эманация -->
             <a id="link-emanation" class="petal-link">
-                <path id="petal3" class="petal" d="M50 50 C 10 90, 10 10, 50 50 C 90 10, 90 90, 50 50 Z" transform="rotate(240 50 50)"/>
-                <text id="name-emanation" class="petal-name" x="75" y="75"></text>
+                <path class="petal" d="M100,100 C150,150 150,50 100,100 C50,50 50,150 100,100Z" transform="rotate(150 100 100)" />
+                 <text class="petal-name" x="55" y="125"></text>
             </a>
         </svg>
+    </div>
 
-        <div id="desc-reincarnation" class="oracle-whisper"></div>
-        <div id="desc-mystery" class="oracle-whisper"></div>
-        <div id="desc-emanation" class="oracle-whisper"></div>
+    <div id="grimoire-reincarnation" class="grimoire-overlay">
+        <div class="grimoire-content"></div>
+        <div class="close-grimoire">&times;</div>
+    </div>
+     <div id="grimoire-mystery" class="grimoire-overlay">
+        <div class="grimoire-content"></div>
+        <div class="close-grimoire">&times;</div>
+    </div>
+     <div id="grimoire-emanation" class="grimoire-overlay">
+        <div class="grimoire-content"></div>
+        <div class="close-grimoire">&times;</div>
     </div>
     
-    <canvas id="global-ash-canvas"></canvas>
-    <style>
-        #global-ash-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-    </style>
     <script>
-        // ДАННЫЕ ДЛЯ ТАИНСТВ (РУНЫ ВЛАСТИ)
         const sacraments = {
             ru: {
                 title: "таинства нашего храма",
-                reincarnation: {
-                    name: "реинкарнация",
-                    desc: "Мы не занимаемся «брендингом». Мы проводим Таинство Реинкарнации. Мы не создаём бренды. Мы сжигаем дотла старую, слабую оболочку, чтобы из пепла возродить вашу истинную суть. Мы погружаемся в хаос вашего бизнеса, вскрываем ваш первородный ДНК-код и на его основе выковываем новую идентичность. Ядро, которое дарует не «узнаваемость», а ВЛАСТЬ. Вы не становитесь «лучше». Вы становитесь единственными.",
-                    link: "../reincarnation/"
-                },
-                mystery: {
-                    name: "мистерия",
-                    desc: "Мы знаем, что вы тоже устали от однотипных шаблонных «мероприятий», созданных как под копирку. Эта убогая скука с полным отсутствием фантазии утомляет с первых минут и отбивает желание их посещать… Поэтому мы не «организуем». Мы режиссируем Иммерсионные Мистерии. События, которые захватывают дух и меняют реальность. Готовы всколыхнуть индустрию так, чтобы о вас говорили с восторгом и завистью?",
-                    link: "../mystery/"
-                },
-                emanation: {
-                    name: "эманация",
-                    desc: "Вам продают «креатив». Набор чужих идей в красивой презентации. Вам скармливают визуальный мусор, называя это «вдохновением». Мы занимаемся другим. Мы архитекторы. Мы строим вашу вселенную с нуля. Мы можем спроектировать для неё музыку, которая станет её голосом. Событие, которое станет её храмом. Дизайн, который станет её кожей. Всё это эманации одной, несокрушимой идеи. Мы не копируем. Мы создаем.",
-                    link: "../emanation/"
-                }
+                reincarnation: { name: "реинкарнация", desc: "Мы не занимаемся «брендингом». Мы проводим Таинство Реинкарнации. Мы не создаём бренды. Мы сжигаем дотла старую, слабую оболочку, чтобы из пепла возродить вашу истинную суть. Мы погружаемся в хаос вашего бизнеса, вскрываем ваш первородный ДНК-код и на его основе выковываем новую идентичность. Ядро, которое дарует не «узнаваемость», а ВЛАСТЬ. Вы не становитесь «лучше». Вы становитесь единственными."},
+                mystery: { name: "мистерия", desc: "Мы знаем, что вы тоже устали от однотипных шаблонных «мероприятий», созданных как под копирку. Эта убогая скука с полным отсутствием фантазии утомляет с первых минут и отбивает желание их посещать… Поэтому мы не «организуем». Мы режиссируем Иммерсионные Мистерии. События, которые захватывают дух и меняют реальность. Готовы всколыхнуть индустрию так, чтобы о вас говорили с восторгом и завистью?" },
+                emanation: { name: "эманация", desc: "Вам продают «креатив». Набор чужих идей в красивой презентации. Вам скармливают визуальный мусор, называя это «вдохновением». Мы занимаемся другим. Мы архитекторы. Мы строим вашу вселенную с нуля. Мы можем спроектировать для неё музыку, которая станет её голосом. Событие, которое станет её храмом. Дизайн, который станет её кожей. Всё это эманации одной, несокрушимой идеи. Мы не копируем. Мы создаем."}
             },
             en: {
                 title: "the sacraments of our temple",
-                reincarnation: {
-                    name: "reincarnation",
-                    desc: "We don't do 'branding.' We conduct the Sacrament of Reincarnation. We don't just create brands; we burn the old, weak shell to the ground to resurrect your true essence from the ashes. We delve into the chaos of your business, decode your primal DNA, and forge a new identity upon its foundation. A core that grants not 'recognition,' but AUTHORITY. You don't become 'better.' You become the only one.",
-                    link: "../reincarnation/"
-                },
-                mystery: {
-                    name: "mystery",
-                    desc: "We know you are tired of monotonous, cookie-cutter 'events.' That pathetic boredom, born from a complete lack of imagination, is wearisome from the first minute and kills any desire to attend. That is why we don't 'organize.' We direct Immersive Mysteries. Events that are breathtaking and reality-altering. Are you ready to shake the industry so that you are spoken of with awe and envy?",
-                    link: "../mystery/"
-                },
-                emanation: {
-                    name: "emanation",
-                    desc: "You are sold 'creativity': a collection of others' ideas in a 'nice' presentation. You are fed visual garbage, passed off as 'inspiration.' We do something else. We are architects. We build your universe from the ground up. We can design the music that becomes its voice. The event that becomes its temple. The design that becomes its skin. All of these are emanations of one indestructible idea. We do not copy. We create.",
-                    link: "../emanation/"
-                }
+                reincarnation: { name: "reincarnation", desc: "We don't do 'branding.' We conduct the Sacrament of Reincarnation. We don't just create brands; we burn the old, weak shell to the ground to resurrect your true essence from the ashes. We delve into the chaos of your business, decode your primal DNA, and forge a new identity upon its foundation. A core that grants not 'recognition,' but AUTHORITY. You don't become 'better.' You become the only one." },
+                mystery: { name: "mystery", desc: "We know you are tired of monotonous, cookie-cutter 'events.' That pathetic boredom, born from a complete lack of imagination, is wearisome from the first minute and kills any desire to attend. That is why we don't 'organize.' We direct Immersive Mysteries. Events that are breathtaking and reality-altering. Are you ready to shake the industry so that you are spoken of with awe and envy?" },
+                emanation: { name: "emanation", desc: "You are sold 'creativity': a collection of others' ideas in a 'nice' presentation. You are fed visual garbage, passed off as 'inspiration.' We do something else. We are architects. We build your universe from the ground up. We can design the music that becomes its voice. The event that becomes its temple. The design that becomes its skin. All of these are emanations of one indestructible idea. We do not copy. We create." }
             }
         };
 
@@ -200,39 +233,39 @@
             const lang = params.get('lang') || 'en';
             const content = sacraments[lang];
 
-            // Наполняем страницу силой
             document.getElementById('main-title').textContent = content.title;
             
-            document.getElementById('name-reincarnation').textContent = content.reincarnation.name;
-            document.getElementById('desc-reincarnation').textContent = content.reincarnation.desc;
-            document.getElementById('link-reincarnation').setAttribute('href', content.reincarnation.link + '?lang=' + lang);
+            // Наполнение контентом
+            const setupPetal = (petalKey) => {
+                document.querySelector(`#link-${petalKey} .petal-name`).textContent = content[petalKey].name;
+                const grimoire = document.getElementById(`grimoire-${petalKey}`);
+                grimoire.querySelector('.grimoire-content').textContent = content[petalKey].desc;
 
-            document.getElementById('name-mystery').textContent = content.mystery.name;
-            document.getElementById('desc-mystery').textContent = content.mystery.desc;
-            document.getElementById('link-mystery').setAttribute('href', content.mystery.link + '?lang=' + lang);
-
-            document.getElementById('name-emanation').textContent = content.emanation.name;
-            document.getElementById('desc-emanation').textContent = content.emanation.desc;
-            document.getElementById('link-emanation').setAttribute('href', content.emanation.link + '?lang=' + lang);
-
-            // Управляем видимостью описаний
-            const links = document.querySelectorAll('.petal-link');
-            const whispers = document.querySelectorAll('.oracle-whisper');
-
-            links.forEach(link => {
-                link.addEventListener('mouseover', () => {
-                    const targetId = 'desc-' + link.id.split('-')[1];
-                    whispers.forEach(w => {
-                        if (w.id === targetId) {
-                            w.style.opacity = '1';
-                        } else {
-                            w.style.opacity = '0';
-                        }
-                    });
+                document.getElementById(`link-${petalKey}`).addEventListener('click', (e) => {
+                    e.preventDefault();
+                    grimoire.classList.add('visible');
                 });
+            };
+
+            setupPetal('reincarnation');
+            setupPetal('mystery');
+            setupPetal('emanation');
+            
+            // Закрытие всплывающих окон
+            document.querySelectorAll('.close-grimoire, .grimoire-overlay').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    if (e.target === el) {
+                        document.querySelectorAll('.grimoire-overlay').forEach(overlay => overlay.classList.remove('visible'));
+                    }
+                });
+            });
+
+            // Защита от копирования
+            document.addEventListener('contextmenu', e => e.preventDefault(), false);
+            document.addEventListener('keydown', e => { 
+                if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } 
             });
         });
     </script>
 </body>
 </html>
-
