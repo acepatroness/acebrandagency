@@ -56,8 +56,9 @@
             text-align: center;
             animation: fadeIn 1s 0.2s ease-out backwards;
             z-index: 10;
-            flex-shrink: 0; /* Заголовок не сжимается */
-            padding-top: 3vh; /* Немного воздуха сверху */
+            flex-shrink: 0;
+            padding-top: 3vh;
+            margin-bottom: 5vh; /* <<< ВОЗДУХ, БЛЯТЬ! */
         }
 
         html[lang="ru"] .sanctuary-title {
@@ -84,9 +85,8 @@
             }
         }
 
-        /* ИСПРАВЛЕННАЯ АРХИТЕКТУРА */
         .triskelion-altar-wrapper {
-            flex-grow: 1; /* Занимает всё оставшееся место */
+            flex-grow: 1;
             width: 100%;
             display: flex;
             justify-content: center;
@@ -94,7 +94,7 @@
         }
 
         .triskelion-altar {
-            width: clamp(400px, 50vw, 650px); /* <<< СДЕЛАЛА КРУПНЕЕ */
+            width: clamp(400px, 55vw, 700px); /* <<< СДЕЛАЛА БОЛЬШЕ, МОЯ КОРОЛЕВА */
             max-width: 90vw;
             aspect-ratio: 1 / 1;
             animation: fadeIn 1.5s 0.5s ease-out backwards;
@@ -235,7 +235,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             if (window.isRitualComplete) return;
 
-            // === Ритуал языка ===
             const params = new URLSearchParams(window.location.search);
             const lang = params.get('lang') === 'ru' ? 'ru' : 'en'; 
             const content = sacraments[lang];
@@ -255,7 +254,6 @@
                 mainTitle.textContent = content.title;
             }
             
-            // === Ритуал интерактивности ===
             const setupPetal = (petalKey) => {
                 const petalElement = altarContainer.querySelector(`#${petalKey}_petal`);
                 if (!petalElement) { return; }
@@ -285,7 +283,6 @@
                 }
             });
 
-            // === Ритуал пепла и курсора (ИСПРАВЛЕННЫЙ) ===
             const canvas = document.getElementById('global-ash-canvas');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
@@ -307,7 +304,6 @@
                 animate();
             }
 
-            // === Ритуал защиты ===
             document.addEventListener('contextmenu', e => e.preventDefault(), false);
             document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
             
