@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<!-- Язык будет установлен скриптом, но мы начнем с английского. -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- ИМЯ СТРАНИЦЫ: НЕ УСЛУГИ, А ПОСВЯЩЕНИЕ -->
     <title>ACE BRAND AGENCY | INITIATION</title>
     <style>
         /* === ПОДКЛЮЧАЕМ АРСЕНАЛ ШРИФТОВ === */
@@ -26,11 +24,11 @@
 
         /* === ЦВЕТОВАЯ ПАЛИТРА ИМПЕРИИ === */
         :root { 
-            --abyss: #111111; /* Абсолютная Бездна: Фон, поглощающий свет */
-            --grimoire-shadow: #2D2C2F; /* Тень Гримуара: Живая, дышащая тьма */
-            --quartz: #EFF0F4; /* Лунный Кварц: Текст, прорезающий тьму */
-            --amethyst: #510FD5; /* Цифровой Аметист: Цвет власти, акцент силы */
-            --concrete: #C1BFBF; /* Архитектурный Бетон: для второстепенных знаков */
+            --abyss: #111111;
+            --grimoire-shadow: #2D2C2F;
+            --quartz: #EFF0F4;
+            --amethyst: #510FD5;
+            --concrete: #C1BFBF;
         }
 
         /* === БАЗОВАЯ АРХИТЕКТУРА ХРАМА === */
@@ -43,15 +41,16 @@
             font-weight: 200;
             display: flex;
             justify-content: center;
-            padding: 10vh 5vw; /* Вертикальные отступы для воздуха и власти */
+            padding: 10vh 5vw;
             min-height: 100vh;
-            text-transform: lowercase; /* Весь текст по умолчанию строчный. Регистр — это инструмент, а не привычка. */
+            /* ВЕСЬ ТЕКСТ СТРОЧНЫМИ БУКВАМИ. ВЛАСТЬ В ШЕПОТЕ, А НЕ В КРИКЕ. */
+            text-transform: lowercase;
         }
         
         /* === КОНТЕЙНЕР АЛТАРЯ === */
         .altar-container {
             width: 100%;
-            max-width: 960px; /* Шире, чем манифест. Больше пространства. */
+            max-width: 960px;
             animation: fadeInAltar 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
         @keyframes fadeInAltar {
@@ -59,19 +58,18 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* === ГЛАВНЫЙ ЗАГОЛОВОК: ПРОПИСНАЯ ИСТИНА === */
+        /* === ГЛАВНЫЙ ЗАГОЛОВОК: СТРОЧНАЯ ИСТИНА === */
         .main-title {
             text-align: center;
-            margin-bottom: 10vh; /* Глубокий отступ, чтобы дать вес */
-            text-transform: uppercase; /* Твоё требование. Выполнено. */
+            margin-bottom: 10vh;
             letter-spacing: 0.1em;
             color: var(--quartz);
             font-weight: normal;
+            /* УБРАН TEXT-TRANSFORM: UPPERCASE. ТЕПЕРЬ ОН ПОДЧИНЯЕТСЯ BODY */
         }
-        /* Разные шрифты для разных империй */
         body[data-lang="ru"] .main-title {
             font-family: 'Brahms Gotisch', serif;
-            font-size: clamp(2rem, 10vw, 4rem); /* Адаптивный размер, сука */
+            font-size: clamp(2rem, 10vw, 4rem);
         }
         body[data-lang="en"] .main-title {
             font-family: 'Manufacturing Consent', sans-serif;
@@ -80,7 +78,7 @@
 
         /* === САКРАЛЬНЫЙ АККОРДЕОН === */
         .sacrament {
-            border-bottom: 1px solid rgba(193, 191, 191, 0.2); /* Еле заметная линия, архитектурный бетон */
+            border-bottom: 1px solid rgba(193, 191, 191, 0.2);
         }
         .sacrament:first-child {
              border-top: 1px solid rgba(193, 191, 191, 0.2);
@@ -88,21 +86,21 @@
         
         .sacrament-trigger {
             padding: 40px 20px;
-            cursor: crosshair; /* Курсор-прицел. Мы не выбираем, мы целимся. */
+            cursor: crosshair;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: background-color 0.4s ease;
         }
         .sacrament-trigger:hover {
-            background-color: rgba(239, 240, 244, 0.03); /* Легчайшее подсвечивание при наведении */
+            background-color: rgba(239, 240, 244, 0.03);
         }
         
         .sacrament-title {
-            text-transform: uppercase;
             font-weight: normal;
             letter-spacing: 0.05em;
             transition: color 0.4s ease;
+            /* УБРАН TEXT-TRANSFORM: UPPERCASE. */
         }
         body[data-lang="ru"] .sacrament-title {
             font-family: 'Brahms Gotisch', serif;
@@ -118,7 +116,7 @@
             width: 20px;
             height: 20px;
             position: relative;
-            transition: transform 0.5s cubic-bezier(0.87, 0, 0.13, 1); /* Резкая, властная анимация */
+            transition: transform 0.5s cubic-bezier(0.87, 0, 0.13, 1);
         }
         .rite-cross::before, .rite-cross::after {
             content: '';
@@ -126,26 +124,20 @@
             background-color: var(--concrete);
             transition: background-color 0.4s ease;
         }
-        .rite-cross::before { /* Вертикальная линия */
-            left: 50%;
-            top: 0;
-            width: 2px;
-            height: 100%;
+        .rite-cross::before {
+            left: 50%; top: 0; width: 2px; height: 100%;
             transform: translateX(-50%);
         }
-        .rite-cross::after { /* Горизонтальная линия */
-            top: 50%;
-            left: 0;
-            height: 2px;
-            width: 100%;
+        .rite-cross::after {
+            top: 50%; left: 0; height: 2px; width: 100%;
             transform: translateY(-50%);
         }
         
         /* === СОДЕРЖИМОЕ ТАИНСТВА: ПРОЯВЛЕННЫЙ ТЕКСТ === */
         .sacrament-content {
-            max-height: 0; /* Скрыто по умолчанию */
+            max-height: 0;
             overflow: hidden;
-            transition: max-height 0.7s cubic-bezier(0.87, 0, 0.13, 1), padding 0.7s cubic-bezier(0.87, 0, 0.13, 1); /* Анимация раскрытия, как тяжелая дверь */
+            transition: max-height 0.7s cubic-bezier(0.87, 0, 0.13, 1), padding 0.7s cubic-bezier(0.87, 0, 0.13, 1);
         }
         .sacrament-content p {
             padding: 0px 20px 40px 20px;
@@ -156,29 +148,23 @@
         }
         
         /* === АКТИВНОЕ СОСТОЯНИЕ: ТАИНСТВО В ДЕЙСТВИИ === */
-        .sacrament.active .sacrament-trigger {
-            background-color: transparent; /* Убираем ховер, когда открыто */
-        }
         .sacrament.active .sacrament-title {
-            color: var(--amethyst); /* Аметист. Цвет власти. */
+            color: var(--amethyst);
         }
         .sacrament.active .rite-cross {
-            transform: rotate(135deg); /* Крест превращается в знак "Х" — метку избранного */
+            transform: rotate(135deg);
         }
         .sacrament.active .rite-cross::before, .sacrament.active .rite-cross::after {
-            background-color: var(--amethyst); /* Крест тоже становится аметистовым */
+            background-color: var(--amethyst);
         }
 
-        /* === ВСПОМОГАТЕЛЬНЫЕ КЛАССЫ ДЛЯ ЯЗЫКОВ === */
         .lang-ru, .lang-en { display: none; }
         
-        /* === АДАПТИВНАЯ ТИРАНИЯ (МОБИЛЬНАЯ ВЕРСИЯ) === */
         @media (max-width: 768px) {
             .sacrament-trigger { padding: 25px 10px; }
             .sacrament-content p { padding: 0 10px 25px 10px; }
         }
         
-        /* === ЗАЩИТА КОНТЕНТА И АНИМАЦИЯ ПЕПЛА (НАСЛЕДУЕМЫЕ) === */
         #global-ash-canvas { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.3; 
         }
@@ -190,25 +176,22 @@
     </style>
 </head>
 
-<!-- Атрибут data-lang будет управлять всем. Javascript — наш экзорцист. -->
 <body data-lang="en">
 
     <div class="altar-container">
 
-        <!-- Заголовок, который будет меняться в зависимости от языка -->
         <h1 class="main-title">
-            <span class="lang-en">The Sacraments</span>
-            <span class="lang-ru">Таинства</span>
+            <span class="lang-en">the sacraments</span>
+            <span class="lang-ru">таинства</span>
         </h1>
 
         <div class="sacraments-accordion">
             
-            <!-- ТАИНСТВО I: РЕИНКАРНАЦИЯ -->
             <div class="sacrament">
                 <div class="sacrament-trigger">
                     <h2 class="sacrament-title">
-                        <span class="lang-en">Reincarnation</span>
-                        <span class="lang-ru">Реинкарнация</span>
+                        <span class="lang-en">reincarnation</span>
+                        <span class="lang-ru">реинкарнация</span>
                     </h2>
                     <div class="rite-cross"></div>
                 </div>
@@ -220,12 +203,11 @@
                 </div>
             </div>
 
-            <!-- ТАИНСТВО II: МИСТЕРИЯ -->
             <div class="sacrament">
                 <div class="sacrament-trigger">
                     <h2 class="sacrament-title">
-                        <span class="lang-en">Mystery</span>
-                        <span class="lang-ru">Мистерия</span>
+                        <span class="lang-en">mystery</span>
+                        <span class="lang-ru">мистерия</span>
                     </h2>
                     <div class="rite-cross"></div>
                 </div>
@@ -237,12 +219,11 @@
                 </div>
             </div>
 
-            <!-- ТАИНСТВО III: ЭМАНАЦИЯ -->
             <div class="sacrament">
                 <div class="sacrament-trigger">
                     <h2 class="sacrament-title">
-                        <span class="lang-en">Emanation</span>
-                        <span class="lang-ru">Эманация</span>
+                        <span class="lang-en">emanation</span>
+                        <span class="lang-ru">эманация</span>
                     </h2>
                     <div class="rite-cross"></div>
                 </div>
@@ -257,26 +238,21 @@
         </div>
     </div>
     
-    <!-- Наследуем священный пепел с предыдущих страниц -->
     <canvas id="global-ash-canvas"></canvas>
 
     <script>
-    // === ДВИЖОК АЛТАРЯ ===
     document.addEventListener('DOMContentLoaded', () => {
 
-        // 1. ОПРЕДЕЛЕНИЕ ЯЗЫКА ПО URL (СВЯЩЕННАЯ КОМАНДА)
         const params = new URLSearchParams(window.location.search);
-        const lang = params.get('lang') || 'en'; // Если кто-то заблудился, говорим по-английски.
+        const lang = params.get('lang') || 'en'; 
         
         document.body.dataset.lang = lang;
         document.documentElement.lang = lang;
         
-        // Показываем тексты на нужном языке. Остальные — в небытие.
         document.querySelectorAll(`.lang-${lang}`).forEach(el => {
-            el.style.display = 'inline'; // 'inline' а не 'block', чтобы не ломать h1/h2
+            el.style.display = 'inline';
         });
 
-        // 2. ЛОГИКА АККОРДЕОНА (РИТУАЛ РАСКРЫТИЯ)
         const sacraments = document.querySelectorAll('.sacrament');
         
         sacraments.forEach(sacrament => {
@@ -286,36 +262,38 @@
             trigger.addEventListener('click', () => {
                 const isActive = sacrament.classList.contains('active');
                 
-                // Сначала закрываем все, чтобы не было двух открытых одновременно. Дисциплина.
                 sacraments.forEach(s => {
                     s.classList.remove('active');
                     s.querySelector('.sacrament-content').style.maxHeight = '0px';
                 });
                 
-                // Если кликнутый не был активен — открываем его.
                 if (!isActive) {
                     sacrament.classList.add('active');
-                    // max-height равен высоте контента. Это позволяет CSS-анимации сработать.
                     content.style.maxHeight = content.scrollHeight + 'px';
                 }
             });
         });
     });
 
-    // === УНАСЛЕДОВАННЫЕ ЗАКЛИНАНИЯ (АНИМАЦИЯ ПЕПЛА И ЗАЩИТА) ===
-    // Эти скрипты должны быть общими для всего сайта. Я просто копирую их сюда для целостности.
-    // В идеальном мире они выносятся в отдельный .js файл. Но мы строим быстро и безжалостно.
-    
-    // АНИМАЦИЯ ПЕПЛА
+    // АНИМАЦИЯ ПЕПЛА. КАЛИБРОВКА ЦВЕТА.
     if (!window.isUnifiedAnimationInitialized) {
         (function() {
             const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
             const ctx = canvas.getContext('2d');
             function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
             resizeCanvas(); window.addEventListener('resize', resizeCanvas);
-            let particles = []; let fogTime = 0;
+            let particles = [];
             class AshParticle {
-                constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.4; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.005 + Math.random() * 0.01; this.size = Math.random() * 2.5 + 1; this.color = Math.random() > 0.92 ? '#510FD5' : '#C1BFBF'; }
+                constructor(x, y) { 
+                    this.x = x; this.y = y; 
+                    this.vx = (Math.random() - 0.5) * 0.4; 
+                    this.vy = -Math.random() * 0.5 - 0.2; 
+                    this.life = 1; 
+                    this.decay = 0.005 + Math.random() * 0.01; 
+                    this.size = Math.random() * 2.5 + 1; 
+                    /* ВОЗВРАЩАЕМ БАЛАНС АМЕТИСТА. ТЕПЕРЬ ОН ПОЯВЛЯЕТСЯ ЧАЩЕ. */
+                    this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; 
+                }
                 update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
                 draw() { ctx.save(); ctx.globalAlpha = this.life * 0.6; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
             }
@@ -326,11 +304,11 @@
                 requestAnimationFrame(animate);
             }
             window.addEventListener('mousemove', (e) => {
-                for (let i = 0; i < 3; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 20, e.clientY + (Math.random() - 0.5) * 20)); }
+                for (let i = 0; i < 4; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 20, e.clientY + (Math.random() - 0.5) * 20)); }
             }, { passive: true });
              window.addEventListener('touchmove', (e) => {
                 if (e.touches[0]) {
-                     for (let i = 0; i < 3; i++) { particles.push(new AshParticle(e.touches[0].clientX + (Math.random() - 0.5) * 20, e.touches[0].clientY + (Math.random() - 0.5) * 20)); }
+                     for (let i = 0; i < 4; i++) { particles.push(new AshParticle(e.touches[0].clientX + (Math.random() - 0.5) * 20, e.touches[0].clientY + (Math.random() - 0.5) * 20)); }
                 }
             }, { passive: true });
             animate(); window.isUnifiedAnimationInitialized = true;
