@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACE BRAND AGENCY | INITIATION</title>
     <style>
-        /* === ПОДКЛЮЧАЕМ АРСЕНАЛ ШРИФТОВ === */
+        /* === АРСЕНАЛ ШРИФТОВ === */
         @font-face {
             font-family: 'Brahms Gotisch';
             src: url('../fonts/BrahmsGotischCyr.woff2') format('woff2');
@@ -22,7 +22,7 @@
             font-weight: 200; font-style: normal; font-display: swap;
         }
 
-        /* === ЦВЕТОВАЯ ПАЛИТРА ИМПЕРИИ === */
+        /* === ЦВЕТОВАЯ ПАЛИТРА === */
         :root { 
             --abyss: #111111;
             --grimoire-shadow: #2D2C2F;
@@ -31,7 +31,7 @@
             --concrete: #C1BFBF;
         }
 
-        /* === БАЗОВАЯ АРХИТЕКТУРА ХРАМА === */
+        /* === АРХИТЕКТУРА ХРАМА === */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
@@ -43,7 +43,6 @@
             justify-content: center;
             padding: 10vh 5vw;
             min-height: 100vh;
-            /* ВЕСЬ ТЕКСТ СТРОЧНЫМИ БУКВАМИ. ВЛАСТЬ В ШЕПОТЕ, А НЕ В КРИКЕ. */
             text-transform: lowercase;
         }
         
@@ -52,20 +51,21 @@
             width: 100%;
             max-width: 960px;
             animation: fadeInAltar 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            position: relative; /* Чтобы контент был под холстом с частицами */
+            z-index: 1;
         }
         @keyframes fadeInAltar {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* === ГЛАВНЫЙ ЗАГОЛОВОК: СТРОЧНАЯ ИСТИНА === */
+        /* === ЗАГОЛОВКИ === */
         .main-title {
             text-align: center;
             margin-bottom: 10vh;
             letter-spacing: 0.1em;
             color: var(--quartz);
             font-weight: normal;
-            /* УБРАН TEXT-TRANSFORM: UPPERCASE. ТЕПЕРЬ ОН ПОДЧИНЯЕТСЯ BODY */
         }
         body[data-lang="ru"] .main-title {
             font-family: 'Brahms Gotisch', serif;
@@ -76,7 +76,7 @@
             font-size: clamp(2.5rem, 12vw, 5.5rem);
         }
 
-        /* === САКРАЛЬНЫЙ АККОРДЕОН === */
+        /* === АККОРДЕОН === */
         .sacrament {
             border-bottom: 1px solid rgba(193, 191, 191, 0.2);
         }
@@ -100,7 +100,6 @@
             font-weight: normal;
             letter-spacing: 0.05em;
             transition: color 0.4s ease;
-            /* УБРАН TEXT-TRANSFORM: UPPERCASE. */
         }
         body[data-lang="ru"] .sacrament-title {
             font-family: 'Brahms Gotisch', serif;
@@ -110,18 +109,13 @@
             font-family: 'Manufacturing Consent', sans-serif;
             font-size: clamp(1.8rem, 7vw, 3rem);
         }
-
-        /* === КРЕСТ ПОСВЯЩЕНИЯ (ИКОНКА) === */
+        
         .rite-cross {
-            width: 20px;
-            height: 20px;
-            position: relative;
+            width: 20px; height: 20px; position: relative;
             transition: transform 0.5s cubic-bezier(0.87, 0, 0.13, 1);
         }
         .rite-cross::before, .rite-cross::after {
-            content: '';
-            position: absolute;
-            background-color: var(--concrete);
+            content: ''; position: absolute; background-color: var(--concrete);
             transition: background-color 0.4s ease;
         }
         .rite-cross::before {
@@ -133,27 +127,18 @@
             transform: translateY(-50%);
         }
         
-        /* === СОДЕРЖИМОЕ ТАИНСТВА: ПРОЯВЛЕННЫЙ ТЕКСТ === */
         .sacrament-content {
-            max-height: 0;
-            overflow: hidden;
+            max-height: 0; overflow: hidden;
             transition: max-height 0.7s cubic-bezier(0.87, 0, 0.13, 1), padding 0.7s cubic-bezier(0.87, 0, 0.13, 1);
         }
         .sacrament-content p {
             padding: 0px 20px 40px 20px;
             font-size: clamp(1rem, 2.5vw, 1.2rem);
-            line-height: 1.8;
-            color: var(--quartz);
-            opacity: 0.9;
+            line-height: 1.8; color: var(--quartz); opacity: 0.9;
         }
         
-        /* === АКТИВНОЕ СОСТОЯНИЕ: ТАИНСТВО В ДЕЙСТВИИ === */
-        .sacrament.active .sacrament-title {
-            color: var(--amethyst);
-        }
-        .sacrament.active .rite-cross {
-            transform: rotate(135deg);
-        }
+        .sacrament.active .sacrament-title { color: var(--amethyst); }
+        .sacrament.active .rite-cross { transform: rotate(135deg); }
         .sacrament.active .rite-cross::before, .sacrament.active .rite-cross::after {
             background-color: var(--amethyst);
         }
@@ -164,19 +149,13 @@
             .sacrament-trigger { padding: 25px 10px; }
             .sacrament-content p { padding: 0 10px 25px 10px; }
         }
-        
-        #global-ash-canvas { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.3; 
-        }
-        body, body * { 
-            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; 
-            -webkit-touch-callout: none; -khtml-user-select: none; 
-        }
-        img, svg { pointer-events: none; }
     </style>
 </head>
 
 <body data-lang="en">
+    
+    <!-- КАНВАС ДЛЯ АНИМАЦИИ. ВОТ ОН, СВЕРХУ ВСЕГО. КАК И ДОЛЖНО БЫТЬ. -->
+    <canvas id="global-ash-canvas"></canvas>
 
     <div class="altar-container">
 
@@ -186,7 +165,6 @@
         </h1>
 
         <div class="sacraments-accordion">
-            
             <div class="sacrament">
                 <div class="sacrament-trigger">
                     <h2 class="sacrament-title">
@@ -234,95 +212,120 @@
                     </p>
                 </div>
             </div>
-
         </div>
     </div>
     
-    <canvas id="global-ash-canvas"></canvas>
-
+    <!-- СТИЛИ И СКРИПТ АНИМАЦИИ. ВЗЯТЫ ИЗ ТВОЕГО ЭТАЛОНА. -->
+    <style>
+        #global-ash-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; /* Ставим над контентом, но не над будущими модальными окнами, если они понадобятся */
+            pointer-events: none; opacity: 1;
+        }
+        body, body * {
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+            -webkit-touch-callout: none; -khtml-user-select: none;
+        }
+        img, svg { pointer-events: none; }
+    </style>
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-
-        const params = new URLSearchParams(window.location.search);
-        const lang = params.get('lang') || 'en'; 
-        
-        document.body.dataset.lang = lang;
-        document.documentElement.lang = lang;
-        
-        document.querySelectorAll(`.lang-${lang}`).forEach(el => {
-            el.style.display = 'inline';
-        });
-
-        const sacraments = document.querySelectorAll('.sacrament');
-        
-        sacraments.forEach(sacrament => {
-            const trigger = sacrament.querySelector('.sacrament-trigger');
-            const content = sacrament.querySelector('.sacrament-content');
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const lang = params.get('lang') || 'en'; 
             
-            trigger.addEventListener('click', () => {
-                const isActive = sacrament.classList.contains('active');
+            document.body.dataset.lang = lang;
+            document.documentElement.lang = lang;
+            
+            document.querySelectorAll(`.lang-${lang}`).forEach(el => {
+                el.style.display = 'inline';
+            });
+
+            const sacraments = document.querySelectorAll('.sacrament');
+            
+            sacraments.forEach(sacrament => {
+                const trigger = sacrament.querySelector('.sacrament-trigger');
+                const content = sacrament.querySelector('.sacrament-content');
                 
-                sacraments.forEach(s => {
-                    s.classList.remove('active');
-                    s.querySelector('.sacrament-content').style.maxHeight = '0px';
+                trigger.addEventListener('click', () => {
+                    const isActive = sacrament.classList.contains('active');
+                    
+                    sacraments.forEach(s => {
+                        s.classList.remove('active');
+                        s.querySelector('.sacrament-content').style.maxHeight = '0px';
+                    });
+                    
+                    if (!isActive) {
+                        sacrament.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    }
                 });
-                
-                if (!isActive) {
-                    sacrament.classList.add('active');
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                }
             });
         });
-    });
 
-    // АНИМАЦИЯ ПЕПЛА. КАЛИБРОВКА ЦВЕТА.
-    if (!window.isUnifiedAnimationInitialized) {
-        (function() {
-            const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-            resizeCanvas(); window.addEventListener('resize', resizeCanvas);
-            let particles = [];
-            class AshParticle {
-                constructor(x, y) { 
-                    this.x = x; this.y = y; 
-                    this.vx = (Math.random() - 0.5) * 0.4; 
-                    this.vy = -Math.random() * 0.5 - 0.2; 
-                    this.life = 1; 
-                    this.decay = 0.005 + Math.random() * 0.01; 
-                    this.size = Math.random() * 2.5 + 1; 
-                    /* ВОЗВРАЩАЕМ БАЛАНС АМЕТИСТА. ТЕПЕРЬ ОН ПОЯВЛЯЕТСЯ ЧАЩЕ. */
-                    this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; 
+        // ПЕРВОРОДНОЕ ЗАКЛИНАНИЕ АНИМАЦИИ. ВОССТАНОВЛЕНО.
+        if (!window.isUnifiedAnimationInitialized) {
+            (function() {
+                const canvas = document.getElementById('global-ash-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+                
+                let particles = [];
+                let fogTime = 0;
+                
+                class AshParticle {
+                    constructor(x, y) {
+                        this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2;
+                        this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1;
+                        this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF';
+                    }
+                    update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
+                    draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
                 }
-                update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
-                draw() { ctx.save(); ctx.globalAlpha = this.life * 0.6; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
-            }
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
-                if (Math.random() < 0.05) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 20)); }
-                requestAnimationFrame(animate);
-            }
-            window.addEventListener('mousemove', (e) => {
-                for (let i = 0; i < 4; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 20, e.clientY + (Math.random() - 0.5) * 20)); }
-            }, { passive: true });
-             window.addEventListener('touchmove', (e) => {
-                if (e.touches[0]) {
-                     for (let i = 0; i < 4; i++) { particles.push(new AshParticle(e.touches[0].clientX + (Math.random() - 0.5) * 20, e.touches[0].clientY + (Math.random() - 0.5) * 20)); }
+                
+                function drawFog() {
+                    const fogHeight = 120;
+                    const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
+                    gradient.addColorStop(0, `rgba(17, 17, 17, ${0.4 + Math.sin(fogTime) * 0.1})`);
+                    gradient.addColorStop(0.5, `rgba(17, 17, 17, 0.2)`);
+                    gradient.addColorStop(1, `rgba(17, 17, 17, 0)`);
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
+                    fogTime += 0.005;
                 }
-            }, { passive: true });
-            animate(); window.isUnifiedAnimationInitialized = true;
-        })();
-    }
+                
+                function handleMouseMove(e) {
+                    for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); }
+                }
+                function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
+                
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    drawFog();
+                    particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
+                    if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
+                    requestAnimationFrame(animate);
+                }
+                
+                window.addEventListener('mousemove', handleMouseMove, { passive: true });
+                window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                animate();
+                window.isUnifiedAnimationInitialized = true;
+            })();
+        }
 
-    // ЗАЩИТА КОНТЕНТА
-    if (!window.isContentProtectionInitialized) {
-        (function() {
-            document.addEventListener('contextmenu', e => e.preventDefault(), false);
-            document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); } });
-            window.isContentProtectionInitialized = true;
-        })();
-    }
+        // ЗАЩИТА КОНТЕНТА
+        if (!window.isContentProtectionInitialized) {
+            (function() {
+                document.addEventListener('contextmenu', e => e.preventDefault(), false);
+                document.addEventListener('keydown', e => {
+                    if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); }
+                });
+                window.isContentProtectionInitialized = true;
+            })();
+        }
     </script>
 </body>
 </html>
