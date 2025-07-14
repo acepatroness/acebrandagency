@@ -3,115 +3,316 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE DNA RITUAL</title>
+    <title>THE SACRAMENTS RITUAL</title>
     <style>
-        /* === ЗАКОНЫ ВСЕЛЕННОЙ === */
+        @font-face {
+            font-family: 'Brahms Gotisch';
+            src: url('../fonts/BrahmsGotischCyr.woff2') format('woff2');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'Manufacturing Consent';
+            src: url('../fonts/ManufacturingConsent-Regular.woff2') format('woff2');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+        
         body {
             margin: 0;
+            padding: 0;
+            background: #000000;
             overflow: hidden;
-            background: #000000; /* Первородная, сука, пустота */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Manufacturing Consent', sans-serif;
+            user-select: none;
         }
-        canvas {
+        
+        #ritual-canvas {
             display: block;
+            cursor: none;
+        }
+        
+        .main-title {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(2rem, 6vw, 4rem);
+            color: #EFF0F4;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInTitle 1s ease-out 3s forwards;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .main-title.ru {
+            font-family: 'Brahms Gotisch', serif;
+        }
+        
+        .main-title.en {
+            font-family: 'Manufacturing Consent', sans-serif;
+        }
+        
+        @keyframes fadeInTitle {
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <!-- === АЛТАРЬ ДЛЯ РИТУАЛА === -->
-    <canvas id="dna-canvas"></canvas>
-
+    <canvas id="ritual-canvas"></canvas>
+    <div class="main-title" id="main-title"></div>
+    
     <script>
-        // === СВЯЩЕННОЕ ЗАКЛИНАНИЕ ===
-        const canvas = document.getElementById('dna-canvas');
+        // === СВЯЩЕННЫЕ КОНСТАНТЫ ===
+        const canvas = document.getElementById('ritual-canvas');
         const ctx = canvas.getContext('2d');
-
+        const titleElement = document.getElementById('main-title');
+        
+        // Определяем язык
+        const params = new URLSearchParams(window.location.search);
+        const lang = params.get('lang') === 'ru' ? 'ru' : 'en';
+        
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
+        
+        // Тексты для языков
+        const content = {
+            ru: {
+                title: "ТАИНСТВА НАШЕГО ХРАМА",
+                sacraments: ["РЕИНКАРНАЦИЯ", "МИСТЕРИЯ", "ЭМАНАЦИЯ"],
+                font: "Brahms Gotisch"
+            },
+            en: {
+                title: "THE SACRAMENTS OF OUR TEMPLE",
+                sacraments: ["REINCARNATION", "MYSTERY", "EMANATION"],
+                font: "Manufacturing Consent"
+            }
+        };
+        
+        // Установка заголовка
+        titleElement.textContent = content[lang].title;
+        titleElement.classList.add(lang);
+        
+        // === ПЕРЕМЕННЫЕ АНИМАЦИИ ===
+        let startTime = performance.now();
         let particles = [];
-        let angle = 0;
-
-        // === ЧЕРТЁЖ ДУШИ ===
+        let dnaSpheres = [];
+        let mouse = { x: 0, y: 0 };
+        let animationPhase = 0; // 0: particles, 1: dna, 2: spheres, 3: interactive
+        
+        // === КЛАСС ЧАСТИЦЫ ===
         class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.targetX = canvas.width / 2;
+                this.targetY = canvas.height / 2;
+                this.vx = 0;
+                this.vy = 0;
                 this.size = Math.random() * 2 + 1;
                 this.life = 1;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
             }
-
-            // Приказ "Живи"
+            
             update() {
+                const dx = this.targetX - this.x;
+                const dy = this.targetY - this.y;
+                this.vx += dx * 0.01;
+                this.vy += dy * 0.01;
+                this.vx *= 0.95;
+                this.vy *= 0.95;
                 this.x += this.vx;
                 this.y += this.vy;
-                this.life -= 0.005;
             }
-
-            // Приказ "Сияй"
+            
             draw() {
-                ctx.globalAlpha = this.life;
-                ctx.fillStyle = this.color;
+                ctx.fillStyle = '#C1BFBF';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
-
-        // === ВЕЧНЫЙ ДЫХАНИЕ (РИТУАЛ АНИМАЦИИ) ===
-        function animate() {
-            // Растворение старого мира
-            ctx.globalAlpha = 0.05;
-            ctx.fillStyle = 'black';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.globalAlpha = 1;
-
-            // Рождение новых душ
-            const radius = canvas.width / 8;
-            const yOffset = canvas.height / 2;
-            const xOffset = canvas.width / 2;
+        
+        // === КЛАСС СФЕРЫ ===
+        class DNASphere {
+            constructor(x, y, text, index) {
+                this.x = x;
+                this.y = y;
+                this.text = text;
+                this.index = index;
+                this.radius = 60;
+                this.targetRadius = 60;
+                this.hovered = false;
+                this.textOpacity = 0;
+            }
             
-            const x1 = xOffset + Math.cos(angle) * radius;
-            const z1 = Math.sin(angle); // Имитация 3D
-            const y1 = yOffset + z1 * 100;
-            const size1 = (z1 + 1) / 2 * 3 + 1;
-
-            const x2 = xOffset + Math.cos(angle + Math.PI) * radius;
-            const z2 = Math.sin(angle + Math.PI);
-            const y2 = yOffset + z2 * 100;
-            const size2 = (z2 + 1) / 2 * 3 + 1;
-            
-            particles.push(new Particle(x1, y1, '#510FD5')); // Фиолетовый яд
-            particles.push(new Particle(x2, y2, '#EFF0F4')); // Кварцевый свет
-
-            // Танец душ
-            for (let i = particles.length - 1; i >= 0; i--) {
-                const p = particles[i];
-                p.update();
-                p.draw();
-                if (p.life <= 0) {
-                    particles.splice(i, 1);
+            update() {
+                // Плавное изменение размера
+                this.radius += (this.targetRadius - this.radius) * 0.1;
+                
+                // Анимация появления текста
+                if (this.textOpacity < 1) {
+                    this.textOpacity += 0.02;
+                }
+                
+                // Проверка наведения
+                const dist = Math.hypot(mouse.x - this.x, mouse.y - this.y);
+                if (dist < this.radius && animationPhase === 3) {
+                    this.targetRadius = 80;
+                    this.hovered = true;
+                } else {
+                    this.targetRadius = 60;
+                    this.hovered = false;
                 }
             }
-
-            angle += 0.03;
-
+            
+            draw() {
+                // Рисуем сферу
+                ctx.fillStyle = '#510FD5';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Свечение при наведении
+                if (this.hovered) {
+                    ctx.shadowColor = '#510FD5';
+                    ctx.shadowBlur = 20;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+                
+                // Текст на сфере
+                if (this.textOpacity > 0) {
+                    ctx.fillStyle = `rgba(239, 240, 244, ${this.textOpacity})`;
+                    ctx.font = `${this.radius * 0.25}px ${content[lang].font}`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(this.text, this.x, this.y);
+                }
+            }
+        }
+        
+        // === ИНИЦИАЛИЗАЦИЯ ===
+        function init() {
+            // Создаём частицы
+            for (let i = 0; i < 200; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        // === РИСОВАНИЕ ДНК СПИРАЛИ ===
+        function drawDNASpiral(progress) {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 100;
+            const height = 300;
+            
+            ctx.strokeStyle = '#C1BFBF';
+            ctx.lineWidth = 4;
+            
+            // Первая спираль
+            ctx.beginPath();
+            for (let i = 0; i < progress * 100; i++) {
+                const angle = (i / 100) * Math.PI * 6;
+                const x = centerX + Math.cos(angle) * radius;
+                const y = centerY - height/2 + (i / 100) * height;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+            
+            // Вторая спираль
+            ctx.beginPath();
+            for (let i = 0; i < progress * 100; i++) {
+                const angle = (i / 100) * Math.PI * 6 + Math.PI;
+                const x = centerX + Math.cos(angle) * radius;
+                const y = centerY - height/2 + (i / 100) * height;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+            
+            // Создаём сферы в нужных точках
+            if (progress > 0.8 && dnaSpheres.length === 0) {
+                const positions = [
+                    { x: centerX, y: centerY - 100 },
+                    { x: centerX, y: centerY },
+                    { x: centerX, y: centerY + 100 }
+                ];
+                
+                content[lang].sacraments.forEach((text, index) => {
+                    dnaSpheres.push(new DNASphere(
+                        positions[index].x,
+                        positions[index].y,
+                        text,
+                        index
+                    ));
+                });
+            }
+        }
+        
+        // === ОСНОВНОЙ ЦИКЛ АНИМАЦИИ ===
+        function animate() {
+            const elapsed = (performance.now() - startTime) / 1000;
+            
+            // Очищаем canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Фаза 1: Частицы стягиваются (0-2 секунды)
+            if (elapsed < 2) {
+                animationPhase = 0;
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+            }
+            
+            // Фаза 2: Формирование ДНК (2-4 секунды)
+            else if (elapsed < 4) {
+                animationPhase = 1;
+                const progress = (elapsed - 2) / 2;
+                drawDNASpiral(progress);
+            }
+            
+            // Фаза 3: Интерактивность (4+ секунды)
+            else {
+                animationPhase = 3;
+                drawDNASpiral(1);
+                dnaSpheres.forEach(sphere => {
+                    sphere.update();
+                    sphere.draw();
+                });
+            }
+            
             requestAnimationFrame(animate);
         }
-
-        // Запуск ритуала
-        animate();
-
-        // Приказ адаптироваться под размер мира
+        
+        // === ОБРАБОТКА СОБЫТИЙ ===
+        canvas.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        
+        canvas.addEventListener('click', (e) => {
+            if (animationPhase === 3) {
+                dnaSpheres.forEach(sphere => {
+                    const dist = Math.hypot(e.clientX - sphere.x, e.clientY - sphere.y);
+                    if (dist < sphere.radius) {
+                        // Здесь можно добавить переход к основному контенту
+                        console.log(`Clicked on ${sphere.text}`);
+                    }
+                });
+            }
+        });
+        
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
+        
+        // === ЗАПУСК РИТУАЛА ===
+        init();
+        animate();
     </script>
 </body>
 </html>
