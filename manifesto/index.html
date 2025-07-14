@@ -152,11 +152,10 @@
         @media (max-width: 768px) {
             .manifesto-content { padding: 100px 40px; }
             
-            /* === ИЗМЕНЕНИЕ ЗДЕСЬ === */
             html[lang="ru"] #ru-manifesto {
                 position: relative;
                 top: -15px;
-                left: 20px;   /* Было 10px, сдвигаем еще на 10px */
+                left: 20px;
             }
 
             html[lang="ru"] #ru-manifesto h1, 
@@ -175,7 +174,6 @@
                 right: 50px; 
             }
 
-            /* СТИЛИ ДЛЯ АНГЛИЙСКОЙ МОБИЛЬНОЙ ВЕРСИИ */
             html[lang="en"] #en-manifesto h1, 
             html[lang="en"] #en-manifesto h2, 
             html[lang="en"] #en-manifesto p {
@@ -271,13 +269,15 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // ЛОГИКА ВЫБОРА ЯЗЫКА
             const sealButton = document.getElementById('seal-btn');
             const params = new URLSearchParams(window.location.search);
             const lang = params.get('lang') || 'en';
             
-            document.documentElement.lang = lang; // Устанавливаем язык на <html>
+            document.documentElement.lang = lang;
             
+            // ВОТ ОНО, БЛЯТЬ. ЗАКЛИНАНИЕ ИСПРАВЛЕНО.
+            sealButton.href = `../initiation/?lang=${lang}`;
+
             if (lang === 'ru') {
                 document.getElementById('ru-manifesto').classList.add('active');
                 sealButton.style.backgroundImage = "url('../assets/seal-ru.png')";
@@ -286,7 +286,6 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
 
-            // ИСПРАВЛЕННАЯ АНИМАЦИЯ ПЕПЛА
             if (!window.isUnifiedAnimationInitialized) {
                 (function() {
                     const canvas = document.getElementById('global-ash-canvas');
@@ -349,7 +348,6 @@
                 })();
             }
 
-            // ЗАЩИТА ОТ КОПИРОВАНИЯ
             if (!window.isContentProtectionInitialized) {
                 (function() {
                     document.addEventListener('contextmenu', e => e.preventDefault(), false);
