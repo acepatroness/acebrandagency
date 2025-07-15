@@ -52,7 +52,8 @@
 
         .gate-area {
             position: absolute;
-            top: 550px; 
+            /* СКОРРЕКТИРОВАНО ПОЛОЖЕНИЕ ДЛЯ ВИДИМОСТИ ВСЕХ ЭЛЕМЕНТОВ */
+            top: 520px; 
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -62,7 +63,7 @@
             width: 90%;
         }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ТЕКСТОВАЯ КНОПКА ЗАМЕНЕНА НА ПЕЧАТЬ === */
+        /* СТИЛИ ДЛЯ ПЕЧАТИ */
         .seal-button {
             display: block;
             width: 150px;
@@ -91,7 +92,9 @@
         }
         
         .language-switcher {
-            margin-top: 50px; font-family: 'Unbounded', sans-serif;
+            /* УМЕНЬШЕН ОТСТУП, СОГЛАСНО ТРЕБОВАНИЮ */
+            margin-top: 25px; 
+            font-family: 'Unbounded', sans-serif;
             font-weight: 200; font-size: 16px; letter-spacing: 1px;
         }
         .language-switcher span {
@@ -104,7 +107,7 @@
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
             -webkit-touch-callout: none; -khtml-user-select: none;
         }
-        img { pointer-events: none; }
+        /* У img уже есть глобальный pointer-events: none, дублировать не нужно */
 
         @media (max-width: 768px) {
             .logo {
@@ -112,10 +115,14 @@
                 transform: translateX(-50%);
                 width: 180px;
             }
-            .language-switcher { margin-top: 50px; font-size: 12px; }
             .gate-area {
-                top: calc(50% + 150px); /* Скорректировано под размер печати */
+                /* СКОРРЕКТИРОВАНО ДЛЯ МОБИЛЬНОЙ ВЕРСИИ */
+                top: calc(50% + 150px);
                 transform: translate(-50%, -50%);
+            }
+             .language-switcher { 
+                margin-top: 25px; 
+                font-size: 12px; 
             }
         }
     </style>
@@ -126,7 +133,7 @@
     <img src="assets/logo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="gate-area">
-        <!-- === ИЗМЕНЕНИЕ ЗДЕСЬ: ССЫЛКА-КНОПКА ТЕПЕРЬ СУРГУЧНАЯ ПЕЧАТЬ === -->
+        <!-- HTML-СТРУКТУРА: ПЕЧАТЬ, ЗАТЕМ ПЕРЕКЛЮЧАТЕЛЬ -->
         <a href="manifesto/index.html?lang=en" class="seal-button" id="seal-link">
             <img id="seal-img" src="assets/enter_eng.png" alt="Enter the Temple">
         </a>
@@ -137,7 +144,7 @@
     </div>
 
     <script>
-    // АНИМАЦИЯ ПЕПЛА (не тронуто)
+    // АНИМАЦИЯ ПЕПЛА (БЕЗ ИЗМЕНЕНИЙ)
     if (!window.isUnifiedAnimationInitialized) {
         (function() {
             const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
@@ -171,7 +178,7 @@
         })();
     }
 
-    // ЗАЩИТА КОНТЕНТА (не тронуто)
+    // ЗАЩИТА КОНТЕНТА (БЕЗ ИЗМЕНЕНИЙ)
     if (!window.isContentProtectionInitialized) {
         (function() {
             document.addEventListener('contextmenu', e => e.preventDefault(), false);
@@ -180,7 +187,7 @@
         })();
     }
 
-    // === ИЗМЕНЕНИЕ ЗДЕСЬ: ЛОГИКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА АДАПТИРОВАНА ПОД ПЕЧАТЬ ===
+    // ЛОГИКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА (АДАПТИРОВАНА ПОД ПЕЧАТЬ)
     document.addEventListener('DOMContentLoaded', () => {
         const enterLink = document.getElementById('seal-link'); 
         const sealImage = document.getElementById('seal-img');
@@ -195,7 +202,7 @@
         function switchLanguage(lang) {
             document.documentElement.lang = content[lang].lang; 
             enterLink.href = content[lang].link;
-            sealImage.src = content[lang].sealSrc; // Меняем картинку
+            sealImage.src = content[lang].sealSrc;
             
             if (lang === 'ru') {
                 langRu.classList.add('active'); 
