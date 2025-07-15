@@ -48,13 +48,13 @@
             text-transform: lowercase;
         }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ВУАЛЬ ТЬМЫ 50% === */
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ВУАЛЬ ТЬМЫ 60% === */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: rgba(17, 17, 17, 0.5); /* #111111 с 50% прозрачностью */
+            background-color: rgba(17, 17, 17, 0.6); /* #111111 с 60% прозрачностью */
             z-index: 0;
         }
         
@@ -252,7 +252,11 @@
                 window.addEventListener('resize', resizeCanvas);
                 let particles = [];
                 class AshParticle {
-                    constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.6; this.vy = -Math.random() * 0.4 - 0.1; this.life = 1; this.decay = 0.01 + Math.random() * 0.01; this.size = Math.random() * 2.5 + 1; this.color = Math.random() > 0.85 ? '#510FD5' : '#C1BFBF'; }
+                    constructor(x, y) {
+                        this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.6; this.vy = -Math.random() * 0.4 - 0.1;
+                        this.life = 1; this.decay = 0.01 + Math.random() * 0.01; this.size = Math.random() * 2.5 + 1;
+                        this.color = Math.random() > 0.85 ? '#510FD5' : '#C1BFBF';
+                    }
                     update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.99; this.vy += 0.005; this.life -= this.decay; }
                     draw() { ctx.globalAlpha = this.life * 0.7; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
                 }
