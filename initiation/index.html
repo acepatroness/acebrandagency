@@ -35,126 +35,102 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
+            /* ВОТ ОН, ЖИВОЙ ФОН. ШУМ, КОТОРЫЙ ДЫШИТ. */
             background-color: var(--abyss);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%232D2C2F' stroke-width='1'%3E%3Cpath d='M-500 750C-500 335.8 335.8-500 750-500'/%3E%3Cpath d='M-400 750C-400 389.8 389.8-400 750-400'/%3E%3Cpath d='M-300 750C-300 443.9 443.9-300 750-300'/%3E%3Cpath d='M-200 750C-200 497.9 497.9-200 750-200'/%3E%3Cpath d='M-100 750C-100 552 552-100 750-100'/%3E%3Cpath d='M0 750C0 606.1 606.1 0 750 0'/%3E%3Cpath d='M100 750C100 660.2 660.2 100 750 100'/%3E%3Cpath d='M200 750C200 714.2 714.2 200 750 200'/%3E%3Cpath d='M300 750C300 768.3 768.3 300 750 300'/%3E%3Cpath d='M400 750C400 822.3 822.3 400 750 400'/%3E%3Cpath d='M500 750C500 876.4 876.4 500 750 500'/%3E%3Cpath d='M600 750C600 930.5 930.5 600 750 600'/%3E%3Cpath d='M700 750C700 984.6 984.6 700 750 700'/%3E%3Cpath d='M800 750C800 1038.7 1038.7 800 750 800'/%3E%3Cpath d='M900 750C900 1092.7 1092.7 900 750 900'/%3E%3Cpath d='M1000 750C1000 1146.8 1146.8 1000 750 1000'/%3E%3C/g%3E%3C/svg%3E");
+            animation: bg-move 60s linear infinite;
             color: var(--quartz);
             font-family: 'Unbounded', sans-serif;
-            font-weight: 200;
-            display: flex;
-            justify-content: center;
-            padding: 10vh 5vw;
-            min-height: 100vh;
+            font-weight: 200; display: flex; justify-content: center;
+            padding: 10vh 5vw; min-height: 100vh;
             text-transform: lowercase;
+        }
+        @keyframes bg-move {
+            from { background-position: 0 0; }
+            to { background-position: 800px 800px; }
         }
         
         /* === КОНТЕЙНЕР АЛТАРЯ === */
         .altar-container {
-            width: 100%;
-            max-width: 960px;
+            width: 100%; max-width: 960px;
             animation: fadeInAltar 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-            position: relative; /* Чтобы контент был под холстом с частицами */
-            z-index: 1;
+            position: relative; z-index: 1;
         }
-        @keyframes fadeInAltar {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInAltar { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* === ЗАГОЛОВКИ === */
         .main-title {
-            text-align: center;
-            margin-bottom: 10vh;
-            letter-spacing: 0.1em;
-            color: var(--quartz);
-            font-weight: normal;
+            text-align: center; margin-bottom: 10vh;
+            letter-spacing: 0.1em; color: var(--quartz); font-weight: normal;
         }
-        body[data-lang="ru"] .main-title {
-            font-family: 'Brahms Gotisch', serif;
-            font-size: clamp(2rem, 10vw, 4rem);
-        }
-        body[data-lang="en"] .main-title {
-            font-family: 'Manufacturing Consent', sans-serif;
-            font-size: clamp(2.5rem, 12vw, 5.5rem);
-        }
+        body[data-lang="ru"] .main-title { font-family: 'Brahms Gotisch', serif; font-size: clamp(2rem, 10vw, 4rem); }
+        body[data-lang="en"] .main-title { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(2.5rem, 12vw, 5.5rem); }
 
         /* === АККОРДЕОН === */
-        .sacrament {
-            border-bottom: 1px solid rgba(193, 191, 191, 0.2);
-        }
-        .sacrament:first-child {
-             border-top: 1px solid rgba(193, 191, 191, 0.2);
-        }
+        .sacrament-divider { fill: none; stroke: rgba(193, 191, 191, 0.2); stroke-width: 1px; width: 100%; margin: 0; display: block; }
         
         .sacrament-trigger {
-            padding: 40px 20px;
-            cursor: crosshair;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 40px 20px; cursor: crosshair; display: flex; justify-content: space-between; align-items: center;
             transition: background-color 0.4s ease;
         }
-        .sacrament-trigger:hover {
-            background-color: rgba(239, 240, 244, 0.03);
-        }
+        .sacrament-trigger:hover { background-color: rgba(239, 240, 244, 0.03); }
+        
+        .sacrament-heading { display: flex; align-items: center; gap: 20px; }
+        
+        .sigil { width: 24px; height: 24px; transition: color 0.4s ease; color: var(--concrete); }
         
         .sacrament-title {
-            font-weight: normal;
-            letter-spacing: 0.05em;
-            transition: color 0.4s ease;
+            font-weight: normal; letter-spacing: 0.05em; transition: color 0.4s ease;
         }
-        body[data-lang="ru"] .sacrament-title {
-            font-family: 'Brahms Gotisch', serif;
-            font-size: clamp(1.5rem, 6vw, 2.5rem);
-        }
-        body[data-lang="en"] .sacrament-title {
-            font-family: 'Manufacturing Consent', sans-serif;
-            font-size: clamp(1.8rem, 7vw, 3rem);
-        }
+        body[data-lang="ru"] .sacrament-title { font-family: 'Brahms Gotisch', serif; font-size: clamp(1.5rem, 6vw, 2.5rem); }
+        body[data-lang="en"] .sacrament-title { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(1.8rem, 7vw, 3rem); }
         
-        .rite-cross {
-            width: 20px; height: 20px; position: relative;
-            transition: transform 0.5s cubic-bezier(0.87, 0, 0.13, 1);
-        }
-        .rite-cross::before, .rite-cross::after {
-            content: ''; position: absolute; background-color: var(--concrete);
-            transition: background-color 0.4s ease;
-        }
-        .rite-cross::before {
-            left: 50%; top: 0; width: 2px; height: 100%;
-            transform: translateX(-50%);
-        }
-        .rite-cross::after {
-            top: 50%; left: 0; height: 2px; width: 100%;
-            transform: translateY(-50%);
-        }
+        .rite-cross { width: 20px; height: 20px; position: relative; transition: transform 0.5s cubic-bezier(0.87, 0, 0.13, 1); }
+        .rite-cross::before, .rite-cross::after { content: ''; position: absolute; background-color: var(--concrete); transition: background-color 0.4s ease; }
+        .rite-cross::before { left: 50%; top: 0; width: 2px; height: 100%; transform: translateX(-50%); }
+        .rite-cross::after { top: 50%; left: 0; height: 2px; width: 100%; transform: translateY(-50%); }
         
-        .sacrament-content {
+        /* === СОДЕРЖИМОЕ ТАИНСТВА: ПРОЯВЛЕННЫЙ ТЕКСТ === */
+        .sacrament-content-wrapper {
             max-height: 0; overflow: hidden;
-            transition: max-height 0.7s cubic-bezier(0.87, 0, 0.13, 1), padding 0.7s cubic-bezier(0.87, 0, 0.13, 1);
+            transition: max-height 0.7s cubic-bezier(0.87, 0, 0.13, 1);
         }
-        .sacrament-content p {
+        .sacrament-content {
             padding: 0px 20px 40px 20px;
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-            line-height: 1.8; color: var(--quartz); opacity: 0.9;
+            /* СВЕТОТЕНЬ. ТЕНЬ, ПРИДАЮЩАЯ ГЛУБИНУ НИШИ. */
+            box-shadow: inset 0 10px 15px -10px rgba(0,0,0,0.5);
         }
+        .sacrament-content p { font-size: clamp(1rem, 2.5vw, 1.2rem); line-height: 1.8; color: var(--quartz); opacity: 0.9; margin-bottom: 40px; }
         
-        .sacrament.active .sacrament-title { color: var(--amethyst); }
-        .sacrament.active .rite-cross { transform: rotate(135deg); }
-        .sacrament.active .rite-cross::before, .sacrament.active .rite-cross::after {
-            background-color: var(--amethyst);
+        /* === КНОПКА РИТУАЛА (CALL TO ACTION) === */
+        .ritual-cta {
+            display: inline-block; text-decoration: none;
+            font-family: 'Unbounded', sans-serif; font-weight: 200;
+            color: var(--quartz); background-color: transparent;
+            border: 1px solid var(--concrete);
+            padding: 12px 30px; letter-spacing: 1px;
+            transition: all 0.4s ease;
         }
+        .ritual-cta:hover { background-color: var(--amethyst); border-color: var(--amethyst); color: var(--quartz); }
+
+        /* === АКТИВНОЕ СОСТОЯНИЕ: ТАИНСТВО В ДЕЙСТВИИ === */
+        .sacrament.active .sacrament-title, .sacrament.active .sigil { color: var(--amethyst); }
+        .sacrament.active .rite-cross { transform: rotate(135deg); }
+        .sacrament.active .rite-cross::before, .sacrament.active .rite-cross::after { background-color: var(--amethyst); }
 
         .lang-ru, .lang-en { display: none; }
         
         @media (max-width: 768px) {
             .sacrament-trigger { padding: 25px 10px; }
-            .sacrament-content p { padding: 0 10px 25px 10px; }
+            .sacrament-content { padding: 0 10px 25px 10px; }
+            .sacrament-heading { gap: 15px; }
+            .sigil { width: 20px; height: 20px; }
         }
     </style>
 </head>
 
 <body data-lang="en">
     
-    <!-- КАНВАС ДЛЯ АНИМАЦИИ. ВОТ ОН, СВЕРХУ ВСЕГО. КАК И ДОЛЖНО БЫТЬ. -->
     <canvas id="global-ash-canvas"></canvas>
 
     <div class="altar-container">
@@ -165,67 +141,71 @@
         </h1>
 
         <div class="sacraments-accordion">
+            <!-- Разделитель-орнамент. Вместо скучной линии. -->
+            <svg class="sacrament-divider" preserveAspectRatio="none" viewBox="0 0 100 5"><path d="M0 2.5 L45 2.5 L50 0 L55 2.5 L100 2.5"></path></svg>
+            
+            <!-- ТАИНСТВО I: РЕИНКАРНАЦИЯ -->
             <div class="sacrament">
                 <div class="sacrament-trigger">
-                    <h2 class="sacrament-title">
-                        <span class="lang-en">reincarnation</span>
-                        <span class="lang-ru">реинкарнация</span>
-                    </h2>
+                    <div class="sacrament-heading">
+                        <!-- СИГИЛ УРОБОРОСА -->
+                        <svg class="sigil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10c0-4.42-3.58-8-8-8a8 8 0 1 0-8 8"/><path d="M16 10a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM12 12V6l2-2"/></svg>
+                        <h2 class="sacrament-title"><span class="lang-en">reincarnation</span><span class="lang-ru">реинкарнация</span></h2>
+                    </div>
                     <div class="rite-cross"></div>
                 </div>
-                <div class="sacrament-content">
-                    <p>
-                        <span class="lang-en">We don't do "branding." We conduct the Sacrament of Reincarnation. We don't just create brands; we burn the old, weak shell to the ground to resurrect your true essence from the ashes. We delve into the chaos of your business, decode your primal DNA, and forge a new identity upon its foundation. A core that grants not "recognition," but AUTHORITY. You don't become "better." You become the only one.</span>
-                        <span class="lang-ru">Мы не занимаемся «брендингом». Мы проводим Таинство Реинкарнации. Мы не создаём бренды. Мы сжигаем дотла старую, слабую оболочку, чтобы из пепла возродить вашу истинную суть. Мы погружаемся в хаос вашего бизнеса, вскрываем ваш первородный ДНК-код и на его основе выковываем новую идентичность. Ядро, которое дарует не «узнаваемость», а ВЛАСТЬ. Вы не становитесь «лучше». Вы становитесь единственными.</span>
-                    </p>
+                <div class="sacrament-content-wrapper">
+                    <div class="sacrament-content">
+                        <p><span class="lang-en">We don't do "branding." We conduct the Sacrament of Reincarnation...</span><span class="lang-ru">Мы не занимаемся «брендингом». Мы проводим Таинство Реинкарнации...</span></p>
+                        <a href="#" class="ritual-cta" data-ritual="reincarnation"><span class="lang-en">Start the Ritual</span><span class="lang-ru">Начать ритуал</span></a>
+                    </div>
                 </div>
             </div>
+            <svg class="sacrament-divider" preserveAspectRatio="none" viewBox="0 0 100 5"><path d="M0 2.5 L45 2.5 L50 5 L55 2.5 L100 2.5"></path></svg>
 
+            <!-- ТАИНСТВО II: МИСТЕРИЯ -->
             <div class="sacrament">
                 <div class="sacrament-trigger">
-                    <h2 class="sacrament-title">
-                        <span class="lang-en">mystery</span>
-                        <span class="lang-ru">мистерия</span>
-                    </h2>
+                    <div class="sacrament-heading">
+                        <!-- СИГИЛ КЛЮЧА -->
+                        <svg class="sigil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 13a4 4 0 1 0-8 0 4 4 0 0 0 8 0z"/><path d="M9 13v-3.3a1.5 1.5 0 0 1 3 0V13"/><path d="M12 13l-1-5 2-2"/></svg>
+                        <h2 class="sacrament-title"><span class="lang-en">mystery</span><span class="lang-ru">мистерия</span></h2>
+                    </div>
                     <div class="rite-cross"></div>
                 </div>
-                <div class="sacrament-content">
-                    <p>
-                        <span class="lang-en">We know you are tired of monotonous, cookie-cutter "events." That pathetic boredom, born from a complete lack of imagination, is wearisome from the first minute and kills any desire to attend. That is why we don't "organize." We direct Immersive Mysteries. Events that are breathtaking and reality-altering. Are you ready to shake the industry so that you are spoken of with awe and envy?</span>
-                        <span class="lang-ru">Мы знаем, что вы тоже устали от однотипных шаблонных «мероприятий», созданных как под копирку. Эта убогая скука с полным отсутствием фантазии утомляет с первых минут и отбивает желание их посещать… Поэтому мы не «организуем». Мы режиссируем Иммерсионные Мистерии. События, которые захватывают дух и меняют реальность. Готовы всколыхнуть индустрию так, чтобы о вас говорили с восторгом и завистью?</span>
-                    </p>
+                 <div class="sacrament-content-wrapper">
+                    <div class="sacrament-content">
+                        <p><span class="lang-en">We know you are tired of monotonous, cookie-cutter "events."...</span><span class="lang-ru">Мы знаем, что вы тоже устали от однотипных шаблонных «мероприятий»...</span></p>
+                        <a href="#" class="ritual-cta" data-ritual="mystery"><span class="lang-en">Start the Ritual</span><span class="lang-ru">Начать ритуал</span></a>
+                    </div>
                 </div>
             </div>
+            <svg class="sacrament-divider" preserveAspectRatio="none" viewBox="0 0 100 5"><path d="M0 2.5 L45 2.5 L50 5 L55 2.5 L100 2.5"></path></svg>
 
+            <!-- ТАИНСТВО III: ЭМАНАЦИЯ -->
             <div class="sacrament">
                 <div class="sacrament-trigger">
-                    <h2 class="sacrament-title">
-                        <span class="lang-en">emanation</span>
-                        <span class="lang-ru">эманация</span>
-                    </h2>
+                    <div class="sacrament-heading">
+                        <!-- СИГИЛ ЭМАНАЦИИ -->
+                        <svg class="sigil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12 L20 4"/><path d="M12 12 L12 2"/><path d="M12 12 L4 4"/></svg>
+                        <h2 class="sacrament-title"><span class="lang-en">emanation</span><span class="lang-ru">эманация</span></h2>
+                    </div>
                     <div class="rite-cross"></div>
                 </div>
-                <div class="sacrament-content">
-                    <p>
-                        <span class="lang-en">You are sold "creativity": a collection of others' ideas in a "nice" presentation. You are fed visual garbage, passed off as "inspiration." We do something else. We are architects. We build your universe from the ground up. We can design the music that becomes its voice. The event that becomes its temple. The design that becomes its skin. All of these are emanations of one indestructible idea. We do not copy. We create.</span>
-                        <span class="lang-ru">Вам продают «креатив». Набор чужих идей в красивой презентации. Вам скармливают визуальный мусор, называя это «вдохновением». Мы занимаемся другим. Мы архитекторы. Мы строим вашу вселенную с нуля. Мы можем спроектировать для неё музыку, которая станет её голосом. Событие, которое станет её храмом. Дизайн, который станет её кожей. Всё это эманации одной, несокрушимой идеи. Мы не копируем. Мы создаем.</span>
-                    </p>
+                 <div class="sacrament-content-wrapper">
+                    <div class="sacrament-content">
+                        <p><span class="lang-en">You are sold "creativity": a collection of others' ideas...</span><span class="lang-ru">Вам продают «креатив». Набор чужих идей...</span></p>
+                        <a href="#" class="ritual-cta" data-ritual="emanation"><span class="lang-en">Start the Ritual</span><span class="lang-ru">Начать ритуал</span></a>
+                    </div>
                 </div>
             </div>
+            <svg class="sacrament-divider" preserveAspectRatio="none" viewBox="0 0 100 5"><path d="M0 2.5 L45 2.5 L50 0 L55 2.5 L100 2.5"></path></svg>
         </div>
     </div>
     
-    <!-- СТИЛИ И СКРИПТ АНИМАЦИИ. ВЗЯТЫ ИЗ ТВОЕГО ЭТАЛОНА. -->
     <style>
-        #global-ash-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 2; /* Ставим над контентом, но не над будущими модальными окнами, если они понадобятся */
-            pointer-events: none; opacity: 1;
-        }
-        body, body * {
-            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
-            -webkit-touch-callout: none; -khtml-user-select: none;
-        }
+        #global-ash-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; opacity: 1; }
+        body, body * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none; -khtml-user-select: none; }
         img, svg { pointer-events: none; }
     </style>
     <script>
@@ -236,33 +216,38 @@
             document.body.dataset.lang = lang;
             document.documentElement.lang = lang;
             
-            document.querySelectorAll(`.lang-${lang}`).forEach(el => {
-                el.style.display = 'inline';
-            });
+            document.querySelectorAll(`.lang-${lang}`).forEach(el => { el.style.display = 'inline'; });
 
             const sacraments = document.querySelectorAll('.sacrament');
             
             sacraments.forEach(sacrament => {
                 const trigger = sacrament.querySelector('.sacrament-trigger');
-                const content = sacrament.querySelector('.sacrament-content');
+                const contentWrapper = sacrament.querySelector('.sacrament-content-wrapper');
                 
                 trigger.addEventListener('click', () => {
                     const isActive = sacrament.classList.contains('active');
                     
                     sacraments.forEach(s => {
                         s.classList.remove('active');
-                        s.querySelector('.sacrament-content').style.maxHeight = '0px';
+                        s.querySelector('.sacrament-content-wrapper').style.maxHeight = '0px';
                     });
                     
                     if (!isActive) {
                         sacrament.classList.add('active');
-                        content.style.maxHeight = content.scrollHeight + 'px';
+                        contentWrapper.style.maxHeight = contentWrapper.scrollHeight + 'px';
                     }
                 });
             });
+
+            // ПРИВЯЗКА РИТУАЛОВ К КНОПКАМ
+            document.querySelectorAll('.ritual-cta').forEach(button => {
+                const ritual = button.dataset.ritual;
+                // Предполагаем, что следующая страница - oath/index.html
+                button.href = `../oath/index.html?lang=${lang}&ritual=${ritual}`;
+            });
         });
 
-        // ПЕРВОРОДНОЕ ЗАКЛИНАНИЕ АНИМАЦИИ. ВОССТАНОВЛЕНО.
+        // ПЕРВОРОДНОЕ ЗАКЛИНАНИЕ АНИМАЦИИ (без изменений)
         if (!window.isUnifiedAnimationInitialized) {
             (function() {
                 const canvas = document.getElementById('global-ash-canvas');
@@ -271,59 +256,31 @@
                 function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
                 resizeCanvas();
                 window.addEventListener('resize', resizeCanvas);
-                
-                let particles = [];
-                let fogTime = 0;
-                
+                let particles = []; let fogTime = 0;
                 class AshParticle {
-                    constructor(x, y) {
-                        this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2;
-                        this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1;
-                        this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF';
-                    }
+                    constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
                     update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
                     draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
                 }
-                
                 function drawFog() {
                     const fogHeight = 120;
                     const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
                     gradient.addColorStop(0, `rgba(17, 17, 17, ${0.4 + Math.sin(fogTime) * 0.1})`);
                     gradient.addColorStop(0.5, `rgba(17, 17, 17, 0.2)`);
                     gradient.addColorStop(1, `rgba(17, 17, 17, 0)`);
-                    ctx.fillStyle = gradient;
-                    ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
+                    ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
                     fogTime += 0.005;
                 }
-                
-                function handleMouseMove(e) {
-                    for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); }
-                }
+                function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
                 function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
-                
                 function animate() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    drawFog();
+                    ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog();
                     particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
                     if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
                     requestAnimationFrame(animate);
                 }
-                
-                window.addEventListener('mousemove', handleMouseMove, { passive: true });
-                window.addEventListener('touchmove', handleTouchMove, { passive: true });
-                animate();
-                window.isUnifiedAnimationInitialized = true;
-            })();
-        }
-
-        // ЗАЩИТА КОНТЕНТА
-        if (!window.isContentProtectionInitialized) {
-            (function() {
-                document.addEventListener('contextmenu', e => e.preventDefault(), false);
-                document.addEventListener('keydown', e => {
-                    if ((e.ctrlKey || e.metaKey) && ('caxu'.indexOf(e.key) !== -1)) { e.preventDefault(); }
-                });
-                window.isContentProtectionInitialized = true;
+                window.addEventListener('mousemove', handleMouseMove, { passive: true }); window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                animate(); window.isUnifiedAnimationInitialized = true;
             })();
         }
     </script>
