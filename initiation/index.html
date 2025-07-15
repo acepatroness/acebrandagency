@@ -84,15 +84,7 @@
         }
         .sacrament-trigger:hover { background-color: rgba(239, 240, 244, 0.03); }
         
-        .sacrament-heading { display: flex; align-items: center; gap: 20px; }
-        
-        .sigil {
-            width: 32px; height: 32px;
-            transition: color 0.4s ease;
-            color: var(--concrete);
-            fill: currentColor;
-        }
-        
+        /* ИЗМЕНЕНИЕ: УБРАНЫ СТИЛИ ДЛЯ СИГИЛОВ */
         .sacrament-title { 
             font-weight: normal; 
             letter-spacing: 0.05em; 
@@ -134,24 +126,20 @@
         }
         .ritual-cta:hover { background-color: var(--amethyst); border-color: var(--amethyst); color: var(--quartz); }
 
-        .sacrament.active .sacrament-title, 
-        .sacrament.active .sigil { color: var(--amethyst); }
+        .sacrament.active .sacrament-title { color: var(--amethyst); }
         .sacrament.active .rite-cross { transform: rotate(135deg); }
         .sacrament.active .rite-cross::before, 
         .sacrament.active .rite-cross::after { background-color: var(--amethyst); }
 
         .lang-ru, .lang-en { display: none; }
         
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФОН ДЛЯ МОБИЛЬНОЙ ВЕРСИИ === */
         @media (max-width: 768px) {
             body {
                 background-image: url('../assets/back_m.png');
-                background-attachment: scroll; /* На мобильных устройствах фиксированный фон может тормозить */
+                background-attachment: scroll;
             }
             .sacrament-trigger { padding: 25px 10px; }
             .sacrament-content { padding: 0 10px 25px 10px; }
-            .sacrament-heading { gap: 15px; }
-            .sigil { width: 24px; height: 24px; }
         }
     </style>
 </head>
@@ -170,10 +158,8 @@
         <div class="sacraments-accordion">
             <div class="sacrament">
                 <div class="sacrament-trigger">
-                    <div class="sacrament-heading">
-                        <svg class="sigil" viewBox="0 0 48 48"><path d="M24.02 2.625c-9.375 0-16.125 4.5-20.063 10.313-.938 1.5-1.5 3-1.875 4.688v.375h5.25s.375-1.125.75-2.25c3-4.5 8.625-7.125 15.938-7.125 8.25 0 14.25 3.375 17.063 7.5l-3.375-3c-3-3.75-8.25-6-14.625-6-7.5 0-13.125 3-17.25 7.875-1.125 1.5-1.875 2.625-2.25 4.125H2.64v.375c.375 1.5.75 3 1.875 4.5 3.75 6 10.5 10.5 19.5 10.5s16.125-4.5 20.063-10.313c.938-1.5 1.5-3 1.875-4.688v-.375h-5.25s-.375 1.125-.75 2.25c-3 4.5-8.625 7.125-15.938 7.125-8.25 0-14.25-3.375-17.063-7.5l3.375 3c3 3.75 8.25 6 14.625 6 7.5 0 13.125-3 17.25-7.875 1.125-1.5 1.875-2.625 2.25-4.125h1.125v-.375c-.375-1.5-.75-3-1.875-4.5-3.75-6-10.5-10.5-19.5-10.5z"/></svg>
-                        <h2 class="sacrament-title"><span class="lang-en">reincarnation</span><span class="lang-ru">реинкарнация</span></h2>
-                    </div>
+                    <!-- ИЗМЕНЕНИЕ: СИГИЛ УДАЛЕН -->
+                    <h2 class="sacrament-title"><span class="lang-en">reincarnation</span><span class="lang-ru">реинкарнация</span></h2>
                     <div class="rite-cross"></div>
                 </div>
                 <div class="sacrament-content-wrapper">
@@ -189,10 +175,8 @@
 
             <div class="sacrament">
                 <div class="sacrament-trigger">
-                    <div class="sacrament-heading">
-                        <svg class="sigil" viewBox="0 0 48 48"><path d="M16.5 21.375v-9c0-4.125 3.375-7.5 7.5-7.5s7.5 3.375 7.5 7.5v4.5h-4.5v-4.5c0-1.65-1.35-3-3-3s-3 1.35-3 3v9h-1.5v9h-3v3.75h9v-3.75h-3v-9h-1.5zm10.5-4.5v4.5h1.5v9h3v3.75h-9v-3.75h3v-9h1.5z"/></svg>
-                        <h2 class="sacrament-title"><span class="lang-en">mystery</span><span class="lang-ru">мистерия</span></h2>
-                    </div>
+                    <!-- ИЗМЕНЕНИЕ: СИГИЛ УДАЛЕН -->
+                    <h2 class="sacrament-title"><span class="lang-en">mystery</span><span class="lang-ru">мистерия</span></h2>
                     <div class="rite-cross"></div>
                 </div>
                  <div class="sacrament-content-wrapper">
@@ -208,10 +192,8 @@
 
             <div class="sacrament">
                 <div class="sacrament-trigger">
-                    <div class="sacrament-heading">
-                        <svg class="sigil" viewBox="0 0 48 48"><path d="M24 6v15.281L6.375 6H24zm0 0h17.625L24 21.281V6zm0 20.719V42L6.375 21H24zm0 0h17.625L24 42v-15.281z"/></svg>
-                        <h2 class="sacrament-title"><span class="lang-en">emanation</span><span class="lang-ru">эманация</span></h2>
-                    </div>
+                    <!-- ИЗМЕНЕНИЕ: СИГИЛ УДАЛЕН -->
+                    <h2 class="sacrament-title"><span class="lang-en">emanation</span><span class="lang-ru">эманация</span></h2>
                     <div class="rite-cross"></div>
                 </div>
                  <div class="sacrament-content-wrapper">
