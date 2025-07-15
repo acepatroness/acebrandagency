@@ -16,7 +16,13 @@
             font-weight: 200; font-style: normal; font-display: swap;
         }
 
-        :root { --abyss: #111111; --quartz: #EFF0F4; }
+        :root { 
+            --abyss: #111111; 
+            --quartz: #EFF0F4; 
+            --amethyst: #510FD5;
+            --concrete: #C1BFBF;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow: hidden; }
 
@@ -52,8 +58,7 @@
 
         .gate-area {
             position: absolute;
-            /* СКОРРЕКТИРОВАНО ПОЛОЖЕНИЕ ДЛЯ ВИДИМОСТИ ВСЕХ ЭЛЕМЕНТОВ */
-            top: 520px; 
+            top: 550px; 
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -63,37 +68,31 @@
             width: 90%;
         }
 
-        /* СТИЛИ ДЛЯ ПЕЧАТИ */
-        .seal-button {
-            display: block;
-            width: 150px;
-            height: 150px;
-            cursor: crosshair;
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: КНОПКА В СТИЛЕ АЛТАРЯ === */
+        .enter-button {
+            display: inline-block;
             text-decoration: none;
-            /* Анимация пульсации */
-            animation: pulse 2.5s infinite ease-in-out;
+            font-family: 'Brahms Gotisch', serif; /* Главный шрифт для врат */
+            font-size: 30px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            cursor: crosshair;
+            padding: 15px 60px;
+            color: var(--quartz);
+            background-color: transparent;
+            border: 1px solid var(--concrete); /* Стиль, как на 3-й странице */
+            transition: all 0.4s ease;
         }
 
-        .seal-button img {
-            width: 100%;
-            height: 100%;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-
-        .seal-button:hover img {
-            transform: scale(1.08);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .enter-button:hover {
+            background-color: var(--amethyst); /* Эффект, как на 3-й странице */
+            border-color: var(--amethyst);
+            color: var(--quartz);
         }
         
         .language-switcher {
-            /* УМЕНЬШЕН ОТСТУП, СОГЛАСНО ТРЕБОВАНИЮ */
-            margin-top: 25px; 
+            margin-top: 50px; 
             font-family: 'Unbounded', sans-serif;
             font-weight: 200; font-size: 16px; letter-spacing: 1px;
         }
@@ -107,7 +106,7 @@
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
             -webkit-touch-callout: none; -khtml-user-select: none;
         }
-        /* У img уже есть глобальный pointer-events: none, дублировать не нужно */
+        img { pointer-events: none; }
 
         @media (max-width: 768px) {
             .logo {
@@ -115,13 +114,16 @@
                 transform: translateX(-50%);
                 width: 180px;
             }
+            .enter-button {
+                padding: 12px 40px;
+                font-size: 24px;
+            }
             .gate-area {
-                /* СКОРРЕКТИРОВАНО ДЛЯ МОБИЛЬНОЙ ВЕРСИИ */
-                top: calc(50% + 150px);
+                top: calc(50% + 190px);
                 transform: translate(-50%, -50%);
             }
              .language-switcher { 
-                margin-top: 25px; 
+                margin-top: 40px; 
                 font-size: 12px; 
             }
         }
@@ -133,10 +135,8 @@
     <img src="assets/logo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="gate-area">
-        <!-- HTML-СТРУКТУРА: ПЕЧАТЬ, ЗАТЕМ ПЕРЕКЛЮЧАТЕЛЬ -->
-        <a href="manifesto/index.html?lang=en" class="seal-button" id="seal-link">
-            <img id="seal-img" src="assets/enter_eng.png" alt="Enter the Temple">
-        </a>
+        <!-- === ИЗМЕНЕНИЕ ЗДЕСЬ: ВОЗВРАЩЕНА ТЕКСТОВАЯ КНОПКА === -->
+        <a href="manifesto/index.html?lang=en" class="enter-button" id="enter-btn">enter</a>
         <div class="language-switcher">
             <span id="lang-en" class="active">english</span>
             <span id="lang-ru">русский</span>
@@ -144,7 +144,7 @@
     </div>
 
     <script>
-    // АНИМАЦИЯ ПЕПЛА (БЕЗ ИЗМЕНЕНИЙ)
+    // АНИМАЦИЯ ПЕПЛА (без изменений)
     if (!window.isUnifiedAnimationInitialized) {
         (function() {
             const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
@@ -178,7 +178,7 @@
         })();
     }
 
-    // ЗАЩИТА КОНТЕНТА (БЕЗ ИЗМЕНЕНИЙ)
+    // ЗАЩИТА КОНТЕНТА (без изменений)
     if (!window.isContentProtectionInitialized) {
         (function() {
             document.addEventListener('contextmenu', e => e.preventDefault(), false);
@@ -187,22 +187,21 @@
         })();
     }
 
-    // ЛОГИКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА (АДАПТИРОВАНА ПОД ПЕЧАТЬ)
+    // === ИЗМЕНЕНИЕ ЗДЕСЬ: ЛОГИКА ВОЗВРАЩЕНА К ТЕКСТОВОЙ КНОПКЕ ===
     document.addEventListener('DOMContentLoaded', () => {
-        const enterLink = document.getElementById('seal-link'); 
-        const sealImage = document.getElementById('seal-img');
+        const enterButton = document.getElementById('enter-btn'); 
         const langEn = document.getElementById('lang-en'); 
         const langRu = document.getElementById('lang-ru');
         
         const content = { 
-            en: { sealSrc: 'assets/enter_eng.png', lang: 'en', link: 'manifesto/index.html?lang=en' }, 
-            ru: { sealSrc: 'assets/enter_ru.png', lang: 'ru', link: 'manifesto/index.html?lang=ru' } 
+            en: { button: 'enter', lang: 'en', link: 'manifesto/index.html?lang=en' }, 
+            ru: { button: 'вход', lang: 'ru', link: 'manifesto/index.html?lang=ru' } 
         };
         
         function switchLanguage(lang) {
             document.documentElement.lang = content[lang].lang; 
-            enterLink.href = content[lang].link;
-            sealImage.src = content[lang].sealSrc;
+            enterButton.textContent = content[lang].button;
+            enterButton.href = content[lang].link;
             
             if (lang === 'ru') {
                 langRu.classList.add('active'); 
