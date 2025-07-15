@@ -48,13 +48,12 @@
             text-transform: lowercase;
         }
 
-        /* === ИЗМЕНЕНИЕ №2: ВУАЛЬ ТЬМЫ 70% === */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: rgba(17, 17, 17, 0.7); /* #111111 с 70% прозрачностью */
+            background-color: rgba(17, 17, 17, 0.7);
             z-index: 0;
         }
         
@@ -94,12 +93,11 @@
             fill: currentColor;
         }
         
-        /* === ИЗМЕНЕНИЕ №1: ЦВЕТ ЗАГОЛОВКОВ ТАИНСТВ === */
         .sacrament-title { 
             font-weight: normal; 
             letter-spacing: 0.05em; 
             transition: color 0.4s ease;
-            color: var(--concrete); /* Установлен цвет бетона по умолчанию */
+            color: var(--concrete);
         }
         body[data-lang="ru"] .sacrament-title { font-family: 'Brahms Gotisch', serif; font-size: clamp(1.5rem, 6vw, 2.5rem); }
         body[data-lang="en"] .sacrament-title { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(1.8rem, 7vw, 3rem); }
@@ -108,7 +106,6 @@
             width: 20px; height: 20px; position: relative;
             transition: transform 0.5s cubic-bezier(0.87, 0, 0.13, 1);
         }
-        /* Крест уже был цвета бетона, здесь ничего менять не нужно */
         .rite-cross::before, .rite-cross::after { content: ''; position: absolute; background-color: var(--concrete); transition: background-color 0.4s ease; }
         .rite-cross::before { left: 50%; top: 0; width: 2px; height: 100%; transform: translateX(-50%); }
         .rite-cross::after { top: 50%; left: 0; height: 2px; width: 100%; transform: translateY(-50%); }
@@ -137,7 +134,6 @@
         }
         .ritual-cta:hover { background-color: var(--amethyst); border-color: var(--amethyst); color: var(--quartz); }
 
-        /* При активации сигил, заголовок и крест вспыхивают аметистом */
         .sacrament.active .sacrament-title, 
         .sacrament.active .sigil { color: var(--amethyst); }
         .sacrament.active .rite-cross { transform: rotate(135deg); }
@@ -146,7 +142,12 @@
 
         .lang-ru, .lang-en { display: none; }
         
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФОН ДЛЯ МОБИЛЬНОЙ ВЕРСИИ === */
         @media (max-width: 768px) {
+            body {
+                background-image: url('../assets/back_m.png');
+                background-attachment: scroll; /* На мобильных устройствах фиксированный фон может тормозить */
+            }
             .sacrament-trigger { padding: 25px 10px; }
             .sacrament-content { padding: 0 10px 25px 10px; }
             .sacrament-heading { gap: 15px; }
