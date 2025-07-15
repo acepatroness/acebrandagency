@@ -84,7 +84,6 @@
         }
         .sacrament-trigger:hover { background-color: rgba(239, 240, 244, 0.03); }
         
-        /* ИЗМЕНЕНИЕ: УБРАНЫ СТИЛИ ДЛЯ СИГИЛОВ */
         .sacrament-title { 
             font-weight: normal; 
             letter-spacing: 0.05em; 
@@ -158,7 +157,6 @@
         <div class="sacraments-accordion">
             <div class="sacrament">
                 <div class="sacrament-trigger">
-                    <!-- ИЗМЕНЕНИЕ: СИГИЛ УДАЛЕН -->
                     <h2 class="sacrament-title"><span class="lang-en">reincarnation</span><span class="lang-ru">реинкарнация</span></h2>
                     <div class="rite-cross"></div>
                 </div>
@@ -168,14 +166,14 @@
                             <span class="lang-en">We don't do "branding." We conduct the Sacrament of Reincarnation. We don't just create brands; we burn the old, weak shell to the ground to resurrect your true essence from the ashes. We delve into the chaos of your business, decode your primal DNA, and forge a new identity upon its foundation. A core that grants not "recognition," but AUTHORITY. You don't become "better." You become the only one.</span>
                             <span class="lang-ru">Мы не занимаемся «брендингом». Мы проводим Таинство Реинкарнации. Мы не создаём бренды. Мы сжигаем дотла старую, слабую оболочку, чтобы из пепла возродить вашу истинную суть. Мы погружаемся в хаос вашего бизнеса, вскрываем ваш первородный ДНК-код и на его основе выковываем новую идентичность. Ядро, которое дарует не «узнаваемость», а ВЛАСТЬ. Вы не становитесь «лучше». Вы становитесь единственными.</span>
                         </p>
-                        <a href="#" class="ritual-cta" data-ritual="reincarnation"><span class="lang-en">Start the Ritual</span><span class="lang-ru">Начать ритуал</span></a>
+                        <!-- ИЗМЕНЕНИЕ ЗДЕСЬ: НАЗВАНИЕ КНОПОК -->
+                        <a href="#" class="ritual-cta" data-ritual="reincarnation"><span class="lang-en">start</span><span class="lang-ru">начать</span></a>
                     </div>
                 </div>
             </div>
 
             <div class="sacrament">
                 <div class="sacrament-trigger">
-                    <!-- ИЗМЕНЕНИЕ: СИГИЛ УДАЛЕН -->
                     <h2 class="sacrament-title"><span class="lang-en">mystery</span><span class="lang-ru">мистерия</span></h2>
                     <div class="rite-cross"></div>
                 </div>
@@ -185,14 +183,13 @@
                             <span class="lang-en">We know you are tired of monotonous, cookie-cutter "events." That pathetic boredom, born from a complete lack of imagination, is wearisome from the first minute and kills any desire to attend. That is why we don't "organize." We direct Immersive Mysteries. Events that are breathtaking and reality-altering. Are you ready to shake the industry so that you are spoken of with awe and envy?</span>
                             <span class="lang-ru">Мы знаем, что вы тоже устали от однотипных шаблонных «мероприятий», созданных как под копирку. Эта убогая скука с полным отсутствием фантазии утомляет с первых минут и отбивает желание их посещать… Поэтому мы не «организуем». Мы режиссируем Иммерсионные Мистерии. События, которые захватывают дух и меняют реальность. Готовы всколыхнуть индустрию так, чтобы о вас говорили с восторгом и завистью?</span>
                         </p>
-                        <a href="#" class="ritual-cta" data-ritual="mystery"><span class="lang-en">Start the Ritual</span><span class="lang-ru">Начать ритуал</span></a>
+                        <a href="#" class="ritual-cta" data-ritual="mystery"><span class="lang-en">start</span><span class="lang-ru">начать</span></a>
                     </div>
                 </div>
             </div>
 
             <div class="sacrament">
                 <div class="sacrament-trigger">
-                    <!-- ИЗМЕНЕНИЕ: СИГИЛ УДАЛЕН -->
                     <h2 class="sacrament-title"><span class="lang-en">emanation</span><span class="lang-ru">эманация</span></h2>
                     <div class="rite-cross"></div>
                 </div>
@@ -202,7 +199,7 @@
                             <span class="lang-en">You are sold "creativity": a collection of others' ideas in a "nice" presentation. You are fed visual garbage, passed off as "inspiration." We do something else. We are architects. We build your universe from the ground up. We can design the music that becomes its voice. The event that becomes its temple. The design that becomes its skin. All of these are emanations of one indestructible idea. We do not copy. We create.</span>
                             <span class="lang-ru">Вам продают «креатив». Набор чужих идей в красивой презентации. Вам скармливают визуальный мусор, называя это «вдохновением». Мы занимаемся другим. Мы архитекторы. Мы строим вашу вселенную с нуля. Мы можем спроектировать для неё музыку, которая станет её голосом. Событие, которое станет её храмом. Дизайн, который станет её кожей. Всё это эманации одной, несокрушимой идеи. Мы не копируем. Мы создаем.</span>
                         </p>
-                        <a href="#" class="ritual-cta" data-ritual="emanation"><span class="lang-en">Start the Ritual</span><span class="lang-ru">Начать ритуал</span></a>
+                        <a href="#" class="ritual-cta" data-ritual="emanation"><span class="lang-en">start</span><span class="lang-ru">начать</span></a>
                     </div>
                 </div>
             </div>
@@ -250,6 +247,7 @@
             });
         });
 
+        /* ИЗМЕНЕНИЕ ЗДЕСЬ: ВОЗВРАЩЕНА ПЕРВОНАЧАЛЬНАЯ, БОЛЕЕ ОБИЛЬНАЯ АНИМАЦИЯ */
         if (!window.isUnifiedAnimationInitialized) {
             (function() {
                 const canvas = document.getElementById('global-ash-canvas');
@@ -259,29 +257,44 @@
                 resizeCanvas();
                 window.addEventListener('resize', resizeCanvas);
                 let particles = [];
+                let fogTime = 0;
+                
                 class AshParticle {
                     constructor(x, y) {
-                        this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.6; this.vy = -Math.random() * 0.4 - 0.1;
-                        this.life = 1; this.decay = 0.01 + Math.random() * 0.01; this.size = Math.random() * 2.5 + 1;
-                        this.color = Math.random() > 0.85 ? '#510FD5' : '#C1BFBF';
+                        this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2;
+                        this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1;
+                        this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF';
                     }
-                    update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.99; this.vy += 0.005; this.life -= this.decay; }
-                    draw() { ctx.globalAlpha = this.life * 0.7; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+                    update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
+                    draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+                }
+                
+                function drawFog() {
+                    const fogHeight = 120;
+                    const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
+                    gradient.addColorStop(0, `rgba(17, 17, 17, ${0.4 + Math.sin(fogTime) * 0.1})`);
+                    gradient.addColorStop(0.5, `rgba(17, 17, 17, 0.2)`);
+                    gradient.addColorStop(1, `rgba(17, 17, 17, 0)`);
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
+                    fogTime += 0.005;
                 }
                 
                 function handleMouseMove(e) {
-                    if (Math.random() > 0.5) { 
-                        for (let i = 0; i < 3; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 25, e.clientY + (Math.random() - 0.5) * 25)); }
-                    }
+                    for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); }
                 }
+                function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
                 
                 function animate() {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    particles = particles.filter(p => { if (p.life <= 0) return false; p.update(); p.draw(); return true; });
+                    drawFog();
+                    particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
+                    if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
                     requestAnimationFrame(animate);
                 }
                 
                 window.addEventListener('mousemove', handleMouseMove, { passive: true });
+                window.addEventListener('touchmove', handleTouchMove, { passive: true });
                 animate();
                 window.isUnifiedAnimationInitialized = true;
             })();
