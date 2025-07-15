@@ -30,8 +30,14 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФОН СИНХРОНИЗИРОВАН С 3-Й СТРАНИЦЕЙ === */
         body {
-            background-image: linear-gradient(to right, #111111, #2D2C2F, #111111);
+            position: relative;
+            background-image: url('../assets/back.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--quartz);
             font-family: 'Unbounded', sans-serif;
             font-weight: 200;
@@ -44,11 +50,21 @@
             padding: 50px 5vw; 
         }
 
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(17, 17, 17, 0.7); /* Вуаль тьмы 70% */
+            z-index: 0;
+        }
+
         /* === КОНТЕЙНЕР === */
         .grimoire-wrapper {
             position: relative;
             width: 100%;
             max-width: 900px;
+            z-index: 1; /* Чтобы был над вуалью */
         }
         
         /* === ПЕРГАМЕНТ === */
@@ -63,6 +79,7 @@
             display: block;
             width: 100%;
             height: auto;
+            pointer-events: none; /* Пергамент не должен блокировать курсор */
         }
         @keyframes fadeInParchment {
             from { opacity: 0; transform: scale(0.98); }
@@ -95,100 +112,57 @@
         .manifesto-block p span.space { display: block; height: 8px; }
         
         #en-manifesto .font-display, #en-manifesto p { font-family: 'Manufacturing Consent', sans-serif; }
-        #en-manifesto h1 { 
-            font-size: 90px; 
-            position: relative;
-            top: 30px; 
-            left: 90px;
-        } 
-        #en-manifesto h2 { 
-            font-size: 73px; 
-            position: relative;
-            top: 0; 
-            left: 90px;
-        } 
-        #en-manifesto p { 
-            font-size: 26px;
-            line-height: 1.52; 
-            position: relative;
-            top: -25px;
-            left: 90px;
-        }
+        #en-manifesto h1 { font-size: 90px; position: relative; top: 30px; left: 90px; } 
+        #en-manifesto h2 { font-size: 73px; position: relative; top: 0; left: 90px; } 
+        #en-manifesto p { font-size: 26px; line-height: 1.52; position: relative; top: -25px; left: 90px; }
 
         #ru-manifesto .font-display, #ru-manifesto p { font-family: 'Brahms Gotisch', serif; }
-        #ru-manifesto h1 { 
-            font-size: 57px; 
-            margin-top: 70px;
-            margin-bottom: 12px;
-        }
-        #ru-manifesto h2 { 
-            font-size: 48px;
-            margin-bottom: 60px;
-        } 
-        #ru-manifesto p { 
-            font-size: 22px; 
-            line-height: 1.7; 
-        }
+        #ru-manifesto h1 { font-size: 57px; margin-top: 70px; margin-bottom: 12px; }
+        #ru-manifesto h2 { font-size: 48px; margin-bottom: 60px; } 
+        #ru-manifesto p { font-size: 22px; line-height: 1.7; }
 
-        /* === ПЕЧАТЬ (ДЕКСТОП): ИЗМЕНЕНИЕ ЗДЕСЬ === */
+        /* === ПЕЧАТЬ (ДЕКСТОП) === */
         .seal-container { 
             position: absolute; 
             bottom: 130px;
             right: 200px; 
-            width: 150px; /* Установлено */
-            height: 150px; /* Установлено */
+            width: 150px;
+            height: 150px;
             opacity: 0; 
             z-index: 3; 
             animation: fadeInSeal 1s ease-out 0.5s forwards; 
         }
         
-        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 1.5s; }
+        .seal-button { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; display: block; border-radius: 50%; animation: pulse 2s infinite 1.5s; cursor: crosshair; }
         @keyframes fadeInSeal { to { opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
-        /* === МОБИЛЬНАЯ ВЕРСИЯ (БЕЗ ИЗМЕНЕНИЙ) === */
+        /* === МОБИЛЬНАЯ ВЕРСИЯ === */
         @media (max-width: 768px) {
+            body {
+                background-image: url('../assets/back_m.png');
+                background-attachment: scroll;
+            }
             .manifesto-content { padding: 100px 40px; }
             
-            html[lang="ru"] #ru-manifesto {
-                position: relative;
-                top: -15px;
-                left: 20px;
-            }
-
+            html[lang="ru"] #ru-manifesto { position: relative; top: -15px; left: 20px; }
             html[lang="ru"] #ru-manifesto h1, 
             html[lang="ru"] #ru-manifesto h2, 
-            html[lang="ru"] #ru-manifesto p { 
-                position: static;
-                margin: 0;
-            }
+            html[lang="ru"] #ru-manifesto p { position: static; margin: 0; }
             html[lang="ru"] #ru-manifesto h1 { font-size: 23px; margin-bottom: 8px; } 
             html[lang="ru"] #ru-manifesto h2 { font-size: 20px; margin-bottom: 15px; } 
             html[lang="ru"] #ru-manifesto p { font-size: 10px; line-height: 1.2; }
-            html[lang="ru"] .seal-container {
-                width: 90px; 
-                height: 80px; 
-                bottom: 30px; 
-                right: 50px; 
-            }
+            html[lang="ru"] .seal-container { width: 90px; height: 80px; bottom: 30px; right: 50px; }
 
             html[lang="en"] #en-manifesto h1, 
             html[lang="en"] #en-manifesto h2, 
-            html[lang="en"] #en-manifesto p {
-                position: relative;
-                left: 20px;
-            }
+            html[lang="en"] #en-manifesto p { position: relative; left: 20px; }
             html[lang="en"] #en-manifesto h1 { font-size: 50px; top: -55px; }
             html[lang="en"] #en-manifesto h2 { font-size: 41px; top: -75px; } 
             html[lang="en"] #en-manifesto p { font-size: 13px; line-height: 1.25; top: -105px; } 
             html[lang="en"] #en-manifesto p span.space { height: 5px; }
             
-            html[lang="en"] .seal-container {
-                width: 80px;
-                height: 80px;
-                bottom: 20px;
-                right: 60px;
-            }
+            html[lang="en"] .seal-container { width: 80px; height: 80px; bottom: 20px; right: 60px; }
         }
     </style>
 </head>
@@ -263,7 +237,6 @@
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; 
             -webkit-touch-callout: none; -khtml-user-select: none; 
         }
-        img, svg { pointer-events: none; }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -283,6 +256,7 @@
                 sealButton.style.backgroundImage = "url('../assets/seal-en.png')";
             }
 
+            // АНИМАЦИЯ КУРСОРА И ЗАЩИТА ПРОВЕРЕНЫ. ВСЕ НА МЕСТЕ.
             if (!window.isUnifiedAnimationInitialized) {
                 (function() {
                     const canvas = document.getElementById('global-ash-canvas');
@@ -338,7 +312,7 @@
                         requestAnimationFrame(animate);
                     }
                     
-                    window.addEventListener('mousemove', handleMouseMove);
+                    window.addEventListener('mousemove', handleMouseMove, { passive: true });
                     window.addEventListener('touchmove', handleTouchMove, { passive: true });
                     animate();
                     window.isUnifiedAnimationInitialized = true;
