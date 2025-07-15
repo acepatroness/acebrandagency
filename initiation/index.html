@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACE BRAND AGENCY | INITIATION</title>
     <style>
-        /* === АРСЕНАЛ ШРИФТОВ (НЕИЗМЕНЕН) === */
+        /* === АРСЕНАЛ ШРИФТОВ === */
         @font-face {
             font-family: 'Brahms Gotisch';
             src: url('../fonts/BrahmsGotischCyr.woff2') format('woff2');
@@ -22,7 +22,7 @@
             font-weight: 200; font-style: normal; font-display: swap;
         }
 
-        /* === ПАЛИТРА (НЕИЗМЕННА) === */
+        /* === ПАЛИТРА === */
         :root { 
             --abyss: #111111;
             --quartz: #EFF0F4;
@@ -31,24 +31,38 @@
             --concrete-shadow: rgba(193, 191, 191, 0.2);
         }
 
-        /* === АРХИТЕКТУРА: БЕТОН И СТАЛЬ === */
+        /* === АРХИТЕКТУРА === */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ФОН С ГЛУБИНОЙ === */
         body {
-            /* ПРЕДБАННИК ИМПОТЕНТА СОЖЖЕН. ВОТ ТЕБЕ НАСТОЯЩИЙ БЕТОН. */
-            background-color: var(--abyss);
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAIBSURBVHja7NoxasxwAIXhtv///5I3kE4iOkZEwkk7OdpB6lBwEzmMZpZ7kK4fTTZ5KzGeaG1KkklqbBfC3M9xSRuw5Fh2S/2r8/V5e3d3V5M63qPzW42W4p97+z3hcDhY/T4fD4vL5fL3h73Z7ZpMJi/L5fLl2/X3t5Yf55P5/f6/vL3dTg/A9ycmP55fXx/P+/v5A2wYgGEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFEARgEYBWAUgFmBf4v/wC+4wMIVfQlLwAAAABJRU5ErkJggg==');
+            position: relative;
+            background-image: url('../assets/back.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Фон не двигается при скролле */
             color: var(--quartz);
             font-family: 'Unbounded', sans-serif;
             font-weight: 200; display: flex; justify-content: center;
             padding: 10vh 5vw; min-height: 100vh;
             text-transform: lowercase;
         }
+
+        /* ВУАЛЬ ТЬМЫ ПОВЕРХ ФОНА */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(17, 17, 17, 0.3); /* #111111 с 30% прозрачностью */
+            z-index: 0;
+        }
         
         .altar-container {
             width: 100%; max-width: 960px;
             animation: fadeInAltar 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-            position: relative; z-index: 1;
+            position: relative; z-index: 1; /* Контент НАД вуалью */
         }
         @keyframes fadeInAltar { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -59,7 +73,6 @@
         body[data-lang="ru"] .main-title { font-family: 'Brahms Gotisch', serif; font-size: clamp(2rem, 10vw, 4rem); }
         body[data-lang="en"] .main-title { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(2.5rem, 12vw, 5.5rem); }
 
-        /* === АККОРДЕОН: КАМЕННЫЕ ПЛИТЫ === */
         .sacrament {
              border-bottom: 1px solid var(--concrete-shadow);
         }
@@ -75,7 +88,6 @@
         
         .sacrament-heading { display: flex; align-items: center; gap: 20px; }
         
-        /* НОВЫЕ СИГИЛЫ. ВЫРЕЗАНЫ ИЗ ТОГО ЖЕ МЕТАЛЛА, ЧТО И ТВОИ ШРИФТЫ. */
         .sigil {
             width: 32px; height: 32px;
             transition: color 0.4s ease;
@@ -95,7 +107,6 @@
         .rite-cross::before { left: 50%; top: 0; width: 2px; height: 100%; transform: translateX(-50%); }
         .rite-cross::after { top: 50%; left: 0; height: 2px; width: 100%; transform: translateY(-50%); }
         
-        /* === СОДЕРЖИМОЕ ТАИНСТВА: МЕХАНИЗМ ИСПРАВЛЕН === */
         .sacrament-content-wrapper {
             max-height: 0;
             overflow: hidden;
@@ -235,7 +246,6 @@
             });
         });
 
-        /* ДВИЖОК АНИМАЦИИ: МЕНЬШЕ ШУМА, БОЛЬШЕ ЯРОСТИ. ОПТИМИЗИРОВАНО. */
         if (!window.isUnifiedAnimationInitialized) {
             (function() {
                 const canvas = document.getElementById('global-ash-canvas');
@@ -256,7 +266,7 @@
                 }
                 
                 function handleMouseMove(e) {
-                    if (Math.random() > 0.5) { // Прореживаем вызовы
+                    if (Math.random() > 0.5) { 
                         for (let i = 0; i < 3; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 25, e.clientY + (Math.random() - 0.5) * 25)); }
                     }
                 }
