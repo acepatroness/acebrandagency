@@ -62,17 +62,32 @@
             width: 90%;
         }
 
-        .enter-button {
-            background-color: var(--abyss); border: 2px solid var(--abyss);
-            color: var(--quartz); padding: 15px 60px;
-            margin-top: 0; 
-            font-family: 'Brahms Gotisch', serif;
-            font-size: 30px; letter-spacing: 2px;
-            text-decoration: none; cursor: crosshair;
-            transition: all 0.4s ease;
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ТЕКСТОВАЯ КНОПКА ЗАМЕНЕНА НА ПЕЧАТЬ === */
+        .seal-button {
+            display: block;
+            width: 150px;
+            height: 150px;
+            cursor: crosshair;
+            text-decoration: none;
+            /* Анимация пульсации */
+            animation: pulse 2.5s infinite ease-in-out;
         }
-        .enter-button:hover {
-            background-color: rgba(17, 17, 17, 0.5); border: 2px solid var(--quartz);
+
+        .seal-button img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .seal-button:hover img {
+            transform: scale(1.08);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         .language-switcher {
@@ -97,10 +112,9 @@
                 transform: translateX(-50%);
                 width: 180px;
             }
-            .enter-button { padding: 15px 45px; }
             .language-switcher { margin-top: 50px; font-size: 12px; }
             .gate-area {
-                top: calc(50% + 190px);
+                top: calc(50% + 150px); /* Скорректировано под размер печати */
                 transform: translate(-50%, -50%);
             }
         }
@@ -109,11 +123,13 @@
 <body>
     <canvas id="global-ash-canvas"></canvas>
     
-    <!-- ИЗМЕНЕНИЕ ЗДЕСЬ -->
     <img src="assets/logo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="gate-area">
-        <a href="manifesto/index.html?lang=en" class="enter-button" id="enter-btn">enter</a>
+        <!-- === ИЗМЕНЕНИЕ ЗДЕСЬ: ССЫЛКА-КНОПКА ТЕПЕРЬ СУРГУЧНАЯ ПЕЧАТЬ === -->
+        <a href="manifesto/index.html?lang=en" class="seal-button" id="seal-link">
+            <img id="seal-img" src="assets/enter_eng.png" alt="Enter the Temple">
+        </a>
         <div class="language-switcher">
             <span id="lang-en" class="active">english</span>
             <span id="lang-ru">русский</span>
@@ -121,7 +137,7 @@
     </div>
 
     <script>
-    // АНИМАЦИЯ ПЕПЛА
+    // АНИМАЦИЯ ПЕПЛА (не тронуто)
     if (!window.isUnifiedAnimationInitialized) {
         (function() {
             const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
@@ -155,7 +171,7 @@
         })();
     }
 
-    // ЗАЩИТА КОНТЕНТА
+    // ЗАЩИТА КОНТЕНТА (не тронуто)
     if (!window.isContentProtectionInitialized) {
         (function() {
             document.addEventListener('contextmenu', e => e.preventDefault(), false);
@@ -164,20 +180,22 @@
         })();
     }
 
+    // === ИЗМЕНЕНИЕ ЗДЕСЬ: ЛОГИКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА АДАПТИРОВАНА ПОД ПЕЧАТЬ ===
     document.addEventListener('DOMContentLoaded', () => {
-        const enterButton = document.getElementById('enter-btn'); 
+        const enterLink = document.getElementById('seal-link'); 
+        const sealImage = document.getElementById('seal-img');
         const langEn = document.getElementById('lang-en'); 
         const langRu = document.getElementById('lang-ru');
         
         const content = { 
-            en: { button: 'enter', lang: 'en', link: 'manifesto/index.html?lang=en' }, 
-            ru: { button: 'вход', lang: 'ru', link: 'manifesto/index.html?lang=ru' } 
+            en: { sealSrc: 'assets/enter_eng.png', lang: 'en', link: 'manifesto/index.html?lang=en' }, 
+            ru: { sealSrc: 'assets/enter_ru.png', lang: 'ru', link: 'manifesto/index.html?lang=ru' } 
         };
         
         function switchLanguage(lang) {
             document.documentElement.lang = content[lang].lang; 
-            enterButton.textContent = content[lang].button;
-            enterButton.href = content[lang].link;
+            enterLink.href = content[lang].link;
+            sealImage.src = content[lang].sealSrc; // Меняем картинку
             
             if (lang === 'ru') {
                 langRu.classList.add('active'); 
