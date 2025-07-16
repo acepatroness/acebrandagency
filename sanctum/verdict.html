@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACE BRAND AGENCY | VERDICT</title>
+    <style>
+        /* === ПАЛИТРА === */
+        :root { 
+            --abyss: #111111;
+            --quartz: #EFF0F4;
+            --amethyst: #510FD5;
+            --concrete: #C1BFBF;
+        }
+
+        /* === АРХИТЕКТУРА ЗАЛА ВЕРДИКТА === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            position: relative;
+            background-image: url('../assets/back.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--quartz);
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 200;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-transform: lowercase;
+            overflow: hidden; /* Запрещаем скролл в этой комнате */
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(17, 17, 17, 0.7);
+            z-index: 0;
+        }
+
+        .verdict-container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 5vw;
+        }
+
+        .verdict-text {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            line-height: 1.9;
+            opacity: 0;
+            animation: fadeIn 2s 1s forwards;
+        }
+        
+        .signs-text {
+            margin-top: 8vh;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            opacity: 0;
+            animation: fadeIn 2s 1.5s forwards;
+        }
+
+        .chronicles-link {
+            margin-top: 20px;
+            display: inline-block;
+            opacity: 0;
+            animation: fadeIn 2s 2s forwards;
+        }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        .chronicles-link svg {
+            width: 32px;
+            height: 32px;
+            color: var(--concrete);
+            transition: all 0.4s ease;
+        }
+        .chronicles-link:hover svg {
+            color: var(--amethyst);
+            transform: scale(1.1);
+        }
+
+        .lang-ru, .lang-en { display: none; }
+
+        @media (max-width: 768px) {
+            body {
+                background-image: url('../assets/back_m.png');
+                background-attachment: scroll;
+            }
+        }
+        
+        /* ЗАЩИТА КОНТЕНТА */
+        body, body * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body data-lang="en">
+
+    <div class="verdict-container">
+        <p class="verdict-text">
+            <span class="lang-en">contact established. we see you. be ready.</span>
+            <span class="lang-ru">контакт установлен. мы видим вас. будьте наготове.</span>
+        </p>
+
+        <p class="signs-text">
+            <span class="lang-en">watch for the signs.</span>
+            <span class="lang-ru">наблюдай за знаками.</span>
+        </p>
+
+        <a href="http://instagram.com/acebrand.agency" target="_blank" class="chronicles-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
+    </div>
+
+    <canvas id="global-ash-canvas"></canvas>
+    <style>
+        #global-ash-canvas { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: 9999;
+            pointer-events: none; 
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const lang = params.get('lang') || 'en';
+            
+            document.body.dataset.lang = lang;
+            document.querySelectorAll(`.lang-${lang}`).forEach(el => { el.style.display = 'inline-block'; });
+
+            document.addEventListener('contextmenu', e => e.preventDefault());
+
+            // АНИМАЦИЯ КУРСОРА (ПЕРВОРОДНЫЙ ШТОРМ)
+            if (!window.isUnifiedAnimationInitialized) {
+                (function() {
+                    const canvas = document.getElementById('global-ash-canvas');
+                    if (!canvas) return;
+                    const ctx = canvas.getContext('2d');
+                    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+                    resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+                    let particles = []; let fogTime = 0;
+                    class AshParticle {
+                        constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
+                        update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
+                        draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+                    }
+                    function drawFog() {
+                        const fogHeight = 120;
+                        const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
+                        gradient.addColorStop(0, `rgba(17, 17, 17, ${0.4 + Math.sin(fogTime) * 0.1})`);
+                        gradient.addColorStop(0.5, `rgba(17, 17, 17, 0.2)`);
+                        gradient.addColorStop(1, `rgba(17, 17, 17, 0)`);
+                        ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
+                        fogTime += 0.005;
+                    }
+                    function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
+                    function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
+                    function animate() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog();
+                        particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
+                        if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
+                        requestAnimationFrame(animate);
+                    }
+                    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+                    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                    animate(); window.isUnifiedAnimationInitialized = true;
+                })();
+            }
+        });
+    </script>
+</body>
+</html>
