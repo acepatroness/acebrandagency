@@ -28,7 +28,6 @@
             --quartz: #EFF0F4;
             --amethyst: #510FD5;
             --concrete: #C1BFBF;
-            --concrete-shadow: rgba(193, 191, 191, 0.2);
         }
 
         /* === АРХИТЕКТУРА ИСПОВЕДАЛЬНИ === */
@@ -64,36 +63,14 @@
         
         .confession-chamber {
             width: 100%;
-            max-width: 800px;
+            max-width: 700px;
             position: relative;
             z-index: 1;
-        }
-        
-        .confession-tablet {
-            position: relative;
-            padding: 50px 60px;
             text-align: center;
             opacity: 0;
-            animation: fadeInChamber 1s 0.5s forwards;
-            border: 1px solid transparent;
+            animation: fadeInChamber 1.5s 0.5s forwards;
         }
         @keyframes fadeInChamber { to { opacity: 1; } }
-
-        .confession-tablet::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border: 1px solid var(--concrete-shadow);
-            clip-path: polygon(0 0, 0 0, 0 100%, 0 100%, 0 0, 100% 0, 100% 0, 100% 100%, 0 100%, 0 100%);
-            animation: draw-border 2.5s 1s forwards cubic-bezier(0.7, 0, 0.3, 1);
-        }
-
-        @keyframes draw-border {
-            to {
-                clip-path: polygon(0 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 100% 0, 0 0, 0 100%, 0 100%, 0 0);
-            }
-        }
-
 
         .chamber-title {
             font-weight: normal;
@@ -103,31 +80,22 @@
         body[data-lang="ru"] .chamber-title { font-family: 'Brahms Gotisch', serif; font-size: clamp(2rem, 10vw, 4rem); }
         body[data-lang="en"] .chamber-title { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(2.5rem, 12vw, 5.5rem); }
 
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ЦВЕТ ТЕКСТА АРХИТЕКТОРА === */
+        /* === ИЗМЕНЕНИЕ №1: ВОЗВРАЩЕН ЗАКОН СТАЛИ === */
         .architect-voice {
             display: inline-block;
             text-align: left;
+            font-family: 'Unbounded', sans-serif; /* ЕДИНЫЙ ШРИФТ ДЛЯ ТЕКСТА */
+            font-weight: 200; /* Extra Light */
+            font-size: clamp(1.1rem, 2.7vw, 1.4rem);
             line-height: 1.5;
+            opacity: 0.8;
             white-space: pre-wrap;
             margin-bottom: 8vh;
-            color: var(--concrete); /* Твой новый цвет */
-            opacity: 1; /* Убрана прозрачность для четкости */
-        }
-        body[data-lang="ru"] .architect-voice {
-            font-family: 'Brahms Gotisch', serif;
-            font-size: clamp(1.1rem, 2.7vw, 1.4rem);
-        }
-        body[data-lang="en"] .architect-voice {
-            font-family: 'Manufacturing Consent', sans-serif;
-            font-size: clamp(1.3rem, 3vw, 1.6rem);
-        }
-
-        .confession-form {
-            text-align: left;
         }
 
         .confession-form .form-group {
             margin-bottom: 40px;
+            text-align: left;
         }
         .confession-form input, .confession-form textarea {
             width: 100%;
@@ -167,13 +135,11 @@
 
         .lang-ru, .lang-en { display: none; }
         
+        /* ИЗМЕНЕНИЕ №2: ФОН ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
         @media (max-width: 768px) {
             body {
                 background-image: url('../assets/back_m.png');
                 background-attachment: scroll;
-            }
-            .confession-tablet {
-                padding: 30px 20px;
             }
         }
         
@@ -188,31 +154,27 @@
 <body data-lang="en">
     
     <div class="confession-chamber">
-        <div class="confession-tablet">
-            <h1 class="chamber-title">
-                <span class="lang-en">the sanctum</span>
-                <span class="lang-ru">святилище</span>
-            </h1>
+        <h1 class="chamber-title">
+             <span class="lang-en">the sanctum</span>
+             <span class="lang-ru">святилище</span>
+        </h1>
 
-            <p class="architect-voice"></p>
+        <p class="architect-voice"></p>
 
-            <form class="confession-form" id="confession-form" method="GET" action="verdict.html">
-                <input type="hidden" name="ritual" id="form-ritual-input">
-                <input type="hidden" name="lang" id="form-lang-input">
-                <div class="form-group"><input type="text" name="name" required></div>
-                <div class="form-group"><input type="text" name="project" required></div>
-                <div class="form-group"><textarea name="burn" rows="1" required></textarea></div>
-                <div class="form-group"><textarea name="empire" rows="1" required></textarea></div>
-                <div class="form-group"><input type="text" name="contact" required></div>
-                
-                <div style="text-align: center;">
-                    <button type="submit" class="detonator-button">
-                        <span class="lang-en">ignite</span>
-                        <span class="lang-ru">зажечь</span>
-                    </button>
-                </div>
-            </form>
-        </div>
+        <form class="confession-form" id="confession-form" method="GET" action="verdict.html">
+            <input type="hidden" name="lang" id="form-lang-input">
+            <input type="hidden" name="ritual" id="form-ritual-input">
+            <div class="form-group"><input type="text" name="name" required></div>
+            <div class="form-group"><input type="text" name="project" required></div>
+            <div class="form-group"><textarea name="burn" rows="1" required></textarea></div>
+            <div class="form-group"><textarea name="empire" rows="1" required></textarea></div>
+            <div class="form-group"><input type="text" name="contact" required></div>
+            
+            <button type="submit" class="detonator-button">
+                <span class="lang-en">ignite</span>
+                <span class="lang-ru">зажечь</span>
+            </button>
+        </form>
     </div>
 
     <canvas id="global-ash-canvas"></canvas>
