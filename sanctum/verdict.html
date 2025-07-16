@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACE BRAND AGENCY | VERDICT</title>
     <style>
+        /* === АРСЕНАЛ ШРИФТОВ === */
+        @font-face {
+            font-family: 'Brahms Gotisch';
+            src: url('../fonts/BrahmsGotischCyr.woff2') format('woff2');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'Manufacturing Consent';
+            src: url('../fonts/ManufacturingConsent-Regular.woff2') format('woff2');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'Unbounded';
+            src: url('../fonts/Unbounded-ExtraLight.woff2') format('woff2');
+            font-weight: 200; font-style: normal; font-display: swap;
+        }
+
         /* === ПАЛИТРА === */
         :root { 
             --abyss: #111111;
@@ -25,14 +42,12 @@
             background-attachment: fixed;
             color: var(--quartz);
             font-family: 'Unbounded', sans-serif;
-            font-weight: 200;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            text-transform: lowercase;
-            overflow: hidden; /* Запрещаем скролл в этой комнате */
+            text-transform: uppercase; /* ИЗМЕНЕНИЕ: ВСЕ ПРОПИСНЫМИ */
+            overflow: hidden;
         }
 
         body::before {
@@ -47,36 +62,64 @@
         .verdict-container {
             position: relative;
             z-index: 1;
-            text-align: center;
+            text-align: center; /* ИЗМЕНЕНИЕ: ТЕКСТ ПО ЦЕНТРУ */
             padding: 5vw;
         }
 
+        /* === ИЗМЕНЕНИЕ: СТИЛИ И АНИМАЦИЯ ВЕРДИКТА === */
         .verdict-text {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            line-height: 1.9;
+            font-weight: normal;
+            line-height: 1.4;
+            color: var(--quartz);
             opacity: 0;
-            animation: fadeIn 2s 1s forwards;
         }
         
-        .signs-text {
-            margin-top: 8vh;
-            font-size: clamp(0.9rem, 2vw, 1rem);
-            opacity: 0;
-            animation: fadeIn 2s 1.5s forwards;
+        #ru-verdict .verdict-text { font-family: 'Brahms Gotisch', serif; }
+        #en-verdict .verdict-text { font-family: 'Manufacturing Consent', sans-serif; }
+
+        .verdict-line-1 {
+            font-size: clamp(2rem, 8vw, 3.5rem); /* Меньше заголовка на 4й */
+            animation: reveal 1s 1s forwards, glow 1.5s 2s forwards;
+        }
+        .verdict-line-2 {
+            font-size: clamp(1.7rem, 7vw, 3.2rem); /* Уменьшен кегль */
+            animation: reveal 1s 2.5s forwards, glow 1.5s 3.5s forwards;
+        }
+        .verdict-line-3 {
+            font-size: clamp(1.4rem, 6vw, 2.9rem); /* Уменьшен кегль еще раз */
+            animation: reveal 1s 4s forwards, glow 1.5s 5s forwards;
         }
 
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glow {
+            from { color: var(--quartz); }
+            to { color: var(--amethyst); }
+        }
+        
+        /* === ИЗМЕНЕНИЕ: СТИЛИ ДЛЯ ССЫЛКИ НА ХРОНИКИ === */
+        .chronicles-container {
+            margin-top: 100px; /* Отступ сверху */
+            opacity: 0;
+            animation: reveal 1.5s 6s forwards;
+        }
+        .signs-text {
+            color: var(--concrete);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            font-family: 'Unbounded', sans-serif;
+            text-transform: lowercase; /* Возвращаем строчные для этой фразы */
+            font-weight: 200;
+        }
         .chronicles-link {
             margin-top: 20px;
             display: inline-block;
-            opacity: 0;
-            animation: fadeIn 2s 2s forwards;
         }
-        @keyframes fadeIn { to { opacity: 1; } }
-
         .chronicles-link svg {
             width: 32px;
             height: 32px;
-            color: var(--concrete);
+            color: var(--concrete); /* Цвет иконки */
             transition: all 0.4s ease;
         }
         .chronicles-link:hover svg {
@@ -105,23 +148,30 @@
 <body data-lang="en">
 
     <div class="verdict-container">
-        <p class="verdict-text">
-            <span class="lang-en">contact established. we see you. be ready.</span>
-            <span class="lang-ru">контакт установлен. мы видим вас. будьте наготове.</span>
-        </p>
+        <div id="en-verdict" class="lang-en">
+            <p class="verdict-text verdict-line-1">contact established</p>
+            <p class="verdict-text verdict-line-2">we see you</p>
+            <p class="verdict-text verdict-line-3">be ready</p>
+        </div>
+        <div id="ru-verdict" class="lang-ru">
+            <p class="verdict-text verdict-line-1">контакт установлен</p>
+            <p class="verdict-text verdict-line-2">мы видим вас</p>
+            <p class="verdict-text verdict-line-3">будьте наготове</p>
+        </div>
 
-        <p class="signs-text">
-            <span class="lang-en">watch for the signs.</span>
-            <span class="lang-ru">наблюдай за знаками.</span>
-        </p>
-
-        <a href="http://instagram.com/acebrand.agency" target="_blank" class="chronicles-link" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-        </a>
+        <div class="chronicles-container">
+            <p class="signs-text">
+                <span class="lang-en">watch for the signs.</span>
+                <span class="lang-ru">наблюдай за знаками.</span>
+            </p>
+            <a href="http://instagram.com/acebrand.agency" target="_blank" class="chronicles-link" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </a>
+        </div>
     </div>
 
     <canvas id="global-ash-canvas"></canvas>
@@ -138,7 +188,7 @@
             const lang = params.get('lang') || 'en';
             
             document.body.dataset.lang = lang;
-            document.querySelectorAll(`.lang-${lang}`).forEach(el => { el.style.display = 'inline-block'; });
+            document.querySelectorAll(`.lang-${lang}`).forEach(el => { el.style.display = 'block'; });
 
             document.addEventListener('contextmenu', e => e.preventDefault());
 
