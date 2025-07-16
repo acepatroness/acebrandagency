@@ -80,18 +80,24 @@
         body[data-lang="ru"] .chamber-title { font-family: 'Brahms Gotisch', serif; font-size: clamp(2rem, 10vw, 4rem); }
         body[data-lang="en"] .chamber-title { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(2.5rem, 12vw, 5.5rem); }
 
-        /* === ИЗМЕНЕНИЕ №1: ВОЗВРАЩЕН ЗАКОН СТАЛИ === */
+        /* === ИЗМЕНЕНИЕ №1: ВОЗВРАЩЕН ГОТИЧЕСКИЙ ШРИФТ === */
         .architect-voice {
             display: inline-block;
             text-align: left;
-            font-family: 'Unbounded', sans-serif; /* ЕДИНЫЙ ШРИФТ ДЛЯ ТЕКСТА */
-            font-weight: 200; /* Extra Light */
-            font-size: clamp(1.1rem, 2.7vw, 1.4rem);
             line-height: 1.5;
             opacity: 0.8;
             white-space: pre-wrap;
             margin-bottom: 8vh;
         }
+        body[data-lang="ru"] .architect-voice {
+            font-family: 'Brahms Gotisch', serif;
+            font-size: clamp(1.1rem, 2.7vw, 1.4rem);
+        }
+        body[data-lang="en"] .architect-voice {
+            font-family: 'Manufacturing Consent', sans-serif;
+            font-size: clamp(1.3rem, 3vw, 1.6rem);
+        }
+
 
         .confession-form .form-group {
             margin-bottom: 40px;
