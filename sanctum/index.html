@@ -80,18 +80,23 @@
         body[data-lang="ru"] .chamber-title { font-family: 'Brahms Gotisch', serif; font-size: clamp(2rem, 10vw, 4rem); }
         body[data-lang="en"] .chamber-title { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(2.5rem, 12vw, 5.5rem); }
 
-        /* ИЗМЕНЕНИЕ №3: РАЗМЕР ШРИФТА ОСНОВНОГО ТЕКСТА */
         .architect-voice {
             display: inline-block;
             text-align: left;
-            font-size: clamp(1.3rem, 3vw, 1.6rem); /* Увеличен кегль */
             line-height: 1.5;
             opacity: 0.8;
             white-space: pre-wrap;
             margin-bottom: 8vh;
         }
-        body[data-lang="ru"] .architect-voice { font-family: 'Brahms Gotisch', serif; }
-        body[data-lang="en"] .architect-voice { font-family: 'Manufacturing Consent', sans-serif; }
+        /* ИЗМЕНЕНИЕ №2: УМЕНЬШЕН КЕГЛЬ ДЛЯ RU ВЕРСИИ */
+        body[data-lang="ru"] .architect-voice {
+            font-family: 'Brahms Gotisch', serif;
+            font-size: clamp(1.1rem, 2.7vw, 1.4rem); /* Уменьшен кегль */
+        }
+        body[data-lang="en"] .architect-voice {
+            font-family: 'Manufacturing Consent', sans-serif;
+            font-size: clamp(1.3rem, 3vw, 1.6rem); /* Старый кегль для EN */
+        }
 
         .confession-form .form-group {
             margin-bottom: 40px;
@@ -135,6 +140,7 @@
 
         .lang-ru, .lang-en { display: none; }
         
+        /* ИЗМЕНЕНИЕ №1: ВОЗВРАЩЕНА АДАПТАЦИЯ ФОНА ДЛЯ МОБИЛЬНЫХ */
         @media (max-width: 768px) {
             body {
                 background-image: url('../assets/back_m.png');
@@ -162,7 +168,6 @@
 
         <form class="confession-form" id="confession-form" method="GET" action="verdict.html">
             <input type="hidden" name="lang" id="form-lang-input">
-            <!-- ИЗМЕНЕНИЕ №1: ВОЗВРАЩЕНЫ ПЛЕЙСХОЛДЕРЫ/НАЗВАНИЯ ПОЛЕЙ -->
             <div class="form-group"><input type="text" name="name" required></div>
             <div class="form-group"><input type="text" name="project" required></div>
             <div class="form-group"><textarea name="burn" rows="1" required></textarea></div>
@@ -176,7 +181,6 @@
         </form>
     </div>
 
-    <!-- ИЗМЕНЕНИЕ №2: ВОЗВРАЩЕНА АНИМАЦИЯ КУРСОРА -->
     <canvas id="global-ash-canvas"></canvas>
     <style>
         #global-ash-canvas { 
@@ -220,7 +224,6 @@
             document.querySelectorAll(`.lang-${lang}`).forEach(el => { el.style.display = 'inline-block'; });
             document.getElementById('form-lang-input').value = lang;
 
-            // ИЗМЕНЕНИЕ №1: ДИНАМИЧЕСКАЯ УСТАНОВКА ПЛЕЙСХОЛДЕРОВ
             const placeholders = content[lang].placeholders;
             for (const key in placeholders) {
                 document.querySelector(`[name="${key}"]`).placeholder = placeholders[key];
@@ -229,8 +232,9 @@
             const form = document.getElementById('confession-form');
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                // Передаем язык на следующую страницу
-                window.location.href = `verdict.html?lang=${lang}`;
+                // Передаем язык и ритуал на следующую страницу
+                const ritual = new URLSearchParams(window.location.search).get('ritual') || 'reincarnation';
+                window.location.href = `verdict.html?lang=${lang}&ritual=${ritual}`;
             });
             
             const textareas = document.querySelectorAll('textarea');
@@ -244,7 +248,6 @@
             document.addEventListener('contextmenu', e => e.preventDefault());
         });
 
-        // ИЗМЕНЕНИЕ №2: КОД АНИМАЦИИ КУРСОРА (ПЕРВОРОДНЫЙ ШТОРМ)
         if (!window.isUnifiedAnimationInitialized) {
             (function() {
                 const canvas = document.getElementById('global-ash-canvas');
