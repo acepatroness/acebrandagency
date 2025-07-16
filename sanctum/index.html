@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACE BRAND AGENCY | THE OATH</title>
+    <title>ACE BRAND AGENCY | SANCTUM</title>
     <style>
         /* === АРСЕНАЛ ШРИФТОВ === */
         @font-face {
@@ -63,7 +63,7 @@
         
         .confession-chamber {
             width: 100%;
-            max-width: 700px; /* Более узкий, для интимности */
+            max-width: 700px;
             position: relative;
             z-index: 1;
             text-align: center;
@@ -82,13 +82,19 @@
         body[data-lang="ru"] .chamber-title { font-family: 'Brahms Gotisch', serif; font-size: clamp(1.8rem, 8vw, 3rem); }
         body[data-lang="en"] .chamber-title { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(2rem, 9vw, 4rem); }
 
+        /* === ИЗМЕНЕНИЕ: СТИЛИ ДЛЯ ТЕКСТА АРХИТЕКТОРА === */
         .architect-voice {
+            display: inline-block; /* Необходимо для работы с text-align */
+            text-align: left;    /* Выключка по левому краю */
             font-size: clamp(1rem, 2.5vw, 1.25rem);
             line-height: 1.9;
             opacity: 0.8;
-            white-space: pre-wrap; /* Сохраняем переносы строк */
+            white-space: pre-wrap;
             margin-bottom: 8vh;
         }
+        body[data-lang="ru"] .architect-voice { font-family: 'Brahms Gotisch', serif; }
+        body[data-lang="en"] .architect-voice { font-family: 'Manufacturing Consent', sans-serif; }
+
 
         .confession-form .form-group {
             margin-bottom: 40px;
@@ -136,12 +142,11 @@
             border-color: var(--amethyst);
         }
 
-        /* === СТРАНИЦА ВЕРДИКТА === */
         .verdict-screen {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
             background-color: var(--abyss);
-            z-index: 1000;
+            z-index: 10000;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             opacity: 0; pointer-events: none;
@@ -159,10 +164,9 @@
         }
         @keyframes fadeInVerdict { to { opacity: 1; } }
         
-        /* ИЗМЕНЕНИЕ: ИКОНКА INSTAGRAM */
         .chronicles-link {
             position: absolute;
-            bottom: 10%; /* В нижней трети экрана */
+            bottom: 10%;
             left: 50%;
             transform: translateX(-50%);
             opacity: 0;
@@ -181,12 +185,22 @@
 
         .lang-ru, .lang-en { display: none; }
         
+        /* ИЗМЕНЕНИЕ: ФОН ДЛЯ МОБИЛЬНОЙ ВЕРСИИ */
         @media (max-width: 768px) {
             body {
                 background-image: url('../assets/back_m.png');
                 background-attachment: scroll;
             }
         }
+        
+        /* ИЗМЕНЕНИЕ: ЗАЩИТА КОНТЕНТА */
+        body, body * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
     </style>
 </head>
 <body data-lang="en">
@@ -197,11 +211,11 @@
         <p class="architect-voice"></p>
 
         <form class="confession-form" id="confession-form">
-            <div class="form-group"><input type="text" name="name" placeholder="ваше имя" required></div>
-            <div class="form-group"><input type="text" name="project" placeholder="название проекта" required></div>
-            <div class="form-group"><textarea name="burn" placeholder="что должно сгореть дотла?" rows="1" required></textarea></div>
-            <div class="form-group"><textarea name="empire" placeholder="какую империю хочешь возвести?" rows="1" required></textarea></div>
-            <div class="form-group"><input type="text" name="contact" placeholder="контакты для ответа (email / telegram / whatsapp)" required></div>
+            <div class="form-group"><input type="text" name="name" required></div>
+            <div class="form-group"><input type="text" name="project" required></div>
+            <div class="form-group"><textarea name="burn" rows="1" required></textarea></div>
+            <div class="form-group"><textarea name="empire" rows="1" required></textarea></div>
+            <div class="form-group"><input type="text" name="contact" required></div>
             
             <button type="submit" class="detonator-button">
                 <span class="lang-en">ignite</span>
@@ -224,16 +238,16 @@
         </a>
     </div>
 
+    <!-- ИЗМЕНЕНИЕ: АНИМАЦИЯ ПОВЕРХ ВСЕХ СЛОЕВ -->
     <canvas id="global-ash-canvas"></canvas>
     <style>
         #global-ash-canvas { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            z-index: 100; /* Поверх контента, но под вердиктом */
-            pointer-events: none; opacity: 1; 
+            z-index: 9999; /* Высший z-index, чтобы быть поверх всего */
+            pointer-events: none; 
         }
     </style>
     <script>
-        // СЛОВАРЬ ДЛЯ ТЕКСТОВ
         const content = {
             ru: {
                 reincarnation: 'призыв к реинкарнации',
@@ -252,7 +266,7 @@
                 reincarnation: 'the call for reincarnation',
                 mystery: 'the call for mystery',
                 emanation: 'the call for emanation',
-                voice: `you are at the altar of ace brand agency.\nthey don't believe in empty words here.\nthey believe in the scale of ambition.\n\ni, the architect of this temple,\nsee your essence, not the facade.\ni burn the fake to erect your temple.\n\ni seek not clients, but allies.\nequal in audacity and fire.\nready for the sacrament of rebirth.\n\nnow, your confession.\nfill every field.\nyour move. act.`,
+                voice: `you are at the altar of ace brand agency.\nwe don't believe in empty words here.\nwe believe in the scale of ambition.\n\ni, the architect of this temple,\nsee your essence, not the facade.\ni burn the fake to build your temple.\n\ni seek not clients, but allies.\nequal in boldness and fire,\nready for the transformation.\n\nnow, your confession.\nfill every fields.\nyour move. act.`,
                  placeholders: {
                     name: 'your name',
                     project: 'project name',
@@ -271,25 +285,21 @@
             document.body.dataset.lang = lang;
             document.documentElement.lang = lang;
             
-            // Установка текстов
             document.querySelector('.chamber-title').textContent = content[lang][ritual];
             document.querySelector('.architect-voice').textContent = content[lang].voice;
             document.querySelectorAll(`.lang-${lang}`).forEach(el => { el.style.display = 'inline-block'; });
             
-            // Установка плейсхолдеров
             const placeholders = content[lang].placeholders;
             for (const key in placeholders) {
                 document.querySelector(`[name="${key}"]`).placeholder = placeholders[key];
             }
 
-            // Обработка формы
             const form = document.getElementById('confession-form');
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 document.getElementById('verdict-screen').classList.add('active');
             });
             
-            // Авто-высота для textarea
             const textareas = document.querySelectorAll('textarea');
             textareas.forEach(textarea => {
                 textarea.addEventListener('input', () => {
@@ -297,11 +307,46 @@
                     textarea.style.height = textarea.scrollHeight + 'px';
                 });
             });
+
+            // ИЗМЕНЕНИЕ: ЗАЩИТА ОТ КОПИРОВАНИЯ (КОНТЕКСТНОЕ МЕНЮ)
+            document.addEventListener('contextmenu', e => e.preventDefault());
         });
 
-        // АНИМАЦИЯ И ЗАЩИТА (без изменений)
+        // ИЗМЕНЕНИЕ: АНИМАЦИЯ ПЕПЛА (ПЕРВОРОДНЫЙ ШТОРМ)
         if (!window.isUnifiedAnimationInitialized) {
-            // ... (код анимации пепла)
+            (function() {
+                const canvas = document.getElementById('global-ash-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+                resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+                let particles = []; let fogTime = 0;
+                class AshParticle {
+                    constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
+                    update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
+                    draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+                }
+                function drawFog() {
+                    const fogHeight = 120;
+                    const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
+                    gradient.addColorStop(0, `rgba(17, 17, 17, ${0.4 + Math.sin(fogTime) * 0.1})`);
+                    gradient.addColorStop(0.5, `rgba(17, 17, 17, 0.2)`);
+                    gradient.addColorStop(1, `rgba(17, 17, 17, 0)`);
+                    ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
+                    fogTime += 0.005;
+                }
+                function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
+                function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog();
+                    particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
+                    if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
+                    requestAnimationFrame(animate);
+                }
+                window.addEventListener('mousemove', handleMouseMove, { passive: true });
+                window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                animate(); window.isUnifiedAnimationInitialized = true;
+            })();
         }
     </script>
 </body>
