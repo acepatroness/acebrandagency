@@ -69,7 +69,6 @@
             z-index: 1;
         }
         
-        /* ИЗМЕНЕНИЕ №1: ВОЗВРАЩЕНА АНИМАЦИЯ РАМКИ */
         .confession-tablet {
             position: relative;
             padding: 50px 60px;
@@ -104,10 +103,9 @@
         body[data-lang="ru"] .chamber-title { font-family: 'Brahms Gotisch', serif; font-size: clamp(2rem, 10vw, 4rem); }
         body[data-lang="en"] .chamber-title { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(2.5rem, 12vw, 5.5rem); }
 
-        /* ИЗМЕНЕНИЕ №2: ДОБАВЛЕНА ТЕНЬ ДЛЯ ТЕКСТА АРХИТЕКТОРА */
         .architect-voice {
-            position: relative; /* Для позиционирования псевдоэлемента */
-            z-index: 1; /* Чтобы текст был над тенью */
+            position: relative;
+            z-index: 1;
             display: inline-block;
             text-align: left;
             line-height: 1.5;
@@ -116,12 +114,14 @@
             color: var(--concrete);
             opacity: 1;
         }
+        
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: УВЕЛИЧЕНО ЗАТЕМНЕНИЕ === */
         .architect-voice::after {
             content: '';
             position: absolute;
             top: -30px; bottom: -30px;
             left: -40px; right: -40px;
-            background: radial-gradient(ellipse at center, rgba(17, 17, 17, 0.4) 30%, rgba(17, 17, 17, 0) 75%);
+            background: radial-gradient(ellipse at center, rgba(17, 17, 17, 0.7) 40%, rgba(17, 17, 17, 0) 80%);
             z-index: -1;
             border-radius: 20px;
         }
