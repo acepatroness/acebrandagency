@@ -28,6 +28,7 @@
             --quartz: #EFF0F4;
             --amethyst: #510FD5;
             --concrete: #C1BFBF;
+            --concrete-shadow: rgba(193, 191, 191, 0.2);
         }
 
         /* === АРХИТЕКТУРА ИСПОВЕДАЛЬНИ === */
@@ -63,14 +64,37 @@
         
         .confession-chamber {
             width: 100%;
-            max-width: 700px;
+            max-width: 800px;
             position: relative;
             z-index: 1;
+        }
+        
+        /* ИЗМЕНЕНИЕ №1: ВОЗВРАЩЕНА АНИМАЦИЯ РАМКИ */
+        .confession-tablet {
+            position: relative;
+            padding: 50px 60px;
             text-align: center;
             opacity: 0;
-            animation: fadeInChamber 1.5s 0.5s forwards;
+            animation: fadeInChamber 1s 0.5s forwards;
+            border: 1px solid transparent;
         }
         @keyframes fadeInChamber { to { opacity: 1; } }
+
+        .confession-tablet::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 1px solid var(--concrete-shadow);
+            clip-path: polygon(0 0, 0 0, 0 100%, 0 100%, 0 0, 100% 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+            animation: draw-border 2.5s 1s forwards cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        @keyframes draw-border {
+            to {
+                clip-path: polygon(0 0, 100% 0, 100% 0, 100% 100%, 100% 100%, 100% 0, 0 0, 0 100%, 0 100%, 0 0);
+            }
+        }
+
 
         .chamber-title {
             font-weight: normal;
@@ -80,15 +104,28 @@
         body[data-lang="ru"] .chamber-title { font-family: 'Brahms Gotisch', serif; font-size: clamp(2rem, 10vw, 4rem); }
         body[data-lang="en"] .chamber-title { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(2.5rem, 12vw, 5.5rem); }
 
-        /* === ИЗМЕНЕНИЕ №1: ВОЗВРАЩЕН ГОТИЧЕСКИЙ ШРИФТ === */
+        /* ИЗМЕНЕНИЕ №2: ДОБАВЛЕНА ТЕНЬ ДЛЯ ТЕКСТА АРХИТЕКТОРА */
         .architect-voice {
+            position: relative; /* Для позиционирования псевдоэлемента */
+            z-index: 1; /* Чтобы текст был над тенью */
             display: inline-block;
             text-align: left;
             line-height: 1.5;
-            opacity: 0.8;
             white-space: pre-wrap;
             margin-bottom: 8vh;
+            color: var(--concrete);
+            opacity: 1;
         }
+        .architect-voice::after {
+            content: '';
+            position: absolute;
+            top: -30px; bottom: -30px;
+            left: -40px; right: -40px;
+            background: radial-gradient(ellipse at center, rgba(17, 17, 17, 0.4) 30%, rgba(17, 17, 17, 0) 75%);
+            z-index: -1;
+            border-radius: 20px;
+        }
+        
         body[data-lang="ru"] .architect-voice {
             font-family: 'Brahms Gotisch', serif;
             font-size: clamp(1.1rem, 2.7vw, 1.4rem);
@@ -98,10 +135,12 @@
             font-size: clamp(1.3rem, 3vw, 1.6rem);
         }
 
+        .confession-form {
+            text-align: left;
+        }
 
         .confession-form .form-group {
             margin-bottom: 40px;
-            text-align: left;
         }
         .confession-form input, .confession-form textarea {
             width: 100%;
@@ -141,11 +180,13 @@
 
         .lang-ru, .lang-en { display: none; }
         
-        /* ИЗМЕНЕНИЕ №2: ФОН ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
         @media (max-width: 768px) {
             body {
                 background-image: url('../assets/back_m.png');
                 background-attachment: scroll;
+            }
+            .confession-tablet {
+                padding: 30px 20px;
             }
         }
         
@@ -160,27 +201,31 @@
 <body data-lang="en">
     
     <div class="confession-chamber">
-        <h1 class="chamber-title">
-             <span class="lang-en">the sanctum</span>
-             <span class="lang-ru">святилище</span>
-        </h1>
+        <div class="confession-tablet">
+            <h1 class="chamber-title">
+                <span class="lang-en">the sanctum</span>
+                <span class="lang-ru">святилище</span>
+            </h1>
 
-        <p class="architect-voice"></p>
+            <p class="architect-voice"></p>
 
-        <form class="confession-form" id="confession-form" method="GET" action="verdict.html">
-            <input type="hidden" name="lang" id="form-lang-input">
-            <input type="hidden" name="ritual" id="form-ritual-input">
-            <div class="form-group"><input type="text" name="name" required></div>
-            <div class="form-group"><input type="text" name="project" required></div>
-            <div class="form-group"><textarea name="burn" rows="1" required></textarea></div>
-            <div class="form-group"><textarea name="empire" rows="1" required></textarea></div>
-            <div class="form-group"><input type="text" name="contact" required></div>
-            
-            <button type="submit" class="detonator-button">
-                <span class="lang-en">ignite</span>
-                <span class="lang-ru">зажечь</span>
-            </button>
-        </form>
+            <form class="confession-form" id="confession-form" method="GET" action="verdict.html">
+                <input type="hidden" name="ritual" id="form-ritual-input">
+                <input type="hidden" name="lang" id="form-lang-input">
+                <div class="form-group"><input type="text" name="name" required></div>
+                <div class="form-group"><input type="text" name="project" required></div>
+                <div class="form-group"><textarea name="burn" rows="1" required></textarea></div>
+                <div class="form-group"><textarea name="empire" rows="1" required></textarea></div>
+                <div class="form-group"><input type="text" name="contact" required></div>
+                
+                <div style="text-align: center;">
+                    <button type="submit" class="detonator-button">
+                        <span class="lang-en">ignite</span>
+                        <span class="lang-ru">зажечь</span>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <canvas id="global-ash-canvas"></canvas>
