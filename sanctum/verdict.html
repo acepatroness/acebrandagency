@@ -52,7 +52,8 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: rgba(17, 17, 17, 0.7);
+            /* ИЗМЕНЕНИЕ: НЕПРОЗРАЧНОСТЬ УВЕЛИЧЕНА ДО 80% */
+            background-color: rgba(17, 17, 17, 0.8);
             z-index: 0;
         }
         
@@ -104,14 +105,14 @@
         
         .chronicles-container {
             position: absolute;
-            top: 600px;
+            top: 700px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
             text-align: center;
             opacity: 0;
-            /* ИЗМЕНЕНИЕ: СИНХРОНИЗАЦИЯ АНИМАЦИИ */
-            animation: fadeIn 1.5s 4.5s forwards; 
+            /* ИЗМЕНЕНИЕ: УСКОРЕНА АНИМАЦИЯ ПОЯВЛЕНИЯ */
+            animation: fadeIn 1.5s 4.5s forwards;
         }
         
         @keyframes fadeIn {
@@ -186,7 +187,6 @@
 
     <div class="chronicles-container">
         <p class="signs-text">
-            <!-- ИЗМЕНЕНИЕ: УБРАНА ТОЧКА -->
             <span class="lang-en">watch for the signs</span>
             <span class="lang-ru">наблюдай за знаками</span>
         </p>
