@@ -30,7 +30,7 @@
             --concrete: #C1BFBF;
         }
 
-        /* === АРХИТЕКТУРА === */
+        /* === АРХИТЕКТУРА ИСПОВЕДАЛЬНИ === */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         
@@ -72,7 +72,6 @@
         }
         @keyframes fadeInChamber { to { opacity: 1; } }
 
-        /* ИЗМЕНЕНИЕ: ЗАГОЛОВОК И ЕГО РАЗМЕР */
         .chamber-title {
             font-weight: normal;
             letter-spacing: 0.1em;
@@ -81,12 +80,12 @@
         body[data-lang="ru"] .chamber-title { font-family: 'Brahms Gotisch', serif; font-size: clamp(2rem, 10vw, 4rem); }
         body[data-lang="en"] .chamber-title { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(2.5rem, 12vw, 5.5rem); }
 
-        /* ИЗМЕНЕНИЕ: ИНТЕРВАЛЫ В ТЕКСТЕ АРХИТЕКТОРА */
+        /* ИЗМЕНЕНИЕ №3: РАЗМЕР ШРИФТА ОСНОВНОГО ТЕКСТА */
         .architect-voice {
             display: inline-block;
             text-align: left;
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            line-height: 1.5; /* Установлен новый интервал */
+            font-size: clamp(1.3rem, 3vw, 1.6rem); /* Увеличен кегль */
+            line-height: 1.5;
             opacity: 0.8;
             white-space: pre-wrap;
             margin-bottom: 8vh;
@@ -121,19 +120,13 @@
         ::placeholder { color: rgba(193, 191, 191, 0.4); }
 
         .detonator-button {
-            display: inline-block;
-            text-decoration: none;
-            font-family: 'Unbounded', sans-serif;
-            font-weight: 200;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            cursor: crosshair;
-            padding: 15px 60px;
-            color: var(--quartz);
-            background-color: transparent;
+            display: inline-block; text-decoration: none;
+            font-family: 'Unbounded', sans-serif; font-weight: 200;
+            font-size: 1rem; letter-spacing: 2px;
+            cursor: crosshair; padding: 15px 60px;
+            color: var(--quartz); background-color: transparent;
             border: 1px solid var(--concrete);
-            transition: all 0.4s ease;
-            margin-top: 20px;
+            transition: all 0.4s ease; margin-top: 20px;
         }
         .detonator-button:hover {
             background-color: var(--amethyst);
@@ -149,7 +142,6 @@
             }
         }
         
-        /* ЗАЩИТА КОНТЕНТА */
         body, body * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -162,14 +154,15 @@
     
     <div class="confession-chamber">
         <h1 class="chamber-title">
-            <span class="lang-en">the sanctum</span>
-            <span class="lang-ru">святилище</span>
+             <span class="lang-en">the sanctum</span>
+             <span class="lang-ru">святилище</span>
         </h1>
 
         <p class="architect-voice"></p>
 
         <form class="confession-form" id="confession-form" method="GET" action="verdict.html">
             <input type="hidden" name="lang" id="form-lang-input">
+            <!-- ИЗМЕНЕНИЕ №1: ВОЗВРАЩЕНЫ ПЛЕЙСХОЛДЕРЫ/НАЗВАНИЯ ПОЛЕЙ -->
             <div class="form-group"><input type="text" name="name" required></div>
             <div class="form-group"><input type="text" name="project" required></div>
             <div class="form-group"><textarea name="burn" rows="1" required></textarea></div>
@@ -183,6 +176,7 @@
         </form>
     </div>
 
+    <!-- ИЗМЕНЕНИЕ №2: ВОЗВРАЩЕНА АНИМАЦИЯ КУРСОРА -->
     <canvas id="global-ash-canvas"></canvas>
     <style>
         #global-ash-canvas { 
@@ -195,11 +189,23 @@
         const content = {
             ru: {
                 voice: `вы у алтаря ace brand agency.\nздесь не верят пустым словам.\nздесь верят масштабу амбиций.\n\nя, архитектор этого храма,\nвижу вашу суть, а не фасад.\nя сжигаю фейк, возводя ваш храм.\n\nя ищу не клиентов, а союзников.\nравных мне по дерзости и огню.\nготовых к таинству перерождения.\n\nтеперь ваша исповедь.\nзаполните каждое поле.\nваш ход. действуйте.`,
-                placeholders: { /* ... */ }
+                placeholders: {
+                    name: 'ваше имя',
+                    project: 'название проекта',
+                    burn: 'что должно сгореть дотла?',
+                    empire: 'какую империю хочешь возвести?',
+                    contact: 'контакты для ответа (email / telegram / whatsapp)'
+                }
             },
             en: {
                 voice: `you are at the altar of ace brand agency.\nwe don't believe in empty words here.\nwe believe in the scale of ambition.\n\ni, the architect of this temple,\nsee your essence, not the facade.\ni burn the fake to build your temple.\n\ni seek not clients, but allies.\nequal in boldness and fire,\nready for the transformation.\n\nnow, your confession.\nfill every fields.\nyour move. act.`,
-                placeholders: { /* ... */ }
+                 placeholders: {
+                    name: 'your name',
+                    project: 'project name',
+                    burn: 'what must burn to the ground?',
+                    empire: 'what empire do you want to build?',
+                    contact: 'contact for a reply (email / telegram / whatsapp)'
+                }
             }
         };
 
@@ -214,12 +220,66 @@
             document.querySelectorAll(`.lang-${lang}`).forEach(el => { el.style.display = 'inline-block'; });
             document.getElementById('form-lang-input').value = lang;
 
-            // ... остальная логика для плейсхолдеров и textarea
+            // ИЗМЕНЕНИЕ №1: ДИНАМИЧЕСКАЯ УСТАНОВКА ПЛЕЙСХОЛДЕРОВ
+            const placeholders = content[lang].placeholders;
+            for (const key in placeholders) {
+                document.querySelector(`[name="${key}"]`).placeholder = placeholders[key];
+            }
 
-            // АНИМАЦИЯ И ЗАЩИТА
-            if (!window.isUnifiedAnimationInitialized) { /* ... код анимации ... */ }
+            const form = document.getElementById('confession-form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Передаем язык на следующую страницу
+                window.location.href = `verdict.html?lang=${lang}`;
+            });
+            
+            const textareas = document.querySelectorAll('textarea');
+            textareas.forEach(textarea => {
+                textarea.addEventListener('input', () => {
+                    textarea.style.height = 'auto';
+                    textarea.style.height = textarea.scrollHeight + 'px';
+                });
+            });
+
             document.addEventListener('contextmenu', e => e.preventDefault());
         });
+
+        // ИЗМЕНЕНИЕ №2: КОД АНИМАЦИИ КУРСОРА (ПЕРВОРОДНЫЙ ШТОРМ)
+        if (!window.isUnifiedAnimationInitialized) {
+            (function() {
+                const canvas = document.getElementById('global-ash-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+                resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+                let particles = []; let fogTime = 0;
+                class AshParticle {
+                    constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
+                    update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
+                    draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+                }
+                function drawFog() {
+                    const fogHeight = 120;
+                    const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
+                    gradient.addColorStop(0, `rgba(17, 17, 17, ${0.4 + Math.sin(fogTime) * 0.1})`);
+                    gradient.addColorStop(0.5, `rgba(17, 17, 17, 0.2)`);
+                    gradient.addColorStop(1, `rgba(17, 17, 17, 0)`);
+                    ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
+                    fogTime += 0.005;
+                }
+                function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
+                function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog();
+                    particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
+                    if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
+                    requestAnimationFrame(animate);
+                }
+                window.addEventListener('mousemove', handleMouseMove, { passive: true });
+                window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                animate(); window.isUnifiedAnimationInitialized = true;
+            })();
+        }
     </script>
 </body>
 </html>
