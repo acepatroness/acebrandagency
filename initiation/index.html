@@ -115,14 +115,28 @@
             margin-bottom: 40px; 
         }
         
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ЗАКОН ПЕРГАМЕНТА === */
         .ritual-cta {
             display: inline-block; text-decoration: none;
-            font-family: 'Unbounded', sans-serif; font-weight: 200;
+            /* font-family: 'Unbounded', sans-serif; БЫЛО */
+            font-weight: normal; /* ИЗМЕНЕНО С 200 */
             color: var(--quartz); background-color: transparent;
             border: 1px solid var(--concrete);
-            padding: 12px 30px; letter-spacing: 1px;
+            padding: 15px 40px 12px; /* Калибровка под готику */
+            letter-spacing: 1.5px;
             transition: all 0.4s ease;
+            text-transform: uppercase;
         }
+        
+        body[data-lang="ru"] .ritual-cta {
+            font-family: 'Brahms Gotisch', serif;
+            font-size: 1.2rem;
+        }
+        body[data-lang="en"] .ritual-cta {
+            font-family: 'Manufacturing Consent', sans-serif;
+            font-size: 1.5rem;
+        }
+
         .ritual-cta:hover { background-color: var(--amethyst); border-color: var(--amethyst); color: var(--quartz); }
 
         .sacrament.active .sacrament-title { color: var(--amethyst); }
@@ -240,7 +254,6 @@
                 });
             });
 
-            // ИЗМЕНЕНИЕ ЗДЕСЬ: ПУТЬ ВЕДЕТ В /sanctum/
             document.querySelectorAll('.ritual-cta').forEach(button => {
                 const ritual = button.dataset.ritual;
                 button.href = `../sanctum/index.html?lang=${lang}&ritual=${ritual}`;
