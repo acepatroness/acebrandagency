@@ -64,19 +64,18 @@
         
         .confession-chamber {
             width: 100%;
-            max-width: 800px; /* Немного шире для солидности */
+            max-width: 800px;
             position: relative;
             z-index: 1;
         }
-
-        /* === ИЗМЕНЕНИЕ: СКРИЖАЛЬ ИСПОВЕДИ === */
+        
         .confession-tablet {
             position: relative;
             padding: 50px 60px;
             text-align: center;
             opacity: 0;
             animation: fadeInChamber 1s 0.5s forwards;
-            border: 1px solid transparent; /* Начальная прозрачная граница */
+            border: 1px solid transparent;
         }
         @keyframes fadeInChamber { to { opacity: 1; } }
 
@@ -104,13 +103,15 @@
         body[data-lang="ru"] .chamber-title { font-family: 'Brahms Gotisch', serif; font-size: clamp(2rem, 10vw, 4rem); }
         body[data-lang="en"] .chamber-title { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(2.5rem, 12vw, 5.5rem); }
 
+        /* === ИЗМЕНЕНИЕ ЗДЕСЬ: ЦВЕТ ТЕКСТА АРХИТЕКТОРА === */
         .architect-voice {
             display: inline-block;
             text-align: left;
             line-height: 1.5;
-            opacity: 0.8;
             white-space: pre-wrap;
             margin-bottom: 8vh;
+            color: var(--concrete); /* Твой новый цвет */
+            opacity: 1; /* Убрана прозрачность для четкости */
         }
         body[data-lang="ru"] .architect-voice {
             font-family: 'Brahms Gotisch', serif;
