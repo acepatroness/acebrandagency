@@ -46,7 +46,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            text-transform: uppercase; /* ИЗМЕНЕНИЕ: ВСЕ ПРОПИСНЫМИ */
+            text-transform: lowercase; /* ИЗМЕНЕНИЕ: ВОЗВРАЩЕНЫ СТРОЧНЫЕ БУКВЫ */
             overflow: hidden;
         }
 
@@ -62,54 +62,61 @@
         .verdict-container {
             position: relative;
             z-index: 1;
-            text-align: center; /* ИЗМЕНЕНИЕ: ТЕКСТ ПО ЦЕНТРУ */
+            text-align: center;
             padding: 5vw;
         }
 
-        /* === ИЗМЕНЕНИЕ: СТИЛИ И АНИМАЦИЯ ВЕРДИКТА === */
+        /* === ИЗМЕНЕНИЕ: НОВЫЕ СТИЛИ И АНИМАЦИЯ ВЕРДИКТА === */
         .verdict-text {
             font-weight: normal;
             line-height: 1.4;
-            color: var(--quartz);
-            opacity: 0;
+            color: var(--quartz); /* Начальный цвет */
+            opacity: 0; /* Скрыто по умолчанию */
+            transform: scale(0.95); /* Начальный размер для анимации увеличения */
         }
         
         #ru-verdict .verdict-text { font-family: 'Brahms Gotisch', serif; }
         #en-verdict .verdict-text { font-family: 'Manufacturing Consent', sans-serif; }
 
+        /* Появление каждой строки */
         .verdict-line-1 {
-            font-size: clamp(2rem, 8vw, 3.5rem); /* Меньше заголовка на 4й */
-            animation: reveal 1s 1s forwards, glow 1.5s 2s forwards;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            animation: reveal 1s 1s forwards;
         }
         .verdict-line-2 {
-            font-size: clamp(1.7rem, 7vw, 3.2rem); /* Уменьшен кегль */
-            animation: reveal 1s 2.5s forwards, glow 1.5s 3.5s forwards;
+            font-size: clamp(1.7rem, 7vw, 3.2rem);
+            animation: reveal 1s 2s forwards;
         }
         .verdict-line-3 {
-            font-size: clamp(1.4rem, 6vw, 2.9rem); /* Уменьшен кегль еще раз */
-            animation: reveal 1s 4s forwards, glow 1.5s 5s forwards;
+            font-size: clamp(1.4rem, 6vw, 2.9rem);
+            animation: reveal 1s 3s forwards;
         }
 
+        /* Окрашивание каждой строки после появления всех */
+        .verdict-line-1.glow { animation: color-change 1.5s 0.5s forwards; }
+        .verdict-line-2.glow { animation: color-change 1.5s 1.0s forwards; }
+        .verdict-line-3.glow { animation: color-change 1.5s 1.5s forwards; }
+
+
         @keyframes reveal {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
-        @keyframes glow {
+        @keyframes color-change {
             from { color: var(--quartz); }
             to { color: var(--amethyst); }
         }
         
-        /* === ИЗМЕНЕНИЕ: СТИЛИ ДЛЯ ССЫЛКИ НА ХРОНИКИ === */
+        /* Стили для ссылки на хроники */
         .chronicles-container {
-            margin-top: 100px; /* Отступ сверху */
+            margin-top: 100px;
             opacity: 0;
-            animation: reveal 1.5s 6s forwards;
+            animation: reveal 1.5s 6s forwards; /* Появляется после всех анимаций текста */
         }
         .signs-text {
             color: var(--concrete);
             font-size: clamp(0.9rem, 2vw, 1rem);
             font-family: 'Unbounded', sans-serif;
-            text-transform: lowercase; /* Возвращаем строчные для этой фразы */
             font-weight: 200;
         }
         .chronicles-link {
@@ -119,7 +126,7 @@
         .chronicles-link svg {
             width: 32px;
             height: 32px;
-            color: var(--concrete); /* Цвет иконки */
+            color: var(--concrete);
             transition: all 0.4s ease;
         }
         .chronicles-link:hover svg {
@@ -189,6 +196,13 @@
             
             document.body.dataset.lang = lang;
             document.querySelectorAll(`.lang-${lang}`).forEach(el => { el.style.display = 'block'; });
+
+            // Запускаем анимацию окрашивания ПОСЛЕ того, как появится последняя строка
+            setTimeout(() => {
+                document.querySelectorAll('.verdict-text').forEach(el => {
+                    el.classList.add('glow');
+                });
+            }, 4000); // Задержка равна сумме задержек появления всех строк
 
             document.addEventListener('contextmenu', e => e.preventDefault());
 
