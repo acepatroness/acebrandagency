@@ -43,10 +43,9 @@
             color: var(--quartz);
             font-family: 'Unbounded', sans-serif;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            /* ИЗМЕНЕНИЕ: Убрано justify-content и align-items для абсолютного позиционирования */
             min-height: 100vh;
-            text-transform: lowercase; /* ИЗМЕНЕНИЕ: ВОЗВРАЩЕНЫ СТРОЧНЫЕ БУКВЫ */
+            text-transform: lowercase;
             overflow: hidden;
         }
 
@@ -58,60 +57,65 @@
             background-color: rgba(17, 17, 17, 0.7);
             z-index: 0;
         }
-
-        .verdict-container {
-            position: relative;
+        
+        /* ИЗМЕНЕНИЕ: КОНТЕЙНЕР СТРОГО ПО ЦЕНТРУ */
+        .verdict-main-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 90%;
+            transform: translate(-50%, -50%);
             z-index: 1;
             text-align: center;
-            padding: 5vw;
         }
 
-        /* === ИЗМЕНЕНИЕ: НОВЫЕ СТИЛИ И АНИМАЦИЯ ВЕРДИКТА === */
         .verdict-text {
             font-weight: normal;
             line-height: 1.4;
-            color: var(--quartz); /* Начальный цвет */
-            opacity: 0; /* Скрыто по умолчанию */
-            transform: scale(0.95); /* Начальный размер для анимации увеличения */
+            color: var(--quartz);
+            opacity: 0;
+            transform: scale(0.95) translateY(10px);
         }
         
         #ru-verdict .verdict-text { font-family: 'Brahms Gotisch', serif; }
         #en-verdict .verdict-text { font-family: 'Manufacturing Consent', sans-serif; }
-
-        /* Появление каждой строки */
+        
+        /* ИЗМЕНЕНИЕ: НОВАЯ ПОСЛЕДОВАТЕЛЬНАЯ АНИМАЦИЯ */
         .verdict-line-1 {
             font-size: clamp(2rem, 8vw, 3.5rem);
             animation: reveal 1s 1s forwards;
         }
         .verdict-line-2 {
             font-size: clamp(1.7rem, 7vw, 3.2rem);
-            animation: reveal 1s 2s forwards;
+            animation: reveal 1s 2.2s forwards;
         }
         .verdict-line-3 {
             font-size: clamp(1.4rem, 6vw, 2.9rem);
-            animation: reveal 1s 3s forwards;
+            animation: reveal 1s 3.4s forwards;
         }
 
-        /* Окрашивание каждой строки после появления всех */
-        .verdict-line-1.glow { animation: color-change 1.5s 0.5s forwards; }
-        .verdict-line-2.glow { animation: color-change 1.5s 1.0s forwards; }
-        .verdict-line-3.glow { animation: color-change 1.5s 1.5s forwards; }
+        .verdict-container.animate .verdict-line-1 { animation: color-change 1s 0.5s forwards; }
+        .verdict-container.animate .verdict-line-2 { animation: color-change 1s 1.0s forwards; }
+        .verdict-container.animate .verdict-line-3 { animation: color-change 1s 1.5s forwards; }
 
 
         @keyframes reveal {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
         @keyframes color-change {
             from { color: var(--quartz); }
             to { color: var(--amethyst); }
         }
         
-        /* Стили для ссылки на хроники */
+        /* ИЗМЕНЕНИЕ: КОНТЕЙНЕР ДЛЯ НИЖНЕЙ ЧАСТИ */
         .chronicles-container {
-            margin-top: 100px;
+            position: absolute;
+            bottom: 0; /* Привязка к низу центрального блока */
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 150px; /* Отступ от центрального блока */
             opacity: 0;
-            animation: reveal 1.5s 6s forwards; /* Появляется после всех анимаций текста */
+            animation: reveal 1.5s 5.5s forwards;
         }
         .signs-text {
             color: var(--concrete);
@@ -143,7 +147,6 @@
             }
         }
         
-        /* ЗАЩИТА КОНТЕНТА */
         body, body * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -154,16 +157,18 @@
 </head>
 <body data-lang="en">
 
-    <div class="verdict-container">
-        <div id="en-verdict" class="lang-en">
-            <p class="verdict-text verdict-line-1">contact established</p>
-            <p class="verdict-text verdict-line-2">we see you</p>
-            <p class="verdict-text verdict-line-3">be ready</p>
-        </div>
-        <div id="ru-verdict" class="lang-ru">
-            <p class="verdict-text verdict-line-1">контакт установлен</p>
-            <p class="verdict-text verdict-line-2">мы видим вас</p>
-            <p class="verdict-text verdict-line-3">будьте наготове</p>
+    <div class="verdict-main-container">
+        <div class="verdict-container" id="verdict-container">
+            <div id="en-verdict" class="lang-en">
+                <p class="verdict-text verdict-line-1">contact established</p>
+                <p class="verdict-text verdict-line-2">we see you</p>
+                <p class="verdict-text verdict-line-3">be ready</p>
+            </div>
+            <div id="ru-verdict" class="lang-ru">
+                <p class="verdict-text verdict-line-1">контакт установлен</p>
+                <p class="verdict-text verdict-line-2">мы видим вас</p>
+                <p class="verdict-text verdict-line-3">будьте наготове</p>
+            </div>
         </div>
 
         <div class="chronicles-container">
@@ -197,12 +202,10 @@
             document.body.dataset.lang = lang;
             document.querySelectorAll(`.lang-${lang}`).forEach(el => { el.style.display = 'block'; });
 
-            // Запускаем анимацию окрашивания ПОСЛЕ того, как появится последняя строка
+            // Запускаем вторую фазу анимации (окрашивание) после появления всех строк
             setTimeout(() => {
-                document.querySelectorAll('.verdict-text').forEach(el => {
-                    el.classList.add('glow');
-                });
-            }, 4000); // Задержка равна сумме задержек появления всех строк
+                document.getElementById('verdict-container').classList.add('animate');
+            }, 4400); // 3.4s (появление последней строки) + 1s (длительность ее анимации)
 
             document.addEventListener('contextmenu', e => e.preventDefault());
 
