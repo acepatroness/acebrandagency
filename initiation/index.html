@@ -115,27 +115,14 @@
             margin-bottom: 40px; 
         }
         
-        /* === ИЗМЕНЕНИЕ ЗДЕСЬ === */
         .ritual-cta {
             display: inline-block; text-decoration: none;
-            font-weight: normal;
+            font-family: 'Unbounded', sans-serif; font-weight: 200;
             color: var(--quartz); background-color: transparent;
             border: 1px solid var(--concrete);
-            padding: 15px 40px 12px;
-            letter-spacing: 1.5px;
+            padding: 12px 30px; letter-spacing: 1px;
             transition: all 0.4s ease;
-            /* text-transform: uppercase; УБРАНО */
         }
-        
-        body[data-lang="ru"] .ritual-cta {
-            font-family: 'Brahms Gotisch', serif;
-            font-size: 1.2rem;
-        }
-        body[data-lang="en"] .ritual-cta {
-            font-family: 'Manufacturing Consent', sans-serif;
-            font-size: 1.5rem;
-        }
-
         .ritual-cta:hover { background-color: var(--amethyst); border-color: var(--amethyst); color: var(--quartz); }
 
         .sacrament.active .sacrament-title { color: var(--amethyst); }
@@ -179,6 +166,7 @@
                             <span class="lang-en">We don't do "branding." We conduct the Sacrament of Reincarnation. We don't just create brands; we burn the old, weak shell to the ground to resurrect your true essence from the ashes. We delve into the chaos of your business, decode your primal DNA, and forge a new identity upon its foundation. A core that grants not "recognition," but AUTHORITY. You don't become "better." You become the only one.</span>
                             <span class="lang-ru">Мы не занимаемся «брендингом». Мы проводим Таинство Реинкарнации. Мы не создаём бренды. Мы сжигаем дотла старую, слабую оболочку, чтобы из пепла возродить вашу истинную суть. Мы погружаемся в хаос вашего бизнеса, вскрываем ваш первородный ДНК-код и на его основе выковываем новую идентичность. Ядро, которое дарует не «узнаваемость», а ВЛАСТЬ. Вы не становитесь «лучше». Вы становитесь единственными.</span>
                         </p>
+                        <!-- ИЗМЕНЕНИЕ ЗДЕСЬ: НАЗВАНИЕ КНОПОК -->
                         <a href="#" class="ritual-cta" data-ritual="reincarnation"><span class="lang-en">start</span><span class="lang-ru">начать</span></a>
                     </div>
                 </div>
@@ -255,10 +243,11 @@
 
             document.querySelectorAll('.ritual-cta').forEach(button => {
                 const ritual = button.dataset.ritual;
-                button.href = `../sanctum/index.html?lang=${lang}&ritual=${ritual}`;
+                button.href = `../oath/index.html?lang=${lang}&ritual=${ritual}`;
             });
         });
 
+        /* ИЗМЕНЕНИЕ ЗДЕСЬ: ВОЗВРАЩЕНА ПЕРВОНАЧАЛЬНАЯ, БОЛЕЕ ОБИЛЬНАЯ АНИМАЦИЯ */
         if (!window.isUnifiedAnimationInitialized) {
             (function() {
                 const canvas = document.getElementById('global-ash-canvas');
