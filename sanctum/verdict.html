@@ -105,13 +105,13 @@
         /* === ИЗМЕНЕНИЕ: ПОЛОЖЕНИЕ И АНИМАЦИЯ ХРОНИК === */
         .chronicles-container {
             position: absolute;
-            top: 600px; /* 600px от верха */
+            top: 700px; /* 700px от верха */
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
             text-align: center;
             opacity: 0;
-            animation: fadeIn 1.5s 5.5s forwards; /* Анимация проявления */
+            animation: fadeIn 1.5s 5.5s forwards;
         }
         
         @keyframes fadeIn {
@@ -132,18 +132,17 @@
             width: 32px;
             height: 32px;
             color: var(--concrete);
-            transition: all 0.4s ease;
-            animation: pulse-icon 2.5s infinite 6s; /* Анимация пульсации */
+            transition: color 0.4s ease, transform 0.4s ease;
+            animation: pulse-icon 2.5s infinite 5.5s; /* Постоянная пульсация */
         }
         
         @keyframes pulse-icon {
-            0% { transform: scale(1); }
+            0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
         }
 
         .chronicles-link:hover svg {
-            animation-play-state: paused;
+            animation-play-state: paused; /* Останавливаем пульс при наведении */
             color: var(--amethyst);
             transform: scale(1.15);
         }
@@ -208,54 +207,4 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const lang = params.get('lang') || 'en';
-            
-            document.body.dataset.lang = lang;
-            document.querySelectorAll(`.lang-${lang}`).forEach(el => { el.style.display = 'block'; });
-
-            setTimeout(() => {
-                document.getElementById('verdict-container').classList.add('animate');
-            }, 4400);
-
-            document.addEventListener('contextmenu', e => e.preventDefault());
-
-            if (!window.isUnifiedAnimationInitialized) {
-                (function() {
-                    const canvas = document.getElementById('global-ash-canvas');
-                    if (!canvas) return;
-                    const ctx = canvas.getContext('2d');
-                    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-                    resizeCanvas(); window.addEventListener('resize', resizeCanvas);
-                    let particles = []; let fogTime = 0;
-                    class AshParticle {
-                        constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
-                        update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
-                        draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
-                    }
-                    function drawFog() {
-                        const fogHeight = 120;
-                        const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - fogHeight);
-                        gradient.addColorStop(0, `rgba(17, 17, 17, ${0.4 + Math.sin(fogTime) * 0.1})`);
-                        gradient.addColorStop(0.5, `rgba(17, 17, 17, 0.2)`);
-                        gradient.addColorStop(1, `rgba(17, 17, 17, 0)`);
-                        ctx.fillStyle = gradient; ctx.fillRect(0, canvas.height - fogHeight, canvas.width, fogHeight);
-                        fogTime += 0.005;
-                    }
-                    function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
-                    function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
-                    function animate() {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height); drawFog();
-                        particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
-                        if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
-                        requestAnimationFrame(animate);
-                    }
-                    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-                    window.addEventListener('touchmove', handleTouchMove, { passive: true });
-                    animate(); window.isUnifiedAnimationInitialized = true;
-                })();
-            }
-        });
-    </script>
-</body>
-</html>
+            const params =
