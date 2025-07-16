@@ -102,16 +102,16 @@
             to { color: var(--amethyst); }
         }
         
-        /* === ИЗМЕНЕНИЕ: ПОЛОЖЕНИЕ И АНИМАЦИЯ ХРОНИК === */
         .chronicles-container {
             position: absolute;
-            top: 600px; /* 600px от верха */
+            top: 600px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
             text-align: center;
             opacity: 0;
-            animation: fadeIn 1.5s 5.5s forwards; /* Анимация проявления */
+            /* ИЗМЕНЕНИЕ: СИНХРОНИЗАЦИЯ АНИМАЦИИ */
+            animation: fadeIn 1.5s 4.5s forwards; 
         }
         
         @keyframes fadeIn {
@@ -133,7 +133,7 @@
             height: 32px;
             color: var(--concrete);
             transition: all 0.4s ease;
-            animation: pulse-icon 2.5s infinite 6s; /* Анимация пульсации */
+            animation: pulse-icon 2.5s infinite 4.5s;
         }
         
         @keyframes pulse-icon {
@@ -157,7 +157,7 @@
             }
              .chronicles-container {
                 top: auto;
-                bottom: 10%; /* Адаптация для мобильных */
+                bottom: 10%;
              }
         }
         
@@ -186,8 +186,9 @@
 
     <div class="chronicles-container">
         <p class="signs-text">
-            <span class="lang-en">watch for the signs.</span>
-            <span class="lang-ru">наблюдай за знаками.</span>
+            <!-- ИЗМЕНЕНИЕ: УБРАНА ТОЧКА -->
+            <span class="lang-en">watch for the signs</span>
+            <span class="lang-ru">наблюдай за знаками</span>
         </p>
         <a href="http://instagram.com/acebrand.agency" target="_blank" class="chronicles-link" aria-label="Instagram">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
