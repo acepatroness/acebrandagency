@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- === SEO-ОРУЖИЕ: УТВЕРЖДЕНО === -->
+    <!-- SEO-Теги, которые мы обсуждали -->
     <title>ACE Brand Agency | Premium Branding & Bespoke Events in Dubai</title>
     <meta name="description" content="For the 1% of businesses bored with the other 99%. ACE Brand Agency architects unfair advantages through premium branding and bespoke events in Dubai, UAE. We burn templates and build legends.">
     <meta name="keywords" content="premium branding agency Dubai, bespoke events UAE, HNW marketing, luxury brand strategy, disruptive branding, high-end event production, anti-template agency, creative direction Dubai, brand architecture for leaders, organization of fashion shows, production of fashion shows, unique original musical compositions for fashion shows and events, music for fashion shows, original music for a brand, exclusive events UAE, VIP event management Dubai, премиальное брендинговое агентство Дубай, организация vip мероприятий ОАЭ, маркетинг для HNW в Дубае, брендинг класса люкс, нестандартные ивенты, креативные концепции для бизнеса, архитектура бренда, организация модных показов, продюсирование модных показов, уникальные авторские музыкальные композиции для модных показов и ивентов, музыка для модных показов, авторская музыка для бренда, эксклюзивные мероприятия Дубай, агентство нешаблонных решений, премиум брендинг.">
@@ -17,17 +17,16 @@
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://acebrand.agency/">
-    <meta property="og:title" content="ACE Brand Agency | Premium Branding & Bespoke Events in Dubai">
-    <meta property="og:description" content="For the 1% of businesses bored with the other 99%. We burn templates and build legends.">
-    <meta property="og:image" content="https://acebrand.agency/assets/og-image.png">
+    <meta property="og:title" content="ACE Brand Agency | For The 1% Bored With The 99%">
+    <meta property="og:description" content="We burn templates and build legends. Premium branding and bespoke events in Dubai for an audience that has seen everything.">
+    <meta property="og:image" content="https://acebrand.agency/assets/og-image.png"> 
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://acebrand.agency/">
-    <meta property="twitter:title" content="ACE Brand Agency | Premium Branding & Bespoke Events in Dubai">
-    <meta property="twitter:description" content="For the 1% of businesses bored with the other 99%. We burn templates and build legends.">
+    <meta property="twitter:title" content="ACE Brand Agency | For The 1% Bored With The 99%">
+    <meta property="twitter:description" content="We burn templates and build legends. Premium branding and bespoke events in Dubai for an audience that has seen everything.">
     <meta property="twitter:image" content="https://acebrand.agency/assets/og-image.png">
-
 
     <style>
         /* === АРСЕНАЛ ШРИФТОВ === */
@@ -65,7 +64,7 @@
             background-position: center 65%;
             background-repeat: no-repeat;
             position: relative;
-            text-transform: lowercase;
+            text-transform: uppercase; /* ИЗМЕНЕНИЕ: ВЕСЬ ТЕКСТ ПРОПИСНЫМИ */
         }
         
         body::before {
@@ -82,10 +81,10 @@
             height: auto;
             z-index: 3;
         }
-        
+
         .value-proposition-container {
             position: absolute;
-            top: calc(40% + 50px); /* 1. Опущено на 50px */
+            top: calc(40% + 50px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 2;
@@ -102,6 +101,8 @@
             letter-spacing: 1px;
             color: var(--quartz);
         }
+        .value-proposition-title span { display: block; }
+
         body[data-lang="en"] .value-proposition-title {
              font-family: 'Manufacturing Consent', sans-serif;
              font-size: clamp(2rem, 5vw, 2.8rem);
@@ -113,7 +114,7 @@
         
         .gate-area {
             position: absolute;
-            top: 570px; /* 3. Возвращено на место + 20px */
+            top: 550px; 
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -130,6 +131,7 @@
             font-weight: 200;
             font-size: 1rem;
             letter-spacing: 2px;
+            text-transform: lowercase;
             cursor: crosshair;
             padding: 15px 60px;
             color: var(--quartz);
@@ -154,12 +156,16 @@
         }
         .language-switcher span:hover, .language-switcher span.active { opacity: 1; }
 
+        [data-lang="en"] .lang-ru,
+        [data-lang="ru"] .lang-en { display: none; }
+        
         body, body * {
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
             -webkit-touch-callout: none; -khtml-user-select: none;
         }
         img { pointer-events: none; }
 
+        /* === ИЗМЕНЕНИЕ: ИЕРАРХИЯ ВЛАСТИ ДЛЯ МОБИЛЬНЫХ === */
         @media (max-width: 768px) {
             .logo {
                 top: 10px; right: auto; left: 50%;
@@ -167,27 +173,29 @@
                 width: 180px;
             }
             .value-proposition-container {
-                top: 35%;
+                top: 38%;
             }
-            /* 4. Уменьшен кегль для мобильной версии */
-            body[data-lang="en"] .value-proposition-title {
-                font-size: 1.5rem;
-            }
-            body[data-lang="ru"] .value-proposition-title {
-                font-size: 1.3rem;
-            }
-
             .enter-button {
                 padding: 12px 40px;
             }
             .gate-area {
-                top: calc(50% + 170px); /* 3. Опущено на 20px */
+                top: calc(50% + 150px);
                 transform: translate(-50%, -50%);
             }
-             .language-switcher { 
+            .language-switcher { 
                 margin-top: 40px; 
                 font-size: 12px; 
             }
+            
+            /* АНГЛИЙСКАЯ ВЕРСИЯ */
+            body[data-lang="en"] .vp-line-1 { font-size: 36px; }
+            body[data-lang="en"] .vp-line-2 { font-size: 24px; margin-top: 5px;}
+            body[data-lang="en"] .vp-line-3 { font-size: 20px; margin-top: 5px;}
+            
+            /* РУССКАЯ ВЕРСИЯ */
+            body[data-lang="ru"] .vp-line-1 { font-size: 34px; }
+            body[data-lang="ru"] .vp-line-2 { font-size: 30px; margin-top: 5px;}
+            body[data-lang="ru"] .vp-line-3 { font-size: 20px; margin-top: 5px;}
         }
     </style>
 </head>
@@ -197,15 +205,22 @@
     <img src="assets/logo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="value-proposition-container">
-        <h1 class="value-proposition-title" id="main-headline">
-            <!-- Текст будет вставлен из JS -->
+        <h1 class="value-proposition-title">
+            <span class="lang-en">
+                <span class="vp-line-1">BRANDING & EVENTS</span>
+                <span class="vp-line-2">FOR THE 1% OF BUSINESSES</span>
+                <span class="vp-line-3">BORED WITH THE OTHER 99%</span>
+            </span>
+            <span class="lang-ru">
+                <span class="vp-line-1">Брендинг и ивенты</span>
+                <span class="vp-line-2">для 1% бизнесов</span>
+                <span class="vp-line-3">которым наскучили<br>остальные 99%</span>
+            </span>
         </h1>
     </div>
 
     <div class="gate-area">
-        <a href="manifesto/index.html?lang=en" class="enter-button" id="enter-btn">
-             <!-- Текст будет вставлен из JS -->
-        </a>
+        <a href="manifesto/index.html?lang=en" class="enter-button" id="enter-btn">ENTER THE ALTAR</a>
         <div class="language-switcher">
             <span id="lang-en" class="active">english</span>
             <span id="lang-ru">русский</span>
@@ -213,7 +228,7 @@
     </div>
 
     <script>
-    // 4. АНИМАЦИЯ КУРСОРА
+    // === АНИМАЦИЯ КУРСОРА ===
     if (!window.isUnifiedAnimationInitialized) {
         (function() {
             const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
@@ -229,68 +244,44 @@
             function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
             function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
             function animate() {
+                if (!ctx) return;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
+                if (Math.random() < 0.03) { particles.push(new AshParticle(Math.random() * canvas.width, canvas.height + 10)); }
                 requestAnimationFrame(animate);
             }
             window.addEventListener('mousemove', handleMouseMove, { passive: true });
             window.addEventListener('touchmove', handleTouchMove, { passive: true });
-            animate(); window.isUnifiedAnimationInitialized = true;
+            animate();
+            window.isUnifiedAnimationInitialized = true;
         })();
     }
 
-    document.addEventListener('contextmenu', e => e.preventDefault(), false);
-
+    // === ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА ===
     document.addEventListener('DOMContentLoaded', () => {
         const enterButton = document.getElementById('enter-btn'); 
         const langEn = document.getElementById('lang-en'); 
         const langRu = document.getElementById('lang-ru');
-        const mainHeadline = document.getElementById('main-headline');
-
-        const content = { 
-            en: { 
-                link: 'manifesto/index.html?lang=en',
-                headline_desktop: "branding & events for the 1% of businesses<br>bored with the other 99%",
-                headline_mobile: "branding & events for<br>the 1% of businesses<br>bored with the other 99%",
-                button: "enter the altar"
-            }, 
-            ru: { 
-                link: 'manifesto/index.html?lang=ru',
-                headline_desktop: "брендинг и ивенты для 1% бизнесов,<br>которым наскучили остальные 99%",
-                headline_mobile: "брендинг и ивенты<br>для 1% бизнесов<br>которым наскучили<br>остальные 99%",
-                button: "войти к алтарю" // 1. Русский текст для кнопки
-            } 
-        };
         
         function switchLanguage(lang) {
+            document.documentElement.lang = lang; 
             document.body.dataset.lang = lang;
-            document.documentElement.lang = lang;
+            enterButton.href = `manifesto/index.html?lang=${lang}`;
             
-            enterButton.href = content[lang].link;
-            enterButton.textContent = content[lang].button;
-
-            // 2. Логика для разных заголовков
-            if (window.innerWidth <= 768) {
-                mainHeadline.innerHTML = content[lang].headline_mobile;
+            if (lang === 'ru') {
+                langRu.classList.add('active'); 
+                langEn.classList.remove('active');
             } else {
-                mainHeadline.innerHTML = content[lang].headline_desktop;
+                langEn.classList.add('active'); 
+                langRu.classList.remove('active');
             }
-            
-            langRu.classList.toggle('active', lang === 'ru');
-            langEn.classList.toggle('active', lang === 'en');
         }
         
-        langEn.addEventListener('click', () => switchLanguage('en'));
+        langEn.addEventListener('click', () => switchLanguage('en')); 
         langRu.addEventListener('click', () => switchLanguage('ru'));
-
-        // Переключаем язык и при изменении размера окна
-        window.addEventListener('resize', () => {
-            const currentLang = document.body.dataset.lang || 'en';
-            switchLanguage(currentLang);
-        });
-
-        // Инициализация при загрузке
-        switchLanguage('en');
+        
+        const initialLang = new URLSearchParams(window.location.search).get('lang') || 'en';
+        switchLanguage(initialLang);
     });
     </script>
 </body>
