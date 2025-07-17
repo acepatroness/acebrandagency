@@ -3,15 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO-Теги, которые были в твоем коде -->
-    <title>ACE Brand Agency | Premium Branding & Events in Dubai</title>
-    <meta name="description" content="For the 1% of businesses bored with the other 99%. ACE Brand Agency architects unfair advantages through rebellious branding and immersive events in Dubai, UAE.">
-    <meta name="keywords" content="brand agency Dubai, luxury branding, event management UAE, HNW marketing, bespoke events, creative agency Dubai, brand strategy, ACE Brand Agency">
-    <meta property="og:title" content="ACE Brand Agency | The Antidote to Mediocrity">
-    <meta property="og:description" content="We forge unfair advantages for the 1% of businesses bored with templates and mediocrity.">
+    
+    <!-- === SEO-ОРУЖИЕ: УТВЕРЖДЕНО === -->
+    <title>ACE Brand Agency | Premium Branding & Bespoke Events in Dubai</title>
+    <meta name="description" content="For the 1% of businesses bored with the other 99%. ACE Brand Agency architects unfair advantages through premium branding and bespoke events in Dubai, UAE. We burn templates and build legends.">
+    <meta name="keywords" content="premium branding agency Dubai, bespoke events UAE, HNW marketing, luxury brand strategy, disruptive branding, high-end event production, anti-template agency, creative direction Dubai, brand architecture for leaders, organization of fashion shows, production of fashion shows, unique original musical compositions for fashion shows and events, music for fashion shows, original music for a brand, exclusive events UAE, VIP event management Dubai, премиальное брендинговое агентство Дубай, организация vip мероприятий ОАЭ, маркетинг для HNW в Дубае, брендинг класса люкс, нестандартные ивенты, креативные концепции для бизнеса, архитектура бренда, организация модных показов, продюсирование модных показов, уникальные авторские музыкальные композиции для модных показов и ивентов, музыка для модных показов, авторская музыка для бренда, эксклюзивные мероприятия Дубай, агентство нешаблонных решений, премиум брендинг.">
+    <meta name="author" content="ACE Brand Agency">
+    <link rel="canonical" href="https://acebrand.agency/">
+    <link rel="alternate" hreflang="ru" href="https://acebrand.agency/index.html?lang=ru">
+    <link rel="alternate" hreflang="en" href="https://acebrand.agency/index.html?lang=en">
+    <link rel="alternate" hreflang="x-default" href="https://acebrand.agency/index.html?lang=en">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://acebrand.agency/">
+    <meta property="og:title" content="ACE Brand Agency | Premium Branding & Bespoke Events in Dubai">
+    <meta property="og:description" content="For the 1% of businesses bored with the other 99%. We burn templates and build legends.">
     <meta property="og:image" content="https://acebrand.agency/assets/og-image.png">
-    <meta property="og:url" content="https://acebrand.agency">
-    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://acebrand.agency/">
+    <meta property="twitter:title" content="ACE Brand Agency | Premium Branding & Bespoke Events in Dubai">
+    <meta property="twitter:description" content="For the 1% of businesses bored with the other 99%. We burn templates and build legends.">
+    <meta property="twitter:image" content="https://acebrand.agency/assets/og-image.png">
+
 
     <style>
         /* === АРСЕНАЛ ШРИФТОВ === */
@@ -66,10 +82,10 @@
             height: auto;
             z-index: 3;
         }
-
+        
         .value-proposition-container {
             position: absolute;
-            top: calc(40% + 50px);
+            top: calc(40% + 50px); /* 1. Опущено на 50px */
             left: 50%;
             transform: translateX(-50%);
             z-index: 2;
@@ -95,10 +111,9 @@
              font-size: clamp(1.8rem, 4.5vw, 2.5rem);
         }
         
-        /* === ИЗМЕНЕНИЕ №2: ОПУЩЕНО НА 20PX === */
         .gate-area {
             position: absolute;
-            top: 570px; /* Было 550px */
+            top: 570px; /* 3. Возвращено на место + 20px */
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -139,10 +154,6 @@
         }
         .language-switcher span:hover, .language-switcher span.active { opacity: 1; }
 
-        .lang-ru, .lang-en { display: none; }
-        body[data-lang="ru"] .lang-ru { display: inline-block; }
-        body[data-lang="en"] .lang-en { display: inline-block; }
-
         body, body * {
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
             -webkit-touch-callout: none; -khtml-user-select: none;
@@ -158,19 +169,19 @@
             .value-proposition-container {
                 top: 35%;
             }
-            /* === ИЗМЕНЕНИЕ №4: УМЕНЬШЕН КЕГЛЬ ЗАГОЛОВКА === */
+            /* 4. Уменьшен кегль для мобильной версии */
             body[data-lang="en"] .value-proposition-title {
-                font-size: clamp(1.8rem, 5.5vw, 2.4rem);
+                font-size: 1.5rem;
             }
             body[data-lang="ru"] .value-proposition-title {
-                font-size: clamp(1.6rem, 5vw, 2.2rem);
+                font-size: 1.3rem;
             }
+
             .enter-button {
                 padding: 12px 40px;
             }
-            /* === ИЗМЕНЕНИЕ №3: ОПУЩЕНО НА 20PX === */
             .gate-area {
-                top: calc(50% + 170px); /* Было 150px */
+                top: calc(50% + 170px); /* 3. Опущено на 20px */
                 transform: translate(-50%, -50%);
             }
              .language-switcher { 
@@ -186,17 +197,14 @@
     <img src="assets/logo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="value-proposition-container">
-        <h1 class="value-proposition-title">
-            <span class="lang-en">branding & events for the 1% of businesses<br>bored with the other 99%</span>
-            <span class="lang-ru">брендинг и ивенты для 1% бизнесов<br>которым наскучили остальные 99%</span>
+        <h1 class="value-proposition-title" id="main-headline">
+            <!-- Текст будет вставлен из JS -->
         </h1>
     </div>
 
     <div class="gate-area">
         <a href="manifesto/index.html?lang=en" class="enter-button" id="enter-btn">
-            <!-- === ИЗМЕНЕНИЕ №1: ТЕКСТ КНОПКИ НА ДВУХ ЯЗЫКАХ === -->
-            <span class="lang-en">enter the altar</span>
-            <span class="lang-ru">войти к алтарю</span>
+             <!-- Текст будет вставлен из JS -->
         </a>
         <div class="language-switcher">
             <span id="lang-en" class="active">english</span>
@@ -205,7 +213,7 @@
     </div>
 
     <script>
-    // Анимация курсора (без изменений)
+    // 4. АНИМАЦИЯ КУРСОРА
     if (!window.isUnifiedAnimationInitialized) {
         (function() {
             const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
@@ -231,19 +239,42 @@
         })();
     }
 
-    // Защита контента (без изменений)
     document.addEventListener('contextmenu', e => e.preventDefault(), false);
 
-    // Логика переключения языка
     document.addEventListener('DOMContentLoaded', () => {
         const enterButton = document.getElementById('enter-btn'); 
         const langEn = document.getElementById('lang-en'); 
         const langRu = document.getElementById('lang-ru');
+        const mainHeadline = document.getElementById('main-headline');
+
+        const content = { 
+            en: { 
+                link: 'manifesto/index.html?lang=en',
+                headline_desktop: "branding & events for the 1% of businesses<br>bored with the other 99%",
+                headline_mobile: "branding & events for<br>the 1% of businesses<br>bored with the other 99%",
+                button: "enter the altar"
+            }, 
+            ru: { 
+                link: 'manifesto/index.html?lang=ru',
+                headline_desktop: "брендинг и ивенты для 1% бизнесов,<br>которым наскучили остальные 99%",
+                headline_mobile: "брендинг и ивенты<br>для 1% бизнесов<br>которым наскучили<br>остальные 99%",
+                button: "войти к алтарю" // 1. Русский текст для кнопки
+            } 
+        };
         
         function switchLanguage(lang) {
             document.body.dataset.lang = lang;
             document.documentElement.lang = lang;
-            enterButton.href = `manifesto/index.html?lang=${lang}`;
+            
+            enterButton.href = content[lang].link;
+            enterButton.textContent = content[lang].button;
+
+            // 2. Логика для разных заголовков
+            if (window.innerWidth <= 768) {
+                mainHeadline.innerHTML = content[lang].headline_mobile;
+            } else {
+                mainHeadline.innerHTML = content[lang].headline_desktop;
+            }
             
             langRu.classList.toggle('active', lang === 'ru');
             langEn.classList.toggle('active', lang === 'en');
@@ -251,6 +282,12 @@
         
         langEn.addEventListener('click', () => switchLanguage('en'));
         langRu.addEventListener('click', () => switchLanguage('ru'));
+
+        // Переключаем язык и при изменении размера окна
+        window.addEventListener('resize', () => {
+            const currentLang = document.body.dataset.lang || 'en';
+            switchLanguage(currentLang);
+        });
 
         // Инициализация при загрузке
         switchLanguage('en');
