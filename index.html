@@ -49,15 +49,14 @@
             background-position: center 65%;
             background-repeat: no-repeat;
             position: relative;
-            /* text-transform: lowercase; БЫЛО ЗДЕСЬ И УДАЛЕНО НАХУЙ */
         }
-        
+         
         body::before {
             content: ''; position: absolute; top: 0; left: 0;
             width: 100%; height: 100%; background-color: var(--abyss);
             opacity: 0.4; z-index: 1; pointer-events: none;
         }
-        
+         
         .logo {
             position: absolute;
             top: 20px;
@@ -85,17 +84,36 @@
             line-height: 1.3;
             letter-spacing: 1px;
             color: var(--quartz);
-            text-transform: lowercase; /* Регистр управляется здесь */
-        }
-        body[data-lang="en"] .value-proposition-title {
-             font-family: 'Manufacturing Consent', sans-serif;
-             font-size: clamp(2rem, 5vw, 2.8rem);
-        }
-        body[data-lang="ru"] .value-proposition-title {
-             font-family: 'Brahms Gotisch', serif;
-             font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+            text-transform: uppercase; /* <<< ИЗМЕНЕНИЕ: ВЕРХНИЙ РЕГИСТР */
         }
         
+        /* Убрали общий размер, задаем его для каждой строки отдельно */
+        body[data-lang="en"] .value-proposition-title {
+           font-family: 'Manufacturing Consent', sans-serif;
+        }
+        body[data-lang="ru"] .value-proposition-title {
+           font-family: 'Brahms Gotisch', serif;
+        }
+        
+        /* <<< НОВЫЕ СТИЛИ ДЛЯ СТРОК (ДЕКСТОП) */
+        .headline-large, .headline-small {
+            display: block;
+        }
+
+        body[data-lang="en"] .headline-large {
+            font-size: clamp(2.5rem, 6vw, 3.3rem); /* Увеличено */
+        }
+        body[data-lang="en"] .headline-small {
+            font-size: clamp(2rem, 5vw, 2.8rem); /* Без изменений */
+        }
+
+        body[data-lang="ru"] .headline-large {
+            font-size: clamp(2.3rem, 5.5vw, 3rem); /* Увеличено */
+        }
+        body[data-lang="ru"] .headline-small {
+            font-size: clamp(1.8rem, 4.5vw, 2.5rem); /* Без изменений */
+        }
+         
         .gate-area {
             position: absolute;
             top: 570px; 
@@ -121,19 +139,19 @@
             background-color: transparent;
             border: 1px solid var(--concrete);
             transition: all 0.4s ease;
-            text-transform: lowercase; /* Регистр управляется здесь */
+            text-transform: lowercase;
         }
 
         .enter-button:hover {
             background-color: var(--amethyst);
             border-color: var(--amethyst);
         }
-        
+         
         .language-switcher {
             margin-top: 50px; 
             font-family: 'Unbounded', sans-serif;
             font-weight: 200; font-size: 16px; letter-spacing: 1px;
-            text-transform: lowercase; /* И здесь */
+            text-transform: lowercase;
         }
         .language-switcher span {
             cursor: pointer; padding: 0 10px; opacity: 0.6;
@@ -160,12 +178,17 @@
             .value-proposition-container {
                 top: 35%;
             }
-            body[data-lang="en"] .value-proposition-title {
+            
+            /* <<< ИЗМЕНЕНИЕ: Стили для мобилки, чтобы сохранить исходный вид */
+            body[data-lang="en"] .headline-large,
+            body[data-lang="en"] .headline-small {
                 font-size: clamp(1.8rem, 5.5vw, 2.4rem);
             }
-            body[data-lang="ru"] .value-proposition-title {
+            body[data-lang="ru"] .headline-large,
+            body[data-lang="ru"] .headline-small {
                 font-size: clamp(1.6rem, 5vw, 2.2rem);
             }
+            
             .enter-button {
                 padding: 12px 40px;
             }
@@ -241,17 +264,18 @@
         const mainHeadline = document.getElementById('main-headline');
         const enterLink = document.getElementById('enter-btn');
 
+        // <<< ИЗМЕНЕНИЕ: Текст разбит на спаны для разного стиля
         const content = {
             en: {
-                headline: "branding & events for the 1% of businesses<br>bored with the other 99%",
+                headline: "<span class='headline-large'>branding & events for the 1% of businesses</span><br><span class='headline-small'>bored with the other 99%</span>",
                 button: "enter the altar"
             },
             ru: {
-                headline: "брендинг и ивенты для 1% бизнесов,<br>которым наскучили остальные 99%",
+                headline: "<span class='headline-large'>брендинг и ивенты для 1% бизнесов,</span><br><span class='headline-small'>которым наскучили остальные 99%</span>",
                 button: "войти к алтарю"
             }
         };
-        
+         
         function switchLanguage(lang) {
             document.body.dataset.lang = lang;
             document.documentElement.lang = lang;
@@ -267,11 +291,11 @@
                 enterButtonTextRu.textContent = ''; // Очищаем другой язык
                 enterLink.href = 'manifesto/index.html?lang=en';
             }
-            
+              
             langRu.classList.toggle('active', lang === 'ru');
             langEn.classList.toggle('active', lang === 'en');
         }
-        
+         
         langEn.addEventListener('click', () => switchLanguage('en'));
         langRu.addEventListener('click', () => switchLanguage('ru'));
 
