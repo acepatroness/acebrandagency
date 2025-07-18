@@ -92,14 +92,18 @@
         }
         body[data-lang="ru"] .value-proposition-title {
              font-family: 'Brahms Gotisch', serif;
-             line-height: 1.5; /* <<< ИЗМЕНЕНИЕ: межстрочный интервал */
+             line-height: 1.5; 
         }
         
         .headline-large, .headline-small {
             display: block;
         }
+        
+        /* <<< НОВОЕ: Переключатели видимости для десктопа/мобилки */
+        .mobile-view { display: none; }
+        .desktop-view { display: block; }
 
-        /* АНГЛИЙСКАЯ ВЕРСИЯ ДЕСКТОП (без изменений) */
+        /* ДЕСКТОПНАЯ ВЕРСИЯ (без изменений) */
         body[data-lang="en"] .headline-large {
             font-size: clamp(2.7rem, 4.9vw, 3.5rem);
         }
@@ -107,7 +111,6 @@
             font-size: clamp(2rem, 4vw, 2.8rem);
         }
 
-        /* РУССКАЯ ВЕРСИЯ ДЕСКТОП (с изменениями) */
         body[data-lang="ru"] .headline-large {
             font-size: 50px;
             letter-spacing: 5px;
@@ -182,20 +185,30 @@
                 top: 35%;
             }
             
-            body[data-lang="en"] .headline-large,
-            body[data-lang="en"] .headline-small {
-                font-size: clamp(1.8rem, 4vw, 2.4rem);
-            }
+            /* <<< ИЗМЕНЕНИЕ: Прячем десктоп, показываем мобилку */
+            .desktop-view { display: none; }
+            .mobile-view { display: block; }
             
-            /* Сброс стилей для мобильной русской версии */
-            body[data-lang="ru"] .value-proposition-title {
-                line-height: 1.3; 
+            .value-proposition-title {
+                line-height: 1.3;
             }
-            body[data-lang="ru"] .headline-large,
-            body[data-lang="ru"] .headline-small {
-                font-size: clamp(1.6rem, 4vw, 2.2rem);
+
+            .mobile-view span {
+                display: block;
+                text-transform: lowercase;
                 letter-spacing: 1px;
             }
+
+            /* Английская мобильная версия */
+            .mob-en-1 { font-size: 44px; }
+            .mob-en-2 { font-size: 29px; }
+            .mob-en-3 { font-size: 25px; }
+
+            /* Русская мобильная версия */
+            .mob-ru-1 { font-size: 40px; }
+            .mob-ru-2 { font-size: 38px; }
+            .mob-ru-3 { font-size: 27px; }
+            .mob-ru-4 { font-size: 27px; }
             
             .enter-button {
                 padding: 12px 40px;
@@ -272,13 +285,33 @@
         const mainHeadline = document.getElementById('main-headline');
         const enterLink = document.getElementById('enter-btn');
 
+        // <<< ИЗМЕНЕНИЕ: Добавлена разметка для десктопа и мобилки
         const content = {
             en: {
-                headline: "<span class='headline-large'>branding & events for the 1% of businesses</span><span class='headline-small'>bored with the other 99%</span>",
+                headline: `
+                    <span class="desktop-view">
+                        <span class='headline-large'>branding & events for the 1% of businesses</span><span class='headline-small'>bored with the other 99%</span>
+                    </span>
+                    <span class="mobile-view">
+                        <span class="mob-en-1">branding & events</span>
+                        <span class="mob-en-2">for the 1% of businesses</span>
+                        <span class="mob-en-3">bored with the other 99%</span>
+                    </span>
+                `,
                 button: "enter the altar"
             },
             ru: {
-                headline: "<span class='headline-large'>брендинг и ивенты для 1% бизнесов</span><span class='headline-small'>которым наскучили остальные 99%</span>",
+                headline: `
+                    <span class="desktop-view">
+                        <span class='headline-large'>брендинг и ивенты для 1% бизнесов</span><span class='headline-small'>которым наскучили остальные 99%</span>
+                    </span>
+                    <span class="mobile-view">
+                        <span class="mob-ru-1">брендинг и ивенты</span>
+                        <span class="mob-ru-2">для 1% бизнесов</span>
+                        <span class="mob-ru-3">которым наскучили</span>
+                        <span class="mob-ru-4">остальные 99%</span>
+                    </span>
+                `,
                 button: "войти к алтарю"
             }
         };
@@ -290,12 +323,12 @@
             if (lang === 'ru') {
                 mainHeadline.innerHTML = content.ru.headline;
                 enterButtonTextRu.textContent = content.ru.button;
-                enterButtonTextEn.textContent = ''; // Очищаем другой язык
+                enterButtonTextEn.textContent = ''; 
                 enterLink.href = 'manifesto/index.html?lang=ru';
             } else {
                 mainHeadline.innerHTML = content.en.headline;
                 enterButtonTextEn.textContent = content.en.button;
-                enterButtonTextRu.textContent = ''; // Очищаем другой язык
+                enterButtonTextRu.textContent = ''; 
                 enterLink.href = 'manifesto/index.html?lang=en';
             }
             
