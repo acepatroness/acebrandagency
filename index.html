@@ -108,20 +108,34 @@
         .desktop-view { display: block; }
 
         /* ДЕСКТОПНАЯ ВЕРСИЯ (НЕТРОНУТА) */
-        body[data-lang="en"] .headline-large {
-            font-size: clamp(2.7rem, 4.9vw, 3.5rem);
-        }
-        body[data-lang="en"] .headline-small {
-            font-size: clamp(2rem, 4vw, 2.8rem);
+        body[data-lang="en"] .headline-large { font-size: clamp(2.7rem, 4.9vw, 3.5rem); }
+        body[data-lang="en"] .headline-small { font-size: clamp(2rem, 4vw, 2.8rem); }
+        body[data-lang="ru"] .headline-large { font-size: 50px; letter-spacing: 5px; }
+        body[data-lang="ru"] .headline-small { font-size: 37px; letter-spacing: 0; }
+        
+        /* <<< РИТУАЛ ПРОЯВЛЕНИЯ ОГНЕМ >>> */
+        .char {
+            display: inline-block;
+            opacity: 0;
+            animation: burnIn 1s forwards;
         }
 
-        body[data-lang="ru"] .headline-large {
-            font-size: 50px;
-            letter-spacing: 5px;
-        }
-        body[data-lang="ru"] .headline-small {
-            font-size: 37px;
-            letter-spacing: 0;
+        @keyframes burnIn {
+            0% {
+                opacity: 0;
+                color: var(--amethyst);
+                text-shadow: 0 0 20px var(--amethyst);
+            }
+            60% {
+                opacity: 1;
+                color: var(--amethyst);
+                text-shadow: 0 0 20px var(--amethyst);
+            }
+            100% {
+                opacity: 1;
+                color: var(--quartz);
+                text-shadow: none;
+            }
         }
         
         .gate-area {
@@ -179,29 +193,17 @@
         }
         img { pointer-events: none; }
 
-        /* === МОБИЛЬНАЯ ВЕРСИЯ (ТОЛЬКО ЗДЕСЬ ИЗМЕНЕНИЯ) === */
         @media (max-width: 768px) {
             .logo {
                 top: 10px; right: auto; left: 50%;
                 transform: translateX(-50%);
                 width: 180px;
             }
-            .value-proposition-container {
-                top: 35%;
-            }
-            
+            .value-proposition-container { top: 35%; }
             .desktop-view { display: none; }
             .mobile-view { display: block; }
-            
-            .value-proposition-title {
-                letter-spacing: 1px;
-                line-height: 1.2; 
-            }
-
-            .mobile-view span {
-                display: block;
-                text-transform: lowercase;
-            }
+            .value-proposition-title { letter-spacing: 1px; line-height: 1.2; }
+            .mobile-view span { display: block; text-transform: lowercase; }
 
             /* Английская мобильная версия */
             .mob-en-1 { font-size: 36px; }
@@ -212,23 +214,14 @@
             .mob-ru-1 { font-size: 28px; line-height: 1.2; }
             .mob-ru-2 { font-size: 26px; line-height: 1.4; } 
             .mob-ru-3 { font-size: 18px; line-height: 1.5; } 
-            .mob-ru-4 { font-size: 18px; line-height: 1.5; } /* <<< ИЗМЕНЕНИЕ ЗДЕСЬ */
+            .mob-ru-4 { font-size: 18px; line-height: 1.5; } 
             
             .enter-button {
-                width: 200px;
-                padding: 10px 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                width: 200px; padding: 10px 0;
+                display: flex; justify-content: center; align-items: center;
             }
-            .gate-area {
-                top: calc(50% + 170px);
-                transform: translate(-50%, -50%);
-            }
-             .language-switcher { 
-                margin-top: 40px; 
-                font-size: 12px; 
-            }
+            .gate-area { top: calc(50% + 170px); transform: translate(-50%, -50%); }
+            .language-switcher { margin-top: 40px; font-size: 12px; }
         }
     </style>
 </head>
@@ -239,7 +232,7 @@
 
     <div class="value-proposition-container">
         <h1 class="value-proposition-title" id="main-headline">
-            <!-- Text is now managed by JS, ensuring correct case from the source -->
+            <!-- Текст рождается здесь -->
         </h1>
     </div>
 
@@ -255,7 +248,7 @@
     </div>
 
     <script>
-    // Анимация курсора
+    // Анимация курсора (без изменений)
     if (!window.isUnifiedAnimationInitialized) {
         (function() {
             const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
@@ -281,7 +274,7 @@
         })();
     }
 
-    // Защита контента
+    // Защита контента (без изменений)
     document.addEventListener('contextmenu', e => e.preventDefault(), false);
 
     // Логика страницы
@@ -295,33 +288,34 @@
 
         const content = {
             en: {
-                headline: `
-                    <span class="desktop-view">
-                        <span class='headline-large'>branding & events for the 1% of businesses</span><span class='headline-small'>bored with the other 99%</span>
-                    </span>
-                    <span class="mobile-view">
-                        <span class="mob-en-1">branding & events</span>
-                        <span class="mob-en-2">for the 1% of businesses</span>
-                        <span class="mob-en-3">bored with the other 99%</span>
-                    </span>
-                `,
+                headline: `<span class="desktop-view"><span class='headline-large'>branding & events for the 1% of businesses</span><span class='headline-small'>bored with the other 99%</span></span><span class="mobile-view"><span class="mob-en-1">branding & events</span><span class="mob-en-2">for the 1% of businesses</span><span class="mob-en-3">bored with the other 99%</span></span>`,
                 button: "enter the altar"
             },
             ru: {
-                headline: `
-                    <span class="desktop-view">
-                        <span class='headline-large'>брендинг и ивенты для 1% бизнесов</span><span class='headline-small'>которым наскучили остальные 99%</span>
-                    </span>
-                    <span class="mobile-view">
-                        <span class="mob-ru-1">брендинг и ивенты</span>
-                        <span class="mob-ru-2">для 1% бизнесов</span>
-                        <span class="mob-ru-3">которым наскучили</span>
-                        <span class="mob-ru-4">остальные 99%</span>
-                    </span>
-                `,
+                headline: `<span class="desktop-view"><span class='headline-large'>брендинг и ивенты для 1% бизнесов</span><span class='headline-small'>которым наскучили остальные 99%</span></span><span class="mobile-view"><span class="mob-ru-1">брендинг и ивенты</span><span class="mob-ru-2">для 1% бизнесов</span><span class="mob-ru-3">которым наскучили</span><span class="mob-ru-4">остальные 99%</span></span>`,
                 button: "войти к алтарю"
             }
         };
+        
+        // <<< НОВЫЙ БЛОК: РИТУАЛ ПРОЯВЛЕНИЯ БУКВ >>>
+        function wrapAndAnimateHeadline() {
+            const lines = mainHeadline.querySelectorAll('.desktop-view span, .mobile-view span');
+            lines.forEach(line => {
+                const text = line.textContent;
+                line.innerHTML = '';
+                text.split('').forEach(char => {
+                    const charSpan = document.createElement('span');
+                    charSpan.className = 'char';
+                    charSpan.textContent = (char === ' ') ? '\u00A0' : char;
+                    line.appendChild(charSpan);
+                });
+            });
+
+            const chars = mainHeadline.querySelectorAll('.char');
+            chars.forEach((char, index) => {
+                char.style.animationDelay = `${index * 35}ms`;
+            });
+        }
         
         function switchLanguage(lang) {
             document.body.dataset.lang = lang;
@@ -345,12 +339,16 @@
             
             langRu.classList.toggle('active', lang === 'ru');
             langEn.classList.toggle('active', lang === 'en');
+            
+            // Запускаем ритуал после каждой смены языка
+            wrapAndAnimateHeadline();
         }
         
         langEn.addEventListener('click', () => switchLanguage('en'));
         langRu.addEventListener('click', () => switchLanguage('ru'));
 
-        switchLanguage('en'); // Инициализация
+        // Инициализация при первой загрузке
+        switchLanguage('en'); 
     });
     </script>
 </body>
