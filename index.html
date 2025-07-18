@@ -80,17 +80,20 @@
             width: 90%;
             text-align: center;
         }
-
+        
         .value-proposition-title {
             font-weight: normal;
             line-height: 1.3;
             letter-spacing: 1px;
             color: var(--quartz);
             text-transform: lowercase;
-            opacity: 0; /* Скрываем, чтобы JS мог начать ритуал */
-            animation: fadeInContainer 1s 0.5s forwards;
+            opacity: 0; /* Скрываем изначально, чтобы анимация появления была чистой */
+            animation: containerFadeIn 1s 0.5s forwards; /* Общее появление контейнера */
         }
-        @keyframes fadeInContainer { to { opacity: 1; } }
+
+        @keyframes containerFadeIn {
+            to { opacity: 1; }
+        }
         
         body[data-lang="en"] .value-proposition-title {
              font-family: 'Manufacturing Consent', sans-serif;
@@ -110,26 +113,34 @@
         body[data-lang="ru"] .headline-large { font-size: 50px; letter-spacing: 5px; }
         body[data-lang="ru"] .headline-small { font-size: 37px; letter-spacing: 0; }
         
-        /* <<< ИДЕЯ 1: РИТУАЛ ОСВЯЩЕНИЯ >>> */
+        /* <<< СБОЙ В СОБОРЕ: АНИМАЦИЯ >>> */
         .char {
             display: inline-block;
             opacity: 0;
-            animation: consecrate 1.2s forwards;
+            animation: glitch-reveal 1.2s forwards;
+            animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
-        .char.flash {
-            animation-name: amethyst-flash;
-            animation-duration: 1.5s;
+        @keyframes glitch-reveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) rotate(-15deg);
+                color: var(--amethyst);
+                text-shadow: 0 0 15px var(--amethyst);
+            }
+            30%, 70% {
+                opacity: 1;
+                transform: scale(1.1) rotate(5deg);
+                color: var(--amethyst);
+                text-shadow: 0 0 5px var(--amethyst);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+                color: var(--quartz);
+                text-shadow: none;
+            }
         }
-        @keyframes consecrate {
-            0% { opacity: 0; color: var(--concrete); }
-            100% { opacity: 1; color: var(--quartz); }
-        }
-        @keyframes amethyst-flash {
-            0% { opacity: 0; color: var(--concrete); }
-            50% { opacity: 1; color: var(--amethyst); text-shadow: 0 0 10px var(--amethyst); }
-            100% { opacity: 1; color: var(--quartz); text-shadow: none; }
-        }
-
+        
         .gate-area {
             position: absolute;
             top: 570px; 
@@ -182,6 +193,8 @@
             .mobile-view { display: block; }
             .value-proposition-title { letter-spacing: 1px; line-height: 1.2; }
             .mobile-view span { display: block; text-transform: lowercase; }
+
+            /* Мобильные кегли и интервалы */
             .mob-en-1 { font-size: 36px; }
             .mob-en-2 { font-size: 24px; line-height: 1.3; }
             .mob-en-3 { font-size: 21px; line-height: 1.4; }
@@ -189,6 +202,7 @@
             .mob-ru-2 { font-size: 26px; line-height: 1.4; } 
             .mob-ru-3 { font-size: 18px; line-height: 1.5; } 
             .mob-ru-4 { font-size: 18px; line-height: 1.5; } 
+            
             .enter-button {
                 width: 200px; padding: 10px 0;
                 display: flex; justify-content: center; align-items: center;
@@ -205,7 +219,7 @@
 
     <div class="value-proposition-container">
         <h1 class="value-proposition-title" id="main-headline">
-            <!-- Текст рождается здесь -->
+            <!-- Структура для текста, которая будет наполнена JS -->
         </h1>
     </div>
 
@@ -269,50 +283,28 @@
                 button: "войти к алтарю"
             }
         };
-        
-        // <<< ИСПРАВЛЕННЫЙ РИТУАЛ ОСВЯЩЕНИЯ >>>
-        function animateHeadline(htmlString) {
-            mainHeadline.innerHTML = htmlString; // Сначала вставляем утвержденную структуру
-            
-            const lines = mainHeadline.querySelectorAll('.desktop-view span, .mobile-view span');
-            const flashWords = ['1%', 'branding', 'брендинг'];
-            let totalCharIndex = 0;
+
+        // <<< ИСПРАВЛЕННЫЙ РИТУАЛ АНИМАЦИИ >>>
+        function animateHeadline() {
+            // Находим все строки, которые должны быть видимы
+            const lines = mainHeadline.querySelectorAll('.desktop-view > span, .mobile-view > span');
+            let charIndex = 0;
 
             lines.forEach(line => {
                 const text = line.textContent;
-                line.innerHTML = ''; // Очищаем, чтобы заполнить буквами-спанами
+                line.innerHTML = ''; // Очищаем строку, сохраняя её в DOM
                 
-                for (let i = 0; i < text.length; i++) {
-                    const charSpan = document.createElement('span');
-                    let isFlashWordChar = false;
-                    let wordJump = 0;
-
-                    for (const word of flashWords) {
-                        if (text.substring(i, i + word.length).toLowerCase() === word) {
-                            isFlashWordChar = true;
-                            wordJump = word.length;
-                            break;
-                        }
+                text.split('').forEach(char => {
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    if (char.trim() !== '') {
+                        span.className = 'char';
+                        // Задаем задержку анимации для каждой буквы
+                        span.style.animationDelay = `${0.8 + charIndex * 0.02}s`;
+                        charIndex++;
                     }
-
-                    if (isFlashWordChar) {
-                        for (let j = 0; j < wordJump; j++) {
-                            const flashCharSpan = document.createElement('span');
-                            flashCharSpan.className = 'char flash';
-                            flashCharSpan.style.animationDelay = `${0.8 + (totalCharIndex + j) * 0.04}s`;
-                            flashCharSpan.textContent = (text[i + j] === ' ') ? '\u00A0' : text[i + j];
-                            line.appendChild(flashCharSpan);
-                        }
-                        i += wordJump - 1;
-                        totalCharIndex += wordJump;
-                    } else {
-                        charSpan.className = 'char';
-                        charSpan.style.animationDelay = `${0.8 + totalCharIndex * 0.04}s`;
-                        charSpan.textContent = (text[i] === ' ') ? '\u00A0' : text[i];
-                        line.appendChild(charSpan);
-                        totalCharIndex++;
-                    }
-                }
+                    line.appendChild(span);
+                });
             });
         }
         
@@ -321,14 +313,14 @@
             document.documentElement.lang = lang;
 
             if (lang === 'ru') {
-                animateHeadline(content.ru.headline);
+                mainHeadline.innerHTML = content.ru.headline;
                 document.querySelector('meta[name="description"]').setAttribute('content', 'Для 1% бизнесов, которым наскучили остальные 99%. ACE Brand Agency проектирует несправедливые преимущества через премиальный брендинг и эксклюзивные мероприятия в Дубае. Мы сжигаем шаблоны и строим легенды.');
                 document.querySelector('meta[name="keywords"]').setAttribute('content', 'премиальное брендинговое агентство Дубай, организация vip мероприятий ОАЭ, маркетинг для HNW в Дубае, брендинг класса люкс, нестандартные ивенты, креативные концепции для бизнеса, архитектура бренда, организация модных показов, продюсирование модных показов, уникальные авторские музыкальные композиции для модных показов и ивентов, музыка для модных показов, авторская музыка для бренда, эксклюзивные мероприятия Дубай, агентство нешаблонных решений, премиум брендинг.');
                 enterButtonTextRu.textContent = content.ru.button;
                 enterButtonTextEn.textContent = ''; 
                 enterLink.href = 'manifesto/index.html?lang=ru';
             } else {
-                animateHeadline(content.en.headline);
+                mainHeadline.innerHTML = content.en.headline;
                 document.querySelector('meta[name="description"]').setAttribute('content', 'For the 1% of businesses bored with the other 99%. ACE Brand Agency architects unfair advantages through premium branding and bespoke events in Dubai, UAE. We burn templates and build legends.');
                 document.querySelector('meta[name="keywords"]').setAttribute('content', 'premium branding agency Dubai, bespoke events UAE, HNW marketing, luxury brand strategy, disruptive branding, high-end event production, anti-template agency, creative direction Dubai, brand architecture for leaders, organization of fashion shows, production of fashion shows, unique original musical compositions for fashion shows and events, music for fashion shows, original music for a brand, exclusive events UAE, VIP event management Dubai.');
                 enterButtonTextEn.textContent = content.en.button;
@@ -338,13 +330,15 @@
             
             langRu.classList.toggle('active', lang === 'ru');
             langEn.classList.toggle('active', lang === 'en');
+            
+            // Запускаем ритуал после наполнения контейнера
+            animateHeadline();
         }
         
         langEn.addEventListener('click', () => switchLanguage('en'));
         langRu.addEventListener('click', () => switchLanguage('ru'));
 
-        // Инициализация при первой загрузке
-        switchLanguage('en'); 
+        switchLanguage('en'); // Инициализация
     });
     </script>
 </body>
