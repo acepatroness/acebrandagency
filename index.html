@@ -230,7 +230,7 @@
 
             /* Русская мобильная версия */
             .mob-ru-1 { font-size: 28px; }
-            .mob-ru-2 { font-size: 26px; line-height: 1.1; } /* ИЗМЕНЕНИЕ: межстрочный интервал 1.1 */ 
+            .mob-ru-2 { font-size: 26px; line-height: 1.2; } /* ИЗМЕНЕНИЕ: межстрочный интервал 1.2 */
             .mob-ru-3 { font-size: 18px; line-height: 1.5; } 
             .mob-ru-4 { font-size: 18px; line-height: 1.5; }
             
@@ -345,17 +345,7 @@
         
         // <<< РИТУАЛ ОСВЯЩЕНИЯ >>>
         function animateHeadline() {
-            // Определяем, какую версию заголовка анимировать
-            const isMobile = window.innerWidth <= 768;
-            const containerSelector = isMobile ? '.mobile-view' : '.desktop-view';
-            
-            const currentHeadlineContent = isMobile ? content[document.body.dataset.lang].headline.replace('<span class="desktop-view">', '').replace('</span>', '').replace('<span class="mobile-view">', '').replace('</span>', '') : content[document.body.dataset.lang].headline;
-
-            // Временно вставляем HTML, чтобы получить доступ к строкам
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = currentHeadlineContent;
-            
-            const lines = tempDiv.querySelectorAll('span'); // Выбираем все span внутри контейнера
+            const lines = mainHeadline.querySelectorAll('.desktop-view span, .mobile-view span');
             const flashWords = ['1%', 'branding', 'брендинг'];
             
             let totalCharIndex = 0;
@@ -390,8 +380,6 @@
                     }
                 });
             });
-            mainHeadline.innerHTML = '';
-            mainHeadline.appendChild(tempDiv);
         }
         
         function switchLanguage(lang) {
@@ -399,14 +387,14 @@
             document.documentElement.lang = lang;
 
             if (lang === 'ru') {
-                mainHeadline.innerHTML = content.ru.headline; // Сначала устанавливаем структуру
+                mainHeadline.innerHTML = content.ru.headline;
                 document.querySelector('meta[name="description"]').setAttribute('content', 'Для 1% бизнесов, которым наскучили остальные 99%. ACE Brand Agency проектирует несправедливые преимущества через премиальный брендинг и эксклюзивные мероприятия в Дубае. Мы сжигаем шаблоны и строим легенды.');
                 document.querySelector('meta[name="keywords"]').setAttribute('content', 'премиальное брендинговое агентство Дубай, организация vip мероприятий ОАЭ, маркетинг для HNW в Дубае, брендинг класса люкс, нестандартные ивенты, креативные концепции для бизнеса, архитектура бренда, организация модных показов, продюсирование модных показов, уникальные авторские музыкальные композиции для модных показов и ивентов, музыка для модных показов, авторская музыка для бренда, эксклюзивные мероприятия Дубай, агентство нешаблонных решений, премиум брендинг.');
                 enterButtonTextRu.textContent = content.ru.button;
                 enterButtonTextEn.textContent = ''; 
                 enterLink.href = 'manifesto/index.html?lang=ru';
             } else {
-                mainHeadline.innerHTML = content.en.headline; // Сначала устанавливаем структуру
+                mainHeadline.innerHTML = content.en.headline;
                 document.querySelector('meta[name="description"]').setAttribute('content', 'For the 1% of businesses bored with the other 99%. ACE Brand Agency architects unfair advantages through premium branding and bespoke events in Dubai, UAE. We burn templates and build legends.');
                 document.querySelector('meta[name="keywords"]').setAttribute('content', 'premium branding agency Dubai, bespoke events UAE, HNW marketing, luxury brand strategy, disruptive branding, high-end event production, anti-template agency, creative direction Dubai, brand architecture for leaders, organization of fashion shows, production of fashion shows, unique original musical compositions for fashion shows and events, music for fashion shows, original music for a brand, exclusive events UAE, VIP event management Dubai.');
                 enterButtonTextEn.textContent = content.en.button;
@@ -417,7 +405,7 @@
             langRu.classList.toggle('active', lang === 'ru');
             langEn.classList.toggle('active', lang === 'en');
             
-            animateHeadline(); // Запускаем анимацию после того, как DOM обновился
+            animateHeadline(); // Запускаем ритуал после каждой смены языка
         }
         
         langEn.addEventListener('click', () => switchLanguage('en'));
