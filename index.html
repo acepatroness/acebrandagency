@@ -112,6 +112,50 @@
         body[data-lang="en"] .headline-small { font-size: clamp(2rem, 4vw, 2.8rem); }
         body[data-lang="ru"] .headline-large { font-size: 50px; letter-spacing: 5px; }
         body[data-lang="ru"] .headline-small { font-size: 37px; letter-spacing: 0; }
+        /* <<< ИДЕЯ 1: ОСВЯЩЕНИЕ - CSS >>> */
+.value-proposition-title {
+    opacity: 0; /* Скрываем контейнер до начала ритуала */
+    animation: fadeInContainer 1s 0.5s forwards;
+}
+@keyframes fadeInContainer { to { opacity: 1; } }
+
+.char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: consecration-reveal 0.6s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.char.highlight {
+    animation-name: consecration-highlight;
+    animation-duration: 1s;
+}
+
+@keyframes consecration-reveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        color: var(--quartz);
+    }
+}
+
+@keyframes consecration-highlight {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+        color: var(--concrete);
+    }
+    50% {
+        color: var(--amethyst);
+        text-shadow: 0 0 15px var(--amethyst);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        color: var(--quartz);
+        text-shadow: none;
+    }
+}
         
         /* <<< СБОЙ В СОБОРЕ: АНИМАЦИЯ >>> */
         .char {
@@ -236,30 +280,66 @@
 
     <script>
     // Анимация курсора (без изменений)
-    if (!window.isUnifiedAnimationInitialized) {
-        (function() {
-            const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-            resizeCanvas(); window.addEventListener('resize', resizeCanvas);
-            let particles = [];
-            class AshParticle {
-                constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
-                update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
-                draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+   function switchLanguage(lang) {
+    document.body.dataset.lang = lang;
+    document.documentElement.lang = lang;
+
+    // <<< НОВЫЙ РИТУАЛ АНИМАЦИИ: ОСВЯЩЕНИЕ >>>
+    function animateHeadline(element, htmlString) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlString;
+        const keywords = ['branding', 'брендинг', '1%'];
+        let charIndex = 0;
+
+        function wrapChars(node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const text = node.textContent;
+                const fragment = document.createDocumentFragment();
+                const words = text.split(/(\s+)/);
+
+                words.forEach(word => {
+                    const isHighlight = keywords.some(k => word.toLowerCase().includes(k));
+                    for (let i = 0; i < word.length; i++) {
+                        const span = document.createElement('span');
+                        span.className = 'char';
+                        if (isHighlight && word[i] !== ' ') {
+                            span.classList.add('highlight');
+                        }
+                        span.style.animationDelay = `${charIndex * 0.035}s`;
+                        span.textContent = word[i];
+                        fragment.appendChild(span);
+                        charIndex++;
+                    }
+                });
+                node.parentNode.replaceChild(fragment, node);
+            } else {
+                [...node.childNodes].forEach(wrapChars);
             }
-            function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
-            function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
-                requestAnimationFrame(animate);
-            }
-            window.addEventListener('mousemove', handleMouseMove, { passive: true });
-            window.addEventListener('touchmove', handleTouchMove, { passive: true });
-            animate(); window.isUnifiedAnimationInitialized = true;
-        })();
+        }
+        wrapChars(tempDiv);
+        element.innerHTML = '';
+        element.appendChild(tempDiv);
     }
+
+    if (lang === 'ru') {
+        animateHeadline(mainHeadline, content.ru.headline);
+        document.querySelector('meta[name="description"]').setAttribute('content', 'Для 1% бизнесов, которым наскучили остальные 99%. ACE Brand Agency проектирует несправедливые преимущества через премиальный брендинг и эксклюзивные мероприятия в Дубае. Мы сжигаем шаблоны и строим легенды.');
+        document.querySelector('meta[name="keywords"]').setAttribute('content', 'премиальное брендинговое агентство Дубай, организация vip мероприятий ОАЭ, маркетинг для HNW в Дубае, брендинг класса люкс, нестандартные ивенты, креативные концепции для бизнеса, архитектура бренда, организация модных показов, продюсирование модных показов, уникальные авторские музыкальные композиции для модных показов и ивентов, музыка для модных показов, авторская музыка для бренда, эксклюзивные мероприятия Дубай, агентство нешаблонных решений, премиум брендинг.');
+        enterButtonTextRu.textContent = content.ru.button;
+        enterButtonTextEn.textContent = ''; 
+        enterLink.href = 'manifesto/index.html?lang=ru';
+    } else {
+        animateHeadline(mainHeadline, content.en.headline);
+        document.querySelector('meta[name="description"]').setAttribute('content', 'For the 1% of businesses bored with the other 99%. ACE Brand Agency architects unfair advantages through premium branding and bespoke events in Dubai, UAE. We burn templates and build legends.');
+        document.querySelector('meta[name="keywords"]').setAttribute('content', 'premium branding agency Dubai, bespoke events UAE, HNW marketing, luxury brand strategy, disruptive branding, high-end event production, anti-template agency, creative direction Dubai, brand architecture for leaders, organization of fashion shows, production of fashion shows, unique original musical compositions for fashion shows and events, music for fashion shows, original music for a brand, exclusive events UAE, VIP event management Dubai.');
+        enterButtonTextEn.textContent = content.en.button;
+        enterButtonTextRu.textContent = ''; 
+        enterLink.href = 'manifesto/index.html?lang=en';
+    }
+    
+    langRu.classList.toggle('active', lang === 'ru');
+    langEn.classList.toggle('active', lang === 'en');
+}
 
     // Защита контента (без изменений)
     document.addEventListener('contextmenu', e => e.preventDefault(), false);
