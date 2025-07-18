@@ -343,7 +343,7 @@
             }
         };
         
-        // <<< РИТУАЛ ОСВЯЩЕНИЯ >>>
+        // <<< ИСПРАВЛЕННЫЙ РИТУАЛ ОСВЯЩЕНИЯ >>>
         function animateHeadline() {
             const lines = mainHeadline.querySelectorAll('.desktop-view span, .mobile-view span');
             const flashWords = ['1%', 'branding', 'брендинг'];
@@ -351,31 +351,28 @@
             let totalCharIndex = 0;
 
             lines.forEach(line => {
-                let lineText = line.textContent;
+                const originalText = line.textContent;
+                const words = originalText.split(' ');
                 let processedHTML = '';
                 
-                for (let i = 0; i < lineText.length; i++) {
-                    const char = lineText[i];
-                    let isFlash = false;
+                words.forEach((word, wordIndex) => {
+                    const isFlashWord = flashWords.includes(word);
                     
-                    flashWords.forEach(word => {
-                        if (lineText.substring(i, i + word.length) === word) {
-                            for (let j = 0; j < word.length; j++) {
-                                const flashChar = lineText[i+j];
-                                const safeChar = (flashChar === ' ') ? '&nbsp;' : flashChar;
-                                processedHTML += `<span class="char flash" style="animation-delay: ${0.8 + (totalCharIndex + j) * 0.04}s;">${safeChar}</span>`;
-                            }
-                            i += word.length - 1;
-                            isFlash = true;
-                        }
-                    });
-
-                    if (!isFlash) {
-                        const safeChar = (char === ' ') ? '&nbsp;' : char;
-                        processedHTML += `<span class="char" style="animation-delay: ${0.8 + totalCharIndex * 0.04}s;">${safeChar}</span>`;
+                    // Добавляем пробел перед словом (кроме первого)
+                    if (wordIndex > 0) {
+                        processedHTML += `<span class="char" style="animation-delay: ${0.8 + totalCharIndex * 0.04}s;">&nbsp;</span>`;
+                        totalCharIndex++;
                     }
-                    totalCharIndex++;
-                }
+                    
+                    // Обрабатываем каждую букву в слове
+                    for (let i = 0; i < word.length; i++) {
+                        const char = word[i];
+                        const spanClass = isFlashWord ? 'char flash' : 'char';
+                        processedHTML += `<span class="${spanClass}" style="animation-delay: ${0.8 + totalCharIndex * 0.04}s;">${char}</span>`;
+                        totalCharIndex++;
+                    }
+                });
+                
                 line.innerHTML = processedHTML;
             });
         }
