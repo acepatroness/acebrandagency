@@ -92,23 +92,14 @@
         }
         body[data-lang="ru"] .value-proposition-title {
              font-family: 'Brahms Gotisch', serif;
+             line-height: 1.5; /* <<< ИЗМЕНЕНИЕ: межстрочный интервал */
         }
         
         .headline-large, .headline-small {
             display: block;
         }
 
-        /* --- НАСТРОЙКИ ДЛЯ РУССКОГО ДЕСКТОПА --- */
-        body[data-lang="ru"] .headline-large {
-            font-size: 50px;
-            letter-spacing: 10px;
-        }
-        body[data-lang="ru"] .headline-small {
-            font-size: 37px;
-            letter-spacing: 0;
-        }
-
-        /* Английская версия — без изменений */
+        /* АНГЛИЙСКАЯ ВЕРСИЯ ДЕСКТОП (без изменений) */
         body[data-lang="en"] .headline-large {
             font-size: clamp(2.7rem, 4.9vw, 3.5rem);
         }
@@ -116,6 +107,16 @@
             font-size: clamp(2rem, 4vw, 2.8rem);
         }
 
+        /* РУССКАЯ ВЕРСИЯ ДЕСКТОП (с изменениями) */
+        body[data-lang="ru"] .headline-large {
+            font-size: 50px;
+            letter-spacing: 5px;
+        }
+        body[data-lang="ru"] .headline-small {
+            font-size: 37px;
+            letter-spacing: 0;
+        }
+        
         .gate-area {
             position: absolute;
             top: 570px; 
@@ -185,10 +186,15 @@
             body[data-lang="en"] .headline-small {
                 font-size: clamp(1.8rem, 4vw, 2.4rem);
             }
+            
+            /* Сброс стилей для мобильной русской версии */
+            body[data-lang="ru"] .value-proposition-title {
+                line-height: 1.3; 
+            }
             body[data-lang="ru"] .headline-large,
             body[data-lang="ru"] .headline-small {
                 font-size: clamp(1.6rem, 4vw, 2.2rem);
-                letter-spacing: initial;
+                letter-spacing: 1px;
             }
             
             .enter-button {
