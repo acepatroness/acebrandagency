@@ -79,7 +79,10 @@
             z-index: 2;
             width: 90%;
             text-align: center;
+            opacity: 0;
+            animation: fadeIn 2s 0.5s forwards;
         }
+        @keyframes fadeIn { to { opacity: 1; } }
 
         .value-proposition-title {
             font-weight: normal;
@@ -87,11 +90,7 @@
             letter-spacing: 1px;
             color: var(--quartz);
             text-transform: lowercase;
-            opacity: 0; /* Скрываем контейнер, чтобы анимация была плавной */
-            animation: fadeInContainer 1s 0.5s forwards;
         }
-        @keyframes fadeInContainer { to { opacity: 1; } }
-
         
         body[data-lang="en"] .value-proposition-title {
              font-family: 'Manufacturing Consent', sans-serif;
@@ -109,12 +108,23 @@
         .desktop-view { display: block; }
 
         /* ДЕСКТОПНАЯ ВЕРСИЯ (НЕТРОНУТА) */
-        body[data-lang="en"] .headline-large { font-size: clamp(2.7rem, 4.9vw, 3.5rem); }
-        body[data-lang="en"] .headline-small { font-size: clamp(2rem, 4vw, 2.8rem); }
-        body[data-lang="ru"] .headline-large { font-size: 50px; letter-spacing: 5px; }
-        body[data-lang="ru"] .headline-small { font-size: 37px; letter-spacing: 0; }
-        
-        /* <<< ИДЕЯ 1: РИТУАЛ ОСВЯЩЕНИЯ - СТИЛИ АНИМАЦИИ >>> */
+        body[data-lang="en"] .headline-large {
+            font-size: clamp(2.7rem, 4.9vw, 3.5rem);
+        }
+        body[data-lang="en"] .headline-small {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+        }
+
+        body[data-lang="ru"] .headline-large {
+            font-size: 50px;
+            letter-spacing: 5px;
+        }
+        body[data-lang="ru"] .headline-small {
+            font-size: 37px;
+            letter-spacing: 0;
+        }
+
+        /* <<< ИДЕЯ 1: ОСВЯЩЕНИЕ >>> */
         .char {
             display: inline-block;
             opacity: 0;
@@ -125,15 +135,15 @@
             animation-duration: 1.5s;
         }
         @keyframes consecrate {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; color: var(--concrete); }
+            100% { opacity: 1; color: var(--quartz); }
         }
         @keyframes amethyst-flash {
-            0% { opacity: 0; transform: translateY(10px); color: var(--quartz); text-shadow: none; }
-            40%, 60% { opacity: 1; transform: translateY(0); color: var(--amethyst); text-shadow: 0 0 15px var(--amethyst); }
-            100% { opacity: 1; transform: translateY(0); color: var(--quartz); text-shadow: none; }
+            0% { opacity: 0; color: var(--concrete); }
+            50% { opacity: 1; color: var(--amethyst); text-shadow: 0 0 10px var(--amethyst); }
+            100% { opacity: 1; color: var(--quartz); text-shadow: none; }
         }
-
+        
         .gate-area {
             position: absolute;
             top: 570px; 
@@ -189,14 +199,29 @@
         }
         img { pointer-events: none; }
 
-        /* === МОБИЛЬНАЯ ВЕРСИЯ (НЕТРОНУТА) === */
+        /* === МОБИЛЬНАЯ ВЕРСИЯ (ТОЛЬКО ЗДЕСЬ ИЗМЕНЕНИЯ) === */
         @media (max-width: 768px) {
-            .logo { top: 10px; right: auto; left: 50%; transform: translateX(-50%); width: 180px; }
-            .value-proposition-container { top: 35%; }
+            .logo {
+                top: 10px; right: auto; left: 50%;
+                transform: translateX(-50%);
+                width: 180px;
+            }
+            .value-proposition-container {
+                top: 35%;
+            }
+            
             .desktop-view { display: none; }
             .mobile-view { display: block; }
-            .value-proposition-title { letter-spacing: 1px; line-height: 1.2; }
-            .mobile-view span { display: block; text-transform: lowercase; }
+            
+            .value-proposition-title {
+                letter-spacing: 1px;
+                line-height: 1.2; 
+            }
+
+            .mobile-view span {
+                display: block;
+                text-transform: lowercase;
+            }
 
             /* Английская мобильная версия */
             .mob-en-1 { font-size: 36px; }
@@ -210,11 +235,20 @@
             .mob-ru-4 { font-size: 18px; line-height: 1.5; }
             
             .enter-button {
-                width: 200px; padding: 10px 0;
-                display: flex; justify-content: center; align-items: center;
+                width: 200px;
+                padding: 10px 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
-            .gate-area { top: calc(50% + 170px); transform: translate(-50%, -50%); }
-            .language-switcher { margin-top: 40px; font-size: 12px; }
+            .gate-area {
+                top: calc(50% + 170px);
+                transform: translate(-50%, -50%);
+            }
+             .language-switcher { 
+                margin-top: 40px; 
+                font-size: 12px; 
+            }
         }
     </style>
 </head>
@@ -241,7 +275,7 @@
     </div>
 
     <script>
-    // Анимация курсора (без изменений)
+    // Анимация курсора
     if (!window.isUnifiedAnimationInitialized) {
         (function() {
             const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
@@ -267,7 +301,7 @@
         })();
     }
 
-    // Защита контента (без изменений)
+    // Защита контента
     document.addEventListener('contextmenu', e => e.preventDefault(), false);
 
     // Логика страницы
@@ -309,47 +343,43 @@
             }
         };
         
-        // <<< РИТУАЛ ОСВЯЩЕНИЯ - ЛОГИКА АНИМАЦИИ >>>
+        // <<< РИТУАЛ ОСВЯЩЕНИЯ >>>
         function animateHeadline() {
-            // Ключевые слова для вспышки
-            const flashWords = ['branding', '1%', 'брендинг'];
-            let charIndex = 0;
+            const lines = mainHeadline.querySelectorAll('.desktop-view span, .mobile-view span');
+            const flashWords = ['1%', 'branding', 'брендинг'];
+            
+            let totalCharIndex = 0;
 
-            // Функция, которая обертывает буквы в span'ы, сохраняя структуру
-            function wrap(node) {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    const textContent = node.textContent;
-                    const fragment = document.createDocumentFragment();
-
-                    for (let i = 0; i < textContent.length; i++) {
-                        const char = textContent[i];
-                        const span = document.createElement('span');
-                        let isFlash = false;
-
-                        // Проверяем, не является ли символ частью ключевого слова
-                        for (const word of flashWords) {
-                            if (textContent.substring(i, i + word.length).toLowerCase() === word) {
-                                isFlash = true;
-                                break;
+            lines.forEach(line => {
+                let lineText = line.textContent;
+                let processedHTML = '';
+                
+                for (let i = 0; i < lineText.length; i++) {
+                    const char = lineText[i];
+                    let isFlash = false;
+                    
+                    flashWords.forEach(word => {
+                        if (lineText.substring(i, i + word.length) === word) {
+                            for (let j = 0; j < word.length; j++) {
+                                const flashChar = lineText[i+j];
+                                const safeChar = (flashChar === ' ') ? '&nbsp;' : flashChar;
+                                processedHTML += `<span class="char flash" style="animation-delay: ${0.8 + (totalCharIndex + j) * 0.04}s;">${safeChar}</span>`;
                             }
+                            i += word.length - 1;
+                            isFlash = true;
                         }
+                    });
 
-                        span.className = isFlash ? 'char flash' : 'char';
-                        span.textContent = char;
-                        span.style.animationDelay = `${0.8 + charIndex * 0.05}s`;
-                        fragment.appendChild(span);
-                        charIndex++;
+                    if (!isFlash) {
+                        const safeChar = (char === ' ') ? '&nbsp;' : char;
+                        processedHTML += `<span class="char" style="animation-delay: ${0.8 + totalCharIndex * 0.04}s;">${safeChar}</span>`;
                     }
-                    node.parentNode.replaceChild(fragment, node);
-                } else if (node.nodeType === Node.ELEMENT_NODE) {
-                    // Рекурсивно обходим дочерние узлы, чтобы не сломать HTML-структуру
-                    [...node.childNodes].forEach(wrap);
+                    totalCharIndex++;
                 }
-            }
-
-            wrap(mainHeadline);
+                line.innerHTML = processedHTML;
+            });
         }
-
+        
         function switchLanguage(lang) {
             document.body.dataset.lang = lang;
             document.documentElement.lang = lang;
@@ -380,8 +410,7 @@
         langEn.addEventListener('click', () => switchLanguage('en'));
         langRu.addEventListener('click', () => switchLanguage('ru'));
 
-        // Инициализация при первой загрузке
-        switchLanguage('en'); 
+        switchLanguage('en'); // Инициализация
     });
     </script>
 </body>
