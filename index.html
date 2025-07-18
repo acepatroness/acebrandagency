@@ -80,20 +80,17 @@
             width: 90%;
             text-align: center;
         }
-        
+
         .value-proposition-title {
             font-weight: normal;
             line-height: 1.3;
             letter-spacing: 1px;
             color: var(--quartz);
             text-transform: lowercase;
-            opacity: 0; /* Скрываем изначально для анимации */
-            animation: containerFadeIn 1s 0.5s forwards;
+            opacity: 0;
+            animation: fadeInContainer 1s 0.5s forwards;
         }
-
-        @keyframes containerFadeIn {
-            to { opacity: 1; }
-        }
+        @keyframes fadeInContainer { to { opacity: 1; } }
         
         body[data-lang="en"] .value-proposition-title {
              font-family: 'Manufacturing Consent', sans-serif;
@@ -103,19 +100,33 @@
              line-height: 1.5; 
         }
         
-        .headline-large, .headline-small { display: block; }
+        .headline-large, .headline-small {
+            display: block;
+        }
+        
         .mobile-view { display: none; }
         .desktop-view { display: block; }
 
         /* ДЕСКТОПНАЯ ВЕРСИЯ (НЕТРОНУТА) */
-        body[data-lang="en"] .headline-large { font-size: clamp(2.7rem, 4.9vw, 3.5rem); }
-        body[data-lang="en"] .headline-small { font-size: clamp(2rem, 4vw, 2.8rem); }
-        body[data-lang="ru"] .headline-large { font-size: 50px; letter-spacing: 5px; }
-        body[data-lang="ru"] .headline-small { font-size: 37px; letter-spacing: 0; }
-        
+        body[data-lang="en"] .headline-large {
+            font-size: clamp(2.7rem, 4.9vw, 3.5rem);
+        }
+        body[data-lang="en"] .headline-small {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+        }
+
+        body[data-lang="ru"] .headline-large {
+            font-size: 50px;
+            letter-spacing: 5px;
+        }
+        body[data-lang="ru"] .headline-small {
+            font-size: 37px;
+            letter-spacing: 0;
+        }
+
         /* <<< ИДЕЯ 1: ОСВЯЩЕНИЕ >>> */
         .char {
-            display: inline-block; /* Важно для сохранения пробелов и структуры */
+            display: inline-block;
             opacity: 0;
             animation: consecrate 1.2s forwards;
         }
@@ -134,22 +145,37 @@
         }
         
         .gate-area {
-            position: absolute; top: 570px; left: 50%;
+            position: absolute;
+            top: 570px; 
+            left: 50%;
             transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center;
-            z-index: 2; width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            width: 90%;
         }
 
         .enter-button {
-            display: inline-block; text-decoration: none;
-            font-family: 'Unbounded', sans-serif; font-weight: 200; font-size: 1rem;
-            letter-spacing: 2px; cursor: crosshair;
-            padding: 15px 60px; color: var(--quartz);
-            background-color: transparent; border: 1px solid var(--concrete);
-            transition: all 0.4s ease; text-transform: lowercase;
+            display: inline-block;
+            text-decoration: none;
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 200;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: crosshair;
+            padding: 15px 60px;
+            color: var(--quartz);
+            background-color: transparent;
+            border: 1px solid var(--concrete);
+            transition: all 0.4s ease;
+            text-transform: lowercase;
         }
 
-        .enter-button:hover { background-color: var(--amethyst); border-color: var(--amethyst); }
+        .enter-button:hover {
+            background-color: var(--amethyst);
+            border-color: var(--amethyst);
+        }
         
         .language-switcher {
             margin-top: 50px; 
@@ -173,29 +199,56 @@
         }
         img { pointer-events: none; }
 
+        /* === МОБИЛЬНАЯ ВЕРСИЯ (УТВЕРЖДЕННАЯ СТРУКТУРА) === */
         @media (max-width: 768px) {
-            .logo { top: 10px; right: auto; left: 50%; transform: translateX(-50%); width: 180px; }
-            .value-proposition-container { top: 35%; }
+            .logo {
+                top: 10px; right: auto; left: 50%;
+                transform: translateX(-50%);
+                width: 180px;
+            }
+            .value-proposition-container {
+                top: 35%;
+            }
+            
             .desktop-view { display: none; }
             .mobile-view { display: block; }
-            .value-proposition-title { letter-spacing: 1px; line-height: 1.2; }
-            .mobile-view span { display: block; text-transform: lowercase; }
+            
+            .value-proposition-title {
+                letter-spacing: 1px;
+                line-height: 1.2; 
+            }
 
-            /* Мобильные кегли и интервалы */
+            .mobile-view span {
+                display: block;
+                text-transform: lowercase;
+            }
+
+            /* Английская мобильная версия */
             .mob-en-1 { font-size: 36px; }
             .mob-en-2 { font-size: 24px; line-height: 1.3; }
             .mob-en-3 { font-size: 21px; line-height: 1.4; }
+
+            /* Русская мобильная версия */
             .mob-ru-1 { font-size: 28px; line-height: 1.2; }
             .mob-ru-2 { font-size: 26px; line-height: 1.4; } 
             .mob-ru-3 { font-size: 18px; line-height: 1.5; } 
-            .mob-ru-4 { font-size: 18px; line-height: 1.5; } 
+            .mob-ru-4 { font-size: 18px; line-height: 1.5; }
             
             .enter-button {
-                width: 200px; padding: 10px 0;
-                display: flex; justify-content: center; align-items: center;
+                width: 200px;
+                padding: 10px 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
-            .gate-area { top: calc(50% + 170px); transform: translate(-50%, -50%); }
-            .language-switcher { margin-top: 40px; font-size: 12px; }
+            .gate-area {
+                top: calc(50% + 170px);
+                transform: translate(-50%, -50%);
+            }
+             .language-switcher { 
+                margin-top: 40px; 
+                font-size: 12px; 
+            }
         }
     </style>
 </head>
@@ -206,7 +259,7 @@
 
     <div class="value-proposition-container">
         <h1 class="value-proposition-title" id="main-headline">
-            <!-- Структура рождается здесь -->
+            <!-- Text is now managed by JS, ensuring correct case from the source -->
         </h1>
     </div>
 
@@ -262,55 +315,66 @@
 
         const content = {
             en: {
-                headline: `<span class="desktop-view"><span class='headline-large'>branding & events for the 1% of businesses</span><span class='headline-small'>bored with the other 99%</span></span><span class="mobile-view"><span class="mob-en-1">branding & events</span><span class="mob-en-2">for the 1% of businesses</span><span class="mob-en-3">bored with the other 99%</span></span>`,
+                headline: `
+                    <span class="desktop-view">
+                        <span class='headline-large'>branding & events for the 1% of businesses</span><span class='headline-small'>bored with the other 99%</span>
+                    </span>
+                    <span class="mobile-view">
+                        <span class="mob-en-1">branding & events</span>
+                        <span class="mob-en-2">for the 1% of businesses</span>
+                        <span class="mob-en-3">bored with the other 99%</span>
+                    </span>
+                `,
                 button: "enter the altar"
             },
             ru: {
-                headline: `<span class="desktop-view"><span class='headline-large'>брендинг и ивенты для 1% бизнесов</span><span class='headline-small'>которым наскучили остальные 99%</span></span><span class="mobile-view"><span class="mob-ru-1">брендинг и ивенты</span><span class="mob-ru-2">для 1% бизнесов</span><span class="mob-ru-3">которым наскучили</span><span class="mob-ru-4">остальные 99%</span></span>`,
+                headline: `
+                    <span class="desktop-view">
+                        <span class='headline-large'>брендинг и ивенты для 1% бизнесов</span><span class='headline-small'>которым наскучили остальные 99%</span>
+                    </span>
+                    <span class="mobile-view">
+                        <span class="mob-ru-1">брендинг и ивенты</span>
+                        <span class="mob-ru-2">для 1% бизнесов</span>
+                        <span class="mob-ru-3">которым наскучили</span>
+                        <span class="mob-ru-4">остальные 99%</span>
+                    </span>
+                `,
                 button: "войти к алтарю"
             }
         };
         
         // <<< ИСПРАВЛЕННЫЙ РИТУАЛ ОСВЯЩЕНИЯ >>>
         function animateHeadline() {
-            // Находим все видимые строки, и в десктопе, и в мобилке
-            const lines = mainHeadline.querySelectorAll('.desktop-view > span, .mobile-view > span');
+            // Находим все отдельные строки заголовка, которые видимы
+            const lines = mainHeadline.querySelectorAll('.desktop-view span, .mobile-view span');
             const flashWords = ['1%', 'branding', 'брендинг'];
             let totalCharIndex = 0;
 
             lines.forEach(line => {
-                // Работаем с текстом только внутри каждой строки
                 const text = line.textContent;
-                line.innerHTML = ''; // Очищаем строку, чтобы наполнить ее анимированными буквами
-
-                text.split('').forEach(char => {
-                    const charSpan = document.createElement('span');
-                    charSpan.className = 'char';
-                    charSpan.style.animationDelay = `${0.8 + totalCharIndex * 0.04}s`;
+                line.innerHTML = ''; // Очищаем строку, но сохраняем сам элемент SPAN
+                
+                // Разбиваем текст на слова, чтобы найти ключевые
+                const words = text.split(' ');
+                words.forEach((word, index) => {
+                    const isFlash = flashWords.some(flashWord => word.includes(flashWord));
                     
-                    // Проверяем, является ли текущий символ частью ключевого слова
-                    let isFlash = false;
-                    flashWords.forEach(word => {
-                        // Это упрощенная проверка; для продакшена нужен более надежный метод
-                        if (word.includes(char.toLowerCase()) && text.toLowerCase().includes(word)) {
-                           // Для простоты примера, можно улучшить логику поиска слов
-                           // Сейчас просто подсвечиваем символы из ключевых слов.
-                           // Чтобы избежать ложных срабатываний, нужна более сложная логика,
-                           // но для визуального эффекта сейчас это сработает.
-                           // Ищем точное слово
-                           if(text.toLowerCase().indexOf(word) !== -1){
-                               isFlash = true;
-                           }
-                        }
-                    });
-
-                    if (isFlash) {
-                       charSpan.classList.add('flash');
+                    // Оборачиваем каждую букву в слове
+                    for(let i = 0; i < word.length; i++) {
+                        const charSpan = document.createElement('span');
+                        charSpan.className = isFlash ? 'char flash' : 'char';
+                        charSpan.style.animationDelay = `${0.8 + totalCharIndex * 0.04}s`;
+                        charSpan.textContent = word[i];
+                        line.appendChild(charSpan);
+                        totalCharIndex++;
                     }
-                    
-                    charSpan.textContent = (char === ' ') ? '\u00A0' : char; // Сохраняем пробелы
-                    line.appendChild(charSpan);
-                    totalCharIndex++;
+
+                    // Добавляем пробел после слова, если это не последнее слово в строке
+                    if (index < words.length - 1) {
+                        const spaceSpan = document.createElement('span');
+                        spaceSpan.innerHTML = '&nbsp;';
+                        line.appendChild(spaceSpan);
+                    }
                 });
             });
         }
@@ -338,15 +402,14 @@
             langRu.classList.toggle('active', lang === 'ru');
             langEn.classList.toggle('active', lang === 'en');
             
-            // Запускаем ритуал после наполнения контейнера
+            // Запускаем ритуал после каждой смены языка
             animateHeadline();
         }
         
         langEn.addEventListener('click', () => switchLanguage('en'));
         langRu.addEventListener('click', () => switchLanguage('ru'));
 
-        // Инициализация при первой загрузке
-        switchLanguage('en'); 
+        switchLanguage('en'); // Инициализация
     });
     </script>
 </body>
