@@ -80,18 +80,20 @@
             width: 90%;
             text-align: center;
         }
-
+        
         .value-proposition-title {
             font-weight: normal;
             line-height: 1.3;
             letter-spacing: 1px;
             color: var(--quartz);
             text-transform: lowercase;
-            opacity: 0; /* Скрываем для анимации */
-            animation: fadeInContainer 1s 0.5s forwards;
+            opacity: 0;
+            animation: containerFadeIn 1s 0.5s forwards;
         }
-        @keyframes fadeInContainer { to { opacity: 1; } }
 
+        @keyframes containerFadeIn {
+            to { opacity: 1; }
+        }
         
         body[data-lang="en"] .value-proposition-title {
              font-family: 'Manufacturing Consent', sans-serif;
@@ -105,41 +107,42 @@
         .mobile-view { display: none; }
         .desktop-view { display: block; }
 
-        /* ДЕСКТОПНАЯ ВЕРСИЯ (УТВЕРЖДЕНО) */
+        /* ДЕСКТОПНАЯ ВЕРСИЯ (НЕТРОНУТА) */
         body[data-lang="en"] .headline-large { font-size: clamp(2.7rem, 4.9vw, 3.5rem); }
         body[data-lang="en"] .headline-small { font-size: clamp(2rem, 4vw, 2.8rem); }
         body[data-lang="ru"] .headline-large { font-size: 50px; letter-spacing: 5px; }
         body[data-lang="ru"] .headline-small { font-size: 37px; letter-spacing: 0; }
         
-        /* <<< РИТУАЛ ОСВЯЩЕНИЯ >>> */
+        /* <<< ИДЕЯ 1: РИТУАЛ ОСВЯЩЕНИЯ >>> */
         .char {
-            display: inline-block; /* Важно для сохранения строки */
+            display: inline-block;
             opacity: 0;
-            animation: consecration 1.2s forwards;
-            animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+            animation: consecrate 1.2s forwards;
+        }
+        .char.flash {
+            animation-name: amethyst-flash;
+            animation-duration: 1.5s;
+        }
+        @keyframes consecrate {
+            0% { opacity: 0; color: var(--concrete); }
+            100% { opacity: 1; color: var(--quartz); }
+        }
+        @keyframes amethyst-flash {
+            0% { opacity: 0; color: var(--concrete); }
+            50% { opacity: 1; color: var(--amethyst); text-shadow: 0 0 10px var(--amethyst); }
+            100% { opacity: 1; color: var(--quartz); text-shadow: none; }
         }
 
-        @keyframes consecration {
-            0% {
-                opacity: 0;
-                transform: translateY(15px);
-                color: var(--amethyst);
-            }
-            50% {
-                opacity: 0.7;
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-                color: var(--quartz);
-            }
-        }
-        
         .gate-area {
-            position: absolute; top: 570px; left: 50%;
+            position: absolute;
+            top: 570px; 
+            left: 50%;
             transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center;
-            z-index: 2; width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            width: 90%;
         }
 
         .enter-button {
@@ -175,7 +178,6 @@
         }
         img { pointer-events: none; }
 
-        /* === МОБИЛЬНАЯ ВЕРСИЯ (УТВЕРЖДЕНО) === */
         @media (max-width: 768px) {
             .logo { top: 10px; right: auto; left: 50%; transform: translateX(-50%); width: 180px; }
             .value-proposition-container { top: 35%; }
@@ -189,7 +191,7 @@
             .mob-ru-1 { font-size: 28px; line-height: 1.2; }
             .mob-ru-2 { font-size: 26px; line-height: 1.4; } 
             .mob-ru-3 { font-size: 18px; line-height: 1.5; } 
-            .mob-ru-4 { font-size: 18px; line-height: 1.5; }
+            .mob-ru-4 { font-size: 18px; line-height: 1.5; } 
             .enter-button {
                 width: 200px; padding: 10px 0;
                 display: flex; justify-content: center; align-items: center;
@@ -205,7 +207,9 @@
     <img src="assets/logo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="value-proposition-container">
-        <h1 class="value-proposition-title" id="main-headline"></h1>
+        <h1 class="value-proposition-title" id="main-headline">
+            <!-- Text is now managed by JS, ensuring correct case from the source -->
+        </h1>
     </div>
 
     <div class="gate-area">
@@ -260,59 +264,58 @@
 
         const content = {
             en: {
-                headline: `
-                    <span class="desktop-view">
-                        <span class='headline-large'>branding & events for the 1% of businesses</span><span class='headline-small'>bored with the other 99%</span>
-                    </span>
-                    <span class="mobile-view">
-                        <span class="mob-en-1">branding & events</span>
-                        <span class="mob-en-2">for the 1% of businesses</span>
-                        <span class="mob-en-3">bored with the other 99%</span>
-                    </span>
-                `,
+                headline: `<span class="desktop-view"><span class='headline-large'>branding & events for the 1% of businesses</span><span class='headline-small'>bored with the other 99%</span></span><span class="mobile-view"><span class="mob-en-1">branding & events</span><span class="mob-en-2">for the 1% of businesses</span><span class="mob-en-3">bored with the other 99%</span></span>`,
                 button: "enter the altar"
             },
             ru: {
-                headline: `
-                    <span class="desktop-view">
-                        <span class='headline-large'>брендинг и ивенты для 1% бизнесов</span><span class='headline-small'>которым наскучили остальные 99%</span>
-                    </span>
-                    <span class="mobile-view">
-                        <span class="mob-ru-1">брендинг и ивенты</span>
-                        <span class="mob-ru-2">для 1% бизнесов</span>
-                        <span class="mob-ru-3">которым наскучили</span>
-                        <span class="mob-ru-4">остальные 99%</span>
-                    </span>
-                `,
+                headline: `<span class="desktop-view"><span class='headline-large'>брендинг и ивенты для 1% бизнесов</span><span class='headline-small'>которым наскучили остальные 99%</span></span><span class="mobile-view"><span class="mob-ru-1">брендинг и ивенты</span><span class="mob-ru-2">для 1% бизнесов</span><span class="mob-ru-3">которым наскучили</span><span class="mob-ru-4">остальные 99%</span></span>`,
                 button: "войти к алтарю"
             }
         };
         
-        // <<< НОВЫЙ ХИРУРГИЧЕСКИЙ СКРИПТ АНИМАЦИИ >>>
-        function animateHeadline(element) {
-            let charIndex = 0;
-            // Рекурсивная функция, которая обходит все узлы
-            function wrapChars(node) {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    const text = node.textContent;
-                    const fragment = document.createDocumentFragment();
-                    text.split('').forEach(char => {
-                        const span = document.createElement('span');
-                        if (char.trim() !== '') {
-                            span.className = 'char';
-                            span.style.animationDelay = `${0.5 + charIndex * 0.035}s`;
-                            charIndex++;
+        // <<< ИСПРАВЛЕННЫЙ РИТУАЛ ОСВЯЩЕНИЯ >>>
+        function animateHeadline(htmlString) {
+            mainHeadline.innerHTML = htmlString; // СНАЧАЛА ВСТАВЛЯЕМ УТВЕРЖДЕННУЮ СТРУКТУРУ
+            
+            const lines = mainHeadline.querySelectorAll('.desktop-view span, .mobile-view span');
+            const flashWords = ['1%', 'branding', 'брендинг'];
+            let totalCharIndex = 0;
+
+            lines.forEach(line => {
+                const text = line.textContent;
+                line.innerHTML = ''; // Очищаем строку, сохраняя ее в DOM
+
+                for (let i = 0; i < text.length; i++) {
+                    const char = text[i];
+                    let isFlash = false;
+                    let wordJump = 0;
+
+                    for (const word of flashWords) {
+                        if (text.substring(i, i + word.length).toLowerCase() === word) {
+                            for (let j = 0; j < word.length; j++) {
+                                const flashCharSpan = document.createElement('span');
+                                flashCharSpan.className = 'char flash';
+                                flashCharSpan.style.animationDelay = `${0.8 + (totalCharIndex + j) * 0.04}s`;
+                                flashCharSpan.textContent = (text[i + j] === ' ') ? '\u00A0' : text[i + j];
+                                line.appendChild(flashCharSpan);
+                            }
+                            i += word.length - 1;
+                            totalCharIndex += word.length;
+                            isFlash = true;
+                            break;
                         }
-                        span.textContent = char;
-                        fragment.appendChild(span);
-                    });
-                    node.parentNode.replaceChild(fragment, node);
-                } else if (node.nodeType === Node.ELEMENT_NODE) {
-                    // Создаем статичную копию дочерних узлов, так как коллекция "живая"
-                    [...node.childNodes].forEach(wrapChars);
+                    }
+
+                    if (!isFlash) {
+                        const charSpan = document.createElement('span');
+                        charSpan.className = 'char';
+                        charSpan.style.animationDelay = `${0.8 + totalCharIndex * 0.04}s`;
+                        charSpan.textContent = (char === ' ') ? '\u00A0' : char;
+                        line.appendChild(charSpan);
+                        totalCharIndex++;
+                    }
                 }
-            }
-            wrapChars(element);
+            });
         }
         
         function switchLanguage(lang) {
@@ -320,14 +323,14 @@
             document.documentElement.lang = lang;
 
             if (lang === 'ru') {
-                mainHeadline.innerHTML = content.ru.headline;
+                animateHeadline(content.ru.headline);
                 document.querySelector('meta[name="description"]').setAttribute('content', 'Для 1% бизнесов, которым наскучили остальные 99%. ACE Brand Agency проектирует несправедливые преимущества через премиальный брендинг и эксклюзивные мероприятия в Дубае. Мы сжигаем шаблоны и строим легенды.');
                 document.querySelector('meta[name="keywords"]').setAttribute('content', 'премиальное брендинговое агентство Дубай, организация vip мероприятий ОАЭ, маркетинг для HNW в Дубае, брендинг класса люкс, нестандартные ивенты, креативные концепции для бизнеса, архитектура бренда, организация модных показов, продюсирование модных показов, уникальные авторские музыкальные композиции для модных показов и ивентов, музыка для модных показов, авторская музыка для бренда, эксклюзивные мероприятия Дубай, агентство нешаблонных решений, премиум брендинг.');
                 enterButtonTextRu.textContent = content.ru.button;
                 enterButtonTextEn.textContent = ''; 
                 enterLink.href = 'manifesto/index.html?lang=ru';
             } else {
-                mainHeadline.innerHTML = content.en.headline;
+                animateHeadline(content.en.headline);
                 document.querySelector('meta[name="description"]').setAttribute('content', 'For the 1% of businesses bored with the other 99%. ACE Brand Agency architects unfair advantages through premium branding and bespoke events in Dubai, UAE. We burn templates and build legends.');
                 document.querySelector('meta[name="keywords"]').setAttribute('content', 'premium branding agency Dubai, bespoke events UAE, HNW marketing, luxury brand strategy, disruptive branding, high-end event production, anti-template agency, creative direction Dubai, brand architecture for leaders, organization of fashion shows, production of fashion shows, unique original musical compositions for fashion shows and events, music for fashion shows, original music for a brand, exclusive events UAE, VIP event management Dubai.');
                 enterButtonTextEn.textContent = content.en.button;
@@ -337,9 +340,6 @@
             
             langRu.classList.toggle('active', lang === 'ru');
             langEn.classList.toggle('active', lang === 'en');
-            
-            // Запускаем ритуал после каждой смены языка
-            animateHeadline(mainHeadline);
         }
         
         langEn.addEventListener('click', () => switchLanguage('en'));
