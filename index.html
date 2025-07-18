@@ -87,10 +87,10 @@
             letter-spacing: 1px;
             color: var(--quartz);
             text-transform: lowercase;
-            opacity: 0; /* Скрываем изначально для анимации */
-            animation: fadeInContainer 1s 0.5s forwards;
+            opacity: 0;
+            animation: fadeIn 2s 0.5s forwards;
         }
-        @keyframes fadeInContainer { to { opacity: 1; } }
+        @keyframes fadeIn { to { opacity: 1; } }
         
         body[data-lang="en"] .value-proposition-title {
              font-family: 'Manufacturing Consent', sans-serif;
@@ -102,6 +102,8 @@
         
         .headline-large, .headline-small {
             display: block;
+            opacity: 0;
+            animation: lineReveal 1.5s 1.2s forwards;
         }
         
         .mobile-view { display: none; }
@@ -124,24 +126,38 @@
             letter-spacing: 0;
         }
 
-        /* <<< ИДЕЯ 1: ОСВЯЩЕНИЕ - ИСПРАВЛЕННЫЙ КОД >>> */
-        .char {
-            display: inline; /* <-- КЛЮЧЕВОЕ ИСПРАВЛЕНИЕ: БУКВЫ ВНУТРИ СТРОКИ */
-            opacity: 0;
-            animation: consecrate 1.2s forwards;
+        /* <<< УПРОЩЕННАЯ АНИМАЦИЯ ОСВЯЩЕНИЯ >>> */
+        @keyframes lineReveal {
+            0% { 
+                opacity: 0; 
+                transform: translateY(20px);
+                color: var(--concrete);
+            }
+            70% {
+                opacity: 0.8;
+                color: var(--amethyst);
+                text-shadow: 0 0 10px var(--amethyst);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0);
+                color: var(--quartz);
+                text-shadow: none;
+            }
         }
-        .char.flash {
-            animation-name: amethyst-flash;
-            animation-duration: 1.5s;
+
+        /* Дополнительная анимация для ключевых слов */
+        .flash-word {
+            animation: flashEffect 2s 1.5s forwards;
         }
-        @keyframes consecrate {
-            0% { opacity: 0; color: var(--concrete); }
-            100% { opacity: 1; color: var(--quartz); }
-        }
-        @keyframes amethyst-flash {
-            0% { opacity: 0; color: var(--concrete); }
-            50% { opacity: 1; color: var(--amethyst); text-shadow: 0 0 10px var(--amethyst); }
-            100% { opacity: 1; color: var(--quartz); text-shadow: none; }
+        
+        @keyframes flashEffect {
+            0%, 80% { color: var(--quartz); }
+            90% { 
+                color: var(--amethyst); 
+                text-shadow: 0 0 15px var(--amethyst);
+            }
+            100% { color: var(--quartz); }
         }
         
         .gate-area {
@@ -220,7 +236,15 @@
             .mobile-view span {
                 display: block;
                 text-transform: lowercase;
+                opacity: 0;
+                animation: lineReveal 1.5s forwards;
             }
+
+            /* Задержки для мобильных строк */
+            .mobile-view span:nth-child(1) { animation-delay: 1.2s; }
+            .mobile-view span:nth-child(2) { animation-delay: 1.4s; }
+            .mobile-view span:nth-child(3) { animation-delay: 1.6s; }
+            .mobile-view span:nth-child(4) { animation-delay: 1.8s; }
 
             /* Английская мобильная версия */
             .mob-en-1 { font-size: 36px; }
@@ -314,47 +338,33 @@
 
         const content = {
             en: {
-                headline: `<span class="desktop-view"><span class='headline-large'>branding & events for the 1% of businesses</span><span class='headline-small'>bored with the other 99%</span></span><span class="mobile-view"><span class="mob-en-1">branding & events</span><span class="mob-en-2">for the 1% of businesses</span><span class="mob-en-3">bored with the other 99%</span></span>`,
+                headline: `
+                    <span class="desktop-view">
+                        <span class='headline-large'>branding & events for the <span class="flash-word">1%</span> of businesses</span><span class='headline-small'>bored with the other 99%</span>
+                    </span>
+                    <span class="mobile-view">
+                        <span class="mob-en-1"><span class="flash-word">branding</span> & events</span>
+                        <span class="mob-en-2">for the <span class="flash-word">1%</span> of businesses</span>
+                        <span class="mob-en-3">bored with the other 99%</span>
+                    </span>
+                `,
                 button: "enter the altar"
             },
             ru: {
-                headline: `<span class="desktop-view"><span class='headline-large'>брендинг и ивенты для 1% бизнесов</span><span class='headline-small'>которым наскучили остальные 99%</span></span><span class="mobile-view"><span class="mob-ru-1">брендинг и ивенты</span><span class="mob-ru-2">для 1% бизнесов</span><span class="mob-ru-3">которым наскучили</span><span class="mob-ru-4">остальные 99%</span></span>`,
+                headline: `
+                    <span class="desktop-view">
+                        <span class='headline-large'><span class="flash-word">брендинг</span> и ивенты для <span class="flash-word">1%</span> бизнесов</span><span class='headline-small'>которым наскучили остальные 99%</span>
+                    </span>
+                    <span class="mobile-view">
+                        <span class="mob-ru-1"><span class="flash-word">брендинг</span> и ивенты</span>
+                        <span class="mob-ru-2">для <span class="flash-word">1%</span> бизнесов</span>
+                        <span class="mob-ru-3">которым наскучили</span>
+                        <span class="mob-ru-4">остальные 99%</span>
+                    </span>
+                `,
                 button: "войти к алтарю"
             }
         };
-        
-        // <<< ИСПРАВЛЕННЫЙ РИТУАЛ ОСВЯЩЕНИЯ >>>
-        function animateHeadline() {
-            // Выбираем только конечные узлы с текстом, не трогая родительские контейнеры
-            const lines = mainHeadline.querySelectorAll('.desktop-view > span, .mobile-view > span');
-            const flashWords = ['1%', 'branding', 'брендинг'];
-            let totalCharIndex = 0;
-
-            lines.forEach(line => {
-                // Проверяем, есть ли у строки текст и нет ли у нее уже дочерних элементов (чтобы не запускать повторно)
-                if (line.textContent && line.children.length === 0) {
-                    const text = line.textContent;
-                    line.innerHTML = ''; // Очищаем строку
-
-                    const words = text.split(/(\s+)/); // Делим на слова, сохраняя пробелы
-
-                    words.forEach(word => {
-                        const isFlash = flashWords.some(fw => word.toLowerCase().includes(fw));
-                        for (const char of word) {
-                            const charSpan = document.createElement('span');
-                            charSpan.className = 'char';
-                            if (isFlash && char.trim() !== '') {
-                                charSpan.classList.add('flash');
-                            }
-                            charSpan.style.animationDelay = `${0.5 + totalCharIndex * 0.035}s`;
-                            charSpan.textContent = char;
-                            line.appendChild(charSpan);
-                            totalCharIndex++;
-                        }
-                    });
-                }
-            });
-        }
         
         function switchLanguage(lang) {
             document.body.dataset.lang = lang;
@@ -378,9 +388,6 @@
             
             langRu.classList.toggle('active', lang === 'ru');
             langEn.classList.toggle('active', lang === 'en');
-            
-            // Запускаем ритуал после каждой смены языка
-            animateHeadline();
         }
         
         langEn.addEventListener('click', () => switchLanguage('en'));
