@@ -87,10 +87,11 @@
             letter-spacing: 1px;
             color: var(--quartz);
             text-transform: lowercase;
-            opacity: 0;
+            opacity: 0; /* Скрываем для анимации */
             animation: fadeInContainer 1s 0.5s forwards;
         }
         @keyframes fadeInContainer { to { opacity: 1; } }
+
         
         body[data-lang="en"] .value-proposition-title {
              font-family: 'Manufacturing Consent', sans-serif;
@@ -100,14 +101,11 @@
              line-height: 1.5; 
         }
         
-        .headline-large, .headline-small, .mobile-view span {
-            display: block;
-        }
-        
+        .headline-large, .headline-small { display: block; }
         .mobile-view { display: none; }
         .desktop-view { display: block; }
 
-        /* ДЕСКТОПНАЯ ВЕРСИЯ */
+        /* ДЕСКТОПНАЯ ВЕРСИЯ (УТВЕРЖДЕНО) */
         body[data-lang="en"] .headline-large { font-size: clamp(2.7rem, 4.9vw, 3.5rem); }
         body[data-lang="en"] .headline-small { font-size: clamp(2rem, 4vw, 2.8rem); }
         body[data-lang="ru"] .headline-large { font-size: 50px; letter-spacing: 5px; }
@@ -115,33 +113,33 @@
         
         /* <<< РИТУАЛ ОСВЯЩЕНИЯ >>> */
         .char {
-            display: inline-block;
+            display: inline-block; /* Важно для сохранения строки */
             opacity: 0;
-            animation: consecrate 1.2s forwards;
-        }
-        .char.flash {
-            animation-name: amethyst-flash;
-        }
-        @keyframes consecrate {
-            0% { opacity: 0; color: var(--concrete); }
-            100% { opacity: 1; color: var(--quartz); }
-        }
-        @keyframes amethyst-flash {
-            0%, 40% { opacity: 0; color: var(--concrete); }
-            60% { opacity: 1; color: var(--amethyst); text-shadow: 0 0 10px var(--amethyst); }
-            100% { opacity: 1; color: var(--quartz); text-shadow: none; }
+            animation: consecration 1.2s forwards;
+            animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
+        @keyframes consecration {
+            0% {
+                opacity: 0;
+                transform: translateY(15px);
+                color: var(--amethyst);
+            }
+            50% {
+                opacity: 0.7;
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                color: var(--quartz);
+            }
+        }
+        
         .gate-area {
-            position: absolute;
-            top: 570px; 
-            left: 50%;
+            position: absolute; top: 570px; left: 50%;
             transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 2;
-            width: 90%;
+            display: flex; flex-direction: column; align-items: center;
+            z-index: 2; width: 90%;
         }
 
         .enter-button {
@@ -177,20 +175,21 @@
         }
         img { pointer-events: none; }
 
-        /* === МОБИЛЬНАЯ ВЕРСИЯ === */
+        /* === МОБИЛЬНАЯ ВЕРСИЯ (УТВЕРЖДЕНО) === */
         @media (max-width: 768px) {
             .logo { top: 10px; right: auto; left: 50%; transform: translateX(-50%); width: 180px; }
             .value-proposition-container { top: 35%; }
             .desktop-view { display: none; }
             .mobile-view { display: block; }
             .value-proposition-title { letter-spacing: 1px; line-height: 1.2; }
+            .mobile-view span { display: block; text-transform: lowercase; }
             .mob-en-1 { font-size: 36px; }
             .mob-en-2 { font-size: 24px; line-height: 1.3; }
             .mob-en-3 { font-size: 21px; line-height: 1.4; }
             .mob-ru-1 { font-size: 28px; line-height: 1.2; }
             .mob-ru-2 { font-size: 26px; line-height: 1.4; } 
             .mob-ru-3 { font-size: 18px; line-height: 1.5; } 
-            .mob-ru-4 { font-size: 18px; line-height: 1.5; } 
+            .mob-ru-4 { font-size: 18px; line-height: 1.5; }
             .enter-button {
                 width: 200px; padding: 10px 0;
                 display: flex; justify-content: center; align-items: center;
@@ -206,9 +205,7 @@
     <img src="assets/logo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="value-proposition-container">
-        <h1 class="value-proposition-title" id="main-headline">
-            <!-- Текст рождается здесь -->
-        </h1>
+        <h1 class="value-proposition-title" id="main-headline"></h1>
     </div>
 
     <div class="gate-area">
@@ -291,36 +288,31 @@
             }
         };
         
-        // <<< ИСПРАВЛЕННЫЙ РИТУАЛ ОСВЯЩЕНИЯ >>>
-        function animateHeadline() {
-            const lines = mainHeadline.querySelectorAll('.desktop-view > span, .mobile-view > span');
-            const flashWords = ['1%', 'branding', 'брендинг'];
-            let totalCharIndex = 0;
-
-            lines.forEach(line => {
-                const text = line.textContent;
-                line.innerHTML = ''; // Очищаем строку, чтобы вставить символы
-                
-                // Разбиваем текст на слова, чтобы найти ключевые
-                const words = text.split(/(\s+)/); // Разбиваем, сохраняя пробелы
-
-                words.forEach(word => {
-                    let isFlashWord = flashWords.includes(word.trim());
-                    
-                    for(let i = 0; i < word.length; i++) {
-                        const char = word[i];
-                        const charSpan = document.createElement('span');
-                        charSpan.className = 'char';
-                        if (isFlashWord) {
-                            charSpan.classList.add('flash');
+        // <<< НОВЫЙ ХИРУРГИЧЕСКИЙ СКРИПТ АНИМАЦИИ >>>
+        function animateHeadline(element) {
+            let charIndex = 0;
+            // Рекурсивная функция, которая обходит все узлы
+            function wrapChars(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const text = node.textContent;
+                    const fragment = document.createDocumentFragment();
+                    text.split('').forEach(char => {
+                        const span = document.createElement('span');
+                        if (char.trim() !== '') {
+                            span.className = 'char';
+                            span.style.animationDelay = `${0.5 + charIndex * 0.035}s`;
+                            charIndex++;
                         }
-                        charSpan.style.animationDelay = `${0.8 + totalCharIndex * 0.04}s`;
-                        charSpan.textContent = char;
-                        line.appendChild(charSpan);
-                        totalCharIndex++;
-                    }
-                });
-            });
+                        span.textContent = char;
+                        fragment.appendChild(span);
+                    });
+                    node.parentNode.replaceChild(fragment, node);
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    // Создаем статичную копию дочерних узлов, так как коллекция "живая"
+                    [...node.childNodes].forEach(wrapChars);
+                }
+            }
+            wrapChars(element);
         }
         
         function switchLanguage(lang) {
@@ -347,7 +339,7 @@
             langEn.classList.toggle('active', lang === 'en');
             
             // Запускаем ритуал после каждой смены языка
-            animateHeadline();
+            animateHeadline(mainHeadline);
         }
         
         langEn.addEventListener('click', () => switchLanguage('en'));
