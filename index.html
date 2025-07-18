@@ -98,7 +98,17 @@
             display: block;
         }
 
-        /* АНГЛИЙСКАЯ ДЕКСТОП */
+        /* --- НАСТРОЙКИ ДЛЯ РУССКОГО ДЕСКТОПА --- */
+        body[data-lang="ru"] .headline-large {
+            font-size: 50px;
+            letter-spacing: 10px;
+        }
+        body[data-lang="ru"] .headline-small {
+            font-size: 37px;
+            letter-spacing: 0;
+        }
+
+        /* Английская версия — без изменений */
         body[data-lang="en"] .headline-large {
             font-size: clamp(2.7rem, 4.9vw, 3.5rem);
         }
@@ -106,16 +116,6 @@
             font-size: clamp(2rem, 4vw, 2.8rem);
         }
 
-        /* РУССКАЯ ВЕРСИЯ — тут колдую */
-        body[data-lang="ru"] .headline-large {
-            font-size: 50px;
-            letter-spacing: 35px;
-        }
-        body[data-lang="ru"] .headline-small {
-            font-size: 37px;
-            letter-spacing: 0;
-        }
-        
         .gate-area {
             position: absolute;
             top: 570px; 
