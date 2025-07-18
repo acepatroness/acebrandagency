@@ -1,3 +1,6 @@
+! 1 СТРАНИЦА ДЕСК И МОБ ОК
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,20 +82,17 @@
             z-index: 2;
             width: 90%;
             text-align: center;
+            opacity: 0;
+            animation: fadeIn 2s 0.5s forwards;
         }
-        
+        @keyframes fadeIn { to { opacity: 1; } }
+
         .value-proposition-title {
             font-weight: normal;
             line-height: 1.3;
             letter-spacing: 1px;
             color: var(--quartz);
             text-transform: lowercase;
-            opacity: 0; /* Скрываем изначально, чтобы анимация появления была чистой */
-            animation: containerFadeIn 1s 0.5s forwards; /* Общее появление контейнера */
-        }
-
-        @keyframes containerFadeIn {
-            to { opacity: 1; }
         }
         
         body[data-lang="en"] .value-proposition-title {
@@ -103,86 +103,28 @@
              line-height: 1.5; 
         }
         
-        .headline-large, .headline-small { display: block; }
+        .headline-large, .headline-small {
+            display: block;
+        }
+        
         .mobile-view { display: none; }
         .desktop-view { display: block; }
 
         /* ДЕСКТОПНАЯ ВЕРСИЯ (НЕТРОНУТА) */
-        body[data-lang="en"] .headline-large { font-size: clamp(2.7rem, 4.9vw, 3.5rem); }
-        body[data-lang="en"] .headline-small { font-size: clamp(2rem, 4vw, 2.8rem); }
-        body[data-lang="ru"] .headline-large { font-size: 50px; letter-spacing: 5px; }
-        body[data-lang="ru"] .headline-small { font-size: 37px; letter-spacing: 0; }
-        /* <<< ИДЕЯ 1: ОСВЯЩЕНИЕ - CSS >>> */
-.value-proposition-title {
-    opacity: 0; /* Скрываем контейнер до начала ритуала */
-    animation: fadeInContainer 1s 0.5s forwards;
-}
-@keyframes fadeInContainer { to { opacity: 1; } }
-
-.char {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(10px);
-    animation: consecration-reveal 0.6s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.char.highlight {
-    animation-name: consecration-highlight;
-    animation-duration: 1s;
-}
-
-@keyframes consecration-reveal {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-        color: var(--quartz);
-    }
-}
-
-@keyframes consecration-highlight {
-    0% {
-        opacity: 0;
-        transform: translateY(10px);
-        color: var(--concrete);
-    }
-    50% {
-        color: var(--amethyst);
-        text-shadow: 0 0 15px var(--amethyst);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-        color: var(--quartz);
-        text-shadow: none;
-    }
-}
-        
-        /* <<< СБОЙ В СОБОРЕ: АНИМАЦИЯ >>> */
-        .char {
-            display: inline-block;
-            opacity: 0;
-            animation: glitch-reveal 1.2s forwards;
-            animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        body[data-lang="en"] .headline-large {
+            font-size: clamp(2.7rem, 4.9vw, 3.5rem);
         }
-        @keyframes glitch-reveal {
-            0% {
-                opacity: 0;
-                transform: scale(0.8) rotate(-15deg);
-                color: var(--amethyst);
-                text-shadow: 0 0 15px var(--amethyst);
-            }
-            30%, 70% {
-                opacity: 1;
-                transform: scale(1.1) rotate(5deg);
-                color: var(--amethyst);
-                text-shadow: 0 0 5px var(--amethyst);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-                color: var(--quartz);
-                text-shadow: none;
-            }
+        body[data-lang="en"] .headline-small {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+        }
+
+        body[data-lang="ru"] .headline-large {
+            font-size: 50px;
+            letter-spacing: 5px;
+        }
+        body[data-lang="ru"] .headline-small {
+            font-size: 37px;
+            letter-spacing: 0;
         }
         
         .gate-area {
@@ -198,15 +140,25 @@
         }
 
         .enter-button {
-            display: inline-block; text-decoration: none;
-            font-family: 'Unbounded', sans-serif; font-weight: 200; font-size: 1rem;
-            letter-spacing: 2px; cursor: crosshair;
-            padding: 15px 60px; color: var(--quartz);
-            background-color: transparent; border: 1px solid var(--concrete);
-            transition: all 0.4s ease; text-transform: lowercase;
+            display: inline-block;
+            text-decoration: none;
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 200;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: crosshair;
+            padding: 15px 60px;
+            color: var(--quartz);
+            background-color: transparent;
+            border: 1px solid var(--concrete);
+            transition: all 0.4s ease;
+            text-transform: lowercase;
         }
 
-        .enter-button:hover { background-color: var(--amethyst); border-color: var(--amethyst); }
+        .enter-button:hover {
+            background-color: var(--amethyst);
+            border-color: var(--amethyst);
+        }
         
         .language-switcher {
             margin-top: 50px; 
@@ -230,29 +182,56 @@
         }
         img { pointer-events: none; }
 
+        /* === МОБИЛЬНАЯ ВЕРСИЯ (ТОЛЬКО ЗДЕСЬ ИЗМЕНЕНИЯ) === */
         @media (max-width: 768px) {
-            .logo { top: 10px; right: auto; left: 50%; transform: translateX(-50%); width: 180px; }
-            .value-proposition-container { top: 35%; }
+            .logo {
+                top: 10px; right: auto; left: 50%;
+                transform: translateX(-50%);
+                width: 180px;
+            }
+            .value-proposition-container {
+                top: 35%;
+            }
+            
             .desktop-view { display: none; }
             .mobile-view { display: block; }
-            .value-proposition-title { letter-spacing: 1px; line-height: 1.2; }
-            .mobile-view span { display: block; text-transform: lowercase; }
+            
+            .value-proposition-title {
+                letter-spacing: 1px;
+                line-height: 1.2; 
+            }
 
-            /* Мобильные кегли и интервалы */
+            .mobile-view span {
+                display: block;
+                text-transform: lowercase;
+            }
+
+            /* Английская мобильная версия */
             .mob-en-1 { font-size: 36px; }
             .mob-en-2 { font-size: 24px; line-height: 1.3; }
             .mob-en-3 { font-size: 21px; line-height: 1.4; }
+
+            /* Русская мобильная версия */
             .mob-ru-1 { font-size: 28px; line-height: 1.2; }
             .mob-ru-2 { font-size: 26px; line-height: 1.4; } 
             .mob-ru-3 { font-size: 18px; line-height: 1.5; } 
-            .mob-ru-4 { font-size: 18px; line-height: 1.5; } 
+            .mob-ru-4 { font-size: 18px; line-height: 1.5; } /* <<< ИЗМЕНЕНИЕ ЗДЕСЬ */
             
             .enter-button {
-                width: 200px; padding: 10px 0;
-                display: flex; justify-content: center; align-items: center;
+                width: 200px;
+                padding: 10px 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
-            .gate-area { top: calc(50% + 170px); transform: translate(-50%, -50%); }
-            .language-switcher { margin-top: 40px; font-size: 12px; }
+            .gate-area {
+                top: calc(50% + 170px);
+                transform: translate(-50%, -50%);
+            }
+             .language-switcher { 
+                margin-top: 40px; 
+                font-size: 12px; 
+            }
         }
     </style>
 </head>
@@ -263,7 +242,7 @@
 
     <div class="value-proposition-container">
         <h1 class="value-proposition-title" id="main-headline">
-            <!-- Структура для текста, которая будет наполнена JS -->
+            <!-- Text is now managed by JS, ensuring correct case from the source -->
         </h1>
     </div>
 
@@ -279,69 +258,33 @@
     </div>
 
     <script>
-    // Анимация курсора (без изменений)
-   function switchLanguage(lang) {
-    document.body.dataset.lang = lang;
-    document.documentElement.lang = lang;
-
-    // <<< НОВЫЙ РИТУАЛ АНИМАЦИИ: ОСВЯЩЕНИЕ >>>
-    function animateHeadline(element, htmlString) {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = htmlString;
-        const keywords = ['branding', 'брендинг', '1%'];
-        let charIndex = 0;
-
-        function wrapChars(node) {
-            if (node.nodeType === Node.TEXT_NODE) {
-                const text = node.textContent;
-                const fragment = document.createDocumentFragment();
-                const words = text.split(/(\s+)/);
-
-                words.forEach(word => {
-                    const isHighlight = keywords.some(k => word.toLowerCase().includes(k));
-                    for (let i = 0; i < word.length; i++) {
-                        const span = document.createElement('span');
-                        span.className = 'char';
-                        if (isHighlight && word[i] !== ' ') {
-                            span.classList.add('highlight');
-                        }
-                        span.style.animationDelay = `${charIndex * 0.035}s`;
-                        span.textContent = word[i];
-                        fragment.appendChild(span);
-                        charIndex++;
-                    }
-                });
-                node.parentNode.replaceChild(fragment, node);
-            } else {
-                [...node.childNodes].forEach(wrapChars);
+    // Анимация курсора
+    if (!window.isUnifiedAnimationInitialized) {
+        (function() {
+            const canvas = document.getElementById('global-ash-canvas'); if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+            let particles = [];
+            class AshParticle {
+                constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.8; this.vy = -Math.random() * 0.5 - 0.2; this.life = 1; this.decay = 0.008 + Math.random() * 0.012; this.size = Math.random() * 3 + 1; this.color = Math.random() > 0.8 ? '#510FD5' : '#C1BFBF'; }
+                update() { this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy += 0.01; this.life -= this.decay; this.size *= 0.998; }
+                draw() { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
             }
-        }
-        wrapChars(tempDiv);
-        element.innerHTML = '';
-        element.appendChild(tempDiv);
+            function handleMouseMove(e) { for (let i = 0; i < 6; i++) { particles.push(new AshParticle(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 30)); } }
+            function handleTouchMove(e) { if (e.touches[0]) { handleMouseMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0 && p.size > 0.1; });
+                requestAnimationFrame(animate);
+            }
+            window.addEventListener('mousemove', handleMouseMove, { passive: true });
+            window.addEventListener('touchmove', handleTouchMove, { passive: true });
+            animate(); window.isUnifiedAnimationInitialized = true;
+        })();
     }
 
-    if (lang === 'ru') {
-        animateHeadline(mainHeadline, content.ru.headline);
-        document.querySelector('meta[name="description"]').setAttribute('content', 'Для 1% бизнесов, которым наскучили остальные 99%. ACE Brand Agency проектирует несправедливые преимущества через премиальный брендинг и эксклюзивные мероприятия в Дубае. Мы сжигаем шаблоны и строим легенды.');
-        document.querySelector('meta[name="keywords"]').setAttribute('content', 'премиальное брендинговое агентство Дубай, организация vip мероприятий ОАЭ, маркетинг для HNW в Дубае, брендинг класса люкс, нестандартные ивенты, креативные концепции для бизнеса, архитектура бренда, организация модных показов, продюсирование модных показов, уникальные авторские музыкальные композиции для модных показов и ивентов, музыка для модных показов, авторская музыка для бренда, эксклюзивные мероприятия Дубай, агентство нешаблонных решений, премиум брендинг.');
-        enterButtonTextRu.textContent = content.ru.button;
-        enterButtonTextEn.textContent = ''; 
-        enterLink.href = 'manifesto/index.html?lang=ru';
-    } else {
-        animateHeadline(mainHeadline, content.en.headline);
-        document.querySelector('meta[name="description"]').setAttribute('content', 'For the 1% of businesses bored with the other 99%. ACE Brand Agency architects unfair advantages through premium branding and bespoke events in Dubai, UAE. We burn templates and build legends.');
-        document.querySelector('meta[name="keywords"]').setAttribute('content', 'premium branding agency Dubai, bespoke events UAE, HNW marketing, luxury brand strategy, disruptive branding, high-end event production, anti-template agency, creative direction Dubai, brand architecture for leaders, organization of fashion shows, production of fashion shows, unique original musical compositions for fashion shows and events, music for fashion shows, original music for a brand, exclusive events UAE, VIP event management Dubai.');
-        enterButtonTextEn.textContent = content.en.button;
-        enterButtonTextRu.textContent = ''; 
-        enterLink.href = 'manifesto/index.html?lang=en';
-    }
-    
-    langRu.classList.toggle('active', lang === 'ru');
-    langEn.classList.toggle('active', lang === 'en');
-}
-
-    // Защита контента (без изменений)
+    // Защита контента
     document.addEventListener('contextmenu', e => e.preventDefault(), false);
 
     // Логика страницы
@@ -355,38 +298,33 @@
 
         const content = {
             en: {
-                headline: `<span class="desktop-view"><span class='headline-large'>branding & events for the 1% of businesses</span><span class='headline-small'>bored with the other 99%</span></span><span class="mobile-view"><span class="mob-en-1">branding & events</span><span class="mob-en-2">for the 1% of businesses</span><span class="mob-en-3">bored with the other 99%</span></span>`,
+                headline: `
+                    <span class="desktop-view">
+                        <span class='headline-large'>branding & events for the 1% of businesses</span><span class='headline-small'>bored with the other 99%</span>
+                    </span>
+                    <span class="mobile-view">
+                        <span class="mob-en-1">branding & events</span>
+                        <span class="mob-en-2">for the 1% of businesses</span>
+                        <span class="mob-en-3">bored with the other 99%</span>
+                    </span>
+                `,
                 button: "enter the altar"
             },
             ru: {
-                headline: `<span class="desktop-view"><span class='headline-large'>брендинг и ивенты для 1% бизнесов</span><span class='headline-small'>которым наскучили остальные 99%</span></span><span class="mobile-view"><span class="mob-ru-1">брендинг и ивенты</span><span class="mob-ru-2">для 1% бизнесов</span><span class="mob-ru-3">которым наскучили</span><span class="mob-ru-4">остальные 99%</span></span>`,
+                headline: `
+                    <span class="desktop-view">
+                        <span class='headline-large'>брендинг и ивенты для 1% бизнесов</span><span class='headline-small'>которым наскучили остальные 99%</span>
+                    </span>
+                    <span class="mobile-view">
+                        <span class="mob-ru-1">брендинг и ивенты</span>
+                        <span class="mob-ru-2">для 1% бизнесов</span>
+                        <span class="mob-ru-3">которым наскучили</span>
+                        <span class="mob-ru-4">остальные 99%</span>
+                    </span>
+                `,
                 button: "войти к алтарю"
             }
         };
-
-        // <<< ИСПРАВЛЕННЫЙ РИТУАЛ АНИМАЦИИ >>>
-        function animateHeadline() {
-            // Находим все строки, которые должны быть видимы
-            const lines = mainHeadline.querySelectorAll('.desktop-view > span, .mobile-view > span');
-            let charIndex = 0;
-
-            lines.forEach(line => {
-                const text = line.textContent;
-                line.innerHTML = ''; // Очищаем строку, сохраняя её в DOM
-                
-                text.split('').forEach(char => {
-                    const span = document.createElement('span');
-                    span.textContent = char;
-                    if (char.trim() !== '') {
-                        span.className = 'char';
-                        // Задаем задержку анимации для каждой буквы
-                        span.style.animationDelay = `${0.8 + charIndex * 0.02}s`;
-                        charIndex++;
-                    }
-                    line.appendChild(span);
-                });
-            });
-        }
         
         function switchLanguage(lang) {
             document.body.dataset.lang = lang;
@@ -410,9 +348,6 @@
             
             langRu.classList.toggle('active', lang === 'ru');
             langEn.classList.toggle('active', lang === 'en');
-            
-            // Запускаем ритуал после наполнения контейнера
-            animateHeadline();
         }
         
         langEn.addEventListener('click', () => switchLanguage('en'));
