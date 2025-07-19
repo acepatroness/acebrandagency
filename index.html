@@ -79,10 +79,7 @@
             z-index: 2;
             width: 90%;
             text-align: center;
-            opacity: 0;
-            animation: fadeIn 2s 0.5s forwards;
         }
-        @keyframes fadeIn { to { opacity: 1; } }
 
         .value-proposition-title {
             font-weight: normal;
@@ -90,7 +87,10 @@
             letter-spacing: 1px;
             color: var(--quartz);
             text-transform: lowercase;
+            opacity: 0; /* Скрываем для анимации */
+            animation: fadeInContainer 1s 0.5s forwards;
         }
+        @keyframes fadeInContainer { to { opacity: 1; } }
         
         body[data-lang="en"] .value-proposition-title {
              font-family: 'Manufacturing Consent', sans-serif;
@@ -100,31 +100,17 @@
              line-height: 1.5; 
         }
         
-        .headline-large, .headline-small {
-            display: block;
-        }
-        
+        .headline-large, .headline-small { display: block; }
         .mobile-view { display: none; }
         .desktop-view { display: block; }
 
-        /* ДЕСКТОПНАЯ ВЕРСИЯ (НЕТРОНУТА) */
-        body[data-lang="en"] .headline-large {
-            font-size: clamp(2.7rem, 4.9vw, 3.5rem);
-        }
-        body[data-lang="en"] .headline-small {
-            font-size: clamp(2rem, 4vw, 2.8rem);
-        }
-
-        body[data-lang="ru"] .headline-large {
-            font-size: 50px;
-            letter-spacing: 5px;
-        }
-        body[data-lang="ru"] .headline-small {
-            font-size: 37px;
-            letter-spacing: 0;
-        }
-
-        /* <<< ИДЕЯ 1: ОСВЯЩЕНИЕ - ТОЛЬКО ДЛЯ ДЕСКТОПА >>> */
+        /* ДЕСКТОПНАЯ ВЕРСИЯ (УТВЕРЖДЕНО) */
+        body[data-lang="en"] .headline-large { font-size: clamp(2.7rem, 4.9vw, 3.5rem); }
+        body[data-lang="en"] .headline-small { font-size: clamp(2rem, 4vw, 2.8rem); }
+        body[data-lang="ru"] .headline-large { font-size: 50px; letter-spacing: 5px; }
+        body[data-lang="ru"] .headline-small { font-size: 37px; letter-spacing: 0; }
+        
+        /* <<< РИТУАЛ ОСВЯЩЕНИЯ >>> */
         .char {
             display: inline-block;
             opacity: 0;
@@ -143,7 +129,7 @@
             50% { opacity: 1; color: var(--amethyst); text-shadow: 0 0 10px var(--amethyst); }
             100% { opacity: 1; color: var(--quartz); text-shadow: none; }
         }
-        
+
         .gate-area {
             position: absolute;
             top: 570px; 
@@ -157,25 +143,15 @@
         }
 
         .enter-button {
-            display: inline-block;
-            text-decoration: none;
-            font-family: 'Unbounded', sans-serif;
-            font-weight: 200;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            cursor: crosshair;
-            padding: 15px 60px;
-            color: var(--quartz);
-            background-color: transparent;
-            border: 1px solid var(--concrete);
-            transition: all 0.4s ease;
-            text-transform: lowercase;
+            display: inline-block; text-decoration: none;
+            font-family: 'Unbounded', sans-serif; font-weight: 200; font-size: 1rem;
+            letter-spacing: 2px; cursor: crosshair;
+            padding: 15px 60px; color: var(--quartz);
+            background-color: transparent; border: 1px solid var(--concrete);
+            transition: all 0.4s ease; text-transform: lowercase;
         }
 
-        .enter-button:hover {
-            background-color: var(--amethyst);
-            border-color: var(--amethyst);
-        }
+        .enter-button:hover { background-color: var(--amethyst); border-color: var(--amethyst); }
         
         .language-switcher {
             margin-top: 50px; 
@@ -199,56 +175,27 @@
         }
         img { pointer-events: none; }
 
-        /* === МОБИЛЬНАЯ ВЕРСИЯ === */
+        /* === МОБИЛЬНАЯ ВЕРСИЯ (УТВЕРЖДЕНО) === */
         @media (max-width: 768px) {
-            .logo {
-                top: 10px; right: auto; left: 50%;
-                transform: translateX(-50%);
-                width: 180px;
-            }
-            .value-proposition-container {
-                top: 35%;
-            }
-            
+            .logo { top: 10px; right: auto; left: 50%; transform: translateX(-50%); width: 180px; }
+            .value-proposition-container { top: 35%; }
             .desktop-view { display: none; }
             .mobile-view { display: block; }
-            
-            .value-proposition-title {
-                letter-spacing: 1px;
-                line-height: 1.2; 
-            }
-
-            .mobile-view span {
-                display: block;
-                text-transform: lowercase;
-            }
-
-            /* Английская мобильная версия */
+            .value-proposition-title { letter-spacing: 1px; line-height: 1.2; }
+            .mobile-view span { display: block; text-transform: lowercase; }
             .mob-en-1 { font-size: 36px; }
             .mob-en-2 { font-size: 24px; line-height: 1.3; }
             .mob-en-3 { font-size: 21px; line-height: 1.4; }
-
-            /* Русская мобильная версия */
             .mob-ru-1 { font-size: 28px; line-height: 1.2; }
             .mob-ru-2 { font-size: 26px; line-height: 1.4; } 
             .mob-ru-3 { font-size: 18px; line-height: 1.5; } 
             .mob-ru-4 { font-size: 18px; line-height: 1.5; }
-            
             .enter-button {
-                width: 200px;
-                padding: 10px 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                width: 200px; padding: 10px 0;
+                display: flex; justify-content: center; align-items: center;
             }
-            .gate-area {
-                top: calc(50% + 170px);
-                transform: translate(-50%, -50%);
-            }
-             .language-switcher { 
-                margin-top: 40px; 
-                font-size: 12px; 
-            }
+            .gate-area { top: calc(50% + 170px); transform: translate(-50%, -50%); }
+            .language-switcher { margin-top: 40px; font-size: 12px; }
         }
     </style>
 </head>
@@ -258,9 +205,7 @@
     <img src="assets/logo.png" alt="ACE Brand Agency Logo" class="logo">
 
     <div class="value-proposition-container">
-        <h1 class="value-proposition-title" id="main-headline">
-            <!-- Text is now managed by JS, ensuring correct case from the source -->
-        </h1>
+        <h1 class="value-proposition-title" id="main-headline"></h1>
     </div>
 
     <div class="gate-area">
@@ -343,34 +288,41 @@
             }
         };
         
-        // <<< АНИМАЦИЯ ТОЛЬКО ДЛЯ ДЕСКТОПА >>>
-        function animateDesktopHeadline() {
-            // Проверяем, что мы НЕ на мобильном устройстве
-            if (window.innerWidth <= 768) return;
-            
-            const lines = mainHeadline.querySelectorAll('.desktop-view > span');
+        // <<< НОВЫЙ ХИРУРГИЧЕСКИЙ СКРИПТ АНИМАЦИИ >>>
+        function animateHeadline() {
+            const lines = mainHeadline.querySelectorAll('.desktop-view span, .mobile-view span');
             const flashWords = ['1%', 'branding', 'брендинг'];
-            let totalCharIndex = 0;
+            let charIndex = 0;
 
             lines.forEach(line => {
                 const text = line.textContent;
-                line.innerHTML = '';
-                
-                const words = text.split(/(\s+)/);
-                words.forEach(word => {
-                    const isFlash = flashWords.some(fw => word.toLowerCase().includes(fw));
-                    for (let i = 0; i < word.length; i++) {
-                        const char = word[i];
-                        const charSpan = document.createElement('span');
+                line.innerHTML = ''; // Очищаем строку, но сохраняем её в DOM
+
+                text.split('').forEach(char => {
+                    const charSpan = document.createElement('span');
+                    
+                    if (char.trim() !== '') {
                         charSpan.className = 'char';
-                        if (isFlash && char.trim() !== '') {
+                        charSpan.style.animationDelay = `${0.5 + charIndex * 0.035}s`;
+
+                        // Проверяем, является ли часть слова частью ключевого слова
+                        let isFlash = false;
+                        flashWords.forEach(word => {
+                            if(text.includes(word) && word.includes(char)){
+                                const tempText = line.textContent.toLowerCase();
+                                const tempWord = word.toLowerCase();
+                                if(tempText.includes(tempWord)) isFlash = true;
+                            }
+                        });
+                        if (isFlash) {
                             charSpan.classList.add('flash');
                         }
-                        charSpan.style.animationDelay = `${0.8 + totalCharIndex * 0.04}s`;
-                        charSpan.textContent = char;
-                        line.appendChild(charSpan);
-                        totalCharIndex++;
+                        
+                        charIndex++;
                     }
+                    
+                    charSpan.textContent = char;
+                    line.appendChild(charSpan);
                 });
             });
         }
@@ -398,8 +350,7 @@
             langRu.classList.toggle('active', lang === 'ru');
             langEn.classList.toggle('active', lang === 'en');
             
-            // Запускаем анимацию ТОЛЬКО для десктопа
-            animateDesktopHeadline();
+            animateHeadline(); // Запускаем ритуал после каждой смены языка
         }
         
         langEn.addEventListener('click', () => switchLanguage('en'));
