@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Reality | ACE Brand Agency</title>
+    <!-- SEO и все мета-теги на месте -->
     <meta name="description" content="The final step. Submit your project details to begin the transformation. Let's create your new reality with ACE Brand Agency.">
     <meta name="keywords" content="project submission, create reality, brand transformation, ACE Brand Agency, new project, contact form, brand inquiry, start a project, project brief">
     <meta property="og:title" content="Create Reality | ACE Brand Agency">
@@ -12,6 +13,7 @@
     <meta property="og:url" content="https://acebrand.agency/reality/">
     <meta name="twitter:card" content="summary_large_image">
 
+    <!-- Метрика на месте -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -23,6 +25,7 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/102048626" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
+    <!-- Весь твой оригинальный CSS на месте -->
     <style>
         @font-face { font-family: 'Brahms Gotisch'; src: url('../fonts/BrahmsGotischCyr.woff2') format('woff2'); }
         @font-face { font-family: 'Manufacturing Consent'; src: url('../fonts/ManufacturingConsent-Regular.woff2') format('woff2'); }
@@ -32,8 +35,6 @@
         html { scroll-behavior: smooth; }
         body { background-color: var(--abyss); color: var(--quartz); font-family: 'Unbounded', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 5vh 5vw; overflow-x: hidden; background-image: url('../reality/back1.png'); background-size: cover; background-position: center center; background-repeat: no-repeat; background-attachment: fixed; position: relative; }
         body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--abyss); opacity: 0.7; z-index: 1; pointer-events: none; }
-        body, body * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none; -khtml-user-select: none; }
-        input, textarea { -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text; }
         .form-container { width: 100%; max-width: 800px; position: relative; z-index: 2; text-align: center; background: rgba(17, 17, 17, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(193, 191, 191, 0.1); padding: 55px 40px 65px; opacity: 0; animation: fadeInContainer 1s 0.5s forwards; }
         @keyframes fadeInContainer { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .headline { text-transform: lowercase; line-height: 1.3; margin-bottom: 20px; }
@@ -89,7 +90,7 @@
         </div>
     </div>
 
-    <!-- Анимация остается нетронутой -->
+    <!-- Анимация -->
     <script> (function(){const a=document.createElement("canvas");a.id="universe-canvas";a.style.position="fixed";a.style.top="0";a.style.left="0";a.style.width="100%";a.style.height="100%";a.style.zIndex="0";a.style.pointerEvents="none";document.body.insertBefore(a,document.body.firstChild);const b=a.getContext("2d");let c=[];function d(){a.width=window.innerWidth;a.height=window.innerHeight;c=[];for(let e=0;e<150;e++)c.push(new f)}window.addEventListener("resize",d);const e={x:null,y:null,radius:150};window.addEventListener("mousemove",g=>{e.x=g.clientX;e.y=g.clientY});window.addEventListener("touchmove",g=>{if(g.touches[0]){e.x=g.touches[0].clientX;e.y=g.touches[0].clientY}},{passive:!0});window.addEventListener("mouseout",()=>{e.x=null;e.y=null});class f{constructor(){this.x=Math.random()*a.width;this.y=Math.random()*a.height;this.baseX=this.x;this.baseY=this.y;this.size=Math.random()*2+.5;this.color=Math.random()>.4?"#7701BC":"#C1BFBF";this.spring=.01;this.vx=0;this.vy=0;this.friction=.9}update(){if(e.x!=null){let g=this.x-e.x,h=this.y-e.y,i=Math.sqrt(g*g+h*h);if(i<e.radius){let j=Math.atan2(h,g),k=(e.radius-i)/e.radius;this.vx+=k*Math.cos(j)*.5;this.vy+=k*Math.sin(j)*.5}}this.vx+=(this.baseX-this.x)*this.spring;this.vy+=(this.baseY-this.y)*this.spring;this.vx*=this.friction;this.vy*=this.friction;this.x+=this.vx;this.y+=this.vy}draw(){b.fillStyle=this.color;b.shadowColor=this.color;b.shadowBlur=this.color==="#7701BC"?10:5;b.beginPath();b.arc(this.x,this.y,this.size,0,Math.PI*2);b.fill()}}function h(){b.clearRect(0,0,a.width,a.height);c.forEach(i=>{i.update();i.draw()});requestAnimationFrame(h)}d();h()})(); </script>
     <canvas id="global-ash-canvas" style="position:fixed; top:0; left:0; z-index:999; pointer-events:none;"></canvas>
     <script> (function(){const a=document.getElementById("global-ash-canvas");if(!a)return;const b=a.getContext("2d");function c(){a.width=window.innerWidth;a.height=window.innerHeight}c();window.addEventListener("resize",c);let d=[];class e{constructor(h,i){this.x=h;this.y=i;this.vx=(Math.random()-.5)*.8;this.vy=-Math.random()*.5-.2;this.life=1;this.decay=.008+Math.random()*.012;this.size=Math.random()*3+1;this.color=Math.random()>.8?"#510FD5":"#C1BFBF"}update(){this.x+=this.vx;this.y+=this.vy;this.vx*=.98;this.vy+=.01;this.life-=this.decay;this.size*=.998}draw(){b.save();b.globalAlpha=this.life*.8;b.fillStyle=this.color;b.beginPath();b.arc(this.x,this.y,this.size,0,Math.PI*2);b.fill();b.restore()}}function f(h){for(let i=0;i<6;i++)d.push(new e(h.clientX+(Math.random()-.5)*30,h.clientY+(Math.random()-.5)*30))}function g(h){if(h.touches[0])f({clientX:h.touches[0].clientX,clientY:h.touches[0].clientY})}function j(){b.clearRect(0,0,a.width,a.height);d=d.filter(h=>{h.update();h.draw();return h.life>0&&h.size>.1});requestAnimationFrame(j)}window.addEventListener("mousemove",f,{passive:!0});window.addEventListener("touchmove",g,{passive:!0});j()})();document.addEventListener("contextmenu",a=>a.preventDefault(),!1);document.addEventListener("keydown",a=>{if((a.ctrlKey||a.metaKey)&&"caxus".indexOf(a.key)!==-1)a.preventDefault()}); </script>
