@@ -94,7 +94,6 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             background-color: var(--abyss);
-            /* === ИЗМЕНЕНИЕ: НЕПРОЗРАЧНОСТЬ УВЕЛИЧЕНА С 0.5 ДО 0.7 === */
             opacity: 0.7;
             z-index: 1;
             pointer-events: none;
@@ -229,7 +228,8 @@
 
 <body data-lang="en">
     
-    <canvas id="universe-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;"></canvas>
+    <!-- === ИЗМЕНЕНИЕ: Z-INDEX УВЕЛИЧЕН С 0 ДО 2 === -->
+    <canvas id="universe-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:2; pointer-events:none;"></canvas>
     <canvas id="global-ash-canvas" style="position:fixed; top:0; left:0; z-index:999; pointer-events:none;"></canvas>
 
     <div class="altar-container">
