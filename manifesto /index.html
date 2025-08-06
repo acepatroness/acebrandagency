@@ -14,9 +14,9 @@
     <meta property="og:url" content="https://acebrand.agency/manifesto/"> 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <!-- Favicon -->
-    <link rel="icon" href="../assets/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <!-- Favicon (АБСОЛЮТНЫЙ ПУТЬ) -->
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
@@ -33,20 +33,20 @@
 <!-- /Yandex.Metrika counter -->
 
     <style>
-        /* === АРСЕНАЛ ШРИФТОВ С КОРРЕКТНЫМИ ПУТЯМИ === */
+        /* === АРСЕНАЛ ШРИФТОВ С АБСОЛЮТНЫМИ ПУТЯМИ === */
         @font-face {
             font-family: 'Brahms Gotisch';
-            src: url('../fonts/BrahmsGotischCyr.woff2') format('woff2');
+            src: url('/fonts/BrahmsGotischCyr.woff2') format('woff2');
             font-weight: normal; font-style: normal; font-display: swap;
         }
         @font-face {
             font-family: 'Manufacturing Consent';
-            src: url('../fonts/ManufacturingConsent-Regular.woff2') format('woff2');
+            src: url('/fonts/ManufacturingConsent-Regular.woff2') format('woff2');
             font-weight: normal; font-style: normal; font-display: swap;
         }
         @font-face {
             font-family: 'Unbounded';
-            src: url('../fonts/Unbounded-ExtraLight.woff2') format('woff2');
+            src: url('/fonts/Unbounded-ExtraLight.woff2') format('woff2');
             font-weight: 200; font-style: normal; font-display: swap;
         }
 
@@ -68,8 +68,8 @@
             min-height: 100vh;
             padding: calc(10vh + 10px) 5vw;
             overflow-x: hidden; overflow-y: auto;
-            /* === КОРРЕКТНЫЙ ПУТЬ К ФОНУ === */
-            background-image: url('../assets/back9.png');
+            /* === АБСОЛЮТНЫЙ ПУТЬ К ФОНУ === */
+            background-image: url('/assets/back9.png');
             background-size: cover; background-position: center center;
             background-repeat: no-repeat; background-attachment: fixed;
             position: relative;
@@ -296,100 +296,4 @@
                 </h1>
                 <div class="text-container">
                     <div class="manifesto-body">
-                        <p>вы ищете просто «агентство» <br>или «обычного исполнителя»?!<br>закройте эту вкладку прямой сейчас!</p>
-                        <p>мы работает с теми,<br>кто готов к реинкарнации, <br>а не к стерильному «ребрендингу»! <br>Никакого: «хотим как у конкурентов».<br>мы не копируем! мы создаем!</p>
-                        <p>мы против шаблонных решений.<br>нас тошнит от фейкового «успеха».<br>мы против воровства идей!</p>
-                        <p>мы не придумываем лживую легенду.<br>мы погружаемся в ваш хаос и тьму.<br>мы вскрываем ваш личный код днк!</p>
-                        <p>мы сжигаем всё лишнее. весь мусор. <br>на этом пепле строим вашу империю.<br>сжигаем шаблоны и строим легенды.</p>
-                        <p>мы создаем бренды и мероприятия,<br>даруя справедливое превосходство!</p>
-                        <p>ваш потенциал больше, чем ваш страх.<br>время действовать!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="gate-area">
-            <a href="#" id="decision-button" class="enter-button"></a>
-        </div>
-    </div>
-
-    <script>
-    (function(){const a=document.getElementById("global-ash-canvas");if(!a)return;const b=a.getContext("2d");function c(){a.width=window.innerWidth;a.height=window.innerHeight}c();window.addEventListener("resize",c);let d=[];class e{constructor(h,i){this.x=h;this.y=i;this.vx=(Math.random()-.5)*.8;this.vy=-Math.random()*.5-.2;this.life=1;this.decay=.008+Math.random()*.012;this.size=Math.random()*3+1;this.color=Math.random()>.8?"#510FD5":"#C1BFBF"}update(){this.x+=this.vx;this.y+=this.vy;this.vx*=.98;this.vy+=.01;this.life-=this.decay;this.size*=.998}draw(){b.save();b.globalAlpha=this.life*.8;b.fillStyle=this.color;b.beginPath();b.arc(this.x,this.y,this.size,0,Math.PI*2);b.fill();b.restore()}}function f(h){for(let i=0;i<6;i++)d.push(new e(h.clientX+(Math.random()-.5)*30,h.clientY+(Math.random()-.5)*30))}function g(h){if(h.touches[0])f({clientX:h.touches[0].clientX,clientY:h.touches[0].clientY})}function j(){b.clearRect(0,0,a.width,a.height);d=d.filter(h=>{h.update();h.draw();return h.life>0&&h.size>.1});requestAnimationFrame(j)}window.addEventListener("mousemove",f,{passive:!0});window.addEventListener("touchmove",g,{passive:!0});j()})();document.addEventListener("contextmenu",a=>a.preventDefault(),!1);document.addEventListener("keydown",a=>{if((a.ctrlKey||a.metaKey)&&"caxus".indexOf(a.key)!==-1)a.preventDefault()});
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const params = new URLSearchParams(window.location.search);
-        const lang = params.get('lang') === 'ru' ? 'ru' : 'en';
-
-        document.body.dataset.lang = lang;
-        
-        const texts = {
-            en: { main: "ace brand agency", sub: "the antidote to the 99%", button: "yes" },
-            ru: { main: "ace brand agency", sub: "только для смелых", button: "да" }
-        };
-
-        const activeContent = document.getElementById(`${lang}-content`);
-        activeContent.classList.add('active');
-
-        const decisionButton = document.getElementById('decision-button');
-        decisionButton.textContent = texts[lang].button;
-        
-        // === ИСПРАВЛЕННАЯ НАВИГАЦИЯ ===
-        decisionButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            // Путь ведет на уровень выше, а затем в папку architect
-            window.location.href = `../architect/?lang=${lang}`;
-        });
-
-        const headlineMain = activeContent.querySelector('.headline-main');
-        const headlineSub = activeContent.querySelector('.headline-sub');
-        
-        if (lang === 'ru') {
-            document.querySelector('meta[name="description"]').setAttribute('content', 'Для 1% бизнесов, которым наскучили остальные 99%. ACE Brand Agency проектирует несправедливые преимущества через премиальный брендинг и эксклюзивные мероприятия в Дубае. Мы сжигаем шаблоны и строим легенды.');
-            document.querySelector('meta[name="keywords"]').setAttribute('content', 'премиальное брендинговое агентство Дубай, организация vip мероприятий ОАЭ, маркетинг для HNW в Дубае, брендинг класса люкс, нестандартные ивенты, креативные концепции для бизнеса, архитектура бренда, организация модных показов, продюсирование модных показов, уникальные авторские музыкальные композиции для модных показов и ивентов, музыка для модных показов, авторская музыка для бренда, эксклюзивные мероприятия Дубай, агентство нешаблонных решений, премиум брендинг.');
-        }
-
-        function animateElements() {
-            const allHeadlineElements = [
-                { el: headlineMain, text: texts[lang].main, flash: true },
-                { el: headlineSub, text: texts[lang].sub, flash: true }
-            ];
-            let totalCharCount = 0;
-            const initialDelay = 1.0;
-
-            allHeadlineElements.forEach(item => {
-                const text = item.text;
-                item.el.innerHTML = '';
-                const words = text.split(' ');
-                words.forEach((word, wordIndex) => {
-                     for (const char of word) {
-                        const span = document.createElement('span');
-                        span.className = 'char';
-                        if (item.flash) span.classList.add('highlight');
-                        span.innerHTML = char;
-                        span.style.animationDelay = `${initialDelay + totalCharCount * 0.04}s`;
-                        item.el.appendChild(span);
-                        totalCharCount++;
-                    }
-                    if(wordIndex < words.length - 1){
-                        const space = document.createElement('span');
-                        space.innerHTML = '&nbsp;';
-                        item.el.appendChild(space);
-                    }
-                });
-            });
-
-            const bodyAnimationDelay = initialDelay + totalCharCount * 0.04;
-            const bodyElements = activeContent.querySelectorAll('.manifesto-body p');
-            
-            bodyElements.forEach((el, index) => {
-                el.style.animationDelay = `${bodyAnimationDelay + 0.2 + index * 0.2}s`;
-            });
-            
-            const gateArea = document.querySelector('.gate-area');
-            gateArea.style.animationDelay = `${bodyAnimationDelay + 0.2 + bodyElements.length * 0.2}s`;
-        }
-        
-        animateElements();
-    });
-    </script>
-</body>
-</html>
+                        <p>вы ищете просто «агентство
