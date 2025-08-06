@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- === SEO-АРСЕНАЛ ДЛЯ SANCTUM === -->
+    <title>ACE Brand Agency | The Sanctum</title>
+    <meta name="description" content="You have reached the Sanctum. This is not a choice, but an echo. The Architect is waiting.">
+    <meta name="keywords" content="ACE Brand Agency, the sanctum, brand architecture, creative sanctum, enter the void, brand initiation, Anna Ace">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="ACE Brand Agency | The Sanctum">
+    <meta property="og:description" content="You have reached the Sanctum. The Architect is waiting.">
+    <meta property="og:image" content="https://acebrand.agency/assets/og-image-sanctum.png"> <!-- Создай новую OG-картинку для этой страницы -->
+    <meta property="og:url" content="https://acebrand.agency/sanctum/">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- === БРОНЕБОЙНЫЙ БЛОК FAVICON v.2 === -->
+    <link rel="icon" href="/assets/favicon.ico?v=2" sizes="any">
+    <link rel="icon" href="/assets/favicon.png?v=2" type="image/png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+    <link rel="manifest" href="/assets/manifest.json">
+    <meta name="theme-color" content="#111111">
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+        ym(102048626, 'init', {webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/102048626" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <style>
+        @font-face {
+            font-family: 'Brahms Gotisch';
+            src: url('/fonts/BrahmsGotischCyr.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Manufacturing Consent';
+            src: url('/fonts/ManufacturingConsent-Regular.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Unbounded';
+            src: url('/fonts/Unbounded-ExtraLight.woff2') format('woff2');
+        }
+
+        :root { 
+            --abyss: #111111;
+            --quartz: #EFF0F4;
+            --amethyst: #510FD5;
+            --concrete: #C1BFBF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--abyss);
+            color: var(--quartz);
+            font-family: 'Unbounded', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-transform: lowercase;
+            background-image: url('/assets/back8.png'); /* Можешь выбрать другой фон */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: var(--abyss);
+            opacity: 0.7;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .sanctum-container {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 20px;
+            opacity: 0;
+            animation: fadeInContainer 1.5s 0.5s forwards;
+        }
+        
+        @keyframes fadeInContainer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .headline {
+            font-weight: normal;
+            margin-bottom: 25px;
+        }
+
+        body[data-lang="ru"] .headline { font-family: 'Brahms Gotisch', serif; font-size: clamp(3rem, 12vw, 6rem); }
+        body[data-lang="en"] .headline { font-family: 'Manufacturing Consent', sans-serif; font-size: clamp(3.5rem, 14vw, 7rem); }
+        
+        .sub-headline {
+            font-weight: 200;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--concrete);
+            line-height: 1.7;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            text-decoration: none;
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 200;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            padding: 15px 60px;
+            color: var(--quartz);
+            background-color: transparent;
+            border: 1px solid var(--concrete);
+            transition: all 0.4s ease;
+            text-transform: lowercase;
+        }
+        .cta-button:hover {
+            background-color: var(--amethyst);
+            border-color: var(--amethyst);
+        }
+
+        .lang-ru, .lang-en { display: none; }
+    </style>
+</head>
+
+<body data-lang="en">
+    
+    <canvas id="universe-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:2; pointer-events:none;"></canvas>
+    <canvas id="global-ash-canvas" style="position:fixed; top:0; left:0; z-index:999; pointer-events:none;"></canvas>
+
+    <div class="sanctum-container">
+        <div class="lang-en">
+            <h1 class="headline">the sanctum</h1>
+            <p class="sub-headline">Where brands are not made, but unleashed.<br>The architect is waiting.</p>
+            <a href="/architect/?lang=en" class="cta-button">Enter</a>
+        </div>
+        <div class="lang-ru">
+            <h1 class="headline">святилище</h1>
+            <p class="sub-headline">Здесь бренды не создают. Их высвобождают.<br>Архитектор ждет.</p>
+            <a href="/architect/?lang=ru" class="cta-button">войти</a>
+        </div>
+    </div>
+    
+    <script>
+        // Анимация частиц (можно взять из любого другого файла)
+        (function(){const c=document.getElementById("universe-canvas");if(!c)return;const d=c.getContext("2d");let e=[];function f(){c.width=window.innerWidth;c.height=window.innerHeight;e=[];const k=getComputedStyle(document.body),l="#7701BC",m="#C1BFBF";for(let n=0;n<150;n++)e.push(new i(l,m))}window.addEventListener("resize",f);const g={x:null,y:null,radius:150};window.addEventListener("mousemove",k=>{g.x=k.clientX;g.y=k.clientY});window.addEventListener("touchmove",k=>{if(k.touches[0]){g.x=k.touches[0].clientX;g.y=k.touches[0].clientY}},{passive:!0});window.addEventListener("mouseout",()=>{g.x=null;g.y=null});class i{constructor(k,l){this.x=Math.random()*(c.width||window.innerWidth);this.y=Math.random()*(c.height||window.innerHeight);this.baseX=this.x;this.baseY=this.y;this.size=Math.random()*2+.5;this.color=Math.random()>.4?k:l;this.spring=.01;this.vx=0;this.vy=0;this.friction=.9}update(){if(g.x!=null){let k=this.x-g.x,l=this.y-g.y,m=Math.sqrt(k*k+l*l);if(m<g.radius){let n=Math.atan2(l,k),o=(g.radius-m)/g.radius;this.vx+=o*Math.cos(n)*.5;this.vy+=o*Math.sin(n)*.5}}this.vx+=(this.baseX-this.x)*this.spring;this.vy+=(this.baseY-this.y)*this.spring;this.vx*=this.friction;this.vy*=this.friction;this.x+=this.vx;this.y+=this.vy}draw(){d.fillStyle=this.color;d.shadowColor=this.color;d.shadowBlur=this.color==="#7701BC"?10:5;d.beginPath();d.arc(this.x,this.y,this.size,0,Math.PI*2);d.fill()}}function j(){d.clearRect(0,0,c.width,c.height);e.forEach(k=>{k.update();k.draw()});requestAnimationFrame(j)}f();j()})();
+
+        // Логика переключения языка
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const lang = params.get('lang') === 'ru' ? 'ru' : 'en'; 
+            document.body.dataset.lang = lang;
+            document.documentElement.lang = lang;
+
+            document.querySelectorAll('.lang-en, .lang-ru').forEach(el => { el.style.display = 'none'; });
+            document.querySelector(`.lang-${lang}`).style.display = 'block';
+
+            if (lang === 'ru') {
+                 document.title = 'ACE Brand Agency | Святилище';
+                 document.querySelector('meta[name="description"]').setAttribute('content', 'Вы достигли Святилища. Это не выбор, а эхо. Архитектор ждет.');
+            }
+        });
+    </script>
+    
+    <!-- Наш новый курсор-сигил -->
+    <script src="/assets/js/cursor.js" defer></script>
+</body>
+</html>
