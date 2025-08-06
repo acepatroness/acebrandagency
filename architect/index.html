@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- === SEO-АРСЕНАЛ ДЛЯ 3-Й СТРАНИЦЫ === -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACE Brand Agency | Architect</title>
+    <meta name="description" content="Meet Anna Ace, Founder & CEO of ACE Brand Agency and Creator of the Ace Code Method. Specializing in building monolithic brands, immersive events, and creative concepts.">
+    <meta name="keywords" content="Anna Ace, ACE Brand Agency, Ace Code Method, brand architecture, immersive events, creative concepts, neuro-marketing, luxury branding Dubai, strategic design, psychology in branding, brand identity, unique brand positioning">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="ACE Brand Agency | The Architect">
+    <meta property="og:description" content="Anna Ace: Creator of the Ace Code Method. Architecting monolithic brands, immersive events, and groundbreaking creative concepts.">
+    <meta property="og:image" content="https://acebrand.agency/architect/og-image-architect.png">
+    <meta property="og:url" content="https://acebrand.agency/architect/">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- Favicon (АБСОЛЮТНЫЙ ПУТЬ) -->
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+
+    ym(102048626, 'init', {webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/102048626" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+    <style>
+        /* === АРСЕНАЛ ШРИФТОВ С АБСОЛЮТНЫМИ ПУТЯМИ === */
+        @font-face {
+            font-family: 'Brahms Gotisch';
+            src: url('/fonts/BrahmsGotischCyr.woff2') format('woff2');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'Manufacturing Consent';
+            src: url('/fonts/ManufacturingConsent-Regular.woff2') format('woff2');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'Unbounded';
+            src: url('/fonts/Unbounded-ExtraLight.woff2') format('woff2');
+            font-weight: 200; font-style: normal; font-display: swap;
+        }
+
+        :root {
+            --abyss: #111111;
+            --quartz: #EFF0F4;
+            --amethyst: #510FD5;
+            --concrete: #C1BFBF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--abyss);
+            color: var(--quartz);
+            font-family: 'Unbounded', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: calc(5vh + 40px) 5vw;
+            overflow-x: hidden;
+            overflow-y: auto;
+            /* === АБСОЛЮТНЫЙ ПУТЬ К ФОНУ === */
+            background-image: url('/architect/back3.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: var(--abyss);
+            opacity: 0.5;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        body, body * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -khtml-user-select: none;
+        }
+        
+        .architect-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeInContainer 1s 0.5s forwards;
+            justify-content: center;
+            gap: 60px;
+        }
+
+        @keyframes fadeInContainer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .image-block, .text-block {
+            flex-basis: calc(50% - 30px);
+            max-width: calc(50% - 30px);
+            min-width: 300px;
+            padding: 55px 30px;
+            box-sizing: border-box;
+            position: relative;
+            background: rgba(17, 17, 17, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(193, 191, 191, 0.1);
+            overflow: hidden;
+        }
+
+        .image-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        
+        .text-block {
+            padding-bottom: 50px; 
+            text-align: center;
+        }
+
+        .image-block img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-top: 30px;
+        }
+
+        /* === АНИМАЦИЯ РАМКИ === */
+        .border-line { position: absolute; background-color: var(--amethyst); box-shadow: 0 0 5px var(--amethyst), 0 0 10px var(--amethyst); opacity: 0; z-index: 3; }
+        .border-line.top-left, .border-line.top-right { top: 0; height: 1px; width: 50%; }
+        .border-line.top-left { left: 0; transform-origin: right; animation: draw-out-left 4s linear infinite 1.5s; }
+        .border-line.top-right { right: 0; transform-origin: left; animation: draw-out-right 4s linear infinite 1.5s; }
+        .border-line.side { top: 0; width: 1px; height: 100%; transform: scaleY(0); }
+        .border-line.side.left { left: 0; transform-origin: top; animation: draw-down 4s linear infinite 1.5s; }
+        .border-line.side.right { right: 0; transform-origin: top; animation: draw-down 4s linear infinite 1.5s; }
+        .border-line.bottom-left, .border-line.bottom-right { bottom: 0; height: 1px; width: 50%; }
+        .border-line.bottom-left { left: 0; transform-origin: right; animation: draw-bottom 4s linear infinite 1.5s; }
+        .border-line.bottom-right { right: 0; transform-origin: left; animation: draw-bottom 4s linear infinite 1.5s; }
+        @keyframes draw-out-left { 0% { transform: scaleX(0); opacity: 0; } 12.5% { transform: scaleX(1); opacity: 1; } 37.5% { transform: scaleX(1); opacity: 1; } 50% { transform: scaleX(0); opacity: 0; } 100% { transform: scaleX(0); opacity: 0; } }
+        @keyframes draw-out-right { 0% { transform: scaleX(0); opacity: 0; } 12.5% { transform: scaleX(1); opacity: 1; } 37.5% { transform: scaleX(1); opacity: 1; } 50% { transform: scaleX(0); opacity: 0; } 100% { transform: scaleX(0); opacity: 0; } }
+        @keyframes draw-down { 25% { transform: scaleY(0); opacity: 0; } 37.5% { transform: scaleY(1); opacity: 1; } 62.5% { transform: scaleY(1); opacity: 1; } 75% { transform: scaleY(0); opacity: 0; transform-origin: bottom; } 75.01% { transform-origin: top; } 100% { transform: scaleY(0); opacity: 0; } }
+        @keyframes draw-bottom { 50% { transform: scaleX(0); opacity: 0; } 62.5% { transform: scaleX(1); opacity: 1; } 87.5% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: 0; } }
+        
+        /* === АНИМАЦИЯ ТЕКСТА === */
+        .char { display: inline-block; opacity: 0; animation: consecrate 1.2s forwards; }
+        .char.highlight { animation-name: amethyst-flash; animation-duration: 1.5s; }
+        @keyframes consecrate { 0% { opacity: 0; color: var(--concrete); } 100% { opacity: 1; color: var(--quartz); } }
+        @keyframes amethyst-flash { 0% { opacity: 0; color: var(--amethyst); } 50% { opacity: 1; color: var(--amethyst); } 100% { opacity: 1; color: var(--quartz); } }
+        
+        .headline, .text-block-headline {
+            text-transform: lowercase; line-height: 1.3; text-align: center; margin-bottom: 35px;
+        }
+
+        #en-heading .headline, #en-content .text-block-headline { font-family: 'Manufacturing Consent', sans-serif; font-size: 3.5rem; }
+        #ru-heading .headline, #ru-content .text-block-headline { font-family: 'Brahms Gotisch', serif; font-size: 2.7rem; }
+
+        .sub-headline {
+            text-transform: lowercase; font-weight: 200; text-align: center; line-height: 1.6;
+        }
+        
+        .main-text {
+            display: block;
+            width: -moz-fit-content;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+        
+        .main-text p { 
+            font-family: 'Unbounded', sans-serif; font-weight: 200; font-size: 19px;
+            line-height: 1.9; text-transform: lowercase; 
+            opacity: 0; animation: fadeInText 1.2s forwards; margin-bottom: 0;
+        }
+
+        .paragraph-break { height: 35px; }
+        
+        @keyframes fadeInText { from { opacity: 0; } to { opacity: 1; } }
+        
+        .cta-button-container { text-align: center; margin-top: 50px; }
+        .cta-button { display: inline-block; text-decoration: none; font-family: 'Unbounded', sans-serif; font-weight: 200; font-size: 1rem; letter-spacing: 2px; cursor: crosshair; padding: 15px 60px; color: var(--quartz); background-color: transparent; border: 1px solid var(--concrete); transition: all 0.4s ease; text-transform: lowercase; }
+        .cta-button:hover { background-color: var(--amethyst); border-color: var(--amethyst); }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            body { 
+                padding: 70px 5vw; 
+                background-attachment: scroll; 
+            }
+            .architect-container { flex-direction: column; gap: 40px; }
+            .image-block, .text-block {
+                min-width: unset; flex-basis: auto; max-width: 100%; width: 100%; margin: 0;
+            }
+            .image-block { padding: 40px 25px; order: 1; }
+            .text-block { padding: 40px 25px 50px; order: 2; text-align: left; }
+
+            .headline, .text-block-headline { margin-bottom: 20px; }
+            .sub-headline { font-size: 12px; line-height: 1.6; margin-bottom: 30px; }
+            .image-block img { margin-top: 20px; margin-bottom: 0; }
+            
+            #ru-heading .headline, #ru-content .text-block-headline {
+                font-size: clamp(22px, 8vw, 25px);
+            }
+            #en-heading .headline, #en-content .text-block-headline {
+                font-size: clamp(26px, 9vw, 39px);
+            }
+            
+            .main-text p { font-size: 12px; line-height: 1.7; }
+            .main-text { margin-bottom: 0; } 
+            .cta-button-container { padding-bottom: 0; margin-top: 45px; }
+        }
+
+        @media (max-width: 768px) {
+            .cta-button { font-size: 0.9rem; padding: 12px 40px; }
+        }
+
+        @media (max-width: 480px) {
+            body{ padding-left: 20px; padding-right: 20px; }
+            .text-block, .image-block { padding-left: 20px; padding-right: 20px; }
+            .sub-headline { font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+            .main-text p { font-size: 0.85rem; }
+            .cta-button { font-size: 0.8rem; padding: 10px 30px; }
+        }
+    </style>
+</head>
+<body data-lang="en">
+
+    <!-- Particle & Ash Animation Scripts (без изменений) -->
+    <script> (function(){const a=document.createElement("canvas");a.id="universe-canvas";a.style.position="fixed";a.style.top="0";a.style.left="0";a.style.width="100%";a.style.height="100%";a.style.zIndex="0";a.style.pointerEvents="none";document.body.insertBefore(a,document.body.firstChild);const b=a.getContext("2d");let c=[];function d(){a.width=window.innerWidth;a.height=window.innerHeight;c=[];for(let e=0;e<150;e++)c.push(new f)}window.addEventListener("resize",d);const e={x:null,y:null,radius:150};window.addEventListener("mousemove",g=>{e.x=g.clientX;e.y=g.clientY});window.addEventListener("touchmove",g=>{if(g.touches[0]){e.x=g.touches[0].clientX;e.y=g.touches[0].clientY}},{passive:!0});window.addEventListener("mouseout",()=>{e.x=null;e.y=null});class f{constructor(){this.x=Math.random()*a.width;this.y=Math.random()*a.height;this.baseX=this.x;this.baseY=this.y;this.size=Math.random()*2+.5;this.color=Math.random()>.4?"#7701BC":"#C1BFBF";this.spring=.01;this.vx=0;this.vy=0;this.friction=.9}update(){if(e.x!=null){let g=this.x-e.x,h=this.y-e.y,i=Math.sqrt(g*g+h*h);if(i<e.radius){let j=Math.atan2(h,g),k=(e.radius-i)/e.radius;this.vx+=k*Math.cos(j)*.5;this.vy+=k*Math.sin(j)*.5}}this.vx+=(this.baseX-this.x)*this.spring;this.vy+=(this.baseY-this.y)*this.spring;this.vx*=this.friction;this.vy*=this.friction;this.x+=this.vx;this.y+=this.vy}draw(){b.fillStyle=this.color;b.shadowColor=this.color;b.shadowBlur=this.color==="#7701BC"?10:5;b.beginPath();b.arc(this.x,this.y,this.size,0,Math.PI*2);b.fill()}}function h(){b.clearRect(0,0,a.width,a.height);c.forEach(i=>{i.update();i.draw()});requestAnimationFrame(h)}d();h()})(); </script>
+    <canvas id="global-ash-canvas" style="position:fixed; top:0; left:0; z-index:999; pointer-events:none;"></canvas>
+    <script> (function(){const a=document.getElementById("global-ash-canvas");if(!a)return;const b=a.getContext("2d");function c(){a.width=window.innerWidth;a.height=window.innerHeight}c();window.addEventListener("resize",c);let d=[];class e{constructor(h,i){this.x=h;this.y=i;this.vx=(Math.random()-.5)*.8;this.vy=-Math.random()*.5-.2;this.life=1;this.decay=.008+Math.random()*.012;this.size=Math.random()*3+1;this.color=Math.random()>.8?"#510FD5":"#C1BFBF"}update(){this.x+=this.vx;this.y+=this.vy;this.vx*=.98;this.vy+=.01;this.life-=this.decay;this.size*=.998}draw(){b.save();b.globalAlpha=this.life*.8;b.fillStyle=this.color;b.beginPath();b.arc(this.x,this.y,this.size,0,Math.PI*2);b.fill();b.restore()}}function f(h){for(let i=0;i<6;i++)d.push(new e(h.clientX+(Math.random()-.5)*30,h.clientY+(Math.random()-.5)*30))}function g(h){if(h.touches[0])f({clientX:h.touches[0].clientX,clientY:h.touches[0].clientY})}function j(){b.clearRect(0,0,a.width,a.height);d=d.filter(h=>{h.update();h.draw();return h.life>0&&h.size>.1});requestAnimationFrame(j)}window.addEventListener("mousemove",f,{passive:!0});window.addEventListener("touchmove",g,{passive:!0});j()})();document.addEventListener("contextmenu",a=>a.preventDefault(),!1);document.addEventListener("keydown",a=>{if((a.ctrlKey||a.metaKey)&&"caxus".indexOf(a.key)!==-1)a.preventDefault()}); </script>
+
+    <div class="architect-container">
+        <!-- Image Block -->
+        <div class="image-block">
+            <span class="border-line top-left"></span><span class="border-line top-right"></span><span class="border-line side left"></span><span class="border-line side right"></span><span class="border-line bottom-left"></span><span class="border-line bottom-right"></span>
+            <div id="en-heading" class="image-heading" style="display: none;">
+                <h1 class="headline"></h1>
+                <p class="sub-headline"></p>
+            </div>
+            <div id="ru-heading" class="image-heading" style="display: none;">
+                <h1 class="headline"></h1>
+                <p class="sub-headline"></p>
+            </div>
+            <!-- === АБСОЛЮТНЫЙ ПУТЬ К КАРТИНКЕ === -->
+            <img src="/architect/ace.png" alt="Anna Ace - The Architect">
+        </div>
+
+        <!-- Text Block -->
+        <div class="text-block">
+            <span class="border-line top-left"></span><span class="border-line top-right"></span><span class="border-line side left"></span><span class="border-line side right"></span><span class="border-line bottom-left"></span><span class="border-line bottom-right"></span>
+            
+            <!-- English Content -->
+            <div id="en-content" class="content-active" style="display: none;">
+                <h2 class="text-block-headline"></h2>
+                <div class="main-text">
+                    <p>I don't sell "services".</p>
+                    <p>I am the architect of universes,</p>
+                    <p>which I build for my clients.</p>
+                    <div class="paragraph-break"></div>
+                    <p>I've created my signature method</p>
+                    <p>during my 14 years in business,</p>
+                    <p>design, events, and production.</p>
+                    <p>ACE code for the true rebels!</p>
+                    <div class="paragraph-break"></div>
+                    <p>Hunger for power keeps you awake?</p>
+                    <p>Your potential shatters the frame.</p>
+                    <div class="paragraph-break"></div>
+                    <p>While everyone copies their rivals,</p>
+                    <p>it's time to create your own reality!</p>
+                </div>
+                <div class="cta-button-container">
+                    <a href="#" class="cta-button"></a>
+                </div>
+            </div>
+
+            <!-- Russian Content -->
+            <div id="ru-content" class="content-active" style="display: none;">
+                <h2 class="text-block-headline"></h2>
+                <div class="main-text">
+                    <p>Я не продаю «услуги».</p>
+                    <p>Я архитектор Вселенных,</p>
+                    <p>которые строю для клиентов.</p>
+                    <div class="paragraph-break"></div>
+                    <p>Свой 14-летний опыт в бизнесе,</p>
+                    <p>дизайне, ивентах и продакшене,</p>
+                    <p>я объединила в авторский метод.</p>
+                    <p>ACE код для настоящих бунтарей!</p>
+                    <div class="paragraph-break"></div>
+                    <p>Голод к власти не дает спать?</p>
+                    <p>Ваш потенциал сносит все рамки!</p>
+                    <div class="paragraph-break"></div>
+                    <p>Пока все копируют конкурентов,</p>
+                    <p>Пора создать новую реальность!</p>
+                </div>
+                <div class="cta-button-container">
+                    <a href="#" class="cta-button"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const lang = params.get('lang') === 'ru' ? 'ru' : 'en';
+            document.body.dataset.lang = lang;
+
+            const content = {
+                en: {
+                    heading: { headline: "architect of reality", sub_headline: "anna ace<br>creator of the ace code method<br>founder & ceo | ace brand agency" },
+                    text_block: { headline: "The Architect's Codex", button: "Create" }
+                },
+                ru: {
+                    heading: { headline: "архитектор реальности", sub_headline: "anna ace<br>создатель метода ace code<br>основатель | ace brand agency" },
+                    text_block: { headline: "Кодекс Архитектора", button: "Создать" }
+                }
+            };
+            
+            const activeContentEl = document.getElementById(`${lang}-content`);
+            const activeHeadingEl = document.getElementById(`${lang}-heading`);
+            
+            document.querySelectorAll('.content-active, .image-heading').forEach(el => el.style.display = 'none');
+            activeContentEl.style.display = 'block';
+            activeHeadingEl.style.display = 'block';
+
+            if (lang === 'ru') {
+                document.title = 'ACE Brand Agency | Архитектор';
+                document.querySelector('meta[name="description"]').setAttribute('content', 'Анна Эйс, Основатель и Генеральный Директор ACE Brand Agency, Создатель метода Ace Code. Специализация: создание монолитных брендов, иммерсивных событий и креативных концепций.');
+                document.querySelector('meta[name="keywords"]').setAttribute('content', 'Анна Эйс, ACE Brand Agency, Метод Ace Code, архитектура бренда, иммерсивные ивенты, креативные концепции, нейромаркетинг, люксовый брендинг Дубай, стратегический дизайн, психология в брендинге, идентичность бренда, уникальное позиционирование бренда.');
+                document.querySelector('meta[property="og:title"]').setAttribute('content', 'ACE Brand Agency | Архитектор');
+                document.querySelector('meta[property="og:description"]').setAttribute('content', 'Анна Эйс: Создатель метода Ace Code. Архитектор монолитных брендов, иммерсивных событий и прорывных креативных концепций.');
+            }
+
+            const ctaButton = activeContentEl.querySelector('.cta-button');
+            ctaButton.textContent = content[lang].text_block.button;
+            // === АБСОЛЮТНЫЙ ПУТЬ К СЛЕДУЮЩЕЙ СТРАНИЦЕ ===
+            ctaButton.href = `/initiation/?lang=${lang}`;
+
+            function animateElements(lang) {
+                const initialDelay = 1.0;
+                let timeline = initialDelay;
+
+                function animateChars(element, text, startDelay, isHighlighted) {
+                    element.innerHTML = '';
+                    let charCount = 0;
+                    const chars = text.split('');
+                    chars.forEach(char => {
+                        const span = document.createElement('span');
+                        span.className = 'char';
+                        if (isHighlighted) span.classList.add('highlight');
+                        span.innerHTML = char === ' ' ? '&nbsp;' : char;
+                        span.style.animationDelay = `${startDelay + charCount * 0.04}s`;
+                        element.appendChild(span);
+                        charCount++;
+                    });
+                    return charCount * 0.04;
+                }
+
+                const h1El = activeHeadingEl.querySelector('.headline');
+                const h1Duration = animateChars(h1El, content[lang].heading.headline, timeline, true);
+                timeline += h1Duration + 0.2;
+
+                const subHeadlineEl = activeHeadingEl.querySelector('.sub-headline');
+                subHeadlineEl.innerHTML = content[lang].heading.sub_headline;
+                subHeadlineEl.style.opacity = '0';
+                subHeadlineEl.style.animation = `fadeInText 1.2s ${timeline}s forwards`;
+                timeline += 0.4;
+
+                const h2El = activeContentEl.querySelector('.text-block-headline');
+                const h2Duration = animateChars(h2El, content[lang].text_block.headline, timeline, true);
+                timeline += h2Duration + 0.2;
+
+                const bodyElements = activeContentEl.querySelectorAll('.main-text p, .main-text .paragraph-break');
+                bodyElements.forEach((el) => {
+                    el.style.opacity = '0';
+                    el.style.animation = `fadeInText 1.2s ${timeline}s forwards`;
+                    timeline += 0.1;
+                });
+                
+                const ctaButtonContainer = activeContentEl.querySelector('.cta-button-container');
+                if (ctaButtonContainer) {
+                    ctaButtonContainer.style.opacity = '0';
+                    ctaButtonContainer.style.animation = `fadeInText 1.2s ${timeline}s forwards`;
+                }
+            }
+            
+            animateElements(lang);
+        });
+    </script>
+</body>
+</html>
