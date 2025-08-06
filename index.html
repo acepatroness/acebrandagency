@@ -18,11 +18,13 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
 
-    <!-- === ИСПРАВЛЕННЫЙ FAVICON БЛОК === -->
-    <link rel="icon" href="/assets/favicon.ico" sizes="any">
-    <link rel="icon" href="/assets/favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-    <!-- === END FAVICON === -->
+    <!-- === БРОНЕБОЙНЫЙ БЛОК FAVICON v.2 === -->
+    <link rel="icon" href="/assets/favicon.ico?v=2" sizes="any">
+    <link rel="icon" href="/assets/favicon.png?v=2" type="image/png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+    <link rel="manifest" href="/assets/manifest.json">
+    <meta name="theme-color" content="#111111">
+    <!-- ======================================== -->
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
@@ -375,7 +377,7 @@
 
     <div class="gate-area">
         <!-- === ИСПРАВЛЕННЫЙ ПУТЬ === -->
-        <a href="/manifesto/index.html?lang=en" class="enter-button" id="enter-btn">
+        <a href="/sanctum/index.html?lang=en" class="enter-button" id="enter-btn">
             <span class="lang-en"></span>
             <span class="lang-ru"></span>
         </a>
@@ -481,15 +483,13 @@
                 document.querySelector('meta[name="keywords"]').setAttribute('content', 'премиальное брендинговое агентство Дубай, организация vip мероприятий ОАЭ, маркетинг для HNW в Дубае, брендинг класса люкс, нестандартные ивенты, креативные концепции для бизнеса, архитектура бренда, организация модных показов, продюсирование модных показов, уникальные авторские музыкальные композиции для модных показов и ивентов, музыка для модных показов, авторская музыка для бренда, эксклюзивные мероприятия Дубай, агентство нешаблонных решений, премиум брендинг.');
                 enterButtonTextRu.textContent = currentContent.button;
                 enterButtonTextEn.textContent = '';
-                // === ИСПРАВЛЕННЫЙ ПУТЬ ===
-                enterLink.href = '/manifesto/index.html?lang=ru';
+                enterLink.href = '/sanctum/index.html?lang=ru';
             } else {
                 document.querySelector('meta[name="description"]').setAttribute('content', 'For the 1% of businesses bored with the other 99%. ACE Brand Agency architects unfair advantages through premium branding and bespoke events in Dubai, UAE. We burn templates and build legends.');
                 document.querySelector('meta[name="keywords"]').setAttribute('content', 'premium branding agency Dubai, bespoke events UAE, HNW marketing, luxury brand strategy, disruptive branding, high-end event production, anti-template agency, creative direction Dubai, brand architecture for leaders, organization of fashion shows, production of fashion shows, unique original musical compositions for fashion shows and events, music for fashion shows, original music for a brand, exclusive events UAE, VIP event management Dubai.');
                 enterButtonTextEn.textContent = currentContent.button;
                 enterButtonTextRu.textContent = '';
-                // === ИСПРАВЛЕННЫЙ ПУТЬ ===
-                enterLink.href = '/manifesto/index.html?lang=en';
+                enterLink.href = '/sanctum/index.html?lang=en';
             }
             
             langRu.classList.toggle('active', lang === 'ru');
