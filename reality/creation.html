@@ -30,7 +30,7 @@
     <meta name="generator" content="ACE Brand Agency - Universe Gateway">
     <link rel="canonical" href="https://acebrand.agency/reality/creation.html">
     
-    <!-- === ИСПРАВЛЕННЫЙ БЛОК FAVICON === -->
+    <!-- === ИСПРАВЛЕННЫЙ БЛОК FAVICON С АБСОЛЮТНЫМИ ПУТЯМИ === -->
     <link rel="icon" href="/assets/favicon.png" type="image/png">
     <link rel="icon" href="/assets/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
@@ -82,7 +82,8 @@
         body {
             position: relative;
             background-color: var(--abyss);
-            background-image: url('/reality/back1.png'); /* Путь от корня */
+            /* АБСОЛЮТНЫЙ ПУТЬ */
+            background-image: url('/reality/back1.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -137,9 +138,9 @@
         .creation-line-2 { font-size: clamp(1.7rem, 7vw, 3.2rem); }
         
         /* === ИЗМЕНЕННЫЙ РАЗМЕР ДЛЯ 3-Й СТРОКИ (РУС) === */
-        /* Старый clamp(1.4rem, 6vw, 2.9rem) -> ~clamp(22.4px, 6vw, 46.4px) */
-        /* Новый, уменьшенный на 5px -> ~clamp(17.4px, 6vw, 41.4px) */
-        #ru-creation .creation-line-3 { font-size: clamp(1.0875rem, 6vw, 2.5875rem); }
+        /* Старый clamp(1.0875rem, 6vw, 2.5875rem) -> ~clamp(17.4px, 6vw, 41.4px) */
+        /* Новый, уменьшенный на 3px -> ~clamp(14.4px, 6vw, 38.4px) */
+        #ru-creation .creation-line-3 { font-size: clamp(0.9rem, 6vw, 2.4rem); }
         #en-creation .creation-line-3 { font-size: clamp(1.4rem, 6vw, 2.9rem); }
 
 
@@ -326,7 +327,7 @@
             
             const mouse = { x: null, y: null, radius: 150 };
             window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-            // ДОБАВЛЕНА РЕАКЦИЯ НА КАСАНИЕ (ДЛЯ МОБИЛЬНЫХ)
+            // ИЗМЕНЕНИЕ: ДОБАВЛЕНА РЕАКЦИЯ НА КАСАНИЕ (ДЛЯ МОБИЛЬНЫХ)
             window.addEventListener('touchmove', e => { if (e.touches[0]) { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; } }, { passive: true });
             window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
             
