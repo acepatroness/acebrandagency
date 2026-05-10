@@ -177,11 +177,15 @@
                         }
                     });
 
-                    if (response.ok) {
-                        // УСПЕХ! Делаем редирект сами
-                        const nextUrl = form.querySelector('input[name="_next"]').value;
-                        window.location.href = nextUrl;
-                    } else {
+                   if (response.ok) {
+    const nextUrl = form.querySelector('input[name="redirect"]').value;
+
+    if (nextUrl) {
+        window.location.href = nextUrl;
+    } else {
+        alert('Form submitted successfully!');
+    }
+} else {
                         // Ошибка сервера
                         const responseData = await response.json();
                         if (Object.hasOwn(responseData, 'errors')) {
