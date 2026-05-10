@@ -69,7 +69,7 @@
             <form id="form-en" action="https://api.web3forms.com/submit" method="POST" class="reality-form">
     <input type="hidden" name="access_key" value="786b3937-dba5-416b-b623-a9d80553c116">
     <input type="hidden" name="redirect" value="https://acebrandagency.pro/reality/creation.html?lang=en">
-    <input type="hidden" name="subject" value="New Reality Submission!">
+    <input type="hidden" name="subject" value="">
     <input type="hidden" name="from_name" value="ACE Brand Agency">
     <input type="hidden" name="language" value="en">
     <input type="hidden" name="to" value="pr@acebrandagency.pro">
@@ -89,7 +89,7 @@
                <form id="form-ru" action="https://api.web3forms.com/submit" method="POST" class="reality-form">
     <input type="hidden" name="access_key" value="786b3937-dba5-416b-b623-a9d80553c116">
     <input type="hidden" name="redirect" value="https://acebrandagency.pro/reality/creation.html?lang=ru">
-    <input type="hidden" name="subject" value="Новая заявка на создание реальности!">
+    <input type="hidden" name="subject" value="">
     <input type="hidden" name="from_name" value="ACE Brand Agency">
     <input type="hidden" name="language" value="ru">
     <input type="hidden" name="to" value="pr@acebrandagency.pro">
@@ -163,8 +163,41 @@
         const ritualInput = activeContent.querySelector('input[name="ritual"]');
 
         if (ritualInput) {
-            ritualInput.value = ritual;
-        }
+    ritualInput.value = ritual;
+}
+
+const serviceInput = activeContent.querySelector('input[name="service"]');
+const subjectInput = activeContent.querySelector('input[name="subject"]');
+
+let serviceName = '';
+
+switch(ritual) {
+    case 'reincarnation':
+        serviceName = lang === 'ru'
+            ? 'Реинкарнация | Брендинг'
+            : 'Reincarnation | Branding';
+        break;
+
+    case 'mystery':
+        serviceName = lang === 'ru'
+            ? 'Мистерия | Ивенты'
+            : 'Mystery | Events';
+        break;
+
+    case 'emanation':
+        serviceName = lang === 'ru'
+            ? 'Эманация | Креативные концепции'
+            : 'Emanation | Creative Concepts';
+        break;
+}
+
+if (serviceInput) {
+    serviceInput.value = serviceName;
+}
+
+if (subjectInput) {
+    subjectInput.value = `ACE Brand Agency | ${serviceName}`;
+}
     }
 });
     </script>
